@@ -2,16 +2,7 @@ module ChangeHealth
   class Authentication < Connection
     attr_accessor :response
 
-    BASE_ENDPOINT    = '/auth'.freeze
-
-    AUTH_ENDPOINT    = "#{BASE_ENDPOINT}/authenticate".freeze
-    REFRESH_ENDPOINT = "#{BASE_ENDPOINT}/refreshToken".freeze
-
-    class << self
-      attr_accessor :token_expiry_padding
-
-      @@token_expiry_padding = 0
-    end
+    AUTH_ENDPOINT    = '/apip/auth/v2/token'.freeze
 
     def initialize
       @response = nil
@@ -19,17 +10,10 @@ module ChangeHealth
 
     def authenticate
       if (self.expires?)
-        if (self.refresh_token)
-          request = {
-            body: { apiKey: ChangeHealth.configuration.api_key, refreshToken: self.refresh_token },
-            endpoint: REFRESH_ENDPOINT
-          }
-        else
-          request = {
-            body: { apiKey: ChangeHealth.configuration.api_key, secret: ChangeHealth.configuration.secret },
-            endpoint: AUTH_ENDPOINT
-          }
-        end
+        request = {
+          body: { client_id: ChangeHealth.configuration.client_id, client_secret: ChangeHealth.configuration.client_secret, grant_type: ChangeHealth.configuration.grant_type },
+          endpoint: AUTH_ENDPOINT
+        }
 
         response = self.request(**request, auth: false)
 
@@ -37,6 +21,7 @@ module ChangeHealth
           @response = nil
           raise ChangeHealthException.from_response(response, msg: 'Authentication')
         else
+          @request_time = Time.now
           @response = response
         end
       end
@@ -45,20 +30,24 @@ module ChangeHealth
     end
 
     def access_token
-      return @response['accessToken'] if @response
+      return @response['access_token'] if @response
+    end
+
+    def expires_in
+      return @response['expires_in'].to_i if @response
+    end
+
+    def token_type
+      return @response['token_type'] if @response
     end
 
     def expiry
-      return @response['expires'] if @response
+      @request_time + self.expires_in if @request_time && self.expires_in
     end
 
-    def refresh_token
-      return @response['refreshToken'] if @response
-    end
-
-    def expires?(seconds_from_now = Authentication.token_expiry_padding)
+    def expires?(seconds_from_now = 60)
       if (self.expiry)
-        return DateTime.strptime(self.expiry, '%Y-%m-%d').to_time.utc <= (Time.now + seconds_from_now).utc
+        return self.expiry.utc <= (Time.now + seconds_from_now).utc
       else
         return true
       end

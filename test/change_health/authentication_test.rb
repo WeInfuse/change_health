@@ -4,10 +4,9 @@ class AuthenticationTest < Minitest::Test
   describe 'authentication' do
     before do
       auth_stub
-      refresh_stub
 
       stub_request(:post, File.join(ChangeHealth.configuration.api_endpoint, ChangeHealth::Authentication::AUTH_ENDPOINT))
-        .with(body: { apiKey: 'wrong', secret: 'abc' })
+        .with(body: { client_id: 'wrong', client_secret: ChangeHealth.configuration.client_secret, grant_type: ChangeHealth.configuration.grant_type })
         .to_return(status: 401, body: 'Invalid request')
 
       @change_health_auth = ChangeHealth::Authentication.new
@@ -18,40 +17,17 @@ class AuthenticationTest < Minitest::Test
       ChangeHealth.configuration.from_h(@config)
     end
 
-    describe 'configuration' do
-      it 'can set the expiry padding to 0' do
-        ChangeHealth::Authentication.token_expiry_padding = 0
-        assert_equal(0, ChangeHealth::Authentication.token_expiry_padding)
-      end
-    end
-
     describe 'authentication' do
       it 'calls change_health endpoint' do
         @change_health_auth.authenticate
         assert_requested(@auth_stub, times: 1)
       end
 
-      it 'uses refresh endpoint if we already have a token' do
-        ChangeHealth::Authentication.token_expiry_padding = 9999
-
-        @change_health_auth.authenticate
-        @change_health_auth.authenticate
-
-        assert_requested(@auth_stub, times: 1)
-        assert_requested(@refresh_stub, times: 1)
-
-        assert_equal('let.me.in.again', @change_health_auth.access_token)
-      end
-
       it 'makes no calls when token wont expire inside padding time' do
-        skip
-        ChangeHealth::Authentication.token_expiry_padding = -60
-
         @change_health_auth.authenticate
         @change_health_auth.authenticate
 
         assert_requested(@auth_stub, times: 1)
-        assert_requested(@refresh_stub, times: 0)
 
         assert_equal('let.me.in', @change_health_auth.access_token)
       end
@@ -59,12 +35,12 @@ class AuthenticationTest < Minitest::Test
       it 'fails with a resonable exception and with nil response' do
         @change_health_auth.expire!
 
-        key = ChangeHealth.configuration.api_key
-        ChangeHealth.configuration.api_key = 'wrong'
+        key = ChangeHealth.configuration.client_id
+        ChangeHealth.configuration.client_id = 'wrong'
 
         error = assert_raises(ChangeHealth::ChangeHealthException) { @change_health_auth.authenticate }
 
-        ChangeHealth.configuration.api_key = key
+        ChangeHealth.configuration.client_id = key
 
         assert_match(/Failed Authenticat/, error.message)
         assert_match(/HTTP code: 401/, error.message)
@@ -93,24 +69,12 @@ class AuthenticationTest < Minitest::Test
       end
 
       it 'is true when token is too close to expire padding' do
-        assert(@change_health_auth.expires?(60))
+        assert(@change_health_auth.expires?(3600))
       end
 
       it 'is false when token is far enough from expire' do
-        skip
-        assert(false == @change_health_auth.expires?(0))
-      end
-
-      it 'uses the default' do
-        ChangeHealth::Authentication.token_expiry_padding = 9999
-
-        assert(@change_health_auth.expires?)
+        assert_equal(false, @change_health_auth.expires?(0))
       end
     end
-
-    after do
-      ChangeHealth::Authentication.token_expiry_padding = nil
-    end
-
   end
 end

@@ -1,16 +1,14 @@
 module ChangeHealth
   class Connection
-    DEFAULT_ENDPOINT = '/endpoint'.freeze
-
     include HTTParty
 
-    base_uri 'https://api.change_healthengine.com/'.freeze
+    base_uri 'https://sandbox.apis.changehealthcare.com/'.freeze
 
     headers 'Content-Type' => 'application/json'
 
     format :json
 
-    def request(endpoint: DEFAULT_ENDPOINT, body: nil, headers: {}, auth: true)
+    def request(endpoint: , body: nil, headers: {}, auth: true)
       body    = body.to_json if body.is_a?(Hash)
       headers = auth_header.merge(headers) if auth
 

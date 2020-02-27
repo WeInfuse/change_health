@@ -15,12 +15,6 @@ class ChangeHealthTest < Minitest::Test
   end
 
   describe '#connection' do
-    it 'sets a default expiry padding' do
-      ChangeHealth.configuration.token_expiry_padding = nil
-      ChangeHealth::ChangeHealthClient.connection
-      assert_equal(60, ChangeHealth.configuration.token_expiry_padding)
-    end
-
     it 'returns a connection object' do
       assert(ChangeHealth::ChangeHealthClient.connection.is_a?(ChangeHealth::Connection))
     end
@@ -36,10 +30,10 @@ class ChangeHealthTest < Minitest::Test
     end
 
     {
-      api_key: 'a',
-      secret: 'b',
+      client_id: 'a',
+      client_secret: 'b',
+      grant_type: 'c',
       api_endpoint: 'http://hi.com',
-      token_expiry_padding: 123
     }.each do |method, value|
       it "can set #{method} via configuration" do
         assert(ChangeHealth.configuration.respond_to?(method))
