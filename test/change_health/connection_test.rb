@@ -2,14 +2,16 @@ require 'test_helper'
 
 class ConnectionTest < Minitest::Test
   describe 'connection' do
+    let(:fake_endpoint) { '/blahblah' }
+
     before do
       auth_stub
 
-      @authorized_stub = stub_request(:post, File.join(ChangeHealth.configuration.api_endpoint, ChangeHealth::Connection::DEFAULT_ENDPOINT))
+      @authorized_stub = stub_request(:post, File.join(ChangeHealth.configuration.api_endpoint, fake_endpoint))
         .with(headers: { 'Authorization' => 'Bearer let.me.in' })
         .to_return(status: 200, body: {}.to_json)
 
-      @stub = stub_request(:post, File.join(ChangeHealth.configuration.api_endpoint, ChangeHealth::Connection::DEFAULT_ENDPOINT))
+      @stub = stub_request(:post, File.join(ChangeHealth.configuration.api_endpoint, fake_endpoint))
         .to_return(status: 200, body: {}.to_json)
 
       @connection = ChangeHealth::Connection.new
@@ -21,21 +23,21 @@ class ConnectionTest < Minitest::Test
 
     describe 'auth option' do
       it 'defaults to sending auth header' do
-        @connection.request()
+        @connection.request(endpoint: fake_endpoint)
 
         assert_requested(@auth_stub, times: 1)
         assert_requested(@authorized_stub, times: 1)
       end
 
       it 'false omits auth header' do
-        @connection.request(auth: false)
+        @connection.request(auth: false, endpoint: fake_endpoint)
 
         assert_requested(@stub, times: 1)
       end
     end
 
     it 'returns response' do
-      response = @connection.request()
+      response = @connection.request(endpoint: fake_endpoint)
 
       assert(response.ok?)
       assert_equal({}, response.parsed_response)
@@ -43,28 +45,28 @@ class ConnectionTest < Minitest::Test
     end
 
     it 'changes body to json for hashes' do
-      @connection.request(auth: false, body: {h: 10})
+      @connection.request(auth: false, body: {h: 10}, endpoint: fake_endpoint)
 
       assert_requested(@stub, times: 1)
       assert_equal({h:10}.to_json, @request.body)
     end
 
     it 'changes body to json for hashes' do
-      @connection.request(auth: false, body: 'hi')
+      @connection.request(auth: false, body: 'hi', endpoint: fake_endpoint)
 
       assert_requested(@stub, times: 1)
       assert_equal('hi', @request.body)
     end
 
     it 'passes headers' do
-      @connection.request(headers: {'x' => '10'})
+      @connection.request(headers: {'x' => '10'}, endpoint: fake_endpoint)
 
       assert_requested(@stub, times: 1)
       assert_equal('10', @request.headers['X'])
     end
 
     it 'has precedence over auth header' do
-      @connection.request(headers: {'Authorization' => 'eep'})
+      @connection.request(headers: {'Authorization' => 'eep'}, endpoint: fake_endpoint)
 
       assert_requested(@stub, times: 1)
       assert_equal('eep', @request.headers['Authorization'])

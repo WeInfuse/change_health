@@ -49,10 +49,10 @@ And any `Model` objects that were returned
 
 ```ruby
 ChangeHealth.configure do |c|
-  c.api_key      = ENV['CHANGE_HEALTH_API_KEY']
-  c.secret       = ENV['CHANGE_HEALTH_SECRET']
+  c.client_id     = ENV['CHANGE_HEALTH_CLIENT_ID']
+  c.client_secret = ENV['CHANGE_HEALTH_SECRET']
+  c.grant_type    = 'bob' # Defaults to client_credentials
   c.api_endpoint = 'http://hello.com' # Defaults to Change Health Sandbox endpoint
-  c.token_expiry_padding = 120 # Defaults to 60 seconds
 end
 ```
 

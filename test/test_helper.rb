@@ -5,8 +5,9 @@ require 'minitest/autorun'
 require 'webmock/minitest'
 require 'byebug'
 
-ChangeHealth.configuration.api_key = '123'
-ChangeHealth.configuration.secret  = 'abc'
+ChangeHealth.configuration.client_id     = '123'
+ChangeHealth.configuration.client_secret = 'abc'
+ChangeHealth.configuration.grant_type    = 'cat'
 
 def load_sample(file, parse: false)
   file = File.join('test', 'samples', file)
@@ -29,12 +30,6 @@ end
 
 def auth_stub
   @auth_stub = stub_request(:post, File.join(ChangeHealth.configuration.api_endpoint, ChangeHealth::Authentication::AUTH_ENDPOINT))
-    .with(body: { apiKey: '123', secret: 'abc' })
-    .to_return(status: 200, body: { accessToken: 'let.me.in', expires: (Time.now + 60).utc.strftime('%Y-%m-%dT%H:%M:%S.%6NZ'), refreshToken: 'rtoken' }.to_json )
-end
-
-def refresh_stub
-  @refresh_stub = stub_request(:post, File.join(ChangeHealth.configuration.api_endpoint, ChangeHealth::Authentication::REFRESH_ENDPOINT))
-    .with(body: { apiKey: '123', refreshToken: 'rtoken' })
-    .to_return(status: 200, body: { accessToken: 'let.me.in.again', expires: (Time.now + 60).utc.strftime('%Y-%m-%dT%H:%M:%S.%6NZ'), refreshToken: 'rtoken' }.to_json )
+    .with(body: { client_id: '123', client_secret: 'abc', grant_type: 'cat' })
+    .to_return(status: 200, body: { access_token: 'let.me.in', expires_in: 3600, token_type: 'bearer' }.to_json )
 end

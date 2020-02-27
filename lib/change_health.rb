@@ -7,11 +7,12 @@ require 'change_health/authentication'
 
 module ChangeHealth
   class Configuration
-    attr_accessor :api_key, :secret
+    attr_accessor :client_id, :client_secret, :grant_type
 
     def initialize
-      @api_key  =  nil
-      @secret   =  nil
+      @client_id     = nil
+      @client_secret = nil
+      @grant_type    = :client_credentials
     end
 
     def api_endpoint=(endpoint)
@@ -22,28 +23,20 @@ module ChangeHealth
       return Connection.base_uri
     end
 
-    def token_expiry_padding=(time_in_seconds)
-      Authentication.token_expiry_padding = time_in_seconds
-    end
-
-    def token_expiry_padding
-      return Authentication.token_expiry_padding
-    end
-
     def to_h
       return {
-        api_key: @api_key,
-        secret: @secret,
-        api_endpoint: api_endpoint,
-        token_expiry_padding: token_expiry_padding
+        client_id: @client_id,
+        client_secret: @client_secret,
+        grant_type: @grant_type,
+        api_endpoint: api_endpoint
       }
     end
 
     def from_h(h)
-      self.api_key = h[:api_key]
-      self.secret  = h[:secret]
-      self.api_endpoint = h[:api_endpoint]
-      self.token_expiry_padding = h[:token_expiry_padding]
+      self.client_id     = h[:client_id]
+      self.client_secret = h[:client_secret]
+      self.grant_type    = h[:grant_type]
+      self.api_endpoint  = h[:api_endpoint]
 
       return self
     end
@@ -63,7 +56,6 @@ module ChangeHealth
   class ChangeHealthClient
     class << self
       def connection
-        ChangeHealth.configuration.token_expiry_padding = 60 if ChangeHealth.configuration.token_expiry_padding.nil?
         @connection ||= Connection.new
       end
 
