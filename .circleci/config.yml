@@ -1,0 +1,24 @@
+version: 2.1 
+
+orbs:
+  ruby: circleci/ruby@0.1.2 # Ruby orb registry: https://circleci.com/orbs/registry/orb/circleci/ruby
+
+jobs: 
+  build: 
+    docker: 
+      - image: circleci/ruby:2.4
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - change_health_{{ checksum "change_health.gemspec" }}
+            - change_health
+      - run: bundle install --path vendor/bundle --jobs 20 --retry 5
+      - save_cache:
+          key: change_health_{{ checksum "change_health.gemspec" }}
+          paths:
+            - vendor/bundle
+      - run: |
+          bundle exec rake test
+      - store_test_results:
+          path: /tmp/test-results
