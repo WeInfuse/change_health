@@ -5,14 +5,7 @@ class ConnectionTest < Minitest::Test
     let(:fake_endpoint) { '/blahblah' }
 
     before do
-      auth_stub
-
-      @authorized_stub = stub_request(:post, File.join(ChangeHealth.configuration.api_endpoint, fake_endpoint))
-        .with(headers: { 'Authorization' => 'Bearer let.me.in' })
-        .to_return(status: 200, body: {}.to_json)
-
-      @stub = stub_request(:post, File.join(ChangeHealth.configuration.api_endpoint, fake_endpoint))
-        .to_return(status: 200, body: {}.to_json)
+      stub_change_health(endpoint: fake_endpoint)
 
       @connection = ChangeHealth::Connection.new
 
@@ -26,7 +19,7 @@ class ConnectionTest < Minitest::Test
         @connection.request(endpoint: fake_endpoint)
 
         assert_requested(@auth_stub, times: 1)
-        assert_requested(@authorized_stub, times: 1)
+        assert_requested(@stub, times: 1)
       end
 
       it 'false omits auth header' do

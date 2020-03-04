@@ -5,10 +5,10 @@ module ChangeHealth
       exception_msg << " HTTP code: #{response.code} MSG: "
 
       begin
-        error_response = JSON.parse(response.body)
+        error_response = response.parsed_response
 
-        if (error_response.is_a?(Hash) && error_response.include?("Meta") && error_response["Meta"].include?("Errors"))
-          exception_msg << error_response["Meta"]["Errors"]
+        if (error_response.is_a?(Hash) && error_response.include?("error_description"))
+          exception_msg << error_response["error_description"]
         else
           exception_msg << error_response
         end

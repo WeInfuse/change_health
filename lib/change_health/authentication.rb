@@ -5,7 +5,8 @@ module ChangeHealth
     AUTH_ENDPOINT    = '/apip/auth/v2/token'.freeze
 
     def initialize
-      @response = nil
+      @response     = nil
+      @request_time = nil
     end
 
     def authenticate
