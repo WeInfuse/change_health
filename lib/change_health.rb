@@ -4,6 +4,10 @@ require 'change_health/version'
 require 'change_health/change_health_exception'
 require 'change_health/connection'
 require 'change_health/authentication'
+require 'change_health/models/eligibility'
+require 'change_health/models/encounter'
+require 'change_health/models/provider'
+require 'change_health/models/subscriber'
 
 module ChangeHealth
   class Configuration

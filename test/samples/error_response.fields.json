@@ -1,0 +1,28 @@
+{
+    "errors": [
+        {
+            "description": "Please use predefined canned users for non-prod environments: dateOfBirth was not predefined.",
+            "field": "subscriber"
+        },
+        {
+            "description": "Transaction contained a AAA rejection",
+            "field": "AAA"
+        },
+        {
+            "description": "Invalid/Missing Subscriber/Insured Name",
+            "field": "73",
+            "followupAction": "Please Correct and Resubmit",
+            "location": "Loop 2100C"
+        },
+        {
+            "description": "Patient Birth Date Does Not Match That for the Patient on the Database",
+            "field": "71",
+            "followupAction": "Please Correct and Resubmit",
+            "location": "Loop 2100C"
+        },
+        {
+            "description": "Invalid date format. Please use the following format: yyyyMMdd.",
+            "field": "subscriber.dateOfBirth"
+        }
+    ]
+}

@@ -26,23 +26,26 @@ Or install it yourself as:
 Make sure you're [configured](#configuration)!
 
 ```ruby
+ChangeHealth::Models::Eligibility.ping # Test your connection
+
+encounter  = ChangeHealth::Models::Encounter.new(date_of_service: Date.current, service_type_codes: ['98'])
+provider   = ChangeHealth::Models::Provider.new(npi: '0123456789', last_name: 'Bobson', first_name: 'Bob')
+subscriber = ChangeHealth::Models::Subscriber.new(member_id: '0000000000', first_name: 'johnOne', last_name: 'doeOne', date_of_birth: '18800102')
+
+ChangeHealth::Models::Eligibility.new(tradingPartnerServiceId: '000050', provider: provider, subscriber: subscriber, encounter: encounter).query.parsed_response
 ```
 
 ### Response
 
-The response object is a base `ChangeHealth::Models::Model` class.
+Response is HTTParty Response object
 
-With the HTTParty response object
 ```ruby
-response.response
+response
 #<HTTParty::Response:0x7fa354c1fbe8>
 
-response.response.ok?
+response.ok?
 true
 ```
-
-And any `Model` objects that were returned
-```ruby
 ```
 
 ### Configuration
@@ -52,7 +55,7 @@ ChangeHealth.configure do |c|
   c.client_id     = ENV['CHANGE_HEALTH_CLIENT_ID']
   c.client_secret = ENV['CHANGE_HEALTH_SECRET']
   c.grant_type    = 'bob' # Defaults to client_credentials
-  c.api_endpoint = 'http://hello.com' # Defaults to Change Health Sandbox endpoint
+  c.api_endpoint  = 'http://hello.com' # Defaults to Change Health Sandbox endpoint
 end
 ```
 

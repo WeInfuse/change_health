@@ -1,13 +1,6 @@
 require 'test_helper'
 
 class ChangeHealthTest < Minitest::Test
-  PATIENT = {
-      Identifiers: [],
-      Demographics: {
-        FirstName: 'Joe'
-      }
-  }.freeze
-
   describe 'change_health' do
     it 'has a version' do
       assert_equal(false, ChangeHealth::VERSION.nil?)

@@ -1,0 +1,224 @@
+{
+    "benefitsInformation": [
+        {
+            "benefitsDateInformation": {
+                "plan": "20030111-99991231"
+            },
+            "code": "1",
+            "coverageLevel": "Individual",
+            "coverageLevelCode": "IND",
+            "insuranceType": "Preferred Provider Organization (PPO)",
+            "insuranceTypeCode": "PR",
+            "name": "Active Coverage",
+            "planCoverage": "BASIC",
+            "serviceTypeCodes": [
+                "30"
+            ],
+            "serviceTypes": [
+                "Health Benefit Plan Coverage"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "California Providers Only - You may submit claims to payer of CA"
+                }
+            ],
+            "benefitsRelatedEntity": {
+                "entityIdentifier": "Origin Carrier",
+                "entityName": "Payer of California",
+                "entityType": "Non-Person Entity"
+            },
+            "code": "W",
+            "name": "Other Source of Data"
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "UNLESS OTHERWISE REQUIRED BY APPROPRIATE LAW, THIS NOTICE IS NOT A GUARANTEE OF PAYMENT. BENEFITS ARE SUBJECT TO ALL CONTRACT LIMITATIONS AND THE MEMBER\"S ELIGIBILITY STATUS ON THE DATE OF SERVICE. PAID-TO-DATE AMOUNTS REFLECT ONLY FINALIZED CLAIMS."
+                }
+            ],
+            "code": "P",
+            "name": "Benefit Disclaimer"
+        },
+        {
+            "benefitAmount": "4195.37",
+            "code": "G",
+            "coverageLevel": "Individual",
+            "coverageLevelCode": "IND",
+            "inPlanNetworkIndicator": "Yes",
+            "inPlanNetworkIndicatorCode": "Y",
+            "name": "Out of Pocket (Stop Loss)",
+            "planCoverage": "BASIC",
+            "serviceTypeCodes": [
+                "30"
+            ],
+            "serviceTypes": [
+                "Health Benefit Plan Coverage"
+            ],
+            "timeQualifier": "Remaining",
+            "timeQualifierCode": "29"
+        },
+        {
+            "benefitAmount": "5500",
+            "code": "G",
+            "coverageLevel": "Individual",
+            "coverageLevelCode": "IND",
+            "inPlanNetworkIndicator": "Yes",
+            "inPlanNetworkIndicatorCode": "Y",
+            "name": "Out of Pocket (Stop Loss)",
+            "planCoverage": "BASIC",
+            "serviceTypeCodes": [
+                "30"
+            ],
+            "serviceTypes": [
+                "Health Benefit Plan Coverage"
+            ],
+            "timeQualifier": "Calendar Year",
+            "timeQualifierCode": "23"
+        },
+        {
+            "benefitAmount": "30",
+            "code": "B",
+            "coverageLevel": "Individual",
+            "coverageLevelCode": "IND",
+            "inPlanNetworkIndicator": "Yes",
+            "inPlanNetworkIndicatorCode": "Y",
+            "name": "Co-Payment",
+            "planCoverage": "BASIC",
+            "serviceTypeCodes": [
+                "98"
+            ],
+            "serviceTypes": [
+                "Professional (Physician) Visit - Office"
+            ],
+            "timeQualifier": "Visit",
+            "timeQualifierCode": "27"
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "SPECIALIST"
+                }
+            ],
+            "benefitAmount": "40",
+            "code": "B",
+            "coverageLevel": "Individual",
+            "coverageLevelCode": "IND",
+            "inPlanNetworkIndicator": "Yes",
+            "inPlanNetworkIndicatorCode": "Y",
+            "name": "Co-Payment",
+            "planCoverage": "BASIC",
+            "serviceTypeCodes": [
+                "98"
+            ],
+            "serviceTypes": [
+                "Professional (Physician) Visit - Office"
+            ],
+            "timeQualifier": "Visit",
+            "timeQualifierCode": "27"
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "DRUGS, AGENTS, SUPPLIES"
+                }
+            ],
+            "benefitPercent": ".3",
+            "code": "A",
+            "coverageLevel": "Individual",
+            "coverageLevelCode": "IND",
+            "inPlanNetworkIndicator": "Yes",
+            "inPlanNetworkIndicatorCode": "Y",
+            "name": "Co-Insurance",
+            "planCoverage": "BASIC",
+            "serviceTypeCodes": [
+                "98"
+            ],
+            "serviceTypes": [
+                "Professional (Physician) Visit - Office"
+            ],
+            "timeQualifier": "Visit",
+            "timeQualifierCode": "27"
+        },
+        {
+            "code": "I",
+            "inPlanNetworkIndicator": "No",
+            "inPlanNetworkIndicatorCode": "N",
+            "name": "Non-Covered",
+            "planCoverage": "BASIC",
+            "serviceTypeCodes": [
+                "98",
+                "BZ"
+            ],
+            "serviceTypes": [
+                "Professional (Physician) Visit - Office",
+                "Physician Visit - Office: Well"
+            ]
+        },
+        {
+            "benefitAmount": "0",
+            "code": "B",
+            "coverageLevel": "Individual",
+            "coverageLevelCode": "IND",
+            "inPlanNetworkIndicator": "Yes",
+            "inPlanNetworkIndicatorCode": "Y",
+            "name": "Co-Payment",
+            "planCoverage": "BASIC",
+            "serviceTypeCodes": [
+                "BZ"
+            ],
+            "serviceTypes": [
+                "Physician Visit - Office: Well"
+            ],
+            "timeQualifier": "Visit",
+            "timeQualifierCode": "27"
+        }
+    ],
+    "controlNumber": "401574089",
+    "payer": {
+        "entityIdentifier": "Payer",
+        "entityType": "Non-Person Entity",
+        "name": "Unknown",
+        "payorIdentification": "000050"
+    },
+    "planDateInformation": {
+        "plan": "20030111-99991231"
+    },
+    "planInformation": {
+        "groupNumber": "111",
+        "patientAccountNumber": "11111"
+    },
+    "planStatus": [
+        {
+            "planDetails": "BASIC",
+            "serviceTypeCodes": [
+                "30"
+            ],
+            "status": "Active Coverage",
+            "statusCode": "1"
+        }
+    ],
+    "provider": {
+        "npi": "0123456789",
+        "providerName": "Bobson"
+    },
+    "reassociationKey": "401574089",
+    "subscriber": {
+        "dateOfBirth": "18800102",
+        "firstName": "johnOne",
+        "gender": "M",
+        "groupNumber": "111",
+        "lastName": "doeOne",
+        "memberId": "0000000000"
+    },
+    "subscriberTraceNumbers": [
+        {
+            "originatingCompanyIdentifier": "9EMDEON999",
+            "referenceIdentification": "401574089",
+            "traceType": "Referenced Transaction Trace Numbers",
+            "traceTypeCode": "2"
+        }
+    ],
+    "tradingPartnerServiceId": "000050"
+}
