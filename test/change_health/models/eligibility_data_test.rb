@@ -12,7 +12,7 @@ class EligibilityDataTest < Minitest::Test
   end
 
   describe 'eligibility data' do
-    let(:json_data) { load_sample('00050.example.response.json', parse: true) }
+    let(:json_data) { load_sample('000050.example.response.json', parse: true) }
     let(:edata) { ChangeHealth::Models::EligibilityData.new(data: json_data) }
     let(:edata_empty) { ChangeHealth::Models::EligibilityData.new }
     let(:edata_inactive) { ChangeHealth::Models::EligibilityData.new(data: load_sample('000041.example.response.json', parse: true)) }

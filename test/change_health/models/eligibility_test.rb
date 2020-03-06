@@ -33,15 +33,21 @@ class EligibilityTest < Minitest::Test
       end
 
       describe '#query' do
-        let(:response) { build_response(file: '00050.example.response.json') }
+        let(:response) { build_response(file: '000050.example.response.json') }
         let(:ep) { ChangeHealth::Models::Eligibility::ENDPOINT }
 
-        it 'calls health check' do
+        before do
           stub_change_health(endpoint: ep, response: response)
 
-          eligibility.query
+          @edata = eligibility.query
+        end
 
+        it 'calls health check' do
           assert_requested(@stub)
+        end
+
+        it 'returns EligibilityData object' do
+          assert_equal(@edata.raw, @edata.response.parsed_response)
         end
       end
     end
