@@ -54,10 +54,6 @@ class Minitest::Test
     return response
   end
 
-  def stub_updox_request(endpoint)
-    return stub_request(:post, "#{Updox::Connection.base_uri}#{endpoint}")
-  end
-
   def stub_change_health_auth(body: nil, response: nil)
     body ||= { client_id: '123', client_secret: 'abc', grant_type: 'cat' }
     response ||= build_response(body: { access_token: 'let.me.in', expires_in: 3600, token_type: 'bearer' })

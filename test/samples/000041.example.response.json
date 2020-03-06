@@ -1,0 +1,79 @@
+{
+    "benefitsInformation": [
+        {
+            "benefitsRelatedEntity": {
+                "address": {
+                    "address1": "PO Box 111111",
+                    "city": "Test City",
+                    "postalCode": "11111",
+                    "state": "TX"
+                },
+                "entityIdentifier": "Payer",
+                "entityName": "Unknown",
+                "entityType": "Non-Person Entity"
+            },
+            "code": "W",
+            "name": "Other Source of Data"
+        },
+        {
+            "code": "6",
+            "name": "Inactive",
+            "planCoverage": "Open Choice",
+            "serviceTypeCodes": [
+                "30"
+            ],
+            "serviceTypes": [
+                "Health Benefit Plan Coverage"
+            ]
+        }
+    ],
+    "controlNumber": "110579080",
+    "payer": {
+        "entityIdentifier": "Payer",
+        "entityType": "Non-Person Entity",
+        "name": "Unknown",
+        "payorIdentification": "000041"
+    },
+    "planDateInformation": {
+        "eligibilityBegin": "20131210",
+        "plan": "20131210-20131212",
+        "service": "20160819"
+    },
+    "planStatus": [
+        {
+            "planDetails": "Open Choice",
+            "serviceTypeCodes": [
+                "30"
+            ],
+            "status": "Inactive",
+            "statusCode": "6"
+        }
+    ],
+    "provider": {
+        "npi": "0123456789",
+        "providerName": "Bobson"
+    },
+    "reassociationKey": "110579080",
+    "subscriber": {
+        "address": {
+            "address1": "PO Box 111111",
+            "city": "Test City",
+            "postalCode": "11111",
+            "state": "TX"
+        },
+        "dateOfBirth": "18800102",
+        "firstName": "johnOne",
+        "gender": "M",
+        "lastName": "doeOne",
+        "memberId": "0000000000"
+    },
+    "subscriberTraceNumbers": [
+        {
+            "originatingCompanyIdentifier": "9EMDEON999",
+            "referenceIdentification": "110579080",
+            "traceType": "Referenced Transaction Trace Numbers",
+            "traceTypeCode": "2"
+        }
+    ],
+    "tradingPartnerServiceId": "000041"
+}
