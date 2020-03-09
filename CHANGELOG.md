@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [0.2.0] - [UNRELEASED]
 ### Added
 - EligibilityData
+- EligibilityBenefit
+- EligibilityBenefits
 
 ### Changed
 - Eligibility.query returns EligibilityData object

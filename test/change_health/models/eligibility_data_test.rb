@@ -18,6 +18,25 @@ class EligibilityDataTest < Minitest::Test
     let(:edata_inactive) { ChangeHealth::Models::EligibilityData.new(data: load_sample('000041.example.response.json', parse: true)) }
 
     describe 'object' do
+      describe '#control_number' do
+        it 'accesses controlNumber in hash' do
+          assert_equal('401574089', edata.control_number)
+          assert_equal(edata.controlNumber, edata.control_number)
+        end
+      end
+
+      describe 'plan_statuses' do
+        it 'aliases planStatus in hash' do
+          assert_equal(json_data['planStatus'], edata.plan_statuses)
+        end
+      end
+
+      describe 'benefits_information' do
+        it 'aliases benefitsInformation in hash' do
+          assert_equal(json_data['benefitsInformation'], edata.benefits_information)
+        end
+      end
+
       describe '#initialize' do
         it 'can take data' do
           assert(false == edata.nil?)
@@ -59,17 +78,13 @@ class EligibilityDataTest < Minitest::Test
       end
 
       describe '#benefits' do
-        it 'returns plan status data for type 30' do
-          assert_equal(edata.benefitsInformation.select {|bi| bi.dig('serviceTypeCodes')&.include?('30') }.size, edata.benefits(service_code: '30').size)
+        it 'returns all benefits mapped to subclass' do
+          assert_equal(edata.benefits_information.size, edata.benefits.size)
         end
 
         describe 'returns empty array' do
           it 'empty data' do
-            assert(edata_empty.benefits(service_code: '30').empty?)
-          end
-
-          it 'for non matched code' do
-            assert(edata.benefits(service_code: 'cat').empty?)
+            assert(edata_empty.benefits.empty?)
           end
         end
       end
@@ -90,73 +105,6 @@ class EligibilityDataTest < Minitest::Test
 
           it 'for non matched code' do
             assert_equal(false, edata.active?(service_code: 'cat'))
-          end
-        end
-      end
-
-      describe '#individual_coinsurance' do
-        it 'can look up by time qualifier' do
-          assert_equal(0.3, edata.individual_coinsurance(service_code: '98', time_qualifier: ChangeHealth::Models::EligibilityData::VISIT))
-        end
-
-        it 'is nil if not found' do
-          assert_nil(edata.individual_coinsurance(service_code: '98', time_qualifier: 'cat'))
-        end
-
-        describe '#individual_coinsurance_visit' do
-          it 'equals individual_coinsurance with default time_qualifier' do
-            assert_equal(edata.individual_coinsurance(service_code: '98', time_qualifier: ChangeHealth::Models::EligibilityData::VISIT), edata.individual_coinsurance_visit(service_code: '98'))
-          end
-        end
-
-        describe '#individual_oop_total' do
-          it 'equals individual_oop with default time_qualifier' do
-            assert_equal(edata.individual_oop(service_code: '30', time_qualifier: ChangeHealth::Models::EligibilityData::YEAR), edata.individual_oop_total(service_code: '30'))
-          end
-        end
-      end
-
-      describe '#individual_copayment' do
-        it 'can look up by time qualifier' do
-          assert_equal(30.00, edata.individual_copayment(service_code: '98', time_qualifier: ChangeHealth::Models::EligibilityData::VISIT))
-        end
-
-        it 'is nil if not found' do
-          assert_nil(edata.individual_copayment(service_code: '98', time_qualifier: 'cat'))
-        end
-
-        describe '#individual_copayment_visit' do
-          it 'equals individual_copayment with default time_qualifier' do
-            assert_equal(edata.individual_copayment(service_code: '98', time_qualifier: ChangeHealth::Models::EligibilityData::VISIT), edata.individual_copayment_visit(service_code: '98'))
-          end
-        end
-
-        describe '#individual_oop_total' do
-          it 'equals individual_oop with default time_qualifier' do
-            assert_equal(edata.individual_oop(service_code: '30', time_qualifier: ChangeHealth::Models::EligibilityData::YEAR), edata.individual_oop_total(service_code: '30'))
-          end
-        end
-      end
-
-      describe '#individual_oop' do
-        it 'can look up by time qualifier' do
-          assert_equal(4195.37, edata.individual_oop(service_code: '30', time_qualifier: ChangeHealth::Models::EligibilityData::REMAINING))
-          assert_equal(5500.00, edata.individual_oop(service_code: '30', time_qualifier: ChangeHealth::Models::EligibilityData::YEAR))
-        end
-
-        it 'is nil if not found' do
-          assert_nil(edata.individual_oop(service_code: '30', time_qualifier: 'cat'))
-        end
-
-        describe '#individual_oop_remaining' do
-          it 'equals individual_oop with default time_qualifier' do
-            assert_equal(edata.individual_oop(service_code: '30', time_qualifier: ChangeHealth::Models::EligibilityData::REMAINING), edata.individual_oop_remaining(service_code: '30'))
-          end
-        end
-
-        describe '#individual_oop_total' do
-          it 'equals individual_oop with default time_qualifier' do
-            assert_equal(edata.individual_oop(service_code: '30', time_qualifier: ChangeHealth::Models::EligibilityData::YEAR), edata.individual_oop_total(service_code: '30'))
           end
         end
       end

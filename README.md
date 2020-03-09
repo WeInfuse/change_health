@@ -35,6 +35,21 @@ subscriber = ChangeHealth::Models::Subscriber.new(member_id: '0000000000', first
 edata = ChangeHealth::Models::Eligibility.new(tradingPartnerServiceId: '000050', provider: provider, subscriber: subscriber, encounter: encounter).query
 ```
 
+### Benefit(s) objects
+```
+edata.benefits # Returns Benefits querying object (extends Array)
+
+edata.benefits.individual # Only benefits matching the 'IND' identifier
+
+edata.benefits.individual.in_network # 'IND' and in-plan-network = 'Y'
+
+edata.benefits.individual(name: 'Co-Payment') # Manually finding "name" == "Co-Payment" in JSON
+edata.benefits.individual(customParam: 'hi') # Filter on any params in the API combined with 'IND' type
+
+edata.benefits.where(name: 'Co-Payment', code: 'B', benefitAmount: '30) # Generic 'where' api returns a Benefits querying object for chaining
+edata.benefits.find_by(name: 'Co-Payment', code: 'B', benefitAmount: '30) # Generic 'find_by' api returns first object found
+```
+
 ### Response
 
 Response is EligibilityData object
