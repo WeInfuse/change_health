@@ -1,8 +1,13 @@
 module ChangeHealth
   class Connection
+    URI_BUILDER = ->(host) { "https://#{host}apis.changehealthcare.com/".freeze }
+
+    QA_ENDPOINT   = URI_BUILDER.call('sandbox.')
+    PROD_ENDPOINT = URI_BUILDER.call('')
+
     include HTTParty
 
-    base_uri 'https://sandbox.apis.changehealthcare.com/'.freeze
+    base_uri QA_ENDPOINT
 
     headers 'Content-Type' => 'application/json;charset=UTF-8'
 
