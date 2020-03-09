@@ -33,9 +33,15 @@ provider   = ChangeHealth::Models::Provider.new(npi: '0123456789', last_name: 'B
 subscriber = ChangeHealth::Models::Subscriber.new(member_id: '0000000000', first_name: 'johnOne', last_name: 'doeOne', date_of_birth: '18800102')
 
 edata = ChangeHealth::Models::Eligibility.new(tradingPartnerServiceId: '000050', provider: provider, subscriber: subscriber, encounter: encounter).query
+
+edata.raw # Raw Hash of JSON response
 ```
 
 ### Benefit(s) objects
+Benefits extends Array and provides a query-like interface.
+
+Benefit extends Hash and provides helpers for single-benefit.
+
 ```
 edata.benefits # Returns Benefits querying object (extends Array)
 
