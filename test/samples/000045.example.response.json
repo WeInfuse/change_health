@@ -1,0 +1,2008 @@
+{
+    "benefitsInformation": [
+        {
+            "additionalInformation": [
+                {
+                    "description": "PCP SELECTION NOT REQUIRED"
+                }
+            ],
+            "code": "L",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "insuranceType": "Point of Service (POS)",
+            "insuranceTypeCode": "PS",
+            "name": "Primary Care Provider",
+            "serviceTypeCodes": [
+                "30"
+            ],
+            "serviceTypes": [
+                "Health Benefit Plan Coverage"
+            ]
+        },
+        {
+            "benefitsRelatedEntity": {
+                "address": {
+                    "address1": "PO Box 11111",
+                    "city": "Test City",
+                    "postalCode": "11111",
+                    "state": "TX"
+                },
+                "entityIdentifier": "Payer",
+                "entityName": "Unknown",
+                "entityType": "Non-Person Entity"
+            },
+            "code": "W",
+            "name": "Other Source of Data"
+        },
+        {
+            "benefitsDateInformation": {
+                "coordinationOfBenefits": "20140701"
+            },
+            "benefitsRelatedEntity": {
+                "entityIdentification": "Member Identification Number",
+                "entityIdentificationValue": "AAAAAAA-AAA",
+                "entityIdentifier": "Secondary Payer",
+                "entityName": "MEDICARE",
+                "entityType": "Non-Person Entity"
+            },
+            "code": "R",
+            "name": "Other or Additional Payor"
+        },
+        {
+            "code": "1",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "insuranceType": "Point of Service (POS)",
+            "insuranceTypeCode": "PS",
+            "name": "Active Coverage",
+            "planCoverage": "Test Payer Choice POS II",
+            "serviceTypeCodes": [
+                "30"
+            ],
+            "serviceTypes": [
+                "Health Benefit Plan Coverage"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "Med Dent"
+                },
+                {
+                    "description": "MAXIMUM and STANDARD SAVINGS"
+                },
+                {
+                    "description": "Customer Designated Providers and Customer Non-Designated Providers"
+                },
+                {
+                    "description": "DED INCLUDED IN OOP"
+                },
+                {
+                    "description": "Chiropractor Visit or Evaluation"
+                },
+                {
+                    "description": "Lab Performed by Chiropractor"
+                },
+                {
+                    "description": "Xray by Chiropractor"
+                },
+                {
+                    "description": "Occupational Therapy by Chiropractor"
+                },
+                {
+                    "description": "Physical Therapy by Chiropractor"
+                },
+                {
+                    "description": "Manipulation by Chiropractor"
+                }
+            ],
+            "benefitAmount": "500",
+            "benefitsDateInformation": {
+                "planBegin": "20160101"
+            },
+            "code": "C",
+            "coverageLevel": "Individual",
+            "coverageLevelCode": "IND",
+            "inPlanNetworkIndicator": "Yes",
+            "inPlanNetworkIndicatorCode": "Y",
+            "name": "Deductible",
+            "serviceTypeCodes": [
+                "30"
+            ],
+            "serviceTypes": [
+                "Health Benefit Plan Coverage"
+            ],
+            "timeQualifier": "Calendar Year",
+            "timeQualifierCode": "23"
+        },
+        {
+            "benefitAmount": "0",
+            "code": "C",
+            "coverageLevel": "Individual",
+            "coverageLevelCode": "IND",
+            "inPlanNetworkIndicator": "Yes",
+            "inPlanNetworkIndicatorCode": "Y",
+            "name": "Deductible",
+            "serviceTypeCodes": [
+                "30"
+            ],
+            "serviceTypes": [
+                "Health Benefit Plan Coverage"
+            ],
+            "timeQualifier": "Remaining",
+            "timeQualifierCode": "29"
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "MAXIMUM and STANDARD SAVINGS"
+                },
+                {
+                    "description": "Customer Designated Providers and Customer Non-Designated Providers"
+                }
+            ],
+            "benefitAmount": "5000",
+            "code": "G",
+            "coverageLevel": "Individual",
+            "coverageLevelCode": "IND",
+            "inPlanNetworkIndicator": "Yes",
+            "inPlanNetworkIndicatorCode": "Y",
+            "name": "Out of Pocket (Stop Loss)",
+            "serviceTypeCodes": [
+                "30"
+            ],
+            "serviceTypes": [
+                "Health Benefit Plan Coverage"
+            ]
+        },
+        {
+            "benefitAmount": "2856.74",
+            "code": "G",
+            "coverageLevel": "Individual",
+            "coverageLevelCode": "IND",
+            "inPlanNetworkIndicator": "Yes",
+            "inPlanNetworkIndicatorCode": "Y",
+            "name": "Out of Pocket (Stop Loss)",
+            "serviceTypeCodes": [
+                "30"
+            ],
+            "serviceTypes": [
+                "Health Benefit Plan Coverage"
+            ],
+            "timeQualifier": "Remaining",
+            "timeQualifierCode": "29"
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "Med Dent"
+                },
+                {
+                    "description": "DED INCLUDED IN OOP"
+                },
+                {
+                    "description": "Chiropractor Visit or Evaluation"
+                },
+                {
+                    "description": "Lab Performed by Chiropractor"
+                },
+                {
+                    "description": "Xray by Chiropractor"
+                },
+                {
+                    "description": "Occupational Therapy by Chiropractor"
+                },
+                {
+                    "description": "Physical Therapy by Chiropractor"
+                },
+                {
+                    "description": "Manipulation by Chiropractor"
+                },
+                {
+                    "description": "Emergency use of Emergency Room"
+                },
+                {
+                    "description": "Outpatient Surgery Facility"
+                }
+            ],
+            "benefitAmount": "500",
+            "benefitsDateInformation": {
+                "planBegin": "20160101"
+            },
+            "code": "C",
+            "coverageLevel": "Individual",
+            "coverageLevelCode": "IND",
+            "inPlanNetworkIndicator": "No",
+            "inPlanNetworkIndicatorCode": "N",
+            "name": "Deductible",
+            "serviceTypeCodes": [
+                "30"
+            ],
+            "serviceTypes": [
+                "Health Benefit Plan Coverage"
+            ],
+            "timeQualifier": "Calendar Year",
+            "timeQualifierCode": "23"
+        },
+        {
+            "benefitAmount": "0",
+            "code": "C",
+            "coverageLevel": "Individual",
+            "coverageLevelCode": "IND",
+            "inPlanNetworkIndicator": "No",
+            "inPlanNetworkIndicatorCode": "N",
+            "name": "Deductible",
+            "serviceTypeCodes": [
+                "30"
+            ],
+            "serviceTypes": [
+                "Health Benefit Plan Coverage"
+            ],
+            "timeQualifier": "Remaining",
+            "timeQualifierCode": "29"
+        },
+        {
+            "benefitAmount": "5000",
+            "code": "G",
+            "coverageLevel": "Individual",
+            "coverageLevelCode": "IND",
+            "inPlanNetworkIndicator": "No",
+            "inPlanNetworkIndicatorCode": "N",
+            "name": "Out of Pocket (Stop Loss)",
+            "serviceTypeCodes": [
+                "30"
+            ],
+            "serviceTypes": [
+                "Health Benefit Plan Coverage"
+            ]
+        },
+        {
+            "benefitAmount": "2856.74",
+            "code": "G",
+            "coverageLevel": "Individual",
+            "coverageLevelCode": "IND",
+            "inPlanNetworkIndicator": "No",
+            "inPlanNetworkIndicatorCode": "N",
+            "name": "Out of Pocket (Stop Loss)",
+            "serviceTypeCodes": [
+                "30"
+            ],
+            "serviceTypes": [
+                "Health Benefit Plan Coverage"
+            ],
+            "timeQualifier": "Remaining",
+            "timeQualifierCode": "29"
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "Plan Requires PreCert"
+                }
+            ],
+            "code": "F",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "Not Applicable",
+            "inPlanNetworkIndicatorCode": "W",
+            "name": "Limitations",
+            "serviceTypeCodes": [
+                "30"
+            ],
+            "serviceTypes": [
+                "Health Benefit Plan Coverage"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "Self Funded"
+                }
+            ],
+            "code": "F",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "name": "Limitations",
+            "serviceTypeCodes": [
+                "30"
+            ],
+            "serviceTypes": [
+                "Health Benefit Plan Coverage"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "Unlimited Lifetime Benefits"
+                }
+            ],
+            "code": "F",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "name": "Limitations",
+            "serviceTypeCodes": [
+                "30"
+            ],
+            "serviceTypes": [
+                "Health Benefit Plan Coverage"
+            ],
+            "timeQualifier": "Lifetime",
+            "timeQualifierCode": "32"
+        },
+        {
+            "code": "1",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "name": "Active Coverage",
+            "planCoverage": "Aetna Choice POS II",
+            "serviceTypeCodes": [
+                "1",
+                "33",
+                "47",
+                "48",
+                "50",
+                "86",
+                "98",
+                "UC",
+                "AL",
+                "MH"
+            ],
+            "serviceTypes": [
+                "Medical Care",
+                "Chiropractic",
+                "Hospital",
+                "Hospital - Inpatient",
+                "Hospital - Outpatient",
+                "Emergency Services",
+                "Professional (Physician) Visit - Office",
+                "Urgent Care",
+                "Vision (Optometry)",
+                "Mental Health"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "MAXIMUM SAVINGS"
+                },
+                {
+                    "description": "Customer Designated Providers"
+                },
+                {
+                    "description": "Chiropractor Visit or Evaluation in Office"
+                },
+                {
+                    "description": "STANDARD SAVINGS"
+                },
+                {
+                    "description": "Customer Non-Designated Providers"
+                },
+                {
+                    "description": "Chiropractor Visit or Evaluation in Office"
+                }
+            ],
+            "benefitPercent": "0",
+            "code": "A",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "Yes",
+            "inPlanNetworkIndicatorCode": "Y",
+            "name": "Co-Insurance",
+            "serviceTypeCodes": [
+                "33"
+            ],
+            "serviceTypes": [
+                "Chiropractic"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "MAXIMUM SAVINGS"
+                },
+                {
+                    "description": "Customer Designated Providers"
+                },
+                {
+                    "description": "Occupational Therapy by Chiropractor"
+                },
+                {
+                    "description": "COINS APPLIES TO OUT OF POCKET"
+                },
+                {
+                    "description": "Physical Therapy by Chiropractor"
+                },
+                {
+                    "description": "COINS APPLIES TO OUT OF POCKET"
+                },
+                {
+                    "description": "STANDARD SAVINGS"
+                },
+                {
+                    "description": "Customer Non-Designated Providers"
+                },
+                {
+                    "description": "Occupational Therapy by Chiropractor"
+                },
+                {
+                    "description": "COINS APPLIES TO OUT OF POCKET"
+                }
+            ],
+            "benefitPercent": ".3",
+            "code": "A",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "Yes",
+            "inPlanNetworkIndicatorCode": "Y",
+            "name": "Co-Insurance",
+            "serviceTypeCodes": [
+                "33"
+            ],
+            "serviceTypes": [
+                "Chiropractic"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "STANDARD SAVINGS"
+                },
+                {
+                    "description": "Customer Non-Designated Providers"
+                },
+                {
+                    "description": "Medical Ancillary"
+                },
+                {
+                    "description": "COINS APPLIES TO OUT OF POCKET"
+                }
+            ],
+            "authOrCertIndicator": "Y",
+            "benefitPercent": ".3",
+            "code": "A",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "Yes",
+            "inPlanNetworkIndicatorCode": "Y",
+            "name": "Co-Insurance",
+            "serviceTypeCodes": [
+                "48",
+                "50"
+            ],
+            "serviceTypes": [
+                "Hospital - Inpatient",
+                "Hospital - Outpatient"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "STANDARD SAVINGS"
+                },
+                {
+                    "description": "Customer Non-Designated Providers"
+                },
+                {
+                    "description": "Semi Private Room and Board"
+                },
+                {
+                    "description": "COINS APPLIES TO OUT OF POCKET"
+                },
+                {
+                    "description": "DAYS 001-010"
+                },
+                {
+                    "description": "DAYS 011 and over"
+                },
+                {
+                    "description": "Intensive Care Room and Board"
+                },
+                {
+                    "description": "COINS APPLIES TO OUT OF POCKET"
+                },
+                {
+                    "description": "DAYS 001-010"
+                },
+                {
+                    "description": "DAYS 011 and over"
+                }
+            ],
+            "authOrCertIndicator": "Y",
+            "benefitPercent": ".3",
+            "code": "A",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "Yes",
+            "inPlanNetworkIndicatorCode": "Y",
+            "name": "Co-Insurance",
+            "serviceTypeCodes": [
+                "48"
+            ],
+            "serviceTypes": [
+                "Hospital - Inpatient"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "STANDARD SAVINGS"
+                },
+                {
+                    "description": "Customer Non-Designated Providers"
+                },
+                {
+                    "description": "Outpatient Surgery Facility"
+                },
+                {
+                    "description": "COINS APPLIES TO OUT OF POCKET"
+                },
+                {
+                    "description": "Outpatient Medical Ancillary"
+                },
+                {
+                    "description": "COINS APPLIES TO OUT OF POCKET"
+                },
+                {
+                    "description": "Outpatient Surgery at Hospital"
+                },
+                {
+                    "description": "COINS APPLIES TO OUT OF POCKET"
+                }
+            ],
+            "benefitPercent": ".3",
+            "code": "A",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "Yes",
+            "inPlanNetworkIndicatorCode": "Y",
+            "name": "Co-Insurance",
+            "serviceTypeCodes": [
+                "50"
+            ],
+            "serviceTypes": [
+                "Hospital - Outpatient"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "STANDARD SAVINGS"
+                },
+                {
+                    "description": "Customer Non-Designated Providers"
+                },
+                {
+                    "description": "Emergency use of Emergency Room"
+                },
+                {
+                    "description": "COINS APPLIES TO OUT OF POCKET"
+                },
+                {
+                    "description": "Urgent Care"
+                },
+                {
+                    "description": "COINS APPLIES TO OUT OF POCKET"
+                },
+                {
+                    "description": "MAXIMUM and STANDARD SAVINGS"
+                },
+                {
+                    "description": "Customer Designated Providers and Customer Non-Designated Providers"
+                },
+                {
+                    "description": "Emergency Room Physician"
+                },
+                {
+                    "description": "COINS APPLIES TO OUT OF POCKET"
+                }
+            ],
+            "benefitPercent": ".3",
+            "code": "A",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "Yes",
+            "inPlanNetworkIndicatorCode": "Y",
+            "name": "Co-Insurance",
+            "serviceTypeCodes": [
+                "86"
+            ],
+            "serviceTypes": [
+                "Emergency Services"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "MAXIMUM SAVINGS"
+                },
+                {
+                    "description": "Patient's Primary Care Physician"
+                },
+                {
+                    "description": "GYN Visit when Performed in an Office"
+                },
+                {
+                    "description": "STANDARD SAVINGS"
+                },
+                {
+                    "description": "Customer Non-Designated Providers"
+                },
+                {
+                    "description": "GYN Visit when Performed in an Office"
+                },
+                {
+                    "description": "Specialist Visit or Evaluation when Performed in an Office"
+                },
+                {
+                    "description": "Primary Care Visit or Evaluation in Office"
+                },
+                {
+                    "description": "MAXIMUM SAVINGS"
+                },
+                {
+                    "description": "Customer Designated Providers"
+                }
+            ],
+            "benefitPercent": "0",
+            "code": "A",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "Yes",
+            "inPlanNetworkIndicatorCode": "Y",
+            "name": "Co-Insurance",
+            "serviceTypeCodes": [
+                "98"
+            ],
+            "serviceTypes": [
+                "Professional (Physician) Visit - Office"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "MAXIMUM and STANDARD SAVINGS"
+                },
+                {
+                    "description": "Customer Designated Providers and Customer Non-Designated Providers"
+                },
+                {
+                    "description": "GYN Visit"
+                },
+                {
+                    "description": "COINS APPLIES TO OUT OF POCKET"
+                },
+                {
+                    "description": "Specialist Visit or Evaluation"
+                },
+                {
+                    "description": "COINS APPLIES TO OUT OF POCKET"
+                },
+                {
+                    "description": "Primary Care Visit or Evaluation"
+                },
+                {
+                    "description": "COINS APPLIES TO OUT OF POCKET"
+                }
+            ],
+            "benefitPercent": ".3",
+            "code": "A",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "Yes",
+            "inPlanNetworkIndicatorCode": "Y",
+            "name": "Co-Insurance",
+            "serviceTypeCodes": [
+                "98"
+            ],
+            "serviceTypes": [
+                "Professional (Physician) Visit - Office"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "MAXIMUM SAVINGS"
+                },
+                {
+                    "description": "Customer Designated Providers"
+                },
+                {
+                    "description": "Chiropractor Visit or Evaluation in Office"
+                },
+                {
+                    "description": "COPAY INCLUDED IN OOP"
+                }
+            ],
+            "benefitAmount": "25",
+            "code": "B",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "Yes",
+            "inPlanNetworkIndicatorCode": "Y",
+            "name": "Co-Payment",
+            "serviceTypeCodes": [
+                "33"
+            ],
+            "serviceTypes": [
+                "Chiropractic"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "MAXIMUM SAVINGS"
+                },
+                {
+                    "description": "Customer Designated Providers"
+                },
+                {
+                    "description": "Occupational Therapy by Chiropractor"
+                },
+                {
+                    "description": "Physical Therapy by Chiropractor"
+                },
+                {
+                    "description": "MAXIMUM and STANDARD SAVINGS"
+                },
+                {
+                    "description": "Customer Designated Providers and Customer Non-Designated Providers"
+                },
+                {
+                    "description": "Chiropractor Visit or Evaluation"
+                },
+                {
+                    "description": "Lab Performed by Chiropractor"
+                },
+                {
+                    "description": "Xray by Chiropractor"
+                },
+                {
+                    "description": "Manipulation by Chiropractor"
+                }
+            ],
+            "benefitAmount": "0",
+            "code": "B",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "Yes",
+            "inPlanNetworkIndicatorCode": "Y",
+            "name": "Co-Payment",
+            "serviceTypeCodes": [
+                "33"
+            ],
+            "serviceTypes": [
+                "Chiropractic"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "STANDARD SAVINGS"
+                },
+                {
+                    "description": "Customer Non-Designated Providers"
+                },
+                {
+                    "description": "Chiropractor Visit or Evaluation in Office"
+                },
+                {
+                    "description": "COPAY INCLUDED IN OOP"
+                },
+                {
+                    "description": "Occupational Therapy by Chiropractor"
+                },
+                {
+                    "description": "COPAY INCLUDED IN OOP"
+                },
+                {
+                    "description": "Physical Therapy by Chiropractor"
+                },
+                {
+                    "description": "COPAY INCLUDED IN OOP"
+                }
+            ],
+            "benefitAmount": "50",
+            "code": "B",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "Yes",
+            "inPlanNetworkIndicatorCode": "Y",
+            "name": "Co-Payment",
+            "serviceTypeCodes": [
+                "33"
+            ],
+            "serviceTypes": [
+                "Chiropractic"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "STANDARD SAVINGS"
+                },
+                {
+                    "description": "Customer Non-Designated Providers"
+                },
+                {
+                    "description": "Medical Ancillary"
+                }
+            ],
+            "authOrCertIndicator": "Y",
+            "benefitAmount": "0",
+            "code": "B",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "Yes",
+            "inPlanNetworkIndicatorCode": "Y",
+            "name": "Co-Payment",
+            "serviceTypeCodes": [
+                "48",
+                "50"
+            ],
+            "serviceTypes": [
+                "Hospital - Inpatient",
+                "Hospital - Outpatient"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "STANDARD SAVINGS"
+                },
+                {
+                    "description": "Customer Non-Designated Providers"
+                },
+                {
+                    "description": "Semi Private Room and Board"
+                },
+                {
+                    "description": "COPAY INCLUDED IN OOP"
+                },
+                {
+                    "description": "DAYS 001-010"
+                },
+                {
+                    "description": "Intensive Care Room and Board"
+                },
+                {
+                    "description": "COPAY INCLUDED IN OOP"
+                },
+                {
+                    "description": "DAYS 001-010"
+                }
+            ],
+            "authOrCertIndicator": "Y",
+            "benefitAmount": "300",
+            "code": "B",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "Yes",
+            "inPlanNetworkIndicatorCode": "Y",
+            "name": "Co-Payment",
+            "serviceTypeCodes": [
+                "48"
+            ],
+            "serviceTypes": [
+                "Hospital - Inpatient"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "STANDARD SAVINGS"
+                },
+                {
+                    "description": "Customer Non-Designated Providers"
+                },
+                {
+                    "description": "Semi Private Room and Board"
+                },
+                {
+                    "description": "DAYS 011 and over"
+                },
+                {
+                    "description": "Intensive Care Room and Board"
+                },
+                {
+                    "description": "DAYS 011 and over"
+                }
+            ],
+            "benefitAmount": "0",
+            "code": "B",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "Yes",
+            "inPlanNetworkIndicatorCode": "Y",
+            "name": "Co-Payment",
+            "serviceTypeCodes": [
+                "48"
+            ],
+            "serviceTypes": [
+                "Hospital - Inpatient"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "STANDARD SAVINGS"
+                },
+                {
+                    "description": "Customer Non-Designated Providers"
+                },
+                {
+                    "description": "Outpatient Surgery Facility"
+                },
+                {
+                    "description": "COPAY INCLUDED IN OOP"
+                },
+                {
+                    "description": "Outpatient Surgery at Hospital"
+                },
+                {
+                    "description": "COPAY INCLUDED IN OOP"
+                }
+            ],
+            "benefitAmount": "250",
+            "code": "B",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "Yes",
+            "inPlanNetworkIndicatorCode": "Y",
+            "name": "Co-Payment",
+            "serviceTypeCodes": [
+                "50"
+            ],
+            "serviceTypes": [
+                "Hospital - Outpatient"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "STANDARD SAVINGS"
+                },
+                {
+                    "description": "Customer Non-Designated Providers"
+                },
+                {
+                    "description": "Outpatient Medical Ancillary"
+                }
+            ],
+            "benefitAmount": "0",
+            "code": "B",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "Yes",
+            "inPlanNetworkIndicatorCode": "Y",
+            "name": "Co-Payment",
+            "serviceTypeCodes": [
+                "50"
+            ],
+            "serviceTypes": [
+                "Hospital - Outpatient"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "STANDARD SAVINGS"
+                },
+                {
+                    "description": "Customer Non-Designated Providers"
+                },
+                {
+                    "description": "Emergency use of Emergency Room"
+                },
+                {
+                    "description": "COPAY INCLUDED IN OOP"
+                }
+            ],
+            "benefitAmount": "150",
+            "code": "B",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "Yes",
+            "inPlanNetworkIndicatorCode": "Y",
+            "name": "Co-Payment",
+            "serviceTypeCodes": [
+                "86"
+            ],
+            "serviceTypes": [
+                "Emergency Services"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "STANDARD SAVINGS"
+                },
+                {
+                    "description": "Customer Non-Designated Providers"
+                },
+                {
+                    "description": "Urgent Care"
+                },
+                {
+                    "description": "COPAY INCLUDED IN OOP"
+                }
+            ],
+            "benefitAmount": "100",
+            "code": "B",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "Yes",
+            "inPlanNetworkIndicatorCode": "Y",
+            "name": "Co-Payment",
+            "serviceTypeCodes": [
+                "86"
+            ],
+            "serviceTypes": [
+                "Emergency Services"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "MAXIMUM and STANDARD SAVINGS"
+                },
+                {
+                    "description": "Customer Designated Providers and Customer Non-Designated Providers"
+                },
+                {
+                    "description": "Emergency Room Physician"
+                }
+            ],
+            "benefitAmount": "0",
+            "code": "B",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "Yes",
+            "inPlanNetworkIndicatorCode": "Y",
+            "name": "Co-Payment",
+            "serviceTypeCodes": [
+                "86"
+            ],
+            "serviceTypes": [
+                "Emergency Services"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "MAXIMUM SAVINGS"
+                },
+                {
+                    "description": "Patient's Primary Care Physician"
+                },
+                {
+                    "description": "GYN Visit when Performed in an Office"
+                },
+                {
+                    "description": "COPAY INCLUDED IN OOP"
+                },
+                {
+                    "description": "MAXIMUM SAVINGS"
+                },
+                {
+                    "description": "Customer Designated Providers"
+                },
+                {
+                    "description": "Primary Care Visit or Evaluation in Office"
+                },
+                {
+                    "description": "COPAY INCLUDED IN OOP"
+                }
+            ],
+            "benefitAmount": "10",
+            "code": "B",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "Yes",
+            "inPlanNetworkIndicatorCode": "Y",
+            "name": "Co-Payment",
+            "serviceTypeCodes": [
+                "98"
+            ],
+            "serviceTypes": [
+                "Professional (Physician) Visit - Office"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "STANDARD SAVINGS"
+                },
+                {
+                    "description": "Customer Non-Designated Providers"
+                },
+                {
+                    "description": "GYN Visit when Performed in an Office"
+                },
+                {
+                    "description": "COPAY INCLUDED IN OOP"
+                },
+                {
+                    "description": "Specialist Visit or Evaluation when Performed in an Office"
+                },
+                {
+                    "description": "COPAY INCLUDED IN OOP"
+                }
+            ],
+            "benefitAmount": "50",
+            "code": "B",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "Yes",
+            "inPlanNetworkIndicatorCode": "Y",
+            "name": "Co-Payment",
+            "serviceTypeCodes": [
+                "98"
+            ],
+            "serviceTypes": [
+                "Professional (Physician) Visit - Office"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "STANDARD SAVINGS"
+                },
+                {
+                    "description": "Customer Non-Designated Providers"
+                },
+                {
+                    "description": "Primary Care Visit or Evaluation in Office"
+                },
+                {
+                    "description": "COPAY INCLUDED IN OOP"
+                },
+                {
+                    "description": "STANDARD SAVINGS"
+                },
+                {
+                    "description": "Patient's Primary Care Physician"
+                },
+                {
+                    "description": "GYN Visit when Performed in an Office"
+                },
+                {
+                    "description": "COPAY INCLUDED IN OOP"
+                }
+            ],
+            "benefitAmount": "30",
+            "code": "B",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "Yes",
+            "inPlanNetworkIndicatorCode": "Y",
+            "name": "Co-Payment",
+            "serviceTypeCodes": [
+                "98"
+            ],
+            "serviceTypes": [
+                "Professional (Physician) Visit - Office"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "MAXIMUM and STANDARD SAVINGS"
+                },
+                {
+                    "description": "Customer Designated Providers and Customer Non-Designated Providers"
+                },
+                {
+                    "description": "GYN Visit"
+                },
+                {
+                    "description": "Specialist Visit or Evaluation"
+                },
+                {
+                    "description": "Primary Care Visit or Evaluation"
+                }
+            ],
+            "benefitAmount": "0",
+            "code": "B",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "Yes",
+            "inPlanNetworkIndicatorCode": "Y",
+            "name": "Co-Payment",
+            "serviceTypeCodes": [
+                "98"
+            ],
+            "serviceTypes": [
+                "Professional (Physician) Visit - Office"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "MAXIMUM SAVINGS"
+                },
+                {
+                    "description": "Customer Designated Providers"
+                },
+                {
+                    "description": "Chiropractor Visit or Evaluation in Office/Plan Ded Waived"
+                },
+                {
+                    "description": "STANDARD SAVINGS"
+                },
+                {
+                    "description": "Customer Non-Designated Providers"
+                },
+                {
+                    "description": "Chiropractor Visit or Evaluation in Office/Plan Ded Waived"
+                }
+            ],
+            "code": "F",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "Yes",
+            "inPlanNetworkIndicatorCode": "Y",
+            "name": "Limitations",
+            "serviceTypeCodes": [
+                "33"
+            ],
+            "serviceTypes": [
+                "Chiropractic"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "STANDARD SAVINGS"
+                },
+                {
+                    "description": "Customer Non-Designated Providers"
+                },
+                {
+                    "description": "Urgent Care/Plan Ded Waived"
+                }
+            ],
+            "code": "F",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "Yes",
+            "inPlanNetworkIndicatorCode": "Y",
+            "name": "Limitations",
+            "serviceTypeCodes": [
+                "86"
+            ],
+            "serviceTypes": [
+                "Emergency Services"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "MAXIMUM SAVINGS"
+                },
+                {
+                    "description": "Patient's Primary Care Physician"
+                },
+                {
+                    "description": "GYN Visit when Performed in an Office/Plan Ded Waived"
+                },
+                {
+                    "description": "STANDARD SAVINGS"
+                },
+                {
+                    "description": "Customer Non-Designated Providers"
+                },
+                {
+                    "description": "GYN Visit when Performed in an Office/Plan Ded Waived"
+                },
+                {
+                    "description": "Specialist Visit or Evaluation when Performed in an Office/Plan Ded Waived"
+                },
+                {
+                    "description": "Primary Care Visit or Evaluation in Office/Plan Ded Waived"
+                },
+                {
+                    "description": "MAXIMUM SAVINGS"
+                },
+                {
+                    "description": "Customer Designated Providers"
+                }
+            ],
+            "code": "F",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "Yes",
+            "inPlanNetworkIndicatorCode": "Y",
+            "name": "Limitations",
+            "serviceTypeCodes": [
+                "98"
+            ],
+            "serviceTypes": [
+                "Professional (Physician) Visit - Office"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "Manipulation by Chiropractor/SPINAL MANIP"
+                }
+            ],
+            "benefitsServiceDelivery": [
+                {
+                    "numOfPeriods": "1",
+                    "quantity": "30",
+                    "quantityQualifier": "Visits",
+                    "timePeriodQualifier": "Years"
+                }
+            ],
+            "code": "F",
+            "coverageLevel": "Individual",
+            "coverageLevelCode": "IND",
+            "inPlanNetworkIndicator": "Not Applicable",
+            "inPlanNetworkIndicatorCode": "W",
+            "name": "Limitations",
+            "serviceTypeCodes": [
+                "33"
+            ],
+            "serviceTypes": [
+                "Chiropractic"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "Manipulation by Chiropractor/SPINAL MANIP"
+                }
+            ],
+            "benefitsServiceDelivery": [
+                {
+                    "quantity": "30",
+                    "quantityQualifier": "Visits",
+                    "timePeriodQualifier": "Remaining"
+                }
+            ],
+            "code": "F",
+            "coverageLevel": "Individual",
+            "coverageLevelCode": "IND",
+            "inPlanNetworkIndicator": "Not Applicable",
+            "inPlanNetworkIndicatorCode": "W",
+            "name": "Limitations",
+            "serviceTypeCodes": [
+                "33"
+            ],
+            "serviceTypes": [
+                "Chiropractic"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "Chiropractor Visit or Evaluation"
+                },
+                {
+                    "description": "COINS APPLIES TO OUT OF POCKET"
+                },
+                {
+                    "description": "Lab Performed by Chiropractor"
+                },
+                {
+                    "description": "COINS APPLIES TO OUT OF POCKET"
+                },
+                {
+                    "description": "Xray by Chiropractor"
+                },
+                {
+                    "description": "COINS APPLIES TO OUT OF POCKET"
+                },
+                {
+                    "description": "Occupational Therapy by Chiropractor"
+                },
+                {
+                    "description": "COINS APPLIES TO OUT OF POCKET"
+                },
+                {
+                    "description": "Physical Therapy by Chiropractor"
+                },
+                {
+                    "description": "COINS APPLIES TO OUT OF POCKET"
+                }
+            ],
+            "authOrCertIndicator": "Y",
+            "benefitPercent": ".5",
+            "code": "A",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "No",
+            "inPlanNetworkIndicatorCode": "N",
+            "name": "Co-Insurance",
+            "serviceTypeCodes": [
+                "33"
+            ],
+            "serviceTypes": [
+                "Chiropractic"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "Medical Ancillary"
+                },
+                {
+                    "description": "COINS APPLIES TO OUT OF POCKET"
+                },
+                {
+                    "description": "Semi Private Room and Board"
+                },
+                {
+                    "description": "COINS APPLIES TO OUT OF POCKET"
+                },
+                {
+                    "description": "DAYS 001-010"
+                },
+                {
+                    "description": "DAYS 011 and over"
+                },
+                {
+                    "description": "Intensive Care Room and Board"
+                },
+                {
+                    "description": "COINS APPLIES TO OUT OF POCKET"
+                },
+                {
+                    "description": "DAYS 001-010"
+                },
+                {
+                    "description": "DAYS 011 and over"
+                }
+            ],
+            "authOrCertIndicator": "Y",
+            "benefitPercent": ".5",
+            "code": "A",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "No",
+            "inPlanNetworkIndicatorCode": "N",
+            "name": "Co-Insurance",
+            "serviceTypeCodes": [
+                "48"
+            ],
+            "serviceTypes": [
+                "Hospital - Inpatient"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "COINS APPLIES TO OUT OF POCKET"
+                }
+            ],
+            "authOrCertIndicator": "Y",
+            "benefitPercent": ".5",
+            "code": "A",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "No",
+            "inPlanNetworkIndicatorCode": "N",
+            "name": "Co-Insurance",
+            "serviceTypeCodes": [
+                "50"
+            ],
+            "serviceTypes": [
+                "Hospital - Outpatient"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "Emergency use of Emergency Room"
+                },
+                {
+                    "description": "COINS APPLIES TO OUT OF POCKET"
+                },
+                {
+                    "description": "Urgent Care"
+                },
+                {
+                    "description": "COINS APPLIES TO OUT OF POCKET"
+                }
+            ],
+            "authOrCertIndicator": "Y",
+            "benefitPercent": ".3",
+            "code": "A",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "No",
+            "inPlanNetworkIndicatorCode": "N",
+            "name": "Co-Insurance",
+            "serviceTypeCodes": [
+                "86"
+            ],
+            "serviceTypes": [
+                "Emergency Services"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "GYN Visit"
+                },
+                {
+                    "description": "COINS APPLIES TO OUT OF POCKET"
+                },
+                {
+                    "description": "Specialist Visit or Evaluation"
+                },
+                {
+                    "description": "COINS APPLIES TO OUT OF POCKET"
+                },
+                {
+                    "description": "Primary Care Visit or Evaluation"
+                },
+                {
+                    "description": "COINS APPLIES TO OUT OF POCKET"
+                }
+            ],
+            "authOrCertIndicator": "Y",
+            "benefitPercent": ".5",
+            "code": "A",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "No",
+            "inPlanNetworkIndicatorCode": "N",
+            "name": "Co-Insurance",
+            "serviceTypeCodes": [
+                "98"
+            ],
+            "serviceTypes": [
+                "Professional (Physician) Visit - Office"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "COINS APPLIES TO OUT OF POCKET"
+                }
+            ],
+            "authOrCertIndicator": "Y",
+            "benefitPercent": ".3",
+            "code": "A",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "No",
+            "inPlanNetworkIndicatorCode": "N",
+            "name": "Co-Insurance",
+            "serviceTypeCodes": [
+                "UC"
+            ],
+            "serviceTypes": [
+                "Urgent Care"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "Chiropractor Visit or Evaluation"
+                },
+                {
+                    "description": "Lab Performed by Chiropractor"
+                },
+                {
+                    "description": "Xray by Chiropractor"
+                },
+                {
+                    "description": "Manipulation by Chiropractor"
+                }
+            ],
+            "authOrCertIndicator": "Y",
+            "benefitAmount": "0",
+            "code": "B",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "No",
+            "inPlanNetworkIndicatorCode": "N",
+            "name": "Co-Payment",
+            "serviceTypeCodes": [
+                "33"
+            ],
+            "serviceTypes": [
+                "Chiropractic"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "Occupational Therapy by Chiropractor"
+                },
+                {
+                    "description": "COPAY INCLUDED IN OOP"
+                },
+                {
+                    "description": "Physical Therapy by Chiropractor"
+                },
+                {
+                    "description": "COPAY INCLUDED IN OOP"
+                }
+            ],
+            "authOrCertIndicator": "Y",
+            "benefitAmount": "50",
+            "code": "B",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "No",
+            "inPlanNetworkIndicatorCode": "N",
+            "name": "Co-Payment",
+            "serviceTypeCodes": [
+                "33"
+            ],
+            "serviceTypes": [
+                "Chiropractic"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "Medical Ancillary"
+                }
+            ],
+            "authOrCertIndicator": "Y",
+            "benefitAmount": "0",
+            "code": "B",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "No",
+            "inPlanNetworkIndicatorCode": "N",
+            "name": "Co-Payment",
+            "serviceTypeCodes": [
+                "48",
+                "50"
+            ],
+            "serviceTypes": [
+                "Hospital - Inpatient",
+                "Hospital - Outpatient"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "Semi Private Room and Board"
+                },
+                {
+                    "description": "COPAY INCLUDED IN OOP"
+                },
+                {
+                    "description": "DAYS 001-010"
+                },
+                {
+                    "description": "Intensive Care Room and Board"
+                },
+                {
+                    "description": "COPAY INCLUDED IN OOP"
+                },
+                {
+                    "description": "DAYS 001-010"
+                }
+            ],
+            "authOrCertIndicator": "Y",
+            "benefitAmount": "300",
+            "code": "B",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "No",
+            "inPlanNetworkIndicatorCode": "N",
+            "name": "Co-Payment",
+            "serviceTypeCodes": [
+                "48"
+            ],
+            "serviceTypes": [
+                "Hospital - Inpatient"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "Semi Private Room and Board"
+                },
+                {
+                    "description": "DAYS 011 and over"
+                },
+                {
+                    "description": "Intensive Care Room and Board"
+                },
+                {
+                    "description": "DAYS 011 and over"
+                }
+            ],
+            "benefitAmount": "0",
+            "code": "B",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "No",
+            "inPlanNetworkIndicatorCode": "N",
+            "name": "Co-Payment",
+            "serviceTypeCodes": [
+                "48"
+            ],
+            "serviceTypes": [
+                "Hospital - Inpatient"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "Outpatient Surgery Facility"
+                },
+                {
+                    "description": "COPAY INCLUDED IN OOP"
+                }
+            ],
+            "authOrCertIndicator": "Y",
+            "benefitAmount": "250",
+            "code": "B",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "No",
+            "inPlanNetworkIndicatorCode": "N",
+            "name": "Co-Payment",
+            "serviceTypeCodes": [
+                "50"
+            ],
+            "serviceTypes": [
+                "Hospital - Outpatient"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "Emergency use of Emergency Room"
+                },
+                {
+                    "description": "COPAY INCLUDED IN OOP"
+                }
+            ],
+            "authOrCertIndicator": "Y",
+            "benefitAmount": "150",
+            "code": "B",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "No",
+            "inPlanNetworkIndicatorCode": "N",
+            "name": "Co-Payment",
+            "serviceTypeCodes": [
+                "86"
+            ],
+            "serviceTypes": [
+                "Emergency Services"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "Urgent Care"
+                },
+                {
+                    "description": "COPAY INCLUDED IN OOP"
+                }
+            ],
+            "authOrCertIndicator": "Y",
+            "benefitAmount": "100",
+            "code": "B",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "No",
+            "inPlanNetworkIndicatorCode": "N",
+            "name": "Co-Payment",
+            "serviceTypeCodes": [
+                "86"
+            ],
+            "serviceTypes": [
+                "Emergency Services"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "GYN Visit"
+                },
+                {
+                    "description": "Specialist Visit or Evaluation"
+                },
+                {
+                    "description": "Primary Care Visit or Evaluation"
+                }
+            ],
+            "authOrCertIndicator": "Y",
+            "benefitAmount": "0",
+            "code": "B",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "No",
+            "inPlanNetworkIndicatorCode": "N",
+            "name": "Co-Payment",
+            "serviceTypeCodes": [
+                "98"
+            ],
+            "serviceTypes": [
+                "Professional (Physician) Visit - Office"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "COPAY INCLUDED IN OOP"
+                }
+            ],
+            "authOrCertIndicator": "Y",
+            "benefitAmount": "100",
+            "code": "B",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "No",
+            "inPlanNetworkIndicatorCode": "N",
+            "name": "Co-Payment",
+            "serviceTypeCodes": [
+                "UC"
+            ],
+            "serviceTypes": [
+                "Urgent Care"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "Urgent Care/Plan Ded Waived"
+                }
+            ],
+            "code": "F",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "No",
+            "inPlanNetworkIndicatorCode": "N",
+            "name": "Limitations",
+            "serviceTypeCodes": [
+                "86",
+                "UC"
+            ],
+            "serviceTypes": [
+                "Emergency Services",
+                "Urgent Care"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "Non Emergency use of Emergency Room/EXCLUSION"
+                }
+            ],
+            "code": "I",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "Yes",
+            "inPlanNetworkIndicatorCode": "Y",
+            "name": "Non-Covered",
+            "serviceTypeCodes": [
+                "86"
+            ],
+            "serviceTypes": [
+                "Emergency Services"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "Non Urgent Services at an Urgent Care Facility/EXCLUSION"
+                }
+            ],
+            "code": "I",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "inPlanNetworkIndicator": "Not Applicable",
+            "inPlanNetworkIndicatorCode": "W",
+            "name": "Non-Covered",
+            "serviceTypeCodes": [
+                "86"
+            ],
+            "serviceTypes": [
+                "Emergency Services"
+            ]
+        },
+        {
+            "additionalInformation": [
+                {
+                    "description": "Plan includes NAP"
+                }
+            ],
+            "code": "F",
+            "coverageLevel": "Employee Only",
+            "coverageLevelCode": "EMP",
+            "name": "Limitations",
+            "serviceTypeCodes": [
+                "1",
+                "33",
+                "48",
+                "50",
+                "86",
+                "98",
+                "UC"
+            ],
+            "serviceTypes": [
+                "Medical Care",
+                "Chiropractic",
+                "Hospital - Inpatient",
+                "Hospital - Outpatient",
+                "Emergency Services",
+                "Professional (Physician) Visit - Office",
+                "Urgent Care"
+            ]
+        }
+    ],
+    "controlNumber": "911415975",
+    "payer": {
+        "entityIdentifier": "Payer",
+        "entityType": "Non-Person Entity",
+        "name": "Unknown",
+        "payorIdentification": "000045"
+    },
+    "planDateInformation": {
+        "eligibilityBegin": "20120501",
+        "planBegin": "20150101",
+        "service": "20160915"
+    },
+    "planInformation": {
+        "groupNumber": "111111111111111",
+        "planNumber": "1111111"
+    },
+    "planStatus": [
+        {
+            "planDetails": "Aetna Choice POS II",
+            "serviceTypeCodes": [
+                "1",
+                "33",
+                "47",
+                "48",
+                "50",
+                "86",
+                "98",
+                "UC",
+                "AL",
+                "MH"
+            ],
+            "status": "Active Coverage",
+            "statusCode": "1"
+        },
+        {
+            "planDetails": "Test Payer Choice POS II",
+            "serviceTypeCodes": [
+                "30"
+            ],
+            "status": "Active Coverage",
+            "statusCode": "1"
+        }
+    ],
+    "provider": {
+        "npi": "0123456789",
+        "providerName": "Bobson"
+    },
+    "reassociationKey": "911415975",
+    "subscriber": {
+        "address": {
+            "address1": "PO Box 11111",
+            "city": "Test City",
+            "postalCode": "11111",
+            "state": "TX"
+        },
+        "dateOfBirth": "18800102",
+        "firstName": "johnOne",
+        "gender": "M",
+        "groupNumber": "111111111111111",
+        "lastName": "doeOne",
+        "memberId": "0000000000",
+        "planNumber": "1111111"
+    },
+    "subscriberTraceNumbers": [
+        {
+            "originatingCompanyIdentifier": "9EMDEON999",
+            "referenceIdentification": "911415975",
+            "traceType": "Referenced Transaction Trace Numbers",
+            "traceTypeCode": "2"
+        }
+    ],
+    "tradingPartnerServiceId": "000045"
+}

@@ -37,6 +37,41 @@ class EligibilityDataTest < Minitest::Test
         end
       end
 
+      describe 'date_info' do
+        it 'aliases planDateInformation in hash' do
+          assert_equal(json_data['planDateInformation'], edata.date_info)
+        end
+
+        describe 'helpers' do
+          describe 'no data' do
+            it 'digs more dates' do
+              assert_nil(edata.eligibility_begin_date)
+              assert_nil(edata.plan_begin_date)
+              assert_nil(edata.service_date)
+            end
+          end
+
+          describe 'with data' do
+            let(:json_data) { load_sample('000045.example.response.json', parse: true) }
+            let(:edata) { ChangeHealth::Models::EligibilityData.new(data: json_data) }
+
+            it 'digs more dates' do
+              assert_equal(Date.new(2012, 5, 1), edata.eligibility_begin_date)
+              assert_equal(Date.new(2015, 1, 1), edata.plan_begin_date)
+              assert_equal(Date.new(2016, 9, 15), edata.service_date)
+            end
+          end
+
+          describe 'with junky data' do
+            let(:edata) { ChangeHealth::Models::EligibilityData.new(data: { 'planDateInformation' => { 'planBegin' => '029183-1283123' } }) }
+
+            it 'digs more dates' do
+              assert_equal('029183-1283123', edata.plan_begin_date)
+            end
+          end
+        end
+      end
+
       describe '#initialize' do
         it 'can take data' do
           assert(false == edata.nil?)
