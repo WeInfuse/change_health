@@ -22,17 +22,17 @@ class EligibilityBenefitTest < Minitest::Test
       end
 
       it '#visit?' do
-        assert(klazz.new(timeQualifier: klazz::VISIT).visit?)
+        assert(klazz.new(timeQualifierCode: klazz::VISIT).visit?)
         assert_equal(false, klazz.new.visit?)
       end
 
       it '#remaining?' do
-        assert(klazz.new(timeQualifier: klazz::REMAINING).remaining?)
+        assert(klazz.new(timeQualifierCode: klazz::REMAINING).remaining?)
         assert_equal(false, klazz.new.remaining?)
       end
 
       it '#year?' do
-        assert(klazz.new(timeQualifier: klazz::YEAR).year?)
+        assert(klazz.new(timeQualifierCode: klazz::YEAR).year?)
         assert_equal(false, klazz.new.year?)
       end
 
@@ -146,6 +146,26 @@ class EligibilityBenefitTest < Minitest::Test
         end
       end
 
+      describe '#child' do
+        it 'filters child' do
+          assert_equal(0, benefits.child.size)
+        end
+
+        it 'can chain' do
+          assert_equal(0, benefits.child.where(serviceTypeCodes: '30').size)
+        end
+      end
+
+      describe '#employee' do
+        it 'filters employee' do
+          assert_equal(0, benefits.employee.size)
+        end
+
+        it 'can chain' do
+          assert_equal(0, benefits.employee.where(serviceTypeCodes: '30').size)
+        end
+      end
+
       describe '#in_network' do
         it 'filters by in_plan_network' do
           assert_equal(6, benefits.in_network.size)
@@ -186,6 +206,12 @@ class EligibilityBenefitTest < Minitest::Test
           it 'filters by time copayments' do
             assert_equal(benefits.where(code: ChangeHealth::Models::EligibilityBenefit::COPAYMENT), benefits.copayments)
             assert_equal(benefits.where(code: ChangeHealth::Models::EligibilityBenefit::COPAYMENT), benefits.copays)
+          end
+        end
+
+        describe '#deductibles' do
+          it 'filters by time deductibles' do
+            assert_equal(benefits.where(code: ChangeHealth::Models::EligibilityBenefit::DEDUCTIBLE), benefits.deductibles)
           end
         end
 
@@ -237,6 +263,33 @@ class EligibilityBenefitTest < Minitest::Test
 
           it 'can filter by more args' do
             assert_equal(0, benefits.individual_copayment_visit(serviceTypeCodes: 'BZ').amount)
+          end
+        end
+
+        describe 'deductible' do
+          let(:json_data) { load_sample('000045.example.response.json', parse: true) }
+          let(:edata) { ChangeHealth::Models::EligibilityData.new(data: json_data) }
+          let(:benefits) { edata.benefits }
+          let(:benefit) { benefits.first }
+
+          describe '#individual_deductible_remaining' do
+            it 'finds the first one' do
+              assert_equal(0, benefits.individual_deductible_remaining.amount)
+            end
+
+            it 'can filter by more args' do
+              assert_nil(benefits.individual_deductible_remaining(serviceTypeCodes: 'INVALID'))
+            end
+          end
+
+          describe '#individual_deductible_total' do
+            it 'finds the first one' do
+              assert_equal(500, benefits.individual_deductible_total.amount)
+            end
+
+            it 'can filter by more args' do
+              assert_nil(benefits.individual_deductible_total(serviceTypeCodes: 'INVALID'))
+            end
           end
         end
       end

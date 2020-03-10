@@ -19,9 +19,22 @@ module ChangeHealth
         return '1' == plan_status(service_code: service_code).dig('statusCode')
       end
 
-      %w(planStatus benefitsInformation controlNumber).each do |v|
+      %w(planStatus benefitsInformation controlNumber planDateInformation).each do |v|
         define_method(v) do
           @raw.dig(v)
+        end
+      end
+
+      %w(eligibilityBegin planBegin service).each do |f|
+        define_method(f) do
+          d = self.date_info&.dig(f)
+
+          begin
+            d = Date.strptime(d, ChangeHealth::Models::DATE_FORMAT)
+          rescue
+          end
+
+          return d
         end
       end
 
@@ -36,6 +49,10 @@ module ChangeHealth
       alias_method :control_number, :controlNumber
       alias_method :benefits_information, :benefitsInformation
       alias_method :plan_statuses, :planStatus
+      alias_method :date_info, :planDateInformation
+      alias_method :eligibility_begin_date, :eligibilityBegin
+      alias_method :plan_begin_date, :planBegin
+      alias_method :service_date, :service
     end
   end
 end
