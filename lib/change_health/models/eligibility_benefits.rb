@@ -29,34 +29,30 @@ module ChangeHealth
         self.individual.coinsurances.visits.where(kwargs).first
       end
 
-      def individual_copayment_visit(**kwargs)
-        self.individual.copayments.visits.where(kwargs).first
-      end
+      %w(family individual employee child employee_and_child).each do |method|
+        alias_method method, "#{method}s"
 
-      def individual_out_of_pocket_remaining(**kwargs)
-        self.individual.out_of_pockets.remainings.where(kwargs).first
-      end
+        %w(copayment deductible out_of_pocket).each do |type_mod|
+          %w(year remaining visit).each do |time_mod|
+            method_name = "#{method}_#{type_mod}_#{time_mod}"
+            alias_name  = method_name.gsub('copayment', 'copay').gsub('out_of_pocket', 'oop')
 
-      def individual_out_of_pocket_total(**kwargs)
-        self.individual.out_of_pockets.years.where(kwargs).first
-      end
+            define_method(method_name) do |**kwargs|
+              self.send(method).send("#{type_mod}s").send("#{time_mod}s").where(kwargs).first
+            end
 
-      def individual_deductible_remaining(**kwargs)
-        self.individual.deductibles.remainings.where(kwargs).first
-      end
+            alias_method alias_name, method_name if alias_name != method_name
 
-      def individual_deductible_total(**kwargs)
-        self.individual.deductibles.years.where(kwargs).first
+            if method_name.include?('year')
+              alias_method method_name.gsub('year', 'total'), method_name
+              alias_method alias_name.gsub('year', 'total'), method_name
+            end
+          end
+        end
       end
 
       alias_method :oops, :out_of_pockets
       alias_method :copays, :copayments
-      alias_method :individual_copay_visit, :individual_copayment_visit
-      alias_method :individual_oop_remaining, :individual_out_of_pocket_remaining
-      alias_method :individual_oop_total, :individual_out_of_pocket_total
-      alias_method :individual, :individuals
-      alias_method :employee, :employees
-      alias_method :child, :childs
 
       private
       def benefit_matches?(benefit, k, v)

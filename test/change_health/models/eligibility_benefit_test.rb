@@ -15,10 +15,28 @@ class EligibilityBenefitTest < Minitest::Test
         assert_equal(false, klazz.new.individual?)
       end
 
+      it '#family?' do
+        assert(klazz.new(coverageLevelCode: klazz::FAMILY).family?)
+        assert_equal(false, klazz.new(coverageLevelCode: klazz::INDIVIDUAL).family?)
+        assert_equal(false, klazz.new.family?)
+      end
+
       it '#child?' do
         assert(klazz.new(coverageLevelCode: klazz::CHILD).child?)
         assert_equal(false, klazz.new(coverageLevelCode: klazz::INDIVIDUAL).child?)
         assert_equal(false, klazz.new.child?)
+      end
+
+      it '#employee?' do
+        assert(klazz.new(coverageLevelCode: klazz::EMPLOYEE).employee?)
+        assert_equal(false, klazz.new(coverageLevelCode: klazz::INDIVIDUAL).employee?)
+        assert_equal(false, klazz.new.employee?)
+      end
+
+      it '#employee_and_child?' do
+        assert(klazz.new(coverageLevelCode: klazz::EMPLOYEE_AND_CHILD).employee_and_child?)
+        assert_equal(false, klazz.new(coverageLevelCode: klazz::INDIVIDUAL).employee_and_child?)
+        assert_equal(false, klazz.new.employee_and_child?)
       end
 
       it '#visit?' do
