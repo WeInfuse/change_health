@@ -53,7 +53,6 @@ class EligibilityDataTest < Minitest::Test
 
           describe 'with data' do
             let(:json_data) { load_sample('000045.example.response.json', parse: true) }
-            let(:edata) { ChangeHealth::Models::EligibilityData.new(data: json_data) }
 
             it 'digs more dates' do
               assert_equal(Date.new(2012, 5, 1), edata.eligibility_begin_date)
@@ -62,10 +61,10 @@ class EligibilityDataTest < Minitest::Test
             end
           end
 
-          describe 'with junky data' do
+          describe 'with junky dates' do
             let(:edata) { ChangeHealth::Models::EligibilityData.new(data: { 'planDateInformation' => { 'planBegin' => '029183-1283123' } }) }
 
-            it 'digs more dates' do
+            it 'leaves it alone' do
               assert_equal('029183-1283123', edata.plan_begin_date)
             end
           end

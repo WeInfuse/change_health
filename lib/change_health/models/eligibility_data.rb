@@ -3,6 +3,15 @@ module ChangeHealth
     class EligibilityData
       attr_reader :response, :raw
 
+      PARSE_DATE = ->(d) {
+        begin
+          d = Date.strptime(d, ChangeHealth::Models::DATE_FORMAT)
+        rescue
+        end
+
+        d
+      }
+
       def initialize(data: nil, response: nil)
         @response = response
         @raw      = data
@@ -27,14 +36,7 @@ module ChangeHealth
 
       %w(eligibilityBegin planBegin service).each do |f|
         define_method(f) do
-          d = self.date_info&.dig(f)
-
-          begin
-            d = Date.strptime(d, ChangeHealth::Models::DATE_FORMAT)
-          rescue
-          end
-
-          return d
+          return PARSE_DATE.call(self.date_info&.dig(f))
         end
       end
 
