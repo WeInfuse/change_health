@@ -14,7 +14,7 @@ module ChangeHealth
       CHILD         = 'CHD'
       EMPLOYEE      = 'EMP'
       FAMILY        = 'FAM'
-      EMPLOYEE_AND_CHILD= 'ECH'
+      EMPLOYEE_AND_CHILD = 'ECH'
 
       VISIT         = '27'
       YEAR          = '23'

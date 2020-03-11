@@ -38,7 +38,7 @@ module ChangeHealth
             alias_name  = method_name.gsub('copayment', 'copay').gsub('out_of_pocket', 'oop')
 
             define_method(method_name) do |**kwargs|
-              self.send(method).send("#{type_mod}s").send("#{time_mod}s").where(kwargs).first
+              self.send(method).send("#{type_mod}s").send("#{time_mod}s").where(kwargs).first || self.send(method).send("#{type_mod}s").where(kwargs).first
             end
 
             alias_method alias_name, method_name if alias_name != method_name

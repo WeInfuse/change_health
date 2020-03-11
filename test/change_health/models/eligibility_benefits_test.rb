@@ -238,6 +238,17 @@ class EligibilityBenefitsTest < Minitest::Test
             end
           end
 
+          describe '#family_oop_total' do
+            it 'finds the first one' do
+              assert_equal(11200, benefits.family_oop_total.amount)
+              assert_equal(11200, benefits.family_out_of_pocket_total.amount)
+            end
+
+            it 'can filter by more args' do
+              assert_nil(benefits.family_oop_total(serviceTypeCodes: 'INVALID'))
+            end
+          end
+
           describe 'deductible' do
             describe '#family_deductible_remaining' do
               it 'finds the first one' do
