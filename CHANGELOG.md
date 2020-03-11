@@ -6,10 +6,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [0.5.0] - [UNRELEASED]
 ### Added
+- EligibilityBenefit Deductible information
+- EligibilityBenefit benefits date information
+- EligibilityBenefit(s) child
+- EligibilityBenefit(s) employee
+- EligibilityBenefit(s) family
+- EligibilityBenefit(s) employee and child
+
+### Changed
+- Broke EligibilityBenefit and EligibilityBenefits into separate files
 
 ## [0.4.0] - [2020-03-10]
 ### Added
-- EligibilityBenefit(s) Deductible information
 - EligibilityBenefit(s) Employee information
 - EligibilityData plan date information
 - EligibilityData eligibility, plan and service date helpers on date info

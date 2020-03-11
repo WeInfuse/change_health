@@ -13,6 +13,8 @@ module ChangeHealth
       INDIVIDUAL    = 'IND'
       CHILD         = 'CHD'
       EMPLOYEE      = 'EMP'
+      FAMILY        = 'FAM'
+      EMPLOYEE_AND_CHILD= 'ECH'
 
       VISIT         = '27'
       YEAR          = '23'
@@ -28,7 +30,9 @@ module ChangeHealth
       COVERAGES = {
         individual: INDIVIDUAL,
         child: CHILD,
-        employee: EMPLOYEE
+        employee: EMPLOYEE,
+        family: FAMILY,
+        employee_and_child: EMPLOYEE_AND_CHILD
       }
       TIMEFRAMES = {
         visit: VISIT,

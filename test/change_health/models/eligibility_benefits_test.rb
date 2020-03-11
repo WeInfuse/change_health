@@ -52,6 +52,18 @@ class EligibilityBenefitsTest < Minitest::Test
         end
       end
 
+      describe '#family' do
+        let(:json_data) { load_sample('000047.example.response.json', parse: true) }
+
+        it 'filters family' do
+          assert_equal(8, benefits.family.size)
+        end
+
+        it 'can chain' do
+          assert_equal(0, benefits.family.where(serviceTypeCodes: '98').size)
+        end
+      end
+
       describe '#child' do
         it 'filters child' do
           assert_equal(0, benefits.child.size)
@@ -63,12 +75,26 @@ class EligibilityBenefitsTest < Minitest::Test
       end
 
       describe '#employee' do
+        let(:json_data) { load_sample('000045.example.response.json', parse: true) }
+
         it 'filters employee' do
-          assert_equal(0, benefits.employee.size)
+          assert_equal(52, benefits.employee.size)
         end
 
         it 'can chain' do
-          assert_equal(0, benefits.employee.where(serviceTypeCodes: '30').size)
+          assert_equal(5, benefits.employee.where(serviceTypeCodes: '30').size)
+        end
+      end
+
+      describe '#employee_and_child' do
+        let(:json_data) { load_sample('000047.example.response.json', parse: true) }
+
+        it 'filters employee_and_child' do
+          assert_equal(43, benefits.employee_and_child.size)
+        end
+
+        it 'can chain' do
+          assert_equal(4, benefits.employee_and_child.where(serviceTypeCodes: '30').size)
         end
       end
 
@@ -129,72 +155,108 @@ class EligibilityBenefitsTest < Minitest::Test
       end
 
       describe 'single value helpers' do
-        describe '#individual_coinsurance_visit' do
-          it 'finds the first one' do
-            assert_equal(0.3, benefits.individual_coinsurance_visit.amount)
-          end
-
-          it 'can filter by more args' do
-            assert_nil(benefits.individual_coinsurance_visit(serviceTypeCodes: 'INVALID'))
-          end
-        end
-
-        describe '#individual_oop_remaining' do
-          it 'finds the first one' do
-            assert_equal(4195.37, benefits.individual_oop_remaining.amount)
-            assert_equal(4195.37, benefits.individual_out_of_pocket_remaining.amount)
-          end
-
-          it 'can filter by more args' do
-            assert_nil(benefits.individual_oop_remaining(serviceTypeCodes: 'INVALID'))
-          end
-        end
-
-        describe '#individual_oop_total' do
-          it 'finds the first one' do
-            assert_equal(5500, benefits.individual_oop_total.amount)
-            assert_equal(5500, benefits.individual_out_of_pocket_total.amount)
-          end
-
-          it 'can filter by more args' do
-            assert_nil(benefits.individual_oop_total(serviceTypeCodes: 'INVALID'))
-          end
-        end
-
-        describe '#individual_copayment_visit' do
-          it 'finds the first one' do
-            assert_equal(30, benefits.individual_copayment_visit.amount)
-            assert_equal(30, benefits.individual_copay_visit.amount)
-          end
-
-          it 'can filter by more args' do
-            assert_equal(0, benefits.individual_copayment_visit(serviceTypeCodes: 'BZ').amount)
-          end
-        end
-
-        describe 'deductible' do
-          let(:json_data) { load_sample('000045.example.response.json', parse: true) }
-          let(:edata) { ChangeHealth::Models::EligibilityData.new(data: json_data) }
-          let(:benefits) { edata.benefits }
-          let(:benefit) { benefits.first }
-
-          describe '#individual_deductible_remaining' do
+        describe 'individual' do
+          describe '#individual_coinsurance_visit' do
             it 'finds the first one' do
-              assert_equal(0, benefits.individual_deductible_remaining.amount)
+              assert_equal(0.3, benefits.individual_coinsurance_visit.amount)
             end
 
             it 'can filter by more args' do
-              assert_nil(benefits.individual_deductible_remaining(serviceTypeCodes: 'INVALID'))
+              assert_nil(benefits.individual_coinsurance_visit(serviceTypeCodes: 'INVALID'))
             end
           end
 
-          describe '#individual_deductible_total' do
+          describe '#individual_oop_remaining' do
             it 'finds the first one' do
-              assert_equal(500, benefits.individual_deductible_total.amount)
+              assert_equal(4195.37, benefits.individual_oop_remaining.amount)
+              assert_equal(4195.37, benefits.individual_out_of_pocket_remaining.amount)
             end
 
             it 'can filter by more args' do
-              assert_nil(benefits.individual_deductible_total(serviceTypeCodes: 'INVALID'))
+              assert_nil(benefits.individual_oop_remaining(serviceTypeCodes: 'INVALID'))
+            end
+          end
+
+          describe '#individual_oop_total' do
+            it 'finds the first one' do
+              assert_equal(5500, benefits.individual_oop_total.amount)
+              assert_equal(5500, benefits.individual_out_of_pocket_total.amount)
+            end
+
+            it 'can filter by more args' do
+              assert_nil(benefits.individual_oop_total(serviceTypeCodes: 'INVALID'))
+            end
+          end
+
+          describe '#individual_copayment_visit' do
+            it 'finds the first one' do
+              assert_equal(30, benefits.individual_copayment_visit.amount)
+              assert_equal(30, benefits.individual_copay_visit.amount)
+            end
+
+            it 'can filter by more args' do
+              assert_equal(0, benefits.individual_copayment_visit(serviceTypeCodes: 'BZ').amount)
+            end
+          end
+
+          describe 'deductible' do
+            let(:json_data) { load_sample('000045.example.response.json', parse: true) }
+
+            describe '#individual_deductible_remaining' do
+              it 'finds the first one' do
+                assert_equal(0, benefits.individual_deductible_remaining.amount)
+              end
+
+              it 'can filter by more args' do
+                assert_nil(benefits.individual_deductible_remaining(serviceTypeCodes: 'INVALID'))
+              end
+            end
+
+            describe '#individual_deductible_total' do
+              it 'finds the first one' do
+                assert_equal(500, benefits.individual_deductible_total.amount)
+              end
+
+              it 'can filter by more args' do
+                assert_nil(benefits.individual_deductible_total(serviceTypeCodes: 'INVALID'))
+              end
+            end
+          end
+        end
+
+        describe 'family' do
+          let(:json_data) { load_sample('000047.example.response.json', parse: true) }
+
+          describe '#family_oop_remaining' do
+            it 'finds the first one' do
+              assert_equal(9355.76, benefits.family_oop_remaining.amount)
+              assert_equal(9355.76, benefits.family_out_of_pocket_remaining.amount)
+            end
+
+            it 'can filter by more args' do
+              assert_nil(benefits.family_oop_remaining(serviceTypeCodes: 'INVALID'))
+            end
+          end
+
+          describe 'deductible' do
+            describe '#family_deductible_remaining' do
+              it 'finds the first one' do
+                assert_equal(855.75, benefits.family_deductible_remaining.amount)
+              end
+
+              it 'can filter by more args' do
+                assert_nil(benefits.family_deductible_remaining(serviceTypeCodes: 'INVALID'))
+              end
+            end
+
+            describe '#family_deductible_total' do
+              it 'finds the first one' do
+                assert_equal(2000, benefits.family_deductible_total.amount)
+              end
+
+              it 'can filter by more args' do
+                assert_nil(benefits.family_deductible_total(serviceTypeCodes: 'INVALID'))
+              end
             end
           end
         end
