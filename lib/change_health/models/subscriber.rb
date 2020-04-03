@@ -1,6 +1,6 @@
 module ChangeHealth
   module Models
-    class Subscriber < Hashie::Trash
+    class Subscriber < Model
       property :additionalIdentification, required: false
       property :address, required: false
       property :birthSequenceNumber, from: :birth_sequence_number, required: false
@@ -23,24 +23,6 @@ module ChangeHealth
       def add_health_care_code_information(value)
         self[:healthCareCodeInformation] ||= []
         self[:healthCareCodeInformation] << value
-      end
-
-      def to_h
-        result = super.to_h
-
-        [:dateOfBirth].each do |key|
-          result[key] = result[key].strftime(ChangeHealth::Models::DATE_FORMAT) if result[key].respond_to?(:strftime)
-        end
-
-        result
-      end
-
-      def as_json(args = {})
-        self.to_h
-      end
-
-      def to_json
-        self.to_h.to_json
       end
     end
   end

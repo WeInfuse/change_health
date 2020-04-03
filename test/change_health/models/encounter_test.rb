@@ -4,7 +4,7 @@ class EncounterTest < Minitest::Test
   describe 'encounter' do
     let(:d) { Date.today }
     let(:encounter) { ChangeHealth::Models::Encounter.new(beginning_date_of_service: d, date_of_service: d, end_date_of_service: d) }
-    let(:parsed) { JSON.parse(encounter.to_json()) }
+    let(:parsed) { JSON.parse(encounter.to_json) }
 
     describe 'object' do
       describe 'serializes' do
