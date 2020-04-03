@@ -38,6 +38,10 @@ module ChangeHealth
       def as_json(args = {})
         self.to_h
       end
+
+      def to_json
+        self.to_h.to_json
+      end
     end
   end
 end
