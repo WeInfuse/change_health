@@ -1,5 +1,5 @@
 module ChangeHealth
-  class Authentication < Connection
+  class Authentication
     attr_accessor :response
 
     AUTH_ENDPOINT    = '/apip/auth/v2/token'.freeze
@@ -16,7 +16,7 @@ module ChangeHealth
           endpoint: AUTH_ENDPOINT
         }
 
-        response = self.request(**request, auth: false)
+        response = Connection.new.request(**request, auth: false)
 
         if (false == response.ok?)
           @response = nil
