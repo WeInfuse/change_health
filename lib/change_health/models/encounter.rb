@@ -1,8 +1,6 @@
 module ChangeHealth
   module Models
-    DATE_FORMAT = '%Y%m%d'
-
-    class Encounter < Hashie::Trash
+    class Encounter < Model
       property :beginningDateOfService, from: :beginning_date_of_service, required: false
       property :dateOfService, from: :date_of_service, required: false
       property :dateRange, from: :date_range, required: false, default: false
@@ -16,24 +14,6 @@ module ChangeHealth
       def add_service_type_code(code)
         self[:serviceTypeCodes] ||= []
         self[:serviceTypeCodes] << code
-      end
-
-      def to_h
-        result = super.to_h
-
-        [:beginningDateOfService, :dateOfService, :endDateOfService].each do |key|
-          result[key] = result[key].strftime(ChangeHealth::Models::DATE_FORMAT) if result[key].respond_to?(:strftime)
-        end
-
-        result
-      end
-
-      def as_json(args = {})
-        self.to_h
-      end
-
-      def to_json
-        self.to_h.to_json
       end
     end
   end
