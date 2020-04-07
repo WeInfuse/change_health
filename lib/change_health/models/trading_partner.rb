@@ -1,13 +1,11 @@
 module ChangeHealth
   module Models
     class TradingPartner < Hashie::Trash
-      ENDPOINT = '/tradingpartners/v7/partners'.freeze
+      include Hashie::Extensions::IndifferentAccess
+      include Hashie::Extensions::IgnoreUndeclared
 
-      def query(term)
-        endpoint = ENDPOINT.dup.concat("?query=#{term}")
-        connection = ChangeHealth::Connection.new.request(endpoint: endpoint, verb: :get)
-        ChangeHealth::Models::TradingPartnersData.new(response: connection).parsed
-      end
+      property :id, from: :tradingPartnerId, required: true
+      property :name, from: :tradingPartnerName, required: true
     end
   end
 end
