@@ -1,0 +1,102 @@
+[
+  {
+    "tradingPartnerId": "ABC123",
+    "tradingPartnerName": "Aetna Test Payer",
+    "tradingPartnerAliases": [{
+      "alias": "Aetna Test Long Term Care",
+      "aliasNotes": "AKA"
+    }],
+    "tradingPartnerModified": 1234567890,
+    "tradingPartnerAttribute": {
+      "states": ["Texas"]
+    },
+    "clearingHouses": {
+      "legacyExchange": [{
+        "serviceName": "professionalClaims",
+        "serviceConnections": {
+          "direct": {
+            "serviceId": "1234"
+          }
+        },
+        "serviceModified": 11122233344455,
+        "enrollmentStatus": "Register with payer",
+        "acceptsSecondary": true,
+        "currentStatus": "Active",
+        "clearingHouse": "legacyExchange"
+      }, {
+        "serviceName": "claimStatus",
+        "serviceConnections": {
+          "direct": {
+            "serviceId": "ABCDEF"
+          }
+        },
+        "serviceModified": 1122345554321,
+        "enrollmentStatus": "No enrollment required",
+        "currentStatus": "Active",
+        "clearingHouse": "legacyExchange"
+      }, {
+        "serviceName": "medicalEligibility",
+        "serviceConnections": {
+          "direct": {
+            "serviceId": "ABCDEF"
+          }
+        },
+        "serviceModified": 1122345554321,
+        "enrollmentStatus": "No enrollment required",
+        "acceptsSecondary": true,
+        "currentStatus": "Active",
+        "clearingHouse": "legacyExchange"
+      }]
+    }
+  },
+  {
+    "tradingPartnerId": "DEF123",
+    "tradingPartnerName": "Aetna Test Payer 2",
+    "tradingPartnerAliases": [{
+      "alias": "Aetna Test 2 Long Term Care",
+      "aliasNotes": "AKA"
+    }],
+    "tradingPartnerModified": 1234567890,
+    "tradingPartnerAttribute": {
+      "states": ["Texas"]
+    },
+    "clearingHouses": {
+      "legacyExchange": [{
+        "serviceName": "professionalClaims",
+        "serviceConnections": {
+          "direct": {
+            "serviceId": "1234"
+          }
+        },
+        "serviceModified": 11122233344455,
+        "enrollmentStatus": "Register with payer",
+        "acceptsSecondary": true,
+        "currentStatus": "Active",
+        "clearingHouse": "legacyExchange"
+      }, {
+        "serviceName": "claimStatus",
+        "serviceConnections": {
+          "direct": {
+            "serviceId": "ABCDEF"
+          }
+        },
+        "serviceModified": 1122345554321,
+        "enrollmentStatus": "No enrollment required",
+        "currentStatus": "Active",
+        "clearingHouse": "legacyExchange"
+      }, {
+        "serviceName": "medicalEligibility",
+        "serviceConnections": {
+          "direct": {
+            "serviceId": "ABCDEF"
+          }
+        },
+        "serviceModified": 1122345554321,
+        "enrollmentStatus": "No enrollment required",
+        "acceptsSecondary": true,
+        "currentStatus": "Active",
+        "clearingHouse": "legacyExchange"
+      }]
+    }
+  }
+]
