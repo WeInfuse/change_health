@@ -65,9 +65,17 @@ module ChangeHealth
         else
           if v.is_a?(Array)
             return v.include?(benefit[k])
-          else
-            return v == benefit[k]
+          elsif benefit.medicare?
+            if :inPlanNetworkIndicatorCode == k.to_sym
+              return false == benefit.in_plan_network? if 'N' == v
+              return benefit.in_plan_network? if 'Y' == v
+            elsif :coverageLevelCode == k.to_sym
+              return false == benefit.individual? if EligibilityBenefit::INDIVIDUAL != v
+              return benefit.individual? if EligibilityBenefit::INDIVIDUAL == v
+            end
           end
+
+          return v == benefit[k]
         end
       end
     end

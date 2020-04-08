@@ -13,11 +13,11 @@ module ChangeHealth
 
     format :json
 
-    def request(endpoint: , body: nil, headers: {}, auth: true, verb: :post)
+    def request(endpoint: , query: nil, body: nil, headers: {}, auth: true, verb: :post)
       body    = body.to_json if body.is_a?(Hash)
       headers = auth_header.merge(headers) if auth
 
-      self.class.send("#{verb}", endpoint, body: body, headers: headers)
+      self.class.send("#{verb}", endpoint, query: query, body: body, headers: headers)
     end
 
     private

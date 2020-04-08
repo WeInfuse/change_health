@@ -5,6 +5,15 @@ class EligibilityBenefitsTest < Minitest::Test
     let(:json_data) { load_sample('000050.example.response.json', parse: true) }
     let(:edata) { ChangeHealth::Models::EligibilityData.new(data: json_data) }
     let(:benefits) { edata.benefits }
+    let(:medicare) { 
+      b = benefits.last.dup
+      b['insuranceTypeCode'] = 'MA'
+      b.delete('coverageLevel')
+      b.delete('coverageLevelCode')
+      b.delete('inPlanNetworkIndicator')
+      b.delete('inPlanNetworkIndicatorCode')
+      b
+    }
 
     describe 'benefits' do
       describe '#where' do
@@ -50,6 +59,16 @@ class EligibilityBenefitsTest < Minitest::Test
         it 'can chain' do
           assert_equal(3, benefits.individual.where(serviceTypeCodes: '30').size)
         end
+
+        describe 'medicare' do
+          it 'is individual' do
+            b = benefits.dup
+            b << medicare
+
+            assert(medicare.medicare?)
+            assert_equal(8, b.individual.size)
+          end
+        end
       end
 
       describe '#family' do
@@ -61,6 +80,15 @@ class EligibilityBenefitsTest < Minitest::Test
 
         it 'can chain' do
           assert_equal(0, benefits.family.where(serviceTypeCodes: '98').size)
+        end
+
+        describe 'medicare' do
+          it 'is not family' do
+            b = benefits.dup
+            b << medicare
+
+            assert_equal(8, benefits.family.size)
+          end
         end
       end
 
@@ -105,6 +133,15 @@ class EligibilityBenefitsTest < Minitest::Test
 
         it 'can chain' do
           assert_equal(2, benefits.in_network.where(serviceTypeCodes: '30').size)
+        end
+
+        describe 'medicare' do
+          it 'is in network' do
+            b = benefits.dup
+            b << medicare
+
+            assert_equal(7, b.in_network.size)
+          end
         end
       end
 

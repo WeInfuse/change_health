@@ -39,6 +39,11 @@ module ChangeHealth
         year: YEAR,
         remaining: REMAINING
       }
+      MEDICARE = {
+        part_a: 'MA',
+        part_b: 'MB',
+        primary: 'MP'
+      }
       HELPERS = {
         timeQualifierCode: TIMEFRAMES,
         coverageLevelCode: COVERAGES,
@@ -48,9 +53,13 @@ module ChangeHealth
       HELPERS.each do |key, types|
         types.each do |method, value|
           define_method("#{method}?") do
-            value == self[key]
+            value == self[key] || :individual == method && self[key].nil? && self.medicare?
           end
         end
+      end
+
+      def medicare?
+        MEDICARE.values.include?(self.insuranceTypeCode)
       end
 
       %w(benefitAmount benefitPercent).each do |amount_method|
@@ -59,16 +68,17 @@ module ChangeHealth
         end
       end
 
-      %w(insuranceType benefitsDateInformation).each do |method|
+      %w(insuranceType insuranceTypeCode benefitsDateInformation).each do |method|
         define_method("#{method}") do
           self[method]
         end
       end
       alias_method :date_info, :benefitsDateInformation
       alias_method :insurance_type, :insuranceType
+      alias_method :insurance_type_code, :insuranceTypeCode
 
       def in_plan_network?
-        return 'Y' == self[:inPlanNetworkIndicatorCode]
+        return 'Y' == self[:inPlanNetworkIndicatorCode] || self[:inPlanNetworkIndicatorCode].nil? && self.medicare?
       end
       alias_method :in_plan?, :in_plan_network?
       alias_method :in_network?, :in_plan_network?
@@ -91,6 +101,19 @@ module ChangeHealth
       alias_method :plan_begin_date, :planBegin
       alias_method :plan_end_date, :planEnd
       alias_method :service_date, :service
+
+      def plan_date_range
+        pd = self.date_info&.dig('plan') || ''
+        pd.split('-')
+      end
+
+      def plan_date_range_start
+        ChangeHealth::Models::EligibilityData::PARSE_DATE.call(self.plan_date_range[0])
+      end
+
+      def plan_date_range_end
+        ChangeHealth::Models::EligibilityData::PARSE_DATE.call(self.plan_date_range[1])
+      end
 
       private
       def format_amount(key)
