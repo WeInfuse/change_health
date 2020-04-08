@@ -111,6 +111,53 @@ class EligibilityDataTest < Minitest::Test
         end
       end
 
+      describe '#medicare?' do
+        describe 'all benefits are not medicare' do
+          it 'is false' do
+            assert_equal(false, edata.medicare?)
+          end
+        end
+
+        describe 'benefits are empty' do
+          let(:edata) { ChangeHealth::Models::EligibilityData.new }
+
+          it 'is false' do
+            assert_equal(false, edata.medicare?)
+          end
+        end
+
+        describe 'all benefits are medicare' do
+          let(:json_data) {
+            str = <<-STR
+            {
+              "benefitsInformation": [
+                {
+                  "benefitsDateInformation": {
+                    "plan": "20041001"
+                  },
+                  "code": "1",
+                  "insuranceType": "Medicare Part A",
+                  "insuranceTypeCode": "MA",
+                  "name": "Active Coverage",
+                  "serviceTypeCodes": [
+                    "30"
+                  ],
+                  "serviceTypes": [
+                    "Health Benefit Plan Coverage"
+                  ]
+                }
+              ]
+            }
+            STR
+            JSON.parse(str)
+          }
+
+          it 'is true' do
+            assert_equal(true, edata.medicare?)
+          end
+        end
+      end
+
       describe '#benefits' do
         it 'returns all benefits mapped to subclass' do
           assert_equal(edata.benefits_information.size, edata.benefits.size)
