@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Add Trading Partner API querying capability
 - Request::TradingPartner
+- Response::TradingPartnerData
 - Response::TradingPartnersData
 - Models::TradingPartner
 

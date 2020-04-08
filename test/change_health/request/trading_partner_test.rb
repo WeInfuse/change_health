@@ -8,7 +8,7 @@ class TradingPartnerRequestTest < Minitest::Test
       describe '#query' do
         let(:response) { build_response(file: 'trading_partners_query.response.json') }
         let(:search_term) { 'Aetn' }
-        let(:ep) { ChangeHealth::Request::TradingPartner::ENDPOINT.dup.concat("?query=#{search_term}") }
+        let(:ep) { ChangeHealth::Request::TradingPartner::ENDPOINT.dup.concat("?query=#{search_term}&serviceName=medicalEligibility&strictFilters=true") }
 
         before do
           stub_change_health(endpoint: ep, response: response, verb: :get)
@@ -23,7 +23,7 @@ class TradingPartnerRequestTest < Minitest::Test
         it 'returns an Array of Models::TradingPartner objects' do
           assert_equal ChangeHealth::Models::TradingPartner, @trading_partners.first.class
           refute_nil @trading_partners.first.name
-          refute_nil @trading_partners.first.id
+          refute_nil @trading_partners.first.service_id
         end
       end
     end

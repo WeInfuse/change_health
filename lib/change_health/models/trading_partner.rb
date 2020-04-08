@@ -4,8 +4,8 @@ module ChangeHealth
       include Hashie::Extensions::IndifferentAccess
       include Hashie::Extensions::IgnoreUndeclared
 
-      property :id, from: :tradingPartnerId, required: true
-      property :name, from: :tradingPartnerName, required: true
+      property :service_id, required: true
+      property :name, required: true
     end
   end
 end
