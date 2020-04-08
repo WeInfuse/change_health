@@ -9,10 +9,23 @@ class EligibilityBenefitTest < Minitest::Test
     let(:klazz) { ChangeHealth::Models::EligibilityBenefit }
 
     describe 'benefit' do
-      it '#individual?' do
+      describe '#individual?' do
+        it 'non medicare' do
         assert(klazz.new(coverageLevelCode: klazz::INDIVIDUAL).individual?)
         assert_equal(false, klazz.new(coverageLevelCode: klazz::CHILD).individual?)
         assert_equal(false, klazz.new.individual?)
+        end
+
+        it 'medicare' do
+          assert(klazz.new(insuranceTypeCode: 'MA').individual?)
+          assert_equal(false, klazz.new(coverageLevelCode: klazz::CHILD, insuranceTypeCode: 'MA').individual?)
+        end
+      end
+
+      it '#medicare?' do
+        assert(klazz.new(insuranceTypeCode: 'MA').medicare?)
+        assert_equal(false, klazz.new(insuranceTypeCode: 'PR').medicare?)
+        assert_equal(false, klazz.new.medicare?)
       end
 
       it '#family?' do
@@ -74,11 +87,18 @@ class EligibilityBenefitTest < Minitest::Test
         assert_equal(false, klazz.new.out_of_pocket?)
       end
 
-      it '#in_plan_network?' do
-        assert(klazz.new(inPlanNetworkIndicatorCode: 'Y').in_plan_network?)
-        assert(klazz.new(inPlanNetworkIndicatorCode: 'Y').in_plan?)
-        assert(klazz.new(inPlanNetworkIndicatorCode: 'Y').in_network?)
-        assert_equal(false, klazz.new.in_plan_network?)
+      describe '#in_plan_network?' do
+        it 'non medicare' do
+          assert(klazz.new(inPlanNetworkIndicatorCode: 'Y').in_plan_network?)
+          assert(klazz.new(inPlanNetworkIndicatorCode: 'Y').in_plan?)
+          assert(klazz.new(inPlanNetworkIndicatorCode: 'Y').in_network?)
+          assert_equal(false, klazz.new.in_plan_network?)
+        end
+
+        it 'medicare' do
+          assert(klazz.new(insuranceTypeCode: 'MA').in_plan_network?)
+          assert_equal(false, klazz.new(inPlanNetworkIndicatorCode: 'N', insuranceTypeCode: 'MA').in_plan_network?)
+        end
       end
 
       describe '#services' do
@@ -106,7 +126,7 @@ class EligibilityBenefitTest < Minitest::Test
           assert_equal(0.3, benefit.amount)
         end
 
-        it 'returns benefitAmount othewise' do
+        it 'returns benefitAmount otherwise' do
           benefit = klazz.new(code: klazz::COPAYMENT, benefitPercent: '.3', benefitAmount: '43.23')
 
           assert_equal(43.23, benefit.amount)
@@ -164,6 +184,50 @@ class EligibilityBenefitTest < Minitest::Test
 
             it 'leaves it alone' do
               assert_equal('12364762-264761', benefit.plan_end_date)
+            end
+          end
+
+          describe "plan range" do
+            describe "has single date" do
+              let(:benefit) {
+                b = benefits.first
+                b['benefitsDateInformation'] = {
+                  'plan' => '20100830'
+                }
+                b
+              }
+
+              it "has start data" do
+                assert_equal(['20100830'], benefit.plan_date_range)
+                assert_equal(Date.new(2010, 8, 30), benefit.plan_date_range_start)
+                assert_nil(benefit.plan_date_range_end)
+              end
+            end
+
+            describe "has range" do
+              let(:benefit) {
+                benefits.first
+              }
+
+              it "empty array" do
+                assert_equal(["20030111", "99991231"], benefit.plan_date_range)
+                assert_equal(Date.new(2003, 1, 11), benefit.plan_date_range_start)
+                assert_equal(Date.new(9999, 12, 31), benefit.plan_date_range_end)
+              end
+            end
+
+            describe "is missing" do
+              let(:benefit) {
+                b = benefits.first
+                b['benefitsDateInformation'] = {}
+                b
+              }
+
+              it "has no data" do
+                assert_equal([], benefit.plan_date_range)
+                assert_nil(benefit.plan_date_range_start)
+                assert_nil(benefit.plan_date_range_end)
+              end
             end
           end
         end

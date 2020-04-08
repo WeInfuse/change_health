@@ -39,6 +39,23 @@ module ChangeHealth
           return PARSE_DATE.call(self.date_info&.dig(f))
         end
       end
+      alias_method :eligibility_begin_date, :eligibilityBegin
+      alias_method :plan_begin_date, :planBegin
+      alias_method :service_date, :service
+
+      def plan_date_range
+        pd = self.date_info&.dig('plan') || ''
+        pd.split('-')
+      end
+
+      def plan_date_range_start
+        ChangeHealth::Models::EligibilityData::PARSE_DATE.call(self.plan_date_range[0])
+      end
+
+      def plan_date_range_end
+        ChangeHealth::Models::EligibilityData::PARSE_DATE.call(self.plan_date_range[1])
+      end
+
 
       def plan_status(service_code: )
         self.planStatus&.find {|plan| plan.dig('serviceTypeCodes').include?(service_code) } || {}
@@ -48,13 +65,14 @@ module ChangeHealth
         ChangeHealth::Models::EligibilityBenefits.new(self.benefitsInformation || [])
       end
 
+      def medicare?
+        false == benefits.empty? && benefits.all? {|b| b.medicare? }
+      end
+
       alias_method :control_number, :controlNumber
       alias_method :benefits_information, :benefitsInformation
       alias_method :plan_statuses, :planStatus
       alias_method :date_info, :planDateInformation
-      alias_method :eligibility_begin_date, :eligibilityBegin
-      alias_method :plan_begin_date, :planBegin
-      alias_method :service_date, :service
     end
   end
 end
