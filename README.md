@@ -25,6 +25,7 @@ Or install it yourself as:
 
 Make sure you're [configured](#configuration)!
 
+### Eligibility
 ```ruby
 ChangeHealth::Models::Eligibility.ping # Test your connection
 
@@ -74,6 +75,18 @@ edata.raw == edata.response.parsed_response
 true
 ```
 
+### Trading Partners
+```ruby
+  # Query trading partners using a wildcard search
+  # Returns Array of ChangeHealth::Models::TradingPartner Objects
+  trading_partners = ChangeHealth::Request::TradingPartner.query("Aetna")
+
+  trading_partners.first.name
+  "Aetna"
+
+  trading_partners.first.service_id
+  "ABC123"
+```
 ### Configuration
 
 ```ruby
