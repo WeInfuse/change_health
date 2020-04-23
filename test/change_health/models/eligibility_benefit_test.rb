@@ -137,6 +137,45 @@ class EligibilityBenefitTest < Minitest::Test
         end
       end
 
+      describe 'additional_info' do
+        describe 'with no info' do
+          it 'aliases the additionalInformation data' do
+            assert_nil(benefit.additional_info)
+          end
+
+          describe 'descriptions' do
+            it 'is empty array' do
+              assert_equal([], benefit.descriptions)
+            end
+          end
+        end
+
+        describe 'with info' do
+          let(:additional_information) {
+            [
+              { 'description' => 'cat' },
+              { 'description' => 'dog' },
+              { 'junk' => 'blah' }
+            ]
+          }
+          let(:benefit) {
+            b = benefits.first
+            b['additionalInformation'] = additional_information
+            b
+          }
+
+          it 'aliases the additionalInformation data' do
+            assert_equal(additional_information, benefit.additional_info)
+          end
+
+          describe 'descriptions' do
+            it 'is array with only description fields' do
+              assert_equal(['cat', 'dog'], benefit.descriptions)
+            end
+          end
+        end
+      end
+
       describe 'date_info' do
         it 'aliases benefitsDateInformation in hash' do
           assert_equal(benefit['benefitsDateInformation'], benefit.date_info)

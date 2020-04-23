@@ -43,6 +43,19 @@ class EligibilityBenefitsTest < Minitest::Test
         end
       end
 
+      describe '#where_not' do
+        it 'filters results' do
+          assert_equal(benefits.size - 3, benefits.where_not(serviceTypeCodes: '30', coverageLevelCode: 'IND').size)
+          assert_equal(benefits.size - 1, benefits.where_not(serviceTypeCodes: '30', coverageLevelCode: 'IND', timeQualifierCode: ChangeHealth::Models::EligibilityBenefit::REMAINING).size)
+        end
+      end
+
+      describe '#+' do
+        it 'concats benefits' do
+          assert_equal(6, (benefits.where(serviceTypeCodes: '98') + benefits.where(serviceTypeCodes: 'BZ')).size)
+        end
+      end
+
       describe '#find_by' do
         it 'finds one' do
           assert(benefits.find_by(serviceTypeCodes: '30').is_a?(Hash))
@@ -193,13 +206,13 @@ class EligibilityBenefitsTest < Minitest::Test
 
       describe 'single value helpers' do
         describe 'individual' do
-          describe '#individual_coinsurance_visit' do
+          describe '#individual_coinsurance' do
             it 'finds the first one' do
-              assert_equal(0.3, benefits.individual_coinsurance_visit.amount)
+              assert_equal(0.3, benefits.individual_coinsurance.amount)
             end
 
             it 'can filter by more args' do
-              assert_nil(benefits.individual_coinsurance_visit(serviceTypeCodes: 'INVALID'))
+              assert_nil(benefits.individual_coinsurance(serviceTypeCodes: 'INVALID'))
             end
           end
 
@@ -225,14 +238,14 @@ class EligibilityBenefitsTest < Minitest::Test
             end
           end
 
-          describe '#individual_copayment_visit' do
+          describe '#individual_copayment' do
             it 'finds the first one' do
-              assert_equal(30, benefits.individual_copayment_visit.amount)
-              assert_equal(30, benefits.individual_copay_visit.amount)
+              assert_equal(30, benefits.individual_copayment.amount)
+              assert_equal(30, benefits.individual_copay.amount)
             end
 
             it 'can filter by more args' do
-              assert_equal(0, benefits.individual_copayment_visit(serviceTypeCodes: 'BZ').amount)
+              assert_equal(0, benefits.individual_copayment(serviceTypeCodes: 'BZ').amount)
             end
           end
 
