@@ -6,7 +6,15 @@ module ChangeHealth
       end
 
       def where(**kwargs)
-        EligibilityBenefits.new(self.select {|benefit| kwargs.all? {|k,v| benefit_matches?(benefit, k, v) } })
+        self.class.new(self.select {|benefit| kwargs.all? {|k,v| benefit_matches?(benefit, k, v) } })
+      end
+
+      def where_not(**kwargs)
+        self.class.new(self.reject {|benefit| kwargs.all? {|k,v| benefit_matches?(benefit, k, v) } })
+      end
+
+      def +(other_obj)
+        self.class.new(self.to_a + other_obj.to_a)
       end
 
       def find_by(**kwargs)
@@ -25,17 +33,24 @@ module ChangeHealth
         end
       end
 
-      def individual_coinsurance_visit(**kwargs)
-        self.individual.coinsurances.visits.where(kwargs).first
-      end
-
       %w(family individual employee child employee_and_child).each do |method|
         alias_method method, "#{method}s"
 
-        %w(copayment deductible out_of_pocket).each do |type_mod|
-          %w(year remaining visit).each do |time_mod|
+        %w(copayment coinsurance).each do |type_mod|
+          method_name = "#{method}_#{type_mod}"
+          alias_name  = method_name.gsub('copayment', 'copay')
+
+          define_method(method_name) do |**kwargs|
+            self.send(method).send("#{type_mod}s").where(kwargs).first
+          end
+
+          alias_method alias_name, method_name if alias_name != method_name
+        end
+
+        %w(deductible out_of_pocket).each do |type_mod|
+          %w(year remaining).each do |time_mod|
             method_name = "#{method}_#{type_mod}_#{time_mod}"
-            alias_name  = method_name.gsub('copayment', 'copay').gsub('out_of_pocket', 'oop')
+            alias_name  = method_name.gsub('out_of_pocket', 'oop')
 
             define_method(method_name) do |**kwargs|
               self.send(method).send("#{type_mod}s").send("#{time_mod}s").where(kwargs).first || self.send(method).send("#{type_mod}s").where(kwargs).first

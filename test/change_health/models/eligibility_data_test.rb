@@ -11,6 +11,22 @@ class EligibilityDataTest < Minitest::Test
     end
   end
 
+  class ChangeHealth::Models::EligibilityBenefitsABC123 < ChangeHealth::Models::EligibilityBenefits
+  end
+
+  class ChangeHealth::Models::EligibilityBenefitsCBA987 < ChangeHealth::Models::EligibilityBenefits
+    class ChangeHealth::Models::EligibilityBenefitsCBA987_Plan123 < ChangeHealth::Models::EligibilityBenefits
+    end
+
+    def self.factory(data)
+      if data.plan?('Plan123')
+        return ChangeHealth::Models::EligibilityBenefitsCBA987_Plan123
+      else
+        return self
+      end
+    end
+  end
+
   describe 'eligibility data' do
     let(:json_data) { load_sample('000050.example.response.json', parse: true) }
     let(:edata) { ChangeHealth::Models::EligibilityData.new(data: json_data) }
@@ -161,6 +177,36 @@ class EligibilityDataTest < Minitest::Test
       describe '#benefits' do
         it 'returns all benefits mapped to subclass' do
           assert_equal(edata.benefits_information.size, edata.benefits.size)
+          assert_equal(ChangeHealth::Models::EligibilityBenefits, edata.benefits.class)
+        end
+
+        describe 'specific class exists for trading partner service id' do
+          let(:tpsi) { 'abc123' }
+          let(:altered_data) { d = load_sample('000050.example.response.json', parse: true); d['tradingPartnerServiceId'] = tpsi; d }
+          let(:json_data) { altered_data }
+
+          it 'instantiates that class' do
+            assert_equal(edata.benefits_information.size, edata.benefits.size)
+            assert_equal(ChangeHealth::Models::EligibilityBenefitsABC123, edata.benefits.class)
+          end
+
+          describe 'responds to #factory' do
+            let(:tpsi) { 'cba987' }
+
+            it 'instantiates the returned class' do
+              assert_equal(edata.benefits_information.size, edata.benefits.size)
+              assert_equal(ChangeHealth::Models::EligibilityBenefitsCBA987, edata.benefits.class)
+            end
+
+            describe 'can use data object to select' do
+              let(:json_data) { altered_data['planStatus'][0]['planDetails'] = 'Plan123'; altered_data }
+
+              it 'instantiates the returned class' do
+                assert_equal(edata.benefits_information.size, edata.benefits.size)
+                assert_equal(ChangeHealth::Models::EligibilityBenefitsCBA987_Plan123, edata.benefits.class)
+              end
+            end
+          end
         end
 
         describe 'returns empty array' do
@@ -187,6 +233,19 @@ class EligibilityDataTest < Minitest::Test
           it 'for non matched code' do
             assert_equal(false, edata.active?(service_code: 'cat'))
           end
+        end
+      end
+
+      describe '#trading_partner_id' do
+        it 'gets the partner service id' do
+          assert_equal('000050', edata.trading_partner_id)
+        end
+      end
+
+      describe '#trading_partner?' do
+        it 'returns whether trading_partner matche trading_partner_id' do
+          assert_equal(true, edata.trading_partner?('000050'))
+          assert_equal(false, edata.trading_partner?('cat'))
         end
       end
     end

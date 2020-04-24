@@ -14,7 +14,8 @@ module ChangeHealth
       CHILD         = 'CHD'
       EMPLOYEE      = 'EMP'
       FAMILY        = 'FAM'
-      EMPLOYEE_AND_CHILD = 'ECH'
+      EMPLOYEE_AND_CHILD  = 'ECH'
+      EMPLOYEE_AND_SPOUSE = 'ESP'
 
       VISIT         = '27'
       YEAR          = '23'
@@ -32,7 +33,8 @@ module ChangeHealth
         child: CHILD,
         employee: EMPLOYEE,
         family: FAMILY,
-        employee_and_child: EMPLOYEE_AND_CHILD
+        employee_and_child: EMPLOYEE_AND_CHILD,
+        employee_and_spouse: EMPLOYEE_AND_SPOUSE
       }
       TIMEFRAMES = {
         visit: VISIT,
@@ -68,7 +70,7 @@ module ChangeHealth
         end
       end
 
-      %w(insuranceType insuranceTypeCode benefitsDateInformation).each do |method|
+      %w(insuranceType insuranceTypeCode benefitsDateInformation additionalInformation).each do |method|
         define_method("#{method}") do
           self[method]
         end
@@ -76,6 +78,13 @@ module ChangeHealth
       alias_method :date_info, :benefitsDateInformation
       alias_method :insurance_type, :insuranceType
       alias_method :insurance_type_code, :insuranceTypeCode
+      alias_method :additional_info, :additionalInformation
+
+      def descriptions
+        data = self.additionalInformation || []
+
+        data.map {|info| info['description'] }.compact
+      end
 
       def in_plan_network?
         return 'Y' == self[:inPlanNetworkIndicatorCode] || self[:inPlanNetworkIndicatorCode].nil? && self.medicare?

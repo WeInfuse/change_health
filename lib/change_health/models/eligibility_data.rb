@@ -28,7 +28,11 @@ module ChangeHealth
         return '1' == plan_status(service_code: service_code).dig('statusCode')
       end
 
-      %w(planStatus benefitsInformation controlNumber planDateInformation).each do |v|
+      def dependents?
+        true == self.dependents&.any?
+      end
+
+      %w(planStatus benefitsInformation controlNumber planDateInformation dependents).each do |v|
         define_method(v) do
           @raw.dig(v)
         end
@@ -56,17 +60,40 @@ module ChangeHealth
         ChangeHealth::Models::EligibilityData::PARSE_DATE.call(self.plan_date_range[1])
       end
 
-
       def plan_status(service_code: )
         self.planStatus&.find {|plan| plan.dig('serviceTypeCodes').include?(service_code) } || {}
       end
 
       def benefits
-        ChangeHealth::Models::EligibilityBenefits.new(self.benefitsInformation || [])
+        kname   = "ChangeHealth::Models::EligibilityBenefits#{self.trading_partner_id&.upcase}"
+        klazz   = Object.const_get(kname) if Module.const_defined?(kname)
+        klazz ||= ChangeHealth::Models::EligibilityBenefits
+
+        if klazz.respond_to?(:factory)
+          klazz = klazz.factory(self)
+        end
+
+        klazz.new(self.benefitsInformation || [])
       end
 
-      def medicare?
-        false == benefits.empty? && benefits.all? {|b| b.medicare? }
+      def medicare?(**kwargs)
+        false == benefits.empty? && benefits.where(kwargs).all? {|b| b.medicare? }
+      end
+
+      def plan?(name)
+        self.plan_names.any? {|pname| name == pname }
+      end
+
+      def plan_names
+        self.planStatus&.map {|plan_status| plan_status['planDetails'] }&.compact || []
+      end
+
+      def trading_partner?(name)
+        self.trading_partner_id == name
+      end
+
+      def trading_partner_id
+        @raw['tradingPartnerServiceId']
       end
 
       alias_method :control_number, :controlNumber
