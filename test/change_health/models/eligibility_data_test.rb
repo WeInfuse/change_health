@@ -236,6 +236,20 @@ class EligibilityDataTest < Minitest::Test
         end
       end
 
+      describe '#errors?' do
+        it 'false if none' do
+          assert_equal(false, edata.errors?)
+        end
+
+        describe 'with errors' do
+          let(:json_data) { load_sample('error_response.fields.json', parse: true) }
+
+          it 'true if errors' do
+            assert_equal(true, edata.errors?)
+          end
+        end
+      end
+
       describe '#trading_partner_id' do
         it 'gets the partner service id' do
           assert_equal('000050', edata.trading_partner_id)

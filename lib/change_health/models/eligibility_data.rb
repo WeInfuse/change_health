@@ -28,11 +28,15 @@ module ChangeHealth
         return '1' == plan_status(service_code: service_code).dig('statusCode')
       end
 
+      def errors?
+        self.errors.is_a?(Array) && false == self.errors.empty?
+      end
+
       def dependents?
         true == self.dependents&.any?
       end
 
-      %w(planStatus benefitsInformation controlNumber planDateInformation dependents).each do |v|
+      %w(planStatus benefitsInformation controlNumber planDateInformation dependents errors).each do |v|
         define_method(v) do
           @raw.dig(v)
         end
