@@ -19,6 +19,8 @@ module ChangeHealth
 
       VISIT         = '27'
       YEAR          = '23'
+      YTD           = '24'
+      DAY           =  '7'
       REMAINING     = '29'
 
       CODES = {
