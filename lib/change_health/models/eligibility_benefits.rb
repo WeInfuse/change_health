@@ -34,33 +34,48 @@ module ChangeHealth
       end
 
       %w(family individual employee child employee_and_child).each do |method|
-        alias_method method, "#{method}s"
+        define_method(method) do
+          self.send("#{method}s")
+        end
 
         %w(copayment coinsurance).each do |type_mod|
           method_name = "#{method}_#{type_mod}"
-          alias_name  = method_name.gsub('copayment', 'copay')
 
           define_method(method_name) do |**kwargs|
             self.send(method).send("#{type_mod}s").where(kwargs).first
           end
 
-          alias_method alias_name, method_name if alias_name != method_name
+          if ('copayment' == type_mod)
+            define_method(method_name.gsub('copayment', 'copay')) do |**kwargs|
+              self.send(method_name, kwargs)
+            end
+          end
         end
 
         %w(deductible out_of_pocket).each do |type_mod|
           %w(year remaining).each do |time_mod|
             method_name = "#{method}_#{type_mod}_#{time_mod}"
-            alias_name  = method_name.gsub('out_of_pocket', 'oop')
 
             define_method(method_name) do |**kwargs|
               self.send(method).send("#{type_mod}s").send("#{time_mod}s").where(kwargs).first || self.send(method).send("#{type_mod}s").where(kwargs).first
             end
 
-            alias_method alias_name, method_name if alias_name != method_name
+            if ('out_of_pocket' == type_mod)
+              define_method(method_name.gsub('out_of_pocket', 'oop')) do |**kwargs|
+                self.send(method_name, kwargs)
+              end
 
-            if method_name.include?('year')
-              alias_method method_name.gsub('year', 'total'), method_name
-              alias_method alias_name.gsub('year', 'total'), method_name
+              if ('year' == time_mod)
+                define_method(method_name.gsub('out_of_pocket', 'oop').gsub('year', 'total')) do |**kwargs|
+                  self.send(method_name, kwargs)
+                end
+              end
+            end
+
+            if ('year' == time_mod)
+              define_method(method_name.gsub('year', 'total')) do |**kwargs|
+                self.send(method_name, kwargs)
+              end
             end
           end
         end
