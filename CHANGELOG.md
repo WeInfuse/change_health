@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.14.0] - [2020-05-07]
+### Added
+- Extensions - mixins for common overrides
+
 ## [0.13.0] - [2020-05-05]
 ### Changed
 - Removed `alias_method` for `where` helpers so you can override a single method
@@ -100,6 +104,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Authentication
 - Configuration
 
+[0.14.0]: https://github.com/WeInfuse/change_health/compare/v0.13.0...v0.14.0
 [0.13.0]: https://github.com/WeInfuse/change_health/compare/v0.12.0...v0.13.0
 [0.12.0]: https://github.com/WeInfuse/change_health/compare/v0.11.0...v0.12.0
 [0.11.0]: https://github.com/WeInfuse/change_health/compare/v0.10.0...v0.11.0
