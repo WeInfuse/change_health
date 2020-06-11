@@ -6,6 +6,12 @@ module ChangeHealth
       end
     end
 
+    module InNetworkMissing
+      def in_network
+        self.where_not(inPlanNetworkIndicatorCode: 'N')
+      end
+    end
+
     module DeductiblesIgnoreSpecialistZero
       def deductibles
         super.where_not(serviceTypeCodes: '98', benefitAmount: '0')

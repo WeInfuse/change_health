@@ -65,7 +65,7 @@ module ChangeHealth
       end
 
       def plan_status(service_code: )
-        self.planStatus&.find {|plan| plan.dig('serviceTypeCodes').include?(service_code) } || {}
+        self.planStatus&.find {|plan| plan.dig('serviceTypeCodes')&.include?(service_code) } || {}
       end
 
       def benefits

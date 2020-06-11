@@ -221,6 +221,40 @@ class EligibilityDataTest < Minitest::Test
           assert(edata.active?)
         end
 
+        describe 'no service codes' do
+          let(:altered_data) {
+            d = load_sample('000050.example.response.json', parse: true);
+            d['planStatus'] = altered_plan_status
+            d
+          }
+          let(:json_data) { altered_data }
+
+          describe 'no other codes' do
+            let(:altered_plan_status) {
+              [
+                {"statusCode" => "1","status" => "Active Coverage","planDetails" => "OTHER"}
+              ]
+            }
+
+            it 'is false' do
+              assert_equal(false, edata.active?)
+            end
+          end
+
+          describe 'other active code' do
+            let(:altered_plan_status) {
+              [
+                {"statusCode" => "1","status" => "Active Coverage","planDetails" => "OTHER"},
+                {"statusCode" => "1","status" => "Active Coverage","planDetails" => "BASIC", "serviceTypeCodes" => [ "30" ]}
+              ]
+            }
+
+            it 'is true' do
+              assert_equal(true, edata.active?)
+            end
+          end
+        end
+
         describe 'false' do
           it 'non zero codes' do
             assert_equal(false, edata_inactive.active?)
