@@ -18,6 +18,7 @@ module ChangeHealth
       EMPLOYEE_AND_SPOUSE = 'ESP'
 
       VISIT         = '27'
+      SERVICE_YEAR  = '22'
       YEAR          = '23'
       YTD           = '24'
       DAY           =  '7'
