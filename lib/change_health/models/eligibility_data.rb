@@ -1,7 +1,54 @@
 module ChangeHealth
   module Models
+    class Error
+      attr_reader :data
+
+      SIMPLE_RETRY_CODES = %w[
+        42
+        80
+      ].freeze
+
+      NO_RESUBMIT_MESSAGES = %w[
+        resubmission not allowed
+        do not resubmit
+      ].freeze
+
+      def initialize(data)
+        @data = data
+      end
+
+      def message
+        field_message || code_message
+      end
+
+      def field_message
+        "#{field}: #{description}" if field?
+      end
+
+      def code_message
+        "#{code}: #{description}" if code?
+      end
+
+      def retryable?
+        code? && SIMPLE_RETRY_CODES.include?(code) && followupAction? && NO_RESUBMIT_MESSAGES.none? {|msg| followupAction.downcase.include?(msg) }
+      end
+
+      %w[field description code followupAction location].each do |method_name|
+        define_method("#{method_name}?") do
+          false == send(method_name).nil?
+        end
+
+        define_method("#{method_name}") do
+          @data[method_name]
+        end
+      end
+    end
+
     class EligibilityData
       attr_reader :response, :raw
+
+      ACTIVE = '1'
+      INACTIVE = '6'
 
       PARSE_DATE = ->(d) {
         begin
@@ -25,18 +72,38 @@ module ChangeHealth
       end
 
       def active?(service_code: '30')
-        return '1' == plan_status(service_code: service_code).dig('statusCode')
+        return ACTIVE == plan_status(service_code: service_code).dig('statusCode')
+      end
+
+      def inactive?(service_code: '30')
+        return INACTIVE == plan_status(service_code: service_code).dig('statusCode')
       end
 
       def errors?
         self.errors.is_a?(Array) && false == self.errors.empty?
       end
 
+      def errors
+        errors = @raw.dig('errors') || []
+
+        errors.flatten.map {|error| ChangeHealth::Models::Error.new(error) }
+      end
+
+      def recommend_retry?
+        return false if errors.empty?
+
+        error_codes = errors.select(&:code?)
+
+        return false if error_codes.empty?
+
+        return error_codes.all?(&:retryable?)
+      end
+
       def dependents?
         true == self.dependents&.any?
       end
 
-      %w(planStatus benefitsInformation controlNumber planDateInformation dependents errors).each do |v|
+      %w(planStatus benefitsInformation controlNumber planDateInformation dependents).each do |v|
         define_method(v) do
           @raw.dig(v)
         end

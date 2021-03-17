@@ -151,7 +151,7 @@ class EligibilityDataTest < Minitest::Test
                   "benefitsDateInformation": {
                     "plan": "20041001"
                   },
-                  "code": "1",
+                  "code": #{ChangeHealth::Models::EligibilityData::ACTIVE},
                   "insuranceType": "Medicare Part A",
                   "insuranceTypeCode": "MA",
                   "name": "Active Coverage",
@@ -232,7 +232,7 @@ class EligibilityDataTest < Minitest::Test
           describe 'no other codes' do
             let(:altered_plan_status) {
               [
-                {"statusCode" => "1","status" => "Active Coverage","planDetails" => "OTHER"}
+                {"statusCode" => ChangeHealth::Models::EligibilityData::ACTIVE,"status" => "Active Coverage","planDetails" => "OTHER"}
               ]
             }
 
@@ -244,8 +244,8 @@ class EligibilityDataTest < Minitest::Test
           describe 'other active code' do
             let(:altered_plan_status) {
               [
-                {"statusCode" => "1","status" => "Active Coverage","planDetails" => "OTHER"},
-                {"statusCode" => "1","status" => "Active Coverage","planDetails" => "BASIC", "serviceTypeCodes" => [ "30" ]}
+                {"statusCode" => ChangeHealth::Models::EligibilityData::ACTIVE,"status" => "Active Coverage","planDetails" => "OTHER"},
+                {"statusCode" => ChangeHealth::Models::EligibilityData::ACTIVE,"status" => "Active Coverage","planDetails" => "BASIC", "serviceTypeCodes" => [ "30" ]}
               ]
             }
 
@@ -270,16 +270,205 @@ class EligibilityDataTest < Minitest::Test
         end
       end
 
-      describe '#errors?' do
-        it 'false if none' do
-          assert_equal(false, edata.errors?)
+      describe '#inactive?' do
+        it 'false if status not 6' do
+          assert_equal(false, edata.inactive?)
         end
 
-        describe 'with errors' do
-          let(:json_data) { load_sample('error_response.fields.json', parse: true) }
+        describe 'no service codes' do
+          let(:altered_data) {
+            d = load_sample('000050.example.response.json', parse: true);
+            d['planStatus'] = altered_plan_status
+            d
+          }
+          let(:json_data) { altered_data }
 
-          it 'true if errors' do
-            assert_equal(true, edata.errors?)
+          describe 'no other codes' do
+            let(:altered_plan_status) {
+              [
+                {"statusCode" => ChangeHealth::Models::EligibilityData::INACTIVE,"status" => "Active Coverage","planDetails" => "OTHER"}
+              ]
+            }
+
+            it 'is false' do
+              assert_equal(false, edata.inactive?)
+            end
+          end
+
+          describe 'other active code' do
+            let(:altered_plan_status) {
+              [
+                {"statusCode" => ChangeHealth::Models::EligibilityData::INACTIVE,"status" => "Active Coverage","planDetails" => "OTHER"},
+                {"statusCode" => ChangeHealth::Models::EligibilityData::INACTIVE,"status" => "Active Coverage","planDetails" => "BASIC", "serviceTypeCodes" => [ "30" ]}
+              ]
+            }
+
+            it 'is true' do
+              assert_equal(true, edata.inactive?)
+            end
+          end
+        end
+
+        describe 'false' do
+          it 'non zero codes' do
+            assert_equal(true, edata_inactive.inactive?)
+          end
+
+          it 'empty data' do
+            assert_equal(false, edata_empty.inactive?)
+          end
+
+          it 'for non matched code' do
+            assert_equal(false, edata.inactive?(service_code: 'cat'))
+          end
+        end
+      end
+
+      describe 'error handling' do
+        describe '#errors?' do
+          it 'false if none' do
+            assert_equal(false, edata.errors?)
+          end
+
+          it 'is not recommended retry' do
+            assert_equal(false, edata.recommend_retry?)
+          end
+
+          describe 'with errors' do
+            let(:json_data) { load_sample('error_response.fields.json', parse: true) }
+
+            it 'true if errors' do
+              assert_equal(true, edata.errors?)
+            end
+          end
+        end
+
+        describe 'more complicated errors' do
+          let(:field_error0) { {'field' => 'patient.name', 'description' => 'is too short' } }
+          let(:field_error1) { {'field' => 'cat', 'description' => 'has meow' } }
+          let(:code_needs_fix) { {'code' => '71', 'description' => 'Need more time' } }
+          let(:code_retry_80) { {'code' => '80', 'description' => 'Unable to Respond at Current Time', 'followupAction' => 'blah'} }
+          let(:code_noretry_80) { code_retry_80.merge('followupAction' => 'xxDo Not Resubmitmm;') }
+          let(:json_data) { { 'errors' => errors } }
+
+          describe 'retryable?' do
+            let(:error_obj) { ChangeHealth::Models::Error.new(eut) }
+
+            describe 'no code' do
+              let(:eut) { field_error0 }
+
+              it 'is false' do
+                assert_equal(false, error_obj.retryable?)
+              end
+            end
+
+            describe 'not fixable code' do
+              let(:eut) { code_needs_fix }
+
+              it 'is false' do
+                assert_equal(false, error_obj.retryable?)
+              end
+            end
+
+            describe 'fixable code non fixable desc' do
+              let(:eut) { code_noretry_80 }
+
+              it 'is false' do
+                assert_equal(false, error_obj.retryable?)
+              end
+            end
+
+            describe 'fixable code' do
+              let(:eut) { code_retry_80 }
+
+              it 'is true' do
+                assert_equal(true, error_obj.retryable?)
+              end
+            end
+          end
+
+          describe 'multiple errors' do
+            let(:errors) do
+              [
+                [
+                  field_error0
+                ],
+                [
+                  field_error1
+                ]
+              ]
+            end
+
+            it 'errors? is true' do
+              assert_equal(true, edata.errors?)
+            end
+
+            it 'is not recommended retry' do
+              assert_equal(false, edata.recommend_retry?)
+            end
+
+            it 'has errors' do
+              assert_equal(2, edata.errors.size)
+            end
+
+            it 'has messages from fields' do
+              assert_equal("patient.name: is too short", edata.errors[0].message)
+              assert_equal("cat: has meow", edata.errors[1].message)
+            end
+          end
+
+          describe 'error codes' do
+            let(:errors) do
+              [
+                field_error0,
+                code_needs_fix,
+                code_noretry_80
+              ]
+            end
+
+            it 'errors? is true' do
+              assert_equal(true, edata.errors?)
+            end
+
+            it 'is not recommended retry' do
+              assert_equal(false, edata.recommend_retry?)
+            end
+
+            it 'has errors' do
+              assert_equal(3, edata.errors.size)
+            end
+
+            it 'has message' do
+              assert_equal('patient.name: is too short', edata.errors[0].message)
+              assert_equal('71: Need more time', edata.errors[1].message)
+            end
+
+            it 'code?' do
+              assert_equal(false, edata.errors[0].code?)
+              assert_equal(true, edata.errors[1].code?)
+            end
+
+            it 'field?' do
+              assert_equal(true, edata.errors[0].field?)
+              assert_equal(false, edata.errors[1].field?)
+            end
+          end
+
+          describe 'recommended retry' do
+            let(:errors) do
+              [
+                code_retry_80,
+                code_retry_80.merge('code' => '42')
+              ]
+            end
+
+            it 'errors? is true' do
+              assert_equal(true, edata.errors?)
+            end
+
+            it 'is recommended retry' do
+              assert_equal(true, edata.recommend_retry?)
+            end
           end
         end
       end
