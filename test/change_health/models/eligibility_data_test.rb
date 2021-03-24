@@ -125,6 +125,18 @@ class EligibilityDataTest < Minitest::Test
             assert(edata.plan_status(service_code: 'cat').empty?)
           end
         end
+
+        describe 'single flag' do
+          describe 'false' do
+            before do
+              edata.planStatus << edata.planStatus.first.dup
+            end
+
+            it 'returns all matching statuses' do
+              assert_equal(2, edata.plan_status(service_code: '30', single: false).size)
+            end
+          end
+        end
       end
 
       describe '#medicare?' do
@@ -299,6 +311,7 @@ class EligibilityDataTest < Minitest::Test
             let(:altered_plan_status) {
               [
                 {"statusCode" => ChangeHealth::Models::EligibilityData::INACTIVE,"status" => "Active Coverage","planDetails" => "OTHER"},
+                {"statusCode" => ChangeHealth::Models::EligibilityData::ACTIVE,"status" => "Active Coverage","planDetails" => "BASIC", "serviceTypeCodes" => [ "30" ]},
                 {"statusCode" => ChangeHealth::Models::EligibilityData::INACTIVE,"status" => "Active Coverage","planDetails" => "BASIC", "serviceTypeCodes" => [ "30" ]}
               ]
             }
