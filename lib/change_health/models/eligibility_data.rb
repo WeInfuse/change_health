@@ -72,11 +72,11 @@ module ChangeHealth
       end
 
       def active?(service_code: '30')
-        return ACTIVE == plan_status(service_code: service_code).dig('statusCode')
+        plan_status(service_code: service_code, single: false).any? {|status| ACTIVE == status['statusCode'] }
       end
 
       def inactive?(service_code: '30')
-        return INACTIVE == plan_status(service_code: service_code).dig('statusCode')
+        plan_status(service_code: service_code, single: false).any? {|status| INACTIVE == status['statusCode'] }
       end
 
       def errors?
@@ -131,8 +131,12 @@ module ChangeHealth
         ChangeHealth::Models::EligibilityData::PARSE_DATE.call(self.plan_date_range[1])
       end
 
-      def plan_status(service_code: )
-        self.planStatus&.find {|plan| plan.dig('serviceTypeCodes')&.include?(service_code) } || {}
+      def plan_status(service_code: , single: true)
+        if true == single
+          self.planStatus&.find {|plan| plan.dig('serviceTypeCodes')&.include?(service_code) } || {}
+        else
+          self.planStatus&.select {|plan| plan.dig('serviceTypeCodes')&.include?(service_code) } || []
+        end
       end
 
       def benefits
