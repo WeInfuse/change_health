@@ -8,9 +8,9 @@ module ChangeHealth
         80
       ].freeze
 
-      NO_RESUBMIT_MESSAGES = %w[
-        resubmission not allowed
-        do not resubmit
+      NO_RESUBMIT_MESSAGES = [
+        'resubmission not allowed',
+        'do not resubmit'
       ].freeze
 
       def initialize(data)
@@ -90,7 +90,7 @@ module ChangeHealth
       end
 
       def recommend_retry?
-        return false if errors.empty?
+        return false unless errors?
 
         error_codes = errors.select(&:code?)
 

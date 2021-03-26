@@ -360,7 +360,7 @@ class EligibilityDataTest < Minitest::Test
           let(:field_error0) { {'field' => 'patient.name', 'description' => 'is too short' } }
           let(:field_error1) { {'field' => 'cat', 'description' => 'has meow' } }
           let(:code_needs_fix) { {'code' => '71', 'description' => 'Need more time' } }
-          let(:code_retry_80) { {'code' => '80', 'description' => 'Unable to Respond at Current Time', 'followupAction' => 'blah'} }
+          let(:code_retry_80) { {'code' => '80', 'description' => 'Unable to Respond at Current Time', 'followupAction' => 'Resubmission Allowed'} }
           let(:code_noretry_80) { code_retry_80.merge('followupAction' => 'xxDo Not Resubmitmm;') }
           let(:json_data) { { 'errors' => errors } }
 
