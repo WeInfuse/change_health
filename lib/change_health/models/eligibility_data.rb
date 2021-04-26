@@ -13,6 +13,10 @@ module ChangeHealth
         'do not resubmit'
       ].freeze
 
+      DOWN_FIELD = 'Http Header'.freeze
+
+      DOWN_MESSAGE = 'Please review http headers for this API, please contact support if you are unsure how to resolve.'.freeze
+
       def initialize(data)
         @data = data
       end
@@ -29,8 +33,13 @@ module ChangeHealth
         "#{code}: #{description}" if code?
       end
 
+      def represents_down?
+        field == DOWN_FIELD && description == DOWN_MESSAGE
+      end
+
       def retryable?
-        code? && SIMPLE_RETRY_CODES.include?(code) && followupAction? && NO_RESUBMIT_MESSAGES.none? {|msg| followupAction.downcase.include?(msg) }
+        represents_down? ||
+        (code? && SIMPLE_RETRY_CODES.include?(code) && followupAction? && NO_RESUBMIT_MESSAGES.none? {|msg| followupAction.downcase.include?(msg) })
       end
 
       %w[field description code followupAction location].each do |method_name|
@@ -91,6 +100,8 @@ module ChangeHealth
 
       def recommend_retry?
         return false unless errors?
+
+        return true if errors.any?(&:represents_down?)
 
         error_codes = errors.select(&:code?)
 
