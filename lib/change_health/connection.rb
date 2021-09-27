@@ -1,6 +1,6 @@
 module ChangeHealth
   class Connection
-    URI_BUILDER = ->(host) { "https://#{host}apis.changehealthcare.com/".freeze }
+    URI_BUILDER = ->(host) { "https://#{host}apigw.changehealthcare.com/".freeze }
 
     QA_ENDPOINT   = URI_BUILDER.call('sandbox.')
     PROD_ENDPOINT = URI_BUILDER.call('')

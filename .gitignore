@@ -10,3 +10,4 @@
 /spec/reports/
 /tmp/
 /change_health*.gem
+.idea

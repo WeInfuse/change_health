@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+### Added
+#### Models
+* ResponseData - module for responses from calling change healthcare api used by EligibilityData and SubmissionData
+#### Claim Submission
+Added the ability to hit professional claim submission API. For more details, see [Change Healthcare documentation here](https://developers.changehealthcare.com/eligibilityandclaims/docs/professional-claims-v3-getting-started)
+* ClaimInformation
+* Provider
+* ServiceLine
+* Submission
+* SubmissionData
+* Submitter
+* Subscriber
+### Changed
+ * Using new Change Healthcare url. From apis to apigw. For more info see [change log here](https://developers.changehealthcare.com/eligibilityandclaims/docs/change-logrelease-notes-1)
+ * PARSE_DATE moved from ChangeHealth::Models::EligibilityData to ChangeHealth::Models
+ * Moved Error class into its own file
+### Fixed
+ * Eligibility#add_dependent actually works
+
 ## [1.0.3] - [2021-04-26]
 ### Added
 - Model::Error#represents_down? - adds ability to distinguish error representing down state
@@ -132,6 +152,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Authentication
 - Configuration
 
+[Unreleased]: https://github.com/WeInfuse/change_health/compare/v1.0.3...HEAD
 [1.0.3]: https://github.com/WeInfuse/change_health/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/WeInfuse/change_health/compare/v1.0.1...v1.0.2
 [1.0.1]: https://github.com/WeInfuse/change_health/compare/v1.0.0...v1.0.1

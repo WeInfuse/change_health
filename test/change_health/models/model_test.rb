@@ -31,6 +31,25 @@ class ModelTest < Minitest::Test
       end
     end
 
+    describe '#PARSE_DATE' do
+      it 'parses date correctly' do
+        assert_equal(Date.new(2012, 5, 1), ChangeHealth::Models::PARSE_DATE.call("20120501"))
+        assert_equal(Date.new(2015, 1, 1), ChangeHealth::Models::PARSE_DATE.call("20150101"))
+        assert_equal(Date.new(2016, 9, 15), ChangeHealth::Models::PARSE_DATE.call("20160915"))
+      end
+
+      it 'returns input if bad date format' do
+        fake_date_string = "lskjdf"
+        assert_equal(fake_date_string, ChangeHealth::Models::PARSE_DATE.call(fake_date_string))
+      end
+    end
+
+    describe '#CONTROL_NUMBER' do
+      it 'creates reasonable default control number' do
+        assert_equal(9, ChangeHealth::Models::CONTROL_NUMBER.call.size)
+      end
+    end
+
     describe '#to_h' do
       let(:hmodel) { model.to_h }
 

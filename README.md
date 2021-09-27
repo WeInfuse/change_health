@@ -26,6 +26,7 @@ Or install it yourself as:
 Make sure you're [configured](#configuration)!
 
 ### Eligibility
+[Change Healthcare Eligibility Guide](https://developers.changehealthcare.com/eligibilityandclaims/docs)
 ```ruby
 ChangeHealth::Models::Eligibility.ping # Test your connection
 
@@ -38,12 +39,12 @@ edata = ChangeHealth::Models::Eligibility.new(tradingPartnerServiceId: '000050',
 edata.raw # Raw Hash of JSON response
 ```
 
-### Benefit(s) objects
+#### Benefit(s) objects
 Benefits extends Array and provides a query-like interface.
 
 Benefit extends Hash and provides helpers for single-benefit.
 
-```
+```ruby
 edata.benefits # Returns Benefits querying object (extends Array)
 
 edata.benefits.individual # Only benefits matching the 'IND' identifier
@@ -57,7 +58,7 @@ edata.benefits.where(name: 'Co-Payment', code: 'B', benefitAmount: '30) # Generi
 edata.benefits.find_by(name: 'Co-Payment', code: 'B', benefitAmount: '30) # Generic 'find_by' api returns first object found
 ```
 
-### Response
+#### Response
 
 Response is EligibilityData object
 
@@ -77,16 +78,113 @@ true
 
 ### Trading Partners
 ```ruby
-  # Query trading partners using a wildcard search
-  # Returns Array of ChangeHealth::Models::TradingPartner Objects
-  trading_partners = ChangeHealth::Request::TradingPartner.query("Aetna")
+# Query trading partners using a wildcard search
+# Returns Array of ChangeHealth::Models::TradingPartner Objects
+trading_partners = ChangeHealth::Request::TradingPartner.query("Aetna")
 
-  trading_partners.first.name
-  "Aetna"
+trading_partners.first.name
+"Aetna"
 
-  trading_partners.first.service_id
-  "ABC123"
+trading_partners.first.service_id
+"ABC123"
 ```
+
+### Claim Submission
+[Change Healthcare Claim Submission Guide](https://developers.changehealthcare.com/eligibilityandclaims/docs/professional-claims-v3-getting-started)
+```ruby
+contact_information = { name: "SUBMITTER CONTACT INFO", phoneNumber: "123456789"}
+claim_submitter = ChangeHealth::Models::Claim::Submitter.new(
+  organization_name: "REGIONAL PPO NETWORK",
+  contact_information: contact_information
+)
+
+receiver = { organizationName: "EXTRA HEALTHY INSURANCE"}
+address = {
+  "address1": "123 address1",
+  "city": "city1",
+  "state": "wa",
+  "postalCode": "981010000"
+}
+subscriber = ChangeHealth::Models::Claim::Subscriber.new(
+  member_id: "0000000001",
+  payment_responsibility_level_code: "P",
+  first_name: "johnone",
+  last_name: "doetwo",
+  gender: "M",
+  date_of_birth: "02/01/1980",
+  address: address
+)
+provider = ChangeHealth::Models::Claim::Provider.new(
+  address: address,
+ employer_id: "000000000",
+ first_name: "johnone",
+ last_name: "doetwo",
+ npi: "1760854442",
+ provider_type: "BillingProvider"
+)
+
+health_care_code_information1 = {
+  "diagnosisTypeCode": "ABK",
+  "diagnosisCode": "S93401A"
+}
+health_care_code_information2 = {
+  "diagnosisTypeCode": "ABF",
+  "diagnosisCode": "S72044G"
+
+}
+service_line1 = ChangeHealth::Models::Claim::ServiceLine.new(
+  service_date: "2018-05-14",
+  professional_service: {
+    "procedureIdentifier": "HC",
+    "lineItemChargeAmount": "25",
+    "procedureCode": "E0570",
+    "measurementUnit": "UN",
+    "serviceUnitCount": "1",
+    "compositeDiagnosisCodePointers": {
+      "diagnosisCodePointers": ["1","2"]
+    }
+  }
+)
+service_line2 = ChangeHealth::Models::Claim::ServiceLine.new(
+  service_date: "20180514",
+  professional_service: {
+    "procedureIdentifier": "HC",
+    "lineItemChargeAmount": "3.75",
+    "procedureCode": "A7003",
+    "measurementUnit": "UN",
+    "serviceUnitCount": "1",
+    "compositeDiagnosisCodePointers": {
+      "diagnosisCodePointers": ["1"]
+    }
+  }
+)
+claim_information = ChangeHealth::Models::Claim::ClaimInformation.new(
+  benefits_assignment_certification_indicator: "Y",
+  claim_charge_amount: "28.75",
+  claim_filing_code: "CI",
+  claim_frequency_code: "1",
+  patient_control_number: "12345",
+  place_of_service_code: "11",
+  plan_participation_code: "A",
+  release_information_code: "Y",
+  signature_indicator: "Y",
+  health_care_code_information: [health_care_code_information1, health_care_code_information2],
+  service_lines: [service_line1, service_line2]
+)
+
+
+claim_submission = ChangeHealth::Models::Claim::Submission.new(
+  trading_partner_service_id: "9496",
+  submitter: claim_submitter,
+  receiver: receiver,
+  subscriber: subscriber,
+  providers: [provider],
+  claim_information: claim_information
+)
+
+claim_submission_data = claim_submission.submission
+```
+
 ### Configuration
 
 ```ruby
