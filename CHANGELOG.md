@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 #### Models
-* ResponseData - module for responses from calling change healthcare api used by EligibilityData and SubmissionData
+* ResponseData - for responses from calling change healthcare api used by EligibilityData and SubmissionData
 #### Claim Submission
 Added the ability to hit professional claim submission API. For more details, see [Change Healthcare documentation here](https://developers.changehealthcare.com/eligibilityandclaims/docs/professional-claims-v3-getting-started)
 * ClaimInformation

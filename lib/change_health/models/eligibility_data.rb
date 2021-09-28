@@ -1,7 +1,6 @@
 module ChangeHealth
   module Models
-    class EligibilityData
-      include ChangeHealth::Models::ResponseData
+    class EligibilityData < ChangeHealth::Models::ResponseData
 
       ACTIVE = '1'
       INACTIVE = '6'

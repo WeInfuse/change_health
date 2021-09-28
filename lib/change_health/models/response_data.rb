@@ -1,6 +1,6 @@
 module ChangeHealth
   module Models
-    module ResponseData
+    class ResponseData
       attr_reader :response, :raw
 
       def initialize(data: nil, response: nil)
