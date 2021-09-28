@@ -12,6 +12,17 @@ module ChangeHealth
       d
     }
 
+    PARSE_DATE = ->(d) {
+      begin
+        d = Date.strptime(d, ChangeHealth::Models::DATE_FORMAT)
+      rescue
+      end
+
+      d
+    }
+
+    CONTROL_NUMBER = ->() { '%09d' % rand(1_000_000_000) }
+
     class Model < Hashie::Trash
       def to_h
         result = super.to_h

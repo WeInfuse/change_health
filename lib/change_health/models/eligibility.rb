@@ -4,7 +4,7 @@ module ChangeHealth
       ENDPOINT = '/medicalnetwork/eligibility/v3'.freeze
       HEALTH_CHECK_ENDPOINT = ENDPOINT + '/healthcheck'.freeze
 
-      property :controlNumber, from: :control_number, required: true, default: ->() { '%09d' % rand(1_000_000_000) }
+      property :controlNumber, from: :control_number, required: true, default: ChangeHealth::Models::CONTROL_NUMBER
       property :dependents, required: false
       property :encounter, required: false
       property :informationReceiverName, from: :information_receiver_name, required: false
@@ -20,8 +20,8 @@ module ChangeHealth
       alias_method :partner_id?, :partnerId
 
       def add_dependent(dependent)
-        self[:dependent] ||= []
-        self[:dependent] << dependent
+        self[:dependents] ||= []
+        self[:dependents] << dependent
       end
 
       def query

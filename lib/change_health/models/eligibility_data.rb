@@ -1,84 +1,9 @@
 module ChangeHealth
   module Models
-    class Error
-      attr_reader :data
-
-      SIMPLE_RETRY_CODES = %w[
-        42
-        80
-      ].freeze
-
-      NO_RESUBMIT_MESSAGES = [
-        'resubmission not allowed',
-        'do not resubmit'
-      ].freeze
-
-      DOWN_FIELD = 'Http Header'.freeze
-
-      DOWN_MESSAGE = 'Please review http headers for this API, please contact support if you are unsure how to resolve.'.freeze
-
-      def initialize(data)
-        @data = data
-      end
-
-      def message
-        field_message || code_message
-      end
-
-      def field_message
-        "#{field}: #{description}" if field?
-      end
-
-      def code_message
-        "#{code}: #{description}" if code?
-      end
-
-      def represents_down?
-        field == DOWN_FIELD && description == DOWN_MESSAGE
-      end
-
-      def retryable?
-        represents_down? ||
-        (code? && SIMPLE_RETRY_CODES.include?(code) && followupAction? && NO_RESUBMIT_MESSAGES.none? {|msg| followupAction.downcase.include?(msg) })
-      end
-
-      %w[field description code followupAction location].each do |method_name|
-        define_method("#{method_name}?") do
-          false == send(method_name).nil?
-        end
-
-        define_method("#{method_name}") do
-          @data[method_name]
-        end
-      end
-    end
-
-    class EligibilityData
-      attr_reader :response, :raw
+    class EligibilityData < ChangeHealth::Models::ResponseData
 
       ACTIVE = '1'
       INACTIVE = '6'
-
-      PARSE_DATE = ->(d) {
-        begin
-          d = Date.strptime(d, ChangeHealth::Models::DATE_FORMAT)
-        rescue
-        end
-
-        d
-      }
-
-      def initialize(data: nil, response: nil)
-        @response = response
-        @raw      = data
-
-        begin
-          @raw ||= response&.parsed_response
-        rescue JSON::ParserError
-        end
-
-        @raw ||= {}
-      end
 
       def active?(service_code: '30')
         plan_status(service_code: service_code, single: false).any? {|status| ACTIVE == status['statusCode'] }
@@ -86,28 +11,6 @@ module ChangeHealth
 
       def inactive?(service_code: '30')
         plan_status(service_code: service_code, single: false).any? {|status| INACTIVE == status['statusCode'] }
-      end
-
-      def errors?
-        self.errors.is_a?(Array) && false == self.errors.empty?
-      end
-
-      def errors
-        errors = @raw.dig('errors') || []
-
-        errors.flatten.map {|error| ChangeHealth::Models::Error.new(error) }
-      end
-
-      def recommend_retry?
-        return false unless errors?
-
-        return true if errors.any?(&:represents_down?)
-
-        error_codes = errors.select(&:code?)
-
-        return false if error_codes.empty?
-
-        return error_codes.all?(&:retryable?)
       end
 
       def dependents?
@@ -135,11 +38,11 @@ module ChangeHealth
       end
 
       def plan_date_range_start
-        ChangeHealth::Models::EligibilityData::PARSE_DATE.call(self.plan_date_range[0])
+        ChangeHealth::Models::PARSE_DATE.call(self.plan_date_range[0])
       end
 
       def plan_date_range_end
-        ChangeHealth::Models::EligibilityData::PARSE_DATE.call(self.plan_date_range[1])
+        ChangeHealth::Models::PARSE_DATE.call(self.plan_date_range[1])
       end
 
       def plan_status(service_code: , single: true)

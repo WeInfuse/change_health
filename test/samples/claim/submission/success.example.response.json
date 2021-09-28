@@ -1,0 +1,28 @@
+{
+  "status": "SUCCESS",
+  "controlNumber": "000000001",
+  "tradingPartnerId": "RANDOM_ID",
+  "tradingPartnerServiceId": "9496",
+  "claimReference": {
+    "correlationId": "210923R999898~3782586289184514",
+    "submitterId": "009998999898",
+    "customerClaimNumber": "a4d4c7b5-79c5-bc60-249f-99af393d8dbe",
+    "patientControlNumber": "12345",
+    "timeOfResponse": "2021-09-23T17:15:06.649-05:00",
+    "claimType": "PRO",
+    "formatVersion": "5010",
+    "rhclaimNumber": "2126651512492"
+  },
+  "meta": {
+    "submitterId": "999898",
+    "senderId": "MN_WeInfuse_App",
+    "billerId": "009998",
+    "traceId": "a4d4c7b5-79c5-bc60-249f-99af393d8dbe",
+    "applicationMode": "sandbox"
+  },
+  "editStatus": "SUCCESS",
+  "payer": {
+    "payerName": "EXTRA HEALTHY INSURANCE",
+    "payerID": "9496"
+  }
+}

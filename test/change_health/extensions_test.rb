@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ExtensionsTest < Minitest::Test
-  class TestExtensions < ChangeHealth::Models::EligibilityBenefits 
+  class TestExtensions < ChangeHealth::Models::EligibilityBenefits
     include ChangeHealth::Extensions::InNetworkW
     include ChangeHealth::Extensions::IndividualsAllNonFamily
   end
@@ -33,7 +33,7 @@ class ExtensionsTest < Minitest::Test
     end
 
     describe 'InvididualsAllNoneFamily' do
-      it 'affects the in_network' do
+      it 'affects the individuals' do
         assert_equal(2, benefits.individuals.size)
         assert_equal(benefits_default.individuals.size + 1, benefits.individuals.size)
       end

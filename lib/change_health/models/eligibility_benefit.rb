@@ -54,7 +54,7 @@ module ChangeHealth
         coverageLevelCode: COVERAGES,
         code: CODES
       }
-        
+
       HELPERS.each do |key, types|
         types.each do |method, value|
           define_method("#{method}?") do
@@ -99,13 +99,13 @@ module ChangeHealth
         self.coinsurance? ? self.benefitPercent : self.benefitAmount
       end
 
-      def services 
+      def services
         self['serviceTypeCodes']&.each_with_index&.map {|stc, i| [stc, self['serviceTypes']&.at(i)]} || []
       end
 
       %w(eligibilityBegin eligibilityEnd planBegin planEnd service).each do |f|
         define_method(f) do
-          return ChangeHealth::Models::EligibilityData::PARSE_DATE.call(self.date_info&.dig(f))
+          return ChangeHealth::Models::PARSE_DATE.call(self.date_info&.dig(f))
         end
       end
       alias_method :eligibility_begin_date, :eligibilityBegin
@@ -120,11 +120,11 @@ module ChangeHealth
       end
 
       def plan_date_range_start
-        ChangeHealth::Models::EligibilityData::PARSE_DATE.call(self.plan_date_range[0])
+        ChangeHealth::Models::PARSE_DATE.call(self.plan_date_range[0])
       end
 
       def plan_date_range_end
-        ChangeHealth::Models::EligibilityData::PARSE_DATE.call(self.plan_date_range[1])
+        ChangeHealth::Models::PARSE_DATE.call(self.plan_date_range[1])
       end
 
       private

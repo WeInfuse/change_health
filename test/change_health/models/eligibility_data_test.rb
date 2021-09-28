@@ -1,15 +1,6 @@
 require 'test_helper'
 
 class EligibilityDataTest < Minitest::Test
-  class FakeResponse
-    def initialize(response)
-      @response = response
-    end
-
-    def parsed_response
-      @response.call
-    end
-  end
 
   class ChangeHealth::Models::EligibilityBenefitsABC123 < ChangeHealth::Models::EligibilityBenefits
   end
@@ -84,30 +75,6 @@ class EligibilityDataTest < Minitest::Test
               assert_equal('029183-1283123', edata.plan_begin_date)
             end
           end
-        end
-      end
-
-      describe '#initialize' do
-        it 'can take data' do
-          assert(false == edata.nil?)
-        end
-
-        it 'can take a response' do
-          ed = ChangeHealth::Models::EligibilityData.new(response: FakeResponse.new(->() { 'hi' }))
-          assert(false == ed.nil?)
-        end
-
-        it 'defaults to empty' do
-          assert(false == edata_empty.nil?)
-        end
-
-        it 'handles bad response gracefully' do
-          ed = ChangeHealth::Models::EligibilityData.new(response: FakeResponse.new(->() { JSON.parse('bad json') }))
-          assert(false == ed.nil?)
-        end
-
-        it 'does not handle other erros gracefully' do
-          assert_raises { ChangeHealth::Models::EligibilityData.new(response: FakeResponse.new(->() { nil.say_hi! })) }
         end
       end
 
@@ -337,206 +304,6 @@ class EligibilityDataTest < Minitest::Test
         end
       end
 
-      describe 'error handling' do
-        describe '#errors?' do
-          it 'false if none' do
-            assert_equal(false, edata.errors?)
-          end
-
-          it 'is not recommended retry' do
-            assert_equal(false, edata.recommend_retry?)
-          end
-
-          describe 'with errors' do
-            let(:json_data) { load_sample('error_response.fields.json', parse: true) }
-
-            it 'true if errors' do
-              assert_equal(true, edata.errors?)
-            end
-          end
-        end
-
-        describe 'more complicated errors' do
-          let(:field_error0) { {'field' => 'patient.name', 'description' => 'is too short' } }
-          let(:field_error1) { {'field' => 'cat', 'description' => 'has meow' } }
-          let(:field_down) { {'field' => 'Http Header', 'description' => 'Please review http headers for this API, please contact support if you are unsure how to resolve.'} }
-          let(:code_needs_fix) { {'code' => '71', 'description' => 'Need more time' } }
-          let(:code_retry_80) { {'code' => '80', 'description' => 'Unable to Respond at Current Time', 'followupAction' => 'Resubmission Allowed'} }
-          let(:code_noretry_80) { code_retry_80.merge('followupAction' => 'xxDo Not Resubmitmm;') }
-          let(:json_data) { { 'errors' => errors } }
-
-          describe 'retryable?' do
-            let(:error_obj) { ChangeHealth::Models::Error.new(eut) }
-
-            describe 'no code' do
-              let(:eut) { field_error0 }
-
-              it 'is false' do
-                assert_equal(false, error_obj.retryable?)
-              end
-            end
-
-            describe 'not fixable code' do
-              let(:eut) { code_needs_fix }
-
-              it 'is false' do
-                assert_equal(false, error_obj.retryable?)
-              end
-            end
-
-            describe 'fixable code non fixable desc' do
-              let(:eut) { code_noretry_80 }
-
-              it 'is false' do
-                assert_equal(false, error_obj.retryable?)
-              end
-            end
-
-            describe 'fixable code' do
-              let(:eut) { code_retry_80 }
-
-              it 'is true' do
-                assert_equal(true, error_obj.retryable?)
-              end
-            end
-
-            describe 'down field' do
-              let(:eut) { field_down }
-
-              it 'is true' do
-                assert_equal(true, error_obj.retryable?)
-              end
-            end
-          end
-
-          describe 'multiple errors' do
-            let(:errors) do
-              [
-                [
-                  field_error0
-                ],
-                [
-                  field_error1
-                ]
-              ]
-            end
-
-            it 'errors? is true' do
-              assert_equal(true, edata.errors?)
-            end
-
-            it 'is not recommended retry' do
-              assert_equal(false, edata.recommend_retry?)
-            end
-
-            it 'has errors' do
-              assert_equal(2, edata.errors.size)
-            end
-
-            it 'has messages from fields' do
-              assert_equal("patient.name: is too short", edata.errors[0].message)
-              assert_equal("cat: has meow", edata.errors[1].message)
-            end
-          end
-
-          describe 'error codes' do
-            let(:errors) do
-              [
-                field_error0,
-                code_needs_fix,
-                code_noretry_80
-              ]
-            end
-
-            it 'errors? is true' do
-              assert_equal(true, edata.errors?)
-            end
-
-            it 'is not recommended retry' do
-              assert_equal(false, edata.recommend_retry?)
-            end
-
-            it 'has errors' do
-              assert_equal(3, edata.errors.size)
-            end
-
-            it 'has message' do
-              assert_equal('patient.name: is too short', edata.errors[0].message)
-              assert_equal('71: Need more time', edata.errors[1].message)
-            end
-
-            it 'code?' do
-              assert_equal(false, edata.errors[0].code?)
-              assert_equal(true, edata.errors[1].code?)
-            end
-
-            it 'field?' do
-              assert_equal(true, edata.errors[0].field?)
-              assert_equal(false, edata.errors[1].field?)
-            end
-          end
-
-          describe 'recommended retry' do
-            describe 'when down' do
-              let(:errors) { [field_down] }
-
-              it 'errors? is true' do
-                assert_equal(true, edata.errors?)
-              end
-
-              it 'is recommended retry' do
-                assert_equal(true, edata.recommend_retry?)
-              end
-            end
-
-            describe 'when errors' do
-              let(:errors) do
-                [
-                  code_retry_80,
-                  code_retry_80.merge('code' => '42')
-                ]
-              end
-
-              it 'errors? is true' do
-                assert_equal(true, edata.errors?)
-              end
-
-              it 'is recommended retry' do
-                assert_equal(true, edata.recommend_retry?)
-              end
-            end
-          end
-
-          describe 'represents_down?' do
-            let(:error_obj) { ChangeHealth::Models::Error.new(eut) }
-
-            describe 'retryable code' do
-              let(:eut) { code_retry_80 }
-
-              it 'is false' do
-                assert_equal(false, error_obj.represents_down?)
-              end
-            end
-
-            describe 'resolvable error' do
-              let(:eut) { field_error0 }
-
-              it 'is false' do
-                assert_equal(false, error_obj.represents_down?)
-              end
-            end
-
-            describe 'down field' do
-              let(:eut) { field_down }
-
-              it 'is true' do
-                assert_equal(true, error_obj.represents_down?)
-              end
-            end
-          end
-        end
-      end
-
       describe '#trading_partner_id' do
         it 'gets the partner service id' do
           assert_equal('000050', edata.trading_partner_id)
@@ -544,7 +311,7 @@ class EligibilityDataTest < Minitest::Test
       end
 
       describe '#trading_partner?' do
-        it 'returns whether trading_partner matche trading_partner_id' do
+        it 'returns whether trading_partner matches trading_partner_id' do
           assert_equal(true, edata.trading_partner?('000050'))
           assert_equal(false, edata.trading_partner?('cat'))
         end

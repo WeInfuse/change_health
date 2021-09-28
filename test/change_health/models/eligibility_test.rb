@@ -11,9 +11,18 @@ class EligibilityTest < Minitest::Test
 
           assert_equal(eligibility.controlNumber, result['controlNumber'])
         end
+      end
 
-        it 'has reasonable default control number' do
-          assert_equal(9, eligibility.controlNumber.size)
+      describe 'dependents' do
+        it 'defaults to no dependents' do
+          assert_nil(eligibility.dependents)
+        end
+
+        it 'can add a dependent' do
+          dependent = { firstName: 'jane'}
+          eligibility.add_dependent(dependent)
+          assert_equal(1, eligibility.dependents.size)
+          assert_equal(dependent[:firstName], eligibility.dependents.first[:firstName])
         end
       end
     end
