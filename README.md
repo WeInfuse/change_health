@@ -92,6 +92,8 @@ trading_partners.first.service_id
 ### Claim Submission
 [Change Healthcare Claim Submission Guide](https://developers.changehealthcare.com/eligibilityandclaims/docs/professional-claims-v3-getting-started)
 ```ruby
+ChangeHealth::Models::Claim::Submission.ping # Test your connection
+
 contact_information = { name: "SUBMITTER CONTACT INFO", phoneNumber: "123456789"}
 claim_submitter = ChangeHealth::Models::Claim::Submitter.new(
   organization_name: "REGIONAL PPO NETWORK",
