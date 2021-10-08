@@ -4,7 +4,7 @@ class SubmissionDataTest < Minitest::Test
 
   describe 'submission data' do
     let(:json_data) { load_sample('claim/submission/success.example.response.json', parse: true) }
-    let(:submission_data) { ChangeHealth::Models::Claim::SubmissionData.new(data: json_data) }
+    let(:submission_data) { ChangeHealth::Response::Claim::SubmissionData.new(data: json_data) }
 
     describe 'object' do
 

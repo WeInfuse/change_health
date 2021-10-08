@@ -1,5 +1,5 @@
 module ChangeHealth
-  module Models
+  module Request
     class Eligibility < Hashie::Trash
       ENDPOINT = '/medicalnetwork/eligibility/v3'.freeze
       HEALTH_CHECK_ENDPOINT = ENDPOINT + '/healthcheck'.freeze
@@ -25,7 +25,7 @@ module ChangeHealth
       end
 
       def query
-        ChangeHealth::Models::EligibilityData.new(response: ChangeHealth::Connection.new.request(endpoint: ENDPOINT, body: self.to_h))
+        ChangeHealth::Response::EligibilityData.new(response: ChangeHealth::Connection.new.request(endpoint: ENDPOINT, body: self.to_h))
       end
 
       def self.health_check

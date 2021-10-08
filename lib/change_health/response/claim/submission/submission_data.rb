@@ -1,7 +1,7 @@
 module ChangeHealth
-  module Models
+  module Response
     module Claim
-      class SubmissionData < ChangeHealth::Models::ResponseData
+      class SubmissionData < ChangeHealth::Response::ResponseData
 
         %w(controlNumber status tradingPartnerId tradingPartnerServiceId).each do |v|
           define_method(v) do

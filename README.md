@@ -28,13 +28,13 @@ Make sure you're [configured](#configuration)!
 ### Eligibility
 [Change Healthcare Eligibility Guide](https://developers.changehealthcare.com/eligibilityandclaims/docs)
 ```ruby
-ChangeHealth::Models::Eligibility.ping # Test your connection
+ChangeHealth::Request::Eligibility.ping # Test your connection
 
-encounter  = ChangeHealth::Models::Encounter.new(date_of_service: Date.current, service_type_codes: ['98'])
-provider   = ChangeHealth::Models::Provider.new(npi: '0123456789', last_name: 'Bobson', first_name: 'Bob')
-subscriber = ChangeHealth::Models::Subscriber.new(member_id: '0000000000', first_name: 'johnOne', last_name: 'doeOne', date_of_birth: '18800102')
+encounter  = ChangeHealth::Models::Eligibility::Encounter.new(date_of_service: Date.current, service_type_codes: ['98'])
+provider   = ChangeHealth::Models::Eligibility::Provider.new(npi: '0123456789', last_name: 'Bobson', first_name: 'Bob')
+subscriber = ChangeHealth::Models::Eligibility::Subscriber.new(member_id: '0000000000', first_name: 'johnOne', last_name: 'doeOne', date_of_birth: '18800102')
 
-edata = ChangeHealth::Models::Eligibility.new(tradingPartnerServiceId: '000050', provider: provider, subscriber: subscriber, encounter: encounter).query
+edata = ChangeHealth::Request::Eligibility.new(tradingPartnerServiceId: '000050', provider: provider, subscriber: subscriber, encounter: encounter).query
 
 edata.raw # Raw Hash of JSON response
 ```
@@ -92,7 +92,7 @@ trading_partners.first.service_id
 ### Claim Submission
 [Change Healthcare Claim Submission Guide](https://developers.changehealthcare.com/eligibilityandclaims/docs/professional-claims-v3-getting-started)
 ```ruby
-ChangeHealth::Models::Claim::Submission.ping # Test your connection
+ChangeHealth::Request::Claim::Submission.ping # Test your connection
 
 contact_information = { name: "SUBMITTER CONTACT INFO", phoneNumber: "123456789"}
 claim_submitter = ChangeHealth::Models::Claim::Submitter.new(
@@ -175,7 +175,7 @@ claim_information = ChangeHealth::Models::Claim::ClaimInformation.new(
 )
 
 
-claim_submission = ChangeHealth::Models::Claim::Submission.new(
+claim_submission = ChangeHealth::Request::Claim::Submission.new(
   trading_partner_service_id: "9496",
   submitter: claim_submitter,
   receiver: receiver,

@@ -1,8 +1,8 @@
 module ChangeHealth
-  module Models
+  module Response
     class EligibilityBenefits < Array
       def initialize(benefits)
-        super(benefits.map {|benefit| ChangeHealth::Models::EligibilityBenefit.new(benefit) })
+        super(benefits.map {|benefit| ChangeHealth::Response::EligibilityBenefit.new(benefit) })
       end
 
       def where(**kwargs)
@@ -25,7 +25,7 @@ module ChangeHealth
         self.where(inPlanNetworkIndicatorCode: 'Y')
       end
 
-      ChangeHealth::Models::EligibilityBenefit::HELPERS.each do |key, types|
+      ChangeHealth::Response::EligibilityBenefit::HELPERS.each do |key, types|
         types.each do |method, value|
           define_method("#{method}s") do
             self.where(key => value)

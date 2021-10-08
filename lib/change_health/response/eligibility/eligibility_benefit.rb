@@ -1,5 +1,5 @@
 module ChangeHealth
-  module Models
+  module Response
     class EligibilityBenefit < Hash
       include Hashie::Extensions::MergeInitializer
       include Hashie::Extensions::IndifferentAccess

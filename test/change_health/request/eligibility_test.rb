@@ -2,7 +2,7 @@ require 'test_helper'
 
 class EligibilityTest < Minitest::Test
   describe 'eligibility' do
-    let(:eligibility) { ChangeHealth::Models::Eligibility.new }
+    let(:eligibility) { ChangeHealth::Request::Eligibility.new }
 
     describe 'object' do
       describe 'serializes' do
@@ -30,7 +30,7 @@ class EligibilityTest < Minitest::Test
     describe 'api' do
       describe '#health_check' do
         let(:response) { build_response(file: 'health_check.response.json') }
-        let(:ep) { ChangeHealth::Models::Eligibility::HEALTH_CHECK_ENDPOINT }
+        let(:ep) { ChangeHealth::Request::Eligibility::HEALTH_CHECK_ENDPOINT }
 
         it 'calls health check' do
           stub_change_health(endpoint: ep, response: response, verb: :get)
@@ -43,7 +43,7 @@ class EligibilityTest < Minitest::Test
 
       describe '#query' do
         let(:response) { build_response(file: '000050.example.response.json') }
-        let(:ep) { ChangeHealth::Models::Eligibility::ENDPOINT }
+        let(:ep) { ChangeHealth::Request::Eligibility::ENDPOINT }
 
         before do
           stub_change_health(endpoint: ep, response: response)

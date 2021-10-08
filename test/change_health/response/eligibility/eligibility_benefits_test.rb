@@ -3,9 +3,9 @@ require 'test_helper'
 class EligibilityBenefitsTest < Minitest::Test
   describe 'eligibility data' do
     let(:json_data) { load_sample('000050.example.response.json', parse: true) }
-    let(:edata) { ChangeHealth::Models::EligibilityData.new(data: json_data) }
+    let(:edata) { ChangeHealth::Response::EligibilityData.new(data: json_data) }
     let(:benefits) { edata.benefits }
-    let(:medicare) { 
+    let(:medicare) {
       b = benefits.last.dup
       b['insuranceTypeCode'] = 'MA'
       b.delete('coverageLevel')
@@ -19,7 +19,7 @@ class EligibilityBenefitsTest < Minitest::Test
       describe '#where' do
         it 'filters results' do
           assert_equal(3, benefits.where(serviceTypeCodes: '30', coverageLevelCode: 'IND').size)
-          assert_equal(1, benefits.where(serviceTypeCodes: '30', coverageLevelCode: 'IND', timeQualifierCode: ChangeHealth::Models::EligibilityBenefit::REMAINING).size)
+          assert_equal(1, benefits.where(serviceTypeCodes: '30', coverageLevelCode: 'IND', timeQualifierCode: ChangeHealth::Response::EligibilityBenefit::REMAINING).size)
         end
 
         describe 'benefit key is an array' do
@@ -46,7 +46,7 @@ class EligibilityBenefitsTest < Minitest::Test
       describe '#where_not' do
         it 'filters results' do
           assert_equal(benefits.size - 3, benefits.where_not(serviceTypeCodes: '30', coverageLevelCode: 'IND').size)
-          assert_equal(benefits.size - 1, benefits.where_not(serviceTypeCodes: '30', coverageLevelCode: 'IND', timeQualifierCode: ChangeHealth::Models::EligibilityBenefit::REMAINING).size)
+          assert_equal(benefits.size - 1, benefits.where_not(serviceTypeCodes: '30', coverageLevelCode: 'IND', timeQualifierCode: ChangeHealth::Response::EligibilityBenefit::REMAINING).size)
         end
       end
 
@@ -60,7 +60,7 @@ class EligibilityBenefitsTest < Minitest::Test
         it 'finds one' do
           assert(benefits.find_by(serviceTypeCodes: '30').is_a?(Hash))
           assert(benefits.find_by(serviceTypeCodes: '30', coverageLevelCode: 'IND').is_a?(Hash))
-          assert(benefits.find_by(serviceTypeCodes: '30', coverageLevelCode: 'IND', timeQualifierCode: ChangeHealth::Models::EligibilityBenefit::REMAINING).is_a?(Hash))
+          assert(benefits.find_by(serviceTypeCodes: '30', coverageLevelCode: 'IND', timeQualifierCode: ChangeHealth::Response::EligibilityBenefit::REMAINING).is_a?(Hash))
         end
       end
 
@@ -161,45 +161,45 @@ class EligibilityBenefitsTest < Minitest::Test
       describe 'filtering helpers' do
         describe '#visits' do
           it 'filters by time visit' do
-            assert_equal(benefits.where(timeQualifierCode: ChangeHealth::Models::EligibilityBenefit::VISIT), benefits.visits)
+            assert_equal(benefits.where(timeQualifierCode: ChangeHealth::Response::EligibilityBenefit::VISIT), benefits.visits)
           end
         end
 
         describe '#years' do
           it 'filters by time year' do
-            assert_equal(benefits.where(timeQualifierCode: ChangeHealth::Models::EligibilityBenefit::YEAR), benefits.years)
+            assert_equal(benefits.where(timeQualifierCode: ChangeHealth::Response::EligibilityBenefit::YEAR), benefits.years)
           end
         end
 
         describe '#remainings' do
           it 'filters by time remaining' do
-            assert_equal(benefits.where(timeQualifierCode: ChangeHealth::Models::EligibilityBenefit::REMAINING), benefits.remainings)
+            assert_equal(benefits.where(timeQualifierCode: ChangeHealth::Response::EligibilityBenefit::REMAINING), benefits.remainings)
           end
         end
 
         describe '#out_of_pockets' do
           it 'filters by time out_of_pocket' do
-            assert_equal(benefits.where(code: ChangeHealth::Models::EligibilityBenefit::OUT_OF_POCKET), benefits.out_of_pockets)
-            assert_equal(benefits.where(code: ChangeHealth::Models::EligibilityBenefit::OUT_OF_POCKET), benefits.oops)
+            assert_equal(benefits.where(code: ChangeHealth::Response::EligibilityBenefit::OUT_OF_POCKET), benefits.out_of_pockets)
+            assert_equal(benefits.where(code: ChangeHealth::Response::EligibilityBenefit::OUT_OF_POCKET), benefits.oops)
           end
         end
 
         describe '#copayments' do
           it 'filters by time copayments' do
-            assert_equal(benefits.where(code: ChangeHealth::Models::EligibilityBenefit::COPAYMENT), benefits.copayments)
-            assert_equal(benefits.where(code: ChangeHealth::Models::EligibilityBenefit::COPAYMENT), benefits.copays)
+            assert_equal(benefits.where(code: ChangeHealth::Response::EligibilityBenefit::COPAYMENT), benefits.copayments)
+            assert_equal(benefits.where(code: ChangeHealth::Response::EligibilityBenefit::COPAYMENT), benefits.copays)
           end
         end
 
         describe '#deductibles' do
           it 'filters by time deductibles' do
-            assert_equal(benefits.where(code: ChangeHealth::Models::EligibilityBenefit::DEDUCTIBLE), benefits.deductibles)
+            assert_equal(benefits.where(code: ChangeHealth::Response::EligibilityBenefit::DEDUCTIBLE), benefits.deductibles)
           end
         end
 
         describe '#coinsurances' do
           it 'filters by time coinsurances' do
-            assert_equal(benefits.where(code: ChangeHealth::Models::EligibilityBenefit::COINSURANCE), benefits.coinsurances)
+            assert_equal(benefits.where(code: ChangeHealth::Response::EligibilityBenefit::COINSURANCE), benefits.coinsurances)
           end
         end
       end

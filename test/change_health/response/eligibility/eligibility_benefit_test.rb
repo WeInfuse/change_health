@@ -3,10 +3,10 @@ require 'test_helper'
 class EligibilityBenefitTest < Minitest::Test
   describe 'eligibility data' do
     let(:json_data) { load_sample('000050.example.response.json', parse: true) }
-    let(:edata) { ChangeHealth::Models::EligibilityData.new(data: json_data) }
+    let(:edata) { ChangeHealth::Response::EligibilityData.new(data: json_data) }
     let(:benefits) { edata.benefits }
     let(:benefit) { benefits.first }
-    let(:klazz) { ChangeHealth::Models::EligibilityBenefit }
+    let(:klazz) { ChangeHealth::Response::EligibilityBenefit }
 
     describe 'benefit' do
       describe '#individual?' do
