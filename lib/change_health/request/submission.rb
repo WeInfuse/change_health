@@ -1,5 +1,5 @@
 module ChangeHealth
-  module Models
+  module Request
     module Claim
       class Submission < Hashie::Trash
         ENDPOINT = '/medicalnetwork/professionalclaims/v3'.freeze
@@ -22,7 +22,7 @@ module ChangeHealth
         end
 
         def submission
-          ChangeHealth::Models::Claim::SubmissionData.new(response: ChangeHealth::Connection.new.request(endpoint: SUBMISSION_ENDPOINT, body: self.to_h))
+          ChangeHealth::Response::Claim::SubmissionData.new(response: ChangeHealth::Connection.new.request(endpoint: SUBMISSION_ENDPOINT, body: self.to_h))
         end
 
         def self.health_check

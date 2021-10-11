@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ResponseDataTest < Minitest::Test
 
-  class FakeData < ChangeHealth::Models::ResponseData
+  class FakeData < ChangeHealth::Response::ResponseData
   end
 
   class FakeResponse

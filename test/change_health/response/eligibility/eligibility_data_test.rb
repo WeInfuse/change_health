@@ -2,16 +2,16 @@ require 'test_helper'
 
 class EligibilityDataTest < Minitest::Test
 
-  class ChangeHealth::Models::EligibilityBenefitsABC123 < ChangeHealth::Models::EligibilityBenefits
+  class ChangeHealth::Response::EligibilityBenefitsABC123 < ChangeHealth::Response::EligibilityBenefits
   end
 
-  class ChangeHealth::Models::EligibilityBenefitsCBA987 < ChangeHealth::Models::EligibilityBenefits
-    class ChangeHealth::Models::EligibilityBenefitsCBA987_Plan123 < ChangeHealth::Models::EligibilityBenefits
+  class ChangeHealth::Response::EligibilityBenefitsCBA987 < ChangeHealth::Response::EligibilityBenefits
+    class ChangeHealth::Response::EligibilityBenefitsCBA987_Plan123 < ChangeHealth::Response::EligibilityBenefits
     end
 
     def self.factory(data)
       if data.plan?('Plan123')
-        return ChangeHealth::Models::EligibilityBenefitsCBA987_Plan123
+        return ChangeHealth::Response::EligibilityBenefitsCBA987_Plan123
       else
         return self
       end
@@ -20,9 +20,9 @@ class EligibilityDataTest < Minitest::Test
 
   describe 'eligibility data' do
     let(:json_data) { load_sample('000050.example.response.json', parse: true) }
-    let(:edata) { ChangeHealth::Models::EligibilityData.new(data: json_data) }
-    let(:edata_empty) { ChangeHealth::Models::EligibilityData.new }
-    let(:edata_inactive) { ChangeHealth::Models::EligibilityData.new(data: load_sample('000041.example.response.json', parse: true)) }
+    let(:edata) { ChangeHealth::Response::EligibilityData.new(data: json_data) }
+    let(:edata_empty) { ChangeHealth::Response::EligibilityData.new }
+    let(:edata_inactive) { ChangeHealth::Response::EligibilityData.new(data: load_sample('000041.example.response.json', parse: true)) }
 
     describe 'object' do
       describe '#control_number' do
@@ -69,7 +69,7 @@ class EligibilityDataTest < Minitest::Test
           end
 
           describe 'with junky dates' do
-            let(:edata) { ChangeHealth::Models::EligibilityData.new(data: { 'planDateInformation' => { 'planBegin' => '029183-1283123' } }) }
+            let(:edata) { ChangeHealth::Response::EligibilityData.new(data: { 'planDateInformation' => { 'planBegin' => '029183-1283123' } }) }
 
             it 'leaves it alone' do
               assert_equal('029183-1283123', edata.plan_begin_date)
@@ -114,7 +114,7 @@ class EligibilityDataTest < Minitest::Test
         end
 
         describe 'benefits are empty' do
-          let(:edata) { ChangeHealth::Models::EligibilityData.new }
+          let(:edata) { ChangeHealth::Response::EligibilityData.new }
 
           it 'is false' do
             assert_equal(false, edata.medicare?)
@@ -130,7 +130,7 @@ class EligibilityDataTest < Minitest::Test
                   "benefitsDateInformation": {
                     "plan": "20041001"
                   },
-                  "code": #{ChangeHealth::Models::EligibilityData::ACTIVE},
+                  "code": #{ChangeHealth::Response::EligibilityData::ACTIVE},
                   "insuranceType": "Medicare Part A",
                   "insuranceTypeCode": "MA",
                   "name": "Active Coverage",
@@ -156,7 +156,7 @@ class EligibilityDataTest < Minitest::Test
       describe '#benefits' do
         it 'returns all benefits mapped to subclass' do
           assert_equal(edata.benefits_information.size, edata.benefits.size)
-          assert_equal(ChangeHealth::Models::EligibilityBenefits, edata.benefits.class)
+          assert_equal(ChangeHealth::Response::EligibilityBenefits, edata.benefits.class)
         end
 
         describe 'specific class exists for trading partner service id' do
@@ -166,7 +166,7 @@ class EligibilityDataTest < Minitest::Test
 
           it 'instantiates that class' do
             assert_equal(edata.benefits_information.size, edata.benefits.size)
-            assert_equal(ChangeHealth::Models::EligibilityBenefitsABC123, edata.benefits.class)
+            assert_equal(ChangeHealth::Response::EligibilityBenefitsABC123, edata.benefits.class)
           end
 
           describe 'responds to #factory' do
@@ -174,7 +174,7 @@ class EligibilityDataTest < Minitest::Test
 
             it 'instantiates the returned class' do
               assert_equal(edata.benefits_information.size, edata.benefits.size)
-              assert_equal(ChangeHealth::Models::EligibilityBenefitsCBA987, edata.benefits.class)
+              assert_equal(ChangeHealth::Response::EligibilityBenefitsCBA987, edata.benefits.class)
             end
 
             describe 'can use data object to select' do
@@ -182,7 +182,7 @@ class EligibilityDataTest < Minitest::Test
 
               it 'instantiates the returned class' do
                 assert_equal(edata.benefits_information.size, edata.benefits.size)
-                assert_equal(ChangeHealth::Models::EligibilityBenefitsCBA987_Plan123, edata.benefits.class)
+                assert_equal(ChangeHealth::Response::EligibilityBenefitsCBA987_Plan123, edata.benefits.class)
               end
             end
           end
@@ -211,7 +211,7 @@ class EligibilityDataTest < Minitest::Test
           describe 'no other codes' do
             let(:altered_plan_status) {
               [
-                {"statusCode" => ChangeHealth::Models::EligibilityData::ACTIVE,"status" => "Active Coverage","planDetails" => "OTHER"}
+                {"statusCode" => ChangeHealth::Response::EligibilityData::ACTIVE,"status" => "Active Coverage","planDetails" => "OTHER"}
               ]
             }
 
@@ -223,8 +223,8 @@ class EligibilityDataTest < Minitest::Test
           describe 'other active code' do
             let(:altered_plan_status) {
               [
-                {"statusCode" => ChangeHealth::Models::EligibilityData::ACTIVE,"status" => "Active Coverage","planDetails" => "OTHER"},
-                {"statusCode" => ChangeHealth::Models::EligibilityData::ACTIVE,"status" => "Active Coverage","planDetails" => "BASIC", "serviceTypeCodes" => [ "30" ]}
+                {"statusCode" => ChangeHealth::Response::EligibilityData::ACTIVE,"status" => "Active Coverage","planDetails" => "OTHER"},
+                {"statusCode" => ChangeHealth::Response::EligibilityData::ACTIVE,"status" => "Active Coverage","planDetails" => "BASIC", "serviceTypeCodes" => [ "30" ]}
               ]
             }
 
@@ -265,7 +265,7 @@ class EligibilityDataTest < Minitest::Test
           describe 'no other codes' do
             let(:altered_plan_status) {
               [
-                {"statusCode" => ChangeHealth::Models::EligibilityData::INACTIVE,"status" => "Active Coverage","planDetails" => "OTHER"}
+                {"statusCode" => ChangeHealth::Response::EligibilityData::INACTIVE,"status" => "Active Coverage","planDetails" => "OTHER"}
               ]
             }
 
@@ -277,9 +277,9 @@ class EligibilityDataTest < Minitest::Test
           describe 'other active code' do
             let(:altered_plan_status) {
               [
-                {"statusCode" => ChangeHealth::Models::EligibilityData::INACTIVE,"status" => "Active Coverage","planDetails" => "OTHER"},
-                {"statusCode" => ChangeHealth::Models::EligibilityData::ACTIVE,"status" => "Active Coverage","planDetails" => "BASIC", "serviceTypeCodes" => [ "30" ]},
-                {"statusCode" => ChangeHealth::Models::EligibilityData::INACTIVE,"status" => "Active Coverage","planDetails" => "BASIC", "serviceTypeCodes" => [ "30" ]}
+                {"statusCode" => ChangeHealth::Response::EligibilityData::INACTIVE,"status" => "Active Coverage","planDetails" => "OTHER"},
+                {"statusCode" => ChangeHealth::Response::EligibilityData::ACTIVE,"status" => "Active Coverage","planDetails" => "BASIC", "serviceTypeCodes" => [ "30" ]},
+                {"statusCode" => ChangeHealth::Response::EligibilityData::INACTIVE,"status" => "Active Coverage","planDetails" => "BASIC", "serviceTypeCodes" => [ "30" ]}
               ]
             }
 

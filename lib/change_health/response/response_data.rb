@@ -1,5 +1,5 @@
 module ChangeHealth
-  module Models
+  module Response
     class ResponseData
       attr_reader :response, :raw
 

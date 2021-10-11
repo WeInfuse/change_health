@@ -85,7 +85,7 @@
         "currentStatus": "Active",
         "clearingHouse": "legacyExchange"
       }, {
-        "serviceName": "medicalEligibility",
+        "serviceName": "notMedicalEligibility",
         "serviceConnections": {
           "direct": {
             "serviceId": "ABCDEF"

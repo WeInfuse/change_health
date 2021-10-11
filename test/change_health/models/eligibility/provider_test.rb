@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ProviderTest < Minitest::Test
   describe 'provider' do
-    let(:provider) { ChangeHealth::Models::Provider.new(npi: 'cat') }
+    let(:provider) { ChangeHealth::Models::Eligibility::Provider.new(npi: 'cat') }
 
     describe 'object' do
       describe 'serializes' do

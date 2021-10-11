@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [2.0.0] - [2021-10-08]
 ### Added
 #### Models
 * ResponseData - for responses from calling change healthcare api used by EligibilityData and SubmissionData
@@ -21,6 +21,17 @@ Added the ability to hit professional claim submission API. For more details, se
  * Using new Change Healthcare url. From apis to apigw. For more info see [change log here](https://developers.changehealthcare.com/eligibilityandclaims/docs/change-logrelease-notes-1)
  * PARSE_DATE moved from ChangeHealth::Models::EligibilityData to ChangeHealth::Models
  * Moved Error class into its own file
+#### Namespace
+ Many classes moved namespaces to be more consistent across the many endpoints in Change Healthcare
+| Previous | Current |
+|-|-|
+|ChangeHealth::Models::Eligibility | ChangeHealth::Request::Eligibility |
+| ChangeHealth::Models::Encounter | ChangeHealth::Models::Eligibility::Encounter|
+| ChangeHealth::Models::Provider | ChangeHealth::Models::Eligibility::Provider|
+| ChangeHealth::Models::Subscriber | ChangeHealth::Models::Eligibility::Subscriber|
+| ChangeHealth::Models::EligibilityBenefit | ChangeHealth::Response::EligibilityBenefit|
+| ChangeHealth::Models::EligibilityBenefits | ChangeHealth::Response::EligibilityBenefits|
+| ChangeHealth::Models::EligibilityData | ChangeHealth::Response::EligibilityData|
 ### Fixed
  * Eligibility#add_dependent actually works
 

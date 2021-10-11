@@ -1,6 +1,6 @@
 module ChangeHealth
-  module Models
-    class EligibilityData < ChangeHealth::Models::ResponseData
+  module Response
+    class EligibilityData < ChangeHealth::Response::ResponseData
 
       ACTIVE = '1'
       INACTIVE = '6'
@@ -25,7 +25,7 @@ module ChangeHealth
 
       %w(eligibilityBegin planBegin service).each do |f|
         define_method(f) do
-          return PARSE_DATE.call(self.date_info&.dig(f))
+          return ChangeHealth::Models::PARSE_DATE.call(self.date_info&.dig(f))
         end
       end
       alias_method :eligibility_begin_date, :eligibilityBegin
@@ -54,9 +54,9 @@ module ChangeHealth
       end
 
       def benefits
-        kname   = "ChangeHealth::Models::EligibilityBenefits#{self.trading_partner_id&.upcase}"
+        kname   = "ChangeHealth::Response::EligibilityBenefits#{self.trading_partner_id&.upcase}"
         klazz   = Object.const_get(kname) if Module.const_defined?(kname)
-        klazz ||= ChangeHealth::Models::EligibilityBenefits
+        klazz ||= ChangeHealth::Response::EligibilityBenefits
 
         if klazz.respond_to?(:factory)
           klazz = klazz.factory(self)

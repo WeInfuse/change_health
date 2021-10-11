@@ -3,7 +3,7 @@ require 'test_helper'
 class SubscriberTest < Minitest::Test
   describe 'subscriber' do
     let(:d) { Date.today }
-    let(:subscriber) { ChangeHealth::Models::Subscriber.new(date_of_birth: d, member_id: '123') }
+    let(:subscriber) { ChangeHealth::Models::Eligibility::Subscriber.new(date_of_birth: d, member_id: '123') }
     let(:parsed) { JSON.parse(subscriber.to_json) }
 
     describe 'object' do

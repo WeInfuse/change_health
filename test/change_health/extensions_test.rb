@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class ExtensionsTest < Minitest::Test
-  class TestExtensions < ChangeHealth::Models::EligibilityBenefits
+  class TestExtensions < ChangeHealth::Response::EligibilityBenefits
     include ChangeHealth::Extensions::InNetworkW
     include ChangeHealth::Extensions::IndividualsAllNonFamily
   end
@@ -22,7 +22,7 @@ class ExtensionsTest < Minitest::Test
         }
       ]
     }
-    let(:benefits_default) { ChangeHealth::Models::EligibilityBenefits.new(json_data) }
+    let(:benefits_default) { ChangeHealth::Response::EligibilityBenefits.new(json_data) }
     let(:benefits) { TestExtensions.new(json_data) }
 
     describe 'InNetworkW' do
