@@ -8,6 +8,7 @@ class ModelTest < Minitest::Test
     property :booleanWithDateInName, default: true
     property :daate, default: '2020-06-30'
     property :daateObject, default: Date.new(2020, 7, 30)
+    property :emptyValue, default: ''
   end
 
   describe 'model' do
@@ -66,6 +67,10 @@ class ModelTest < Minitest::Test
       it 'leave other properties completely alone' do
         assert_equal('2020-06-30', hmodel[:daate])
         assert_equal(Date.new(2020, 7, 30), hmodel[:daateObject])
+      end
+
+      it 'translates any property with an empty value to nil' do
+        assert_nil(hmodel[:emptyValue], "Model should change values of \"\" to nil")
       end
     end
 

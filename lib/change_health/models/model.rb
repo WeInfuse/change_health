@@ -27,10 +27,11 @@ module ChangeHealth
       def to_h
         result = super.to_h
 
-        self.class.properties.each do |key|
+        self.each_pair do |key, value|
           if key.to_s.downcase.include?('date')
             result[key] = ChangeHealth::Models::DATE_FORMATTER.call(result[key])
           end
+          result[key] = nil if value == ""
         end
 
         result

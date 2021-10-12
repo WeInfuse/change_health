@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - [2021-10-12]
+### Changed
+Model#to_h enhanced to change empty values AKA "" to nil. Reason: If a field is empty, Change Healthcare responds with an error - `Invalid value. Item must not be blank value.`. If the empty field is optional, Change Healthcare will accept the field as nil without error. If the empty field is required, Change Healthcare will return an error if the value is empty or nil.
+
 ## [2.0.0] - [2021-10-08]
 ### Added
 #### Models
@@ -145,7 +149,7 @@ Added the ability to hit professional claim submission API. For more details, se
 ### Added
 - Production endpoint
 
-## [0.2.0] - [2020-03-09]
+## [0.0.2] - [2020-03-09]
 ### Added
 - EligibilityData
 - EligibilityBenefit
@@ -154,7 +158,7 @@ Added the ability to hit professional claim submission API. For more details, se
 ### Changed
 - Eligibility.query returns EligibilityData object
 
-## [0.1.0] - 2020-03-04
+## [0.0.1] - 2020-03-04
 ### Added
 - Provider
 - Subscriber
@@ -163,6 +167,7 @@ Added the ability to hit professional claim submission API. For more details, se
 - Authentication
 - Configuration
 
+[2.1.0]: https://github.com/WeInfuse/change_health/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/WeInfuse/change_health/compare/v1.0.3...v2.0.0
 [1.0.3]: https://github.com/WeInfuse/change_health/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/WeInfuse/change_health/compare/v1.0.1...v1.0.2
@@ -180,6 +185,6 @@ Added the ability to hit professional claim submission API. For more details, se
 [0.6.0]: https://github.com/WeInfuse/change_health/compare/v0.5.0...v0.6.0
 [0.5.0]: https://github.com/WeInfuse/change_health/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/WeInfuse/change_health/compare/v0.3.0...v0.4.0
-[0.3.0]: https://github.com/WeInfuse/change_health/compare/v0.2.0...v0.3.0
-[0.2.0]: https://github.com/WeInfuse/change_health/compare/v0.1.0...v0.2.0
-[0.1.0]: https://github.com/WeInfuse/change_health/compare/v0.1.0
+[0.3.0]: https://github.com/WeInfuse/change_health/compare/v0.0.2...v0.3.0
+[0.0.2]: https://github.com/WeInfuse/change_health/compare/v0.0.1...v0.0.2
+[0.0.1]: https://github.com/WeInfuse/change_health/compare/520a8c54d07...v0.0.1
