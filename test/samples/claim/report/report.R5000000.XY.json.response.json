@@ -1,0 +1,284 @@
+{
+    "transactions": [
+        {
+            "controlNumber": "000000001",
+            "paymentAndRemitReassociationDetails": {
+                "traceTypeCode": "1",
+                "checkOrEFTTraceNumber": "895322770",
+                "originatingCompanyIdentifier": "1351840597"
+            },
+            "productionDate": "20200422",
+            "receiverIdentifier": "99992",
+            "financialInformation": {
+                "transactionHandlingCode": "I",
+                "totalActualProviderPaymentAmount": "2563.13",
+                "creditOrDebitFlagCode": "C",
+                "paymentMethodCode": "ACH",
+                "paymentFormatCode": "CCP",
+                "payerIdentifier": "1351840597",
+                "checkIssueOrEFTEffectiveDate": "20200423",
+                "senderAccountDetails": {
+                    "senderDfiIdNumberQualifier": "01",
+                    "senderDFIIdentifier": "042000013",
+                    "senderAccountNumberQualifier": "DA",
+                    "senderAccountNumber": "152302017834"
+                },
+                "receiverAccountDetails": {
+                    "receiverDfiIdNumberQualifier": "01",
+                    "receiverDfiIdentificationNumber": "071921891",
+                    "receiverAccountNumberQualifier": "DA",
+                    "receiverAccountNumber": "4638544662"
+                }
+            },
+            "payer": {
+                "name": "NATIONAL GOVERNMENT SERVICES, INC.",
+                "payerIdentificationNumber": "06102",
+                "address": {
+                    "address1": "PO BOX 6475",
+                    "city": "INDIANAPOLIS",
+                    "state": "IN",
+                    "postalCode": "462066475"
+                },
+                "businessContactInformation": {
+                    "contactName": "NATIONAL GOVERNMENT SERVICES, INC.",
+                    "contactMethods": [
+                        {
+                            "phone": "8779089499"
+                        }
+                    ]
+                },
+                "technicalContactInformation": [
+                    {
+                        "contactName": "NATIONAL GOVERNMENT SERVICES, INC.",
+                        "contactMethods": [
+                            {
+                                "phone": "8772734334"
+                            },
+                            {
+                                "url": "WWW.NGSMEDICARE.COM"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "payee": {
+                "name": "ADVANED DENTAL AND IMPLANT C",
+                "npi": "1578001830",
+                "address": {
+                    "address1": "2310 HUNTINGTON DR N",
+                    "city": "ALGONQUIN",
+                    "state": "IL",
+                    "postalCode": "601024420"
+                },
+                "federalTaxPayersIdentificationNumber": "270424820"
+            },
+            "detailInfo": [
+                {
+                    "assignedNumber": "1",
+                    "paymentInfo": [
+                        {
+                            "claimReceivedDate": "20200327",
+                            "claimPaymentInfo": {
+                                "patientControlNumber": "00309",
+                                "claimStatusCode": "19",
+                                "totalClaimChargeAmount": "9006",
+                                "claimPaymentAmount": "2563.13",
+                                "patientResponsibilityAmount": "711.4",
+                                "claimFilingIndicatorCode": "MB",
+                                "payerClaimControlNumber": "0220087697150",
+                                "facilityTypeCode": "11",
+                                "claimFrequencyCode": "1"
+                            },
+                            "patientName": {
+                                "lastName": "DOE",
+                                "firstName": "JANE",
+                                "memberId": "7SL5RA7XR19"
+                            },
+                            "renderingProvider": {
+                                "npi": "1234567893"
+                            },
+                            "crossoverCarrier": {
+                                "organizationName": "HUMANA, INC.",
+                                "payorId": "00268"
+                            },
+                            "outpatientAdjudication": {
+                                "claimPaymentRemarkCode1": "MA01",
+                                "claimPaymentRemarkCode2": "MA15",
+                                "claimPaymentRemarkCode3": "MA18"
+                            },
+                            "serviceLines": [
+                                {
+                                    "serviceDate": "20200101",
+                                    "servicePaymentInformation": {
+                                        "productOrServiceIDQualifier": "HC",
+                                        "productOrServiceIDQualifierValue": "Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes",
+                                        "adjudicatedProcedureCode": "21210",
+                                        "adjudicatedProcedureModifierCodes": [
+                                            "79"
+                                        ],
+                                        "lineItemChargeAmount": "3600",
+                                        "lineItemProviderPaymentAmount": "1455.51",
+                                        "unitsOfServicePaidCount": "1",
+                                        "submittedProductOrServiceIDQualifier": "HC",
+                                        "submittedProductOrServiceIDQualifierValue": "Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes",
+                                        "submittedAdjudicatedProcedureCode": "21210",
+                                        "submittedAdjudicatedProcedureModifierCodes": [
+                                            "79",
+                                            "51"
+                                        ]
+                                    },
+                                    "serviceAdjustments": [
+                                        {
+                                            "claimAdjustmentGroupCode": "CO",
+                                            "claimAdjustmentGroupCodeValue": "Contractual Obligations",
+                                            "adjustmentReasonCode1": "45",
+                                            "adjustmentAmount1": "1685.95",
+                                            "adjustmentReasonCode2": "253",
+                                            "adjustmentAmount2": "29.7"
+                                        },
+                                        {
+                                            "claimAdjustmentGroupCode": "PR",
+                                            "claimAdjustmentGroupCodeValue": "Patient Responsibility",
+                                            "adjustmentReasonCode1": "1",
+                                            "adjustmentAmount1": "57.54",
+                                            "adjustmentReasonCode2": "2",
+                                            "adjustmentAmount2": "371.3"
+                                        }
+                                    ],
+                                    "serviceIdentification": {
+                                        "locationNumber": "11"
+                                    },
+                                    "serviceSupplementalAmounts": {
+                                        "allowedActual": "1914.05"
+                                    }
+                                },
+                                {
+                                    "serviceDate": "20200101",
+                                    "servicePaymentInformation": {
+                                        "productOrServiceIDQualifier": "HC",
+                                        "productOrServiceIDQualifierValue": "Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes",
+                                        "adjudicatedProcedureCode": "21026",
+                                        "adjudicatedProcedureModifierCodes": [
+                                            "79",
+                                            "51"
+                                        ],
+                                        "lineItemChargeAmount": "1890",
+                                        "lineItemProviderPaymentAmount": "217.29",
+                                        "unitsOfServicePaidCount": "1"
+                                    },
+                                    "serviceAdjustments": [
+                                        {
+                                            "claimAdjustmentGroupCode": "CO",
+                                            "claimAdjustmentGroupCodeValue": "Contractual Obligations",
+                                            "adjustmentReasonCode1": "45",
+                                            "adjustmentAmount1": "1335.71",
+                                            "adjustmentReasonCode2": "253",
+                                            "adjustmentAmount2": "4.43",
+                                            "adjustmentReasonCode3": "59",
+                                            "adjustmentAmount3": "277.14"
+                                        },
+                                        {
+                                            "claimAdjustmentGroupCode": "PR",
+                                            "claimAdjustmentGroupCodeValue": "Patient Responsibility",
+                                            "adjustmentReasonCode1": "2",
+                                            "adjustmentAmount1": "55.43"
+                                        }
+                                    ],
+                                    "serviceIdentification": {
+                                        "locationNumber": "11"
+                                    },
+                                    "serviceSupplementalAmounts": {
+                                        "allowedActual": "277.15"
+                                    }
+                                },
+                                {
+                                    "serviceDate": "20200101",
+                                    "servicePaymentInformation": {
+                                        "productOrServiceIDQualifier": "HC",
+                                        "productOrServiceIDQualifierValue": "Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes",
+                                        "adjudicatedProcedureCode": "21208",
+                                        "adjudicatedProcedureModifierCodes": [
+                                            "79",
+                                            "51"
+                                        ],
+                                        "lineItemChargeAmount": "1836",
+                                        "lineItemProviderPaymentAmount": "648.83",
+                                        "unitsOfServicePaidCount": "1"
+                                    },
+                                    "serviceAdjustments": [
+                                        {
+                                            "claimAdjustmentGroupCode": "CO",
+                                            "claimAdjustmentGroupCodeValue": "Contractual Obligations",
+                                            "adjustmentReasonCode1": "45",
+                                            "adjustmentAmount1": "180.82",
+                                            "adjustmentReasonCode2": "253",
+                                            "adjustmentAmount2": "13.24",
+                                            "adjustmentReasonCode3": "59",
+                                            "adjustmentAmount3": "827.59"
+                                        },
+                                        {
+                                            "claimAdjustmentGroupCode": "PR",
+                                            "claimAdjustmentGroupCodeValue": "Patient Responsibility",
+                                            "adjustmentReasonCode1": "2",
+                                            "adjustmentAmount1": "165.52"
+                                        }
+                                    ],
+                                    "serviceIdentification": {
+                                        "locationNumber": "11"
+                                    },
+                                    "serviceSupplementalAmounts": {
+                                        "allowedActual": "827.59"
+                                    }
+                                },
+                                {
+                                    "serviceDate": "20200101",
+                                    "servicePaymentInformation": {
+                                        "productOrServiceIDQualifier": "HC",
+                                        "productOrServiceIDQualifierValue": "Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes",
+                                        "adjudicatedProcedureCode": "30580",
+                                        "adjudicatedProcedureModifierCodes": [
+                                            "79",
+                                            "51"
+                                        ],
+                                        "lineItemChargeAmount": "1680",
+                                        "lineItemProviderPaymentAmount": "241.5",
+                                        "unitsOfServicePaidCount": "1"
+                                    },
+                                    "serviceAdjustments": [
+                                        {
+                                            "claimAdjustmentGroupCode": "CO",
+                                            "claimAdjustmentGroupCodeValue": "Contractual Obligations",
+                                            "adjustmentReasonCode1": "45",
+                                            "adjustmentAmount1": "1063.93",
+                                            "adjustmentReasonCode2": "253",
+                                            "adjustmentAmount2": "4.93",
+                                            "adjustmentReasonCode3": "59",
+                                            "adjustmentAmount3": "308.03"
+                                        },
+                                        {
+                                            "claimAdjustmentGroupCode": "PR",
+                                            "claimAdjustmentGroupCodeValue": "Patient Responsibility",
+                                            "adjustmentReasonCode1": "2",
+                                            "adjustmentAmount1": "61.61"
+                                        }
+                                    ],
+                                    "serviceIdentification": {
+                                        "locationNumber": "11"
+                                    },
+                                    "serviceSupplementalAmounts": {
+                                        "allowedActual": "308.04"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "meta": {
+        "applicationMode": "sandbox",
+        "senderId": "MN_WeInfuse_App",
+        "traceId": "1419bf63-2ac7-0bdb-b4f9-b1f5c9006fc4"
+    }
+}

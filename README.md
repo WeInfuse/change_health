@@ -83,10 +83,10 @@ true
 trading_partners = ChangeHealth::Request::TradingPartner.query("Aetna")
 
 trading_partners.first.name
-"Aetna"
+# "Aetna"
 
 trading_partners.first.service_id
-"ABC123"
+# "ABC123"
 ```
 
 ### Claim Submission
@@ -185,6 +185,29 @@ claim_submission = ChangeHealth::Request::Claim::Submission.new(
 )
 
 claim_submission_data = claim_submission.submission
+```
+
+### Claim Reports
+[Change Healthcare Claim Responses and Reports Guide](https://developers.changehealthcare.com/eligibilityandclaims/docs/claims-responses-and-reports-getting-started)
+```ruby
+ChangeHealth::Request::Claim::Report.ping # Test your connection
+
+report_list = ChangeHealth::Request::Claim::Report.report_list
+
+report_list.report_names
+# ["X3000000.XX", "R5000000.XY", "R5000000.XX", "X3000000.AB", "X3000000.AC", "X3000000.ZZ", "R5000000.XZ", "R5000000.YZ", "R5000000.WA", "R5000000.WB", "R5000000.WC"]
+
+report1_edi = ChangeHealth::Request::Claim::Report.get_report(report_list.report_names.first, as_json_report: false)
+# Report in edi format
+
+report1_json = ChangeHealth::Request::Claim::Report.get_report(report_list.report_names.first, as_json_report: true)
+# Report in json format
+
+reports_json = report_list.report_names.map {|report_name| ChangeHealth::Request::Claim::Report.get_report(report_name)}
+# all reports in json format
+
+reports_edi = report_list.report_names.map {|report_name| ChangeHealth::Request::Claim::Report.get_report(report_name, as_json_report: false)}
+# all reports in edi format
 ```
 
 ### Configuration

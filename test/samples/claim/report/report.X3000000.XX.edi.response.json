@@ -1,0 +1,8 @@
+{
+    "report_content": "ISA*00*          *00*          *ZZ*MCKESSON_TSH   *ZZ*208459         *200107*2319*^*00501*000000001*1*P*:~GS*HN*9496*eeuser1*20200107*231952*314159265*X*005010X212~ST*277*000000001*005010X212~BHT*0010*08*000000001*20200107*231952*DG~HL*1**20*1~NM1*PR*2*EXTRA HEALTHY INSURANCE*****PI*9496~HL*2*1*21*1~NM1*41*2*TestProvider*****46*0123456789~HL*3*2*19*1~NM1*1P*2*happy doctors group*****XX*1760854442~HL*4*3*22*1~NM1*IL*1*doeone*johnone****MI*123456789~HL*5*4*23*0~NM1*QC*1*doeone*janeone~TRN*2*ABCD~STC*E1:689:ZZ*20200107~SE*15*000000001~GE*1*314159265~IEA*1*000000001~",
+    "meta": {
+        "applicationMode": "sandbox",
+        "senderId": "MN_WeInfuse_App",
+        "traceId": "55459dff-ec11-1217-b07a-0c5f246a43e0"
+    }
+}

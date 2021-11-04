@@ -1,0 +1,20 @@
+{
+  "reports": [
+      "X3000000.XX",
+      "R5000000.XY",
+      "R5000000.XX",
+      "X3000000.AB",
+      "X3000000.AC",
+      "X3000000.ZZ",
+      "R5000000.XZ",
+      "R5000000.YZ",
+      "R5000000.WA",
+      "R5000000.WB",
+      "R5000000.WC"
+  ],
+  "meta": {
+      "applicationMode": "sandbox",
+      "senderId": "MN_WeInfuse_App",
+      "traceId": "71d728bb-acff-193f-7d32-0b345bed5a57"
+  }
+}
