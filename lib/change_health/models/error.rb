@@ -1,4 +1,5 @@
 module ChangeHealth
+  # TODO: This should be the response module/folder... next major release
   module Models
     class Error
       attr_reader :data

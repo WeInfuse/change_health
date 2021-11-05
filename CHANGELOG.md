@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [2.2.0] - [2021-11-04-21]
+### Added
+Ability to hit [Claim Responses and Reports](https://developers.changehealthcare.com/eligibilityandclaims/docs/claims-responses-and-reports-getting-started)
+* Report
+* ReportListData
+* ReportData
+
 ## [2.1.0] - [2021-10-12]
 ### Changed
 Model#to_h enhanced to change empty values AKA "" to nil. Reason: If a field is empty, Change Healthcare responds with an error - `Invalid value. Item must not be blank value.`. If the empty field is optional, Change Healthcare will accept the field as nil without error. If the empty field is required, Change Healthcare will return an error if the value is empty or nil.
@@ -167,6 +174,7 @@ Added the ability to hit professional claim submission API. For more details, se
 - Authentication
 - Configuration
 
+[2.2.0]: https://github.com/WeInfuse/change_health/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/WeInfuse/change_health/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/WeInfuse/change_health/compare/v1.0.3...v2.0.0
 [1.0.3]: https://github.com/WeInfuse/change_health/compare/v1.0.2...v1.0.3

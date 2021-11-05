@@ -44,20 +44,20 @@ class SubmissionTest < Minitest::Test
 
       describe '#submission mock' do
         let(:response) { build_response(file: 'claim/submission/success.example.response.json') }
-        let(:health_check_endpoint) { ChangeHealth::Request::Claim::Submission::SUBMISSION_ENDPOINT }
+        let(:submission_endpoint) { ChangeHealth::Request::Claim::Submission::SUBMISSION_ENDPOINT }
 
         before do
-          stub_change_health(endpoint: health_check_endpoint, response: response)
+          stub_change_health(endpoint: submission_endpoint, response: response)
 
-          @edata = claim_submission.submission
+          @submission_data = claim_submission.submission
         end
 
-        it 'calls health check' do
+        it 'calls submission' do
           assert_requested(@stub)
         end
 
         it 'returns claim_submission data' do
-          assert_equal(@edata.raw, @edata.response.parsed_response)
+          assert_equal(@submission_data.raw, @submission_data.response.parsed_response)
         end
       end
     end

@@ -1,0 +1,72 @@
+{
+  "transactions": [
+      {
+          "controlNumber": "000000001",
+          "referenceIdentification": "000000001",
+          "transactionSetCreationDate": "20200107",
+          "transactionSetCreationTime": "231952",
+          "payers": [
+              {
+                  "organizationName": "EXTRA HEALTHY INSURANCE",
+                  "payerIdentification": "9496",
+                  "claimStatusTransactions": [
+                      {
+                          "provider": {
+                              "organizationName": "TestProvider",
+                              "etin": "0123456789"
+                          },
+                          "claimStatusDetails": [
+                              {
+                                  "serviceProvider": {
+                                      "organizationName": "happy doctors group",
+                                      "npi": "1760854442"
+                                  },
+                                  "patientClaimStatusDetails": [
+                                      {
+                                          "subscriber": {
+                                              "lastName": "doeone",
+                                              "firstName": "johnone",
+                                              "memberId": "123456789"
+                                          },
+                                          "dependent": {
+                                              "lastName": "doeone",
+                                              "firstName": "janeone"
+                                          },
+                                          "claims": [
+                                              {
+                                                  "claimStatus": {
+                                                      "referencedTransactionTraceNumber": "ABCD",
+                                                      "informationClaimStatuses": [
+                                                          {
+                                                              "statusInformationEffectiveDate": "20200107",
+                                                              "informationStatuses": [
+                                                                  {
+                                                                      "healthCareClaimStatusCategoryCode": "E1",
+                                                                      "healthCareClaimStatusCategoryCodeValue": "Response not possible - System Status",
+                                                                      "statusCode": "689",
+                                                                      "statusCodeValue": "Entity was unable to respond within the expected time frame. Usage: This code requires use of an Entity Code.",
+                                                                      "entityIdentifierCode": "ZZ",
+                                                                      "entityIdentifierCodeValue": "Mutually Defined"
+                                                                  }
+                                                              ]
+                                                          }
+                                                      ]
+                                                  }
+                                              }
+                                          ]
+                                      }
+                                  ]
+                              }
+                          ]
+                      }
+                  ]
+              }
+          ]
+      }
+  ],
+  "meta": {
+      "applicationMode": "sandbox",
+      "senderId": "MN_WeInfuse_App",
+      "traceId": "67dc1827-8ecd-ea1e-81c0-c3bc57ab3208"
+  }
+}
