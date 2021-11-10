@@ -22,15 +22,31 @@ module ChangeHealth
         end
 
         def submission
-          ChangeHealth::Response::Claim::SubmissionData.new(response: ChangeHealth::Connection.new.request(endpoint: SUBMISSION_ENDPOINT, body: self.to_h))
+          ChangeHealth::Response::Claim::SubmissionData.new(response: ChangeHealth::Connection.new.request(endpoint: SUBMISSION_ENDPOINT, body: self.to_h, headers: professional_headers))
         end
 
         def self.health_check
-          ChangeHealth::Connection.new.request(endpoint: HEALTH_CHECK_ENDPOINT, verb: :get)
+          ChangeHealth::Connection.new.request(endpoint: HEALTH_CHECK_ENDPOINT, verb: :get, headers: professional_headers)
         end
 
         def self.ping
           self.health_check
+        end
+
+        private
+
+        def access_header
+      return {
+        'Authorization' => "Bearer #{self.access_token}",
+      }
+    end
+
+        def professional_headers
+          extra_headers = {}
+          extra_headers["X-CHC-ClaimSubmission-SubmitterId"] = 'Tim'
+          extra_headers["X-CHC-ClaimSubmission-BillerId"] = 'Peanut'
+          extra_headers["X-CHC-ClaimSubmission-Username"] = 'Bob'
+          extra_headers["X-CHC-ClaimSubmission-Pwd"] = 'Whattup'
         end
       end
     end

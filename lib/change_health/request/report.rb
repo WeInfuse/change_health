@@ -27,12 +27,20 @@ module ChangeHealth
         end
 
         def self.health_check
-          ChangeHealth::Connection.new.request(endpoint: HEALTH_CHECK_ENDPOINT, verb: :get)
+          ChangeHealth::Connection.new.request(endpoint: HEALTH_CHECK_ENDPOINT, verb: :get, headers: report_headers)
         end
 
         def self.ping
           self.health_check
         end
+
+        private
+
+          def report_headers
+            extra_headers = {}
+            extra_headers["X-CHC-ClaimSubmission-Username"] = 'Bob'
+            extra_headers["X-CHC-ClaimSubmission-Pwd"] = 'Whattup'
+          end
       end
     end
   end
