@@ -5,11 +5,11 @@ module ChangeHealth
         ENDPOINT = '/medicalnetwork/reports/v2'.freeze
         HEALTH_CHECK_ENDPOINT = ENDPOINT + '/healthcheck'.freeze
 
-        def self.report_list
-          ChangeHealth::Response::Claim::ReportListData.new(response: ChangeHealth::Connection.new.request(endpoint: ENDPOINT, verb: :get))
+        def self.report_list(headers: nil)
+          ChangeHealth::Response::Claim::ReportListData.new(response: ChangeHealth::Connection.new.request(endpoint: ENDPOINT, verb: :get, headers: report_headers(headers)))
         end
 
-        def self.get_report(report_name, as_json_report: true)
+        def self.get_report(report_name, as_json_report: true, headers: nil)
           return if report_name.nil? || report_name.empty?
 
           individual_report_endpoint = ENDPOINT + '/' + report_name
@@ -23,11 +23,11 @@ module ChangeHealth
 
           ChangeHealth::Response::Claim::ReportData.new(report_name,
                                                         as_json_report,
-                                                        response: ChangeHealth::Connection.new.request(endpoint: individual_report_endpoint, verb: :get))
+                                                        response: ChangeHealth::Connection.new.request(endpoint: individual_report_endpoint, verb: :get, headers: report_headers(headers)))
         end
 
         def self.health_check
-          ChangeHealth::Connection.new.request(endpoint: HEALTH_CHECK_ENDPOINT, verb: :get, headers: report_headers)
+          ChangeHealth::Connection.new.request(endpoint: HEALTH_CHECK_ENDPOINT, verb: :get, headers: report_headers(headers))
         end
 
         def self.ping
@@ -36,10 +36,11 @@ module ChangeHealth
 
         private
 
-          def report_headers
+          def report_headers(headers)
             extra_headers = {}
-            extra_headers["X-CHC-ClaimSubmission-Username"] = 'Bob'
-            extra_headers["X-CHC-ClaimSubmission-Pwd"] = 'Whattup'
+            extra_headers["X-CHC-ClaimSubmission-Username"] = headers[:username]
+            extra_headers["X-CHC-ClaimSubmission-Pwd"] = headers[:password]
+            extra_headers
           end
       end
     end
