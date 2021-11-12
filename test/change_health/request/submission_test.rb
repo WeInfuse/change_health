@@ -50,6 +50,25 @@ class SubmissionTest < Minitest::Test
         end
       end
 
+      describe '#validation mock' do
+        let(:response) { build_response(file: 'validation.response.json') }
+        let(:validation_endpoint) { ChangeHealth::Request::Claim::Submission::VALIDATION_ENDPOINT }
+
+        before do
+          stub_change_health(endpoint: validation_endpoint, response: response)
+
+          @validation_data = claim_submission.validation
+        end
+
+        it 'calls submission' do
+          assert_requested(@stub)
+        end
+
+        it 'returns claim_validation data' do
+          assert_equal(@validation_data.raw, @validation_data.response.parsed_response)
+        end
+      end
+
       describe '#submission mock' do
         let(:response) { build_response(file: 'claim/submission/success.example.response.json') }
         let(:submission_endpoint) { ChangeHealth::Request::Claim::Submission::SUBMISSION_ENDPOINT }

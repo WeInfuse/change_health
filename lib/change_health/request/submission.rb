@@ -29,7 +29,7 @@ module ChangeHealth
         end
 
         def validation
-          ChangeHealth::Response::Claim::SubmissionData.new(response: ChangeHealth::Connection.new.request(endpoint: VALIDATION_ENDPOINT, body: body.to_h, headers: professional_headers))
+          ChangeHealth::Response::Claim::SubmissionData.new(response: ChangeHealth::Connection.new.request(endpoint: VALIDATION_ENDPOINT, body: self.to_h, headers: professional_headers))
         end
 
         def self.health_check(headers)
