@@ -2,7 +2,15 @@ require 'test_helper'
 
 class SubmissionTest < Minitest::Test
   describe 'claim_submission' do
-    let(:claim_submission) { ChangeHealth::Request::Claim::Submission.new }
+    let(:professional_headers) {
+      {
+        submitter_id: "submittedIdValue",
+        biller_id: "billerIdValue",
+        username: "usernameValue",
+        password: "passwordValue",
+      }
+    }
+    let(:claim_submission) { ChangeHealth::Request::Claim::Submission.new(headers: professional_headers) }
 
     describe 'object' do
       describe 'serializes' do
@@ -36,7 +44,7 @@ class SubmissionTest < Minitest::Test
         it 'calls health check' do
           stub_change_health(endpoint: health_check_endpoint, response: response, verb: :get)
 
-          claim_submission.class.health_check
+          claim_submission.class.health_check(professional_headers)
 
           assert_requested(@stub)
         end

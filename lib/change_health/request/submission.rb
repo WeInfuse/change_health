@@ -2,6 +2,7 @@ module ChangeHealth
   module Request
     module Claim
       class Submission < Hashie::Trash
+        
         ENDPOINT = '/medicalnetwork/professionalclaims/v3'.freeze
         HEALTH_CHECK_ENDPOINT = ENDPOINT + '/healthcheck'.freeze
         SUBMISSION_ENDPOINT = ENDPOINT + '/submission'.freeze
@@ -31,21 +32,14 @@ module ChangeHealth
           ChangeHealth::Response::Claim::SubmissionData.new(response: ChangeHealth::Connection.new.request(endpoint: VALIDATION_ENDPOINT, body: body.to_h, headers: professional_headers))
         end
 
-        def self.health_check
-          ChangeHealth::Connection.new.request(endpoint: HEALTH_CHECK_ENDPOINT, verb: :get, headers: professional_headers)
+        def self.health_check(headers)
+          headers = ChangeHealth::Request::Claim::Submission.new(headers: headers).professional_headers
+          ChangeHealth::Connection.new.request(endpoint: HEALTH_CHECK_ENDPOINT, verb: :get, headers: headers)
         end
 
         def self.ping
           self.health_check
         end
-
-        private
-
-        def access_header
-      return {
-        'Authorization' => "Bearer #{self.access_token}",
-      }
-    end
 
         def professional_headers
           extra_headers = {}
@@ -54,6 +48,14 @@ module ChangeHealth
           extra_headers["X-CHC-ClaimSubmission-Username"] = self[:headers][:username]
           extra_headers["X-CHC-ClaimSubmission-Pwd"] = self[:headers][:password]
           extra_headers
+        end
+
+        private
+
+        def access_header
+          return {
+            'Authorization' => "Bearer #{self.access_token}",
+          }
         end
       end
     end
