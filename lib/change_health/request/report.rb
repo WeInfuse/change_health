@@ -36,8 +36,8 @@ module ChangeHealth
 
         def self.report_headers(headers)
           extra_headers = {}
-          extra_headers["X-CHC-ClaimSubmission-Username"] = headers[:username]
-          extra_headers["X-CHC-ClaimSubmission-Pwd"] = headers[:password]
+          extra_headers["X-CHC-Reports-Username"] = headers[:username]
+          extra_headers["X-CHC-Reports-Password"] = headers[:password]
           extra_headers
         end
       end
