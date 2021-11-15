@@ -32,9 +32,8 @@ module ChangeHealth
           ChangeHealth::Response::Claim::SubmissionData.new(response: ChangeHealth::Connection.new.request(endpoint: VALIDATION_ENDPOINT, body: self.to_h, headers: professional_headers))
         end
 
-        def self.health_check(headers: nil)
-          headers = ChangeHealth::Request::Claim::Submission.new(headers: headers).professional_headers
-          ChangeHealth::Connection.new.request(endpoint: HEALTH_CHECK_ENDPOINT, verb: :get, headers: headers)
+        def self.health_check
+          ChangeHealth::Connection.new.request(endpoint: HEALTH_CHECK_ENDPOINT, verb: :get)
         end
 
         def self.ping
@@ -42,12 +41,16 @@ module ChangeHealth
         end
 
         def professional_headers
-          extra_headers = {}
-          extra_headers["X-CHC-ClaimSubmission-SubmitterId"] = self[:headers][:submitter_id]
-          extra_headers["X-CHC-ClaimSubmission-BillerId"] = self[:headers][:biller_id]
-          extra_headers["X-CHC-ClaimSubmission-Username"] = self[:headers][:username]
-          extra_headers["X-CHC-ClaimSubmission-Pwd"] = self[:headers][:password]
-          extra_headers
+          if self[:headers]
+            extra_headers = {}
+            extra_headers["X-CHC-ClaimSubmission-SubmitterId"] = self[:headers][:submitter_id]
+            extra_headers["X-CHC-ClaimSubmission-BillerId"] = self[:headers][:biller_id]
+            extra_headers["X-CHC-ClaimSubmission-Username"] = self[:headers][:username]
+            extra_headers["X-CHC-ClaimSubmission-Pwd"] = self[:headers][:password]
+            extra_headers
+          else
+            nil
+          end
         end
       end
     end

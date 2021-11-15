@@ -6,11 +6,13 @@ module ChangeHealth
         HEALTH_CHECK_ENDPOINT = ENDPOINT + '/healthcheck'.freeze
 
         def self.report_list(headers: nil)
-          ChangeHealth::Response::Claim::ReportListData.new(response: ChangeHealth::Connection.new.request(endpoint: ENDPOINT, verb: :get, headers: self.report_headers(headers)))
+          final_headers =  ChangeHealth::Request::Claim::Report.report_headers(headers)
+          ChangeHealth::Response::Claim::ReportListData.new(response: ChangeHealth::Connection.new.request(endpoint: ENDPOINT, verb: :get, headers: final_headers))
         end
 
         def self.get_report(report_name, as_json_report: true, headers: nil)
           return if report_name.nil? || report_name.empty?
+          final_headers =  ChangeHealth::Request::Claim::Report.report_headers(headers)
 
           individual_report_endpoint = ENDPOINT + '/' + report_name
           if as_json_report
@@ -23,7 +25,7 @@ module ChangeHealth
 
           ChangeHealth::Response::Claim::ReportData.new(report_name,
                                                         as_json_report,
-                                                        response: ChangeHealth::Connection.new.request(endpoint: individual_report_endpoint, verb: :get, headers: self.report_headers(headers)))
+                                                        response: ChangeHealth::Connection.new.request(endpoint: individual_report_endpoint, verb: :get, headers: final_headers))
         end
 
         def self.health_check(headers: nil)
@@ -35,10 +37,14 @@ module ChangeHealth
         end
 
         def self.report_headers(headers)
-          extra_headers = {}
-          extra_headers["X-CHC-Reports-Username"] = headers[:username]
-          extra_headers["X-CHC-Reports-Password"] = headers[:password]
-          extra_headers
+          if headers
+            extra_headers = {}
+            extra_headers["X-CHC-Reports-Username"] = headers[:username]
+            extra_headers["X-CHC-Reports-Password"] = headers[:password]
+            extra_headers
+          else
+            nil
+          end
         end
       end
     end
