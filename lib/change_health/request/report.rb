@@ -6,7 +6,7 @@ module ChangeHealth
         HEALTH_CHECK_ENDPOINT = ENDPOINT + '/healthcheck'.freeze
 
         def self.report_list(headers: nil)
-          final_headers =  ChangeHealth::Request::Claim::Report.report_headers(headers)
+          final_headers = ChangeHealth::Request::Claim::Report.report_headers(headers)
           ChangeHealth::Response::Claim::ReportListData.new(response: ChangeHealth::Connection.new.request(endpoint: ENDPOINT, verb: :get, headers: final_headers))
         end
 
@@ -28,8 +28,8 @@ module ChangeHealth
                                                         response: ChangeHealth::Connection.new.request(endpoint: individual_report_endpoint, verb: :get, headers: final_headers))
         end
 
-        def self.health_check(headers: nil)
-          ChangeHealth::Connection.new.request(endpoint: HEALTH_CHECK_ENDPOINT, verb: :get, headers: self.report_headers(headers))
+        def self.health_check
+          ChangeHealth::Connection.new.request(endpoint: HEALTH_CHECK_ENDPOINT, verb: :get)
         end
 
         def self.ping

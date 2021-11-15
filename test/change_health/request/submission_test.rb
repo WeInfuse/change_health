@@ -44,7 +44,7 @@ class SubmissionTest < Minitest::Test
         it 'calls health check' do
           stub_change_health(endpoint: health_check_endpoint, response: response, verb: :get)
 
-          claim_submission.class.health_check(headers: professional_headers)
+          claim_submission.class.health_check
 
           assert_requested(@stub)
         end

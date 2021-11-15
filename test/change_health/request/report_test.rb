@@ -12,7 +12,7 @@ class ReportTest < Minitest::Test
       it 'calls health check' do
         stub_change_health(endpoint: health_check_endpoint, response: response, verb: :get)
 
-        claim_report.health_check(headers: report_headers)
+        claim_report.health_check
 
         assert_requested(@stub)
       end
