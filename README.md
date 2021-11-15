@@ -174,6 +174,12 @@ claim_information = ChangeHealth::Models::Claim::ClaimInformation.new(
   service_lines: [service_line1, service_line2]
 )
 
+professional_headers = {
+  submitter_id: '111000',
+  biller_id: '000111',
+  username: '222333hey',
+  password: 'builder1'
+}
 
 claim_submission = ChangeHealth::Request::Claim::Submission.new(
   trading_partner_service_id: "9496",
@@ -181,7 +187,8 @@ claim_submission = ChangeHealth::Request::Claim::Submission.new(
   receiver: receiver,
   subscriber: subscriber,
   providers: [provider],
-  claim_information: claim_information
+  claim_information: claim_information,
+  headers: professional_headers
 )
 
 claim_submission_data = claim_submission.submission
@@ -192,21 +199,26 @@ claim_submission_data = claim_submission.submission
 ```ruby
 ChangeHealth::Request::Claim::Report.ping # Test your connection
 
-report_list = ChangeHealth::Request::Claim::Report.report_list
+report_headers = {
+  username: '222333hey',
+  password: 'builder1'
+}
+
+report_list = ChangeHealth::Request::Claim::Report.report_list(headers: report_headers)
 
 report_list.report_names
 # ["X3000000.XX", "R5000000.XY", "R5000000.XX", "X3000000.AB", "X3000000.AC", "X3000000.ZZ", "R5000000.XZ", "R5000000.YZ", "R5000000.WA", "R5000000.WB", "R5000000.WC"]
 
-report1_edi = ChangeHealth::Request::Claim::Report.get_report(report_list.report_names.first, as_json_report: false)
+report1_edi = ChangeHealth::Request::Claim::Report.get_report(report_list.report_names.first, as_json_report: false, headers: report_headers)
 # Report in edi format
 
-report1_json = ChangeHealth::Request::Claim::Report.get_report(report_list.report_names.first, as_json_report: true)
+report1_json = ChangeHealth::Request::Claim::Report.get_report(report_list.report_names.first, as_json_report: true, headers: report_headers)
 # Report in json format
 
-reports_json = report_list.report_names.map {|report_name| ChangeHealth::Request::Claim::Report.get_report(report_name)}
+reports_json = report_list.report_names.map {|report_name| ChangeHealth::Request::Claim::Report.get_report(report_name, headers: report_headers)}
 # all reports in json format
 
-reports_edi = report_list.report_names.map {|report_name| ChangeHealth::Request::Claim::Report.get_report(report_name, as_json_report: false)}
+reports_edi = report_list.report_names.map {|report_name| ChangeHealth::Request::Claim::Report.get_report(report_name, as_json_report: false, headers: report_headers)}
 # all reports in edi format
 ```
 
