@@ -44,14 +44,14 @@ class SubmissionTest < Minitest::Test
         it 'calls health check' do
           stub_change_health(endpoint: health_check_endpoint, response: response, verb: :get)
 
-          claim_submission.class.health_check(professional_headers)
+          claim_submission.class.health_check(headers: professional_headers)
 
           assert_requested(@stub)
         end
       end
 
       describe '#validation mock' do
-        let(:response) { build_response(file: 'validation.response.json') }
+        let(:response) { build_response(file: '/claim/validation/validation.response.json') }
         let(:validation_endpoint) { ChangeHealth::Request::Claim::Submission::VALIDATION_ENDPOINT }
 
         before do

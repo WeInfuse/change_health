@@ -32,7 +32,7 @@ module ChangeHealth
           ChangeHealth::Response::Claim::SubmissionData.new(response: ChangeHealth::Connection.new.request(endpoint: VALIDATION_ENDPOINT, body: self.to_h, headers: professional_headers))
         end
 
-        def self.health_check(headers)
+        def self.health_check(headers: nil)
           headers = ChangeHealth::Request::Claim::Submission.new(headers: headers).professional_headers
           ChangeHealth::Connection.new.request(endpoint: HEALTH_CHECK_ENDPOINT, verb: :get, headers: headers)
         end
@@ -48,14 +48,6 @@ module ChangeHealth
           extra_headers["X-CHC-ClaimSubmission-Username"] = self[:headers][:username]
           extra_headers["X-CHC-ClaimSubmission-Pwd"] = self[:headers][:password]
           extra_headers
-        end
-
-        private
-
-        def access_header
-          return {
-            'Authorization' => "Bearer #{self.access_token}",
-          }
         end
       end
     end
