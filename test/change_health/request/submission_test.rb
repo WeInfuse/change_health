@@ -2,7 +2,15 @@ require 'test_helper'
 
 class SubmissionTest < Minitest::Test
   describe 'claim_submission' do
-    let(:claim_submission) { ChangeHealth::Request::Claim::Submission.new }
+    let(:professional_headers) {
+      {
+        submitter_id: "submittedIdValue",
+        biller_id: "billerIdValue",
+        username: "usernameValue",
+        password: "passwordValue",
+      }
+    }
+    let(:claim_submission) { ChangeHealth::Request::Claim::Submission.new(headers: professional_headers) }
 
     describe 'object' do
       describe 'serializes' do
@@ -39,6 +47,25 @@ class SubmissionTest < Minitest::Test
           claim_submission.class.health_check
 
           assert_requested(@stub)
+        end
+      end
+
+      describe '#validation mock' do
+        let(:response) { build_response(file: '/claim/validation/validation.response.json') }
+        let(:validation_endpoint) { ChangeHealth::Request::Claim::Submission::VALIDATION_ENDPOINT }
+
+        before do
+          stub_change_health(endpoint: validation_endpoint, response: response)
+
+          @validation_data = claim_submission.validation
+        end
+
+        it 'calls submission' do
+          assert_requested(@stub)
+        end
+
+        it 'returns claim_validation data' do
+          assert_equal(@validation_data.raw, @validation_data.response.parsed_response)
         end
       end
 

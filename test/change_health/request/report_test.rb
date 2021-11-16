@@ -3,6 +3,7 @@ require 'test_helper'
 class ReportTest < Minitest::Test
   describe 'report' do
     let(:claim_report) { ChangeHealth::Request::Claim::Report }
+    let(:report_headers) { {username: "HeyThere", password: "Bob"}}
 
     describe '#health_check' do
       let(:response) { build_response(file: 'health_check.response.json') }
@@ -24,7 +25,7 @@ class ReportTest < Minitest::Test
       before do
         stub_change_health(endpoint: report_list_endpoint, response: response, verb: :get)
 
-        @report_list_data = claim_report.report_list
+        @report_list_data = claim_report.report_list(headers: report_headers)
       end
 
       it 'calls report list' do
@@ -45,7 +46,7 @@ class ReportTest < Minitest::Test
         before do
           stub_change_health(endpoint: report_list_endpoint, response: response, verb: :get)
 
-          @report_data = claim_report.get_report(report_name)
+          @report_data = claim_report.get_report(report_name, headers: report_headers)
         end
 
         it 'calls report' do
@@ -64,7 +65,7 @@ class ReportTest < Minitest::Test
         before do
           stub_change_health(endpoint: report_list_endpoint, response: response, verb: :get)
 
-          @report_data = claim_report.get_report(report_name, as_json_report: false)
+          @report_data = claim_report.get_report(report_name, as_json_report: false, headers: report_headers)
         end
 
         it 'calls report' do
