@@ -192,6 +192,8 @@ claim_submission = ChangeHealth::Request::Claim::Submission.new(
 )
 
 claim_submission_data = claim_submission.submission
+
+validation = claim_submission.validation
 ```
 
 ### Claim Reports
@@ -200,8 +202,8 @@ claim_submission_data = claim_submission.submission
 ChangeHealth::Request::Claim::Report.ping # Test your connection
 
 report_headers = {
-  username: '222333hey',
-  password: 'builder1'
+  username: '111000john',
+  password: 'WeInfuse1'
 }
 
 report_list = ChangeHealth::Request::Claim::Report.report_list(headers: report_headers)
@@ -228,8 +230,8 @@ reports_edi = report_list.report_names.map {|report_name| ChangeHealth::Request:
 ChangeHealth.configure do |c|
   c.client_id     = ENV['CHANGE_HEALTH_CLIENT_ID']
   c.client_secret = ENV['CHANGE_HEALTH_SECRET']
-  c.grant_type    = 'bob' # Defaults to client_credentials
-  c.api_endpoint  = 'http://hello.com' # Defaults to Change Health Sandbox endpoint
+  c.grant_type    = 'client_credentials' # Defaults to client_credentials
+  c.api_endpoint  = 'https://sandbox.apigw.changehealthcare.com' # Defaults to Change Health Sandbox endpoint
 end
 ```
 
