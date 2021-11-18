@@ -24,6 +24,10 @@ require 'change_health/response/response_data'
 require 'change_health/response/claim/submission/submission_data'
 require 'change_health/response/claim/report/report_list_data'
 require 'change_health/response/claim/report/report_data'
+require 'change_health/response/claim/report/report_277_data'
+require 'change_health/response/claim/report/report_835_data'
+require 'change_health/response/claim/report/report_claim'
+require 'change_health/response/claim/report/report_info_claim_status'
 require 'change_health/response/eligibility/eligibility_benefit'
 require 'change_health/response/eligibility/eligibility_benefits'
 require 'change_health/response/eligibility/eligibility_data'
@@ -45,11 +49,11 @@ module ChangeHealth
     end
 
     def api_endpoint
-      return Connection.base_uri
+      Connection.base_uri
     end
 
     def to_h
-      return {
+      {
         client_id: @client_id,
         client_secret: @client_secret,
         grant_type: @grant_type,
@@ -63,7 +67,7 @@ module ChangeHealth
       self.grant_type    = h[:grant_type]
       self.api_endpoint  = h[:api_endpoint]
 
-      return self
+      self
     end
   end
 

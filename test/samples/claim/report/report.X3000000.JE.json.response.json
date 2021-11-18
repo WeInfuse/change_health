@@ -1,0 +1,140 @@
+{
+    "transactions": [
+        {
+            "transactionSetCreationDate": "20201201",
+            "payers": [
+                {
+                    "organizationName": "PREMERA",
+                    "claimStatusTransactions": [
+                        {
+                            "claimStatusDetails": [
+                                {
+                                    "serviceProvider": {
+                                        "npi": "1111111111"
+                                    },
+                                    "patientClaimStatusDetails": [
+                                        {
+                                            "subscriber": {
+                                                "lastName": "DOEONE",
+                                                "firstName": "JOHNONE"
+                                            },
+                                            "claims": [
+                                                {
+                                                    "claimStatus": {
+                                                        "referencedTransactionTraceNumber": "000000001",
+                                                        "informationClaimStatuses": [
+                                                            {
+                                                                "statusInformationEffectiveDate": "20200613",
+                                                                "totalClaimChargeAmount": "100",
+                                                                "informationStatuses": [
+                                                                    {
+                                                                        "healthCareClaimStatusCategoryCode": "F1"
+                                                                    },
+                                                                    {
+                                                                        "healthCareClaimStatusCategoryCode": "A0"
+                                                                    },
+                                                                    {
+                                                                        "healthCareClaimStatusCategoryCode": "F1"
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "statusInformationEffectiveDate": "20200615",
+                                                                "totalClaimChargeAmount": "110",
+                                                                "informationStatuses": [
+                                                                    {
+                                                                        "healthCareClaimStatusCategoryCode": "F1"
+                                                                    },
+                                                                    {
+                                                                        "healthCareClaimStatusCategoryCode": "F2"
+                                                                    },
+                                                                    {
+                                                                        "healthCareClaimStatusCategoryCode": "F1"
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "claimServiceBeginDate": "20200214",
+                                                        "claimServiceEndDate": "20200214"
+                                                    },
+                                                    "serviceLines": [
+                                                        {
+                                                            "service": {
+                                                                "procedureCode": "97161"
+                                                            }
+                                                        },
+                                                        {
+                                                            "service": {
+                                                                "procedureCode": "97110"
+                                                            }
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "claimStatus": {
+                                                        "referencedTransactionTraceNumber": "000000002",
+                                                        "informationClaimStatuses": [
+                                                            {
+                                                                "statusInformationEffectiveDate": "20200617",
+                                                                "totalClaimChargeAmount": "456",
+                                                                "informationStatuses": [
+                                                                    {
+                                                                        "healthCareClaimStatusCategoryCode": "A6"
+                                                                    },
+                                                                    {
+                                                                        "healthCareClaimStatusCategoryCode": "A7"
+                                                                    },
+                                                                    {
+                                                                        "healthCareClaimStatusCategoryCode": "D0"
+                                                                    }
+                                                                ]
+                                                            },
+                                                            {
+                                                                "statusInformationEffectiveDate": "20200615",
+                                                                "totalClaimChargeAmount": "457",
+                                                                "informationStatuses": [
+                                                                    {
+                                                                        "healthCareClaimStatusCategoryCode": "P0"
+                                                                    },
+                                                                    {
+                                                                        "healthCareClaimStatusCategoryCode": "P1"
+                                                                    },
+                                                                    {
+                                                                        "healthCareClaimStatusCategoryCode": "R3"
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "claimServiceBeginDate": "20200314",
+                                                        "claimServiceEndDate": "20200314"
+                                                    },
+                                                    "serviceLines": [
+                                                        {
+                                                            "service": {
+                                                                "procedureCode": "96365"
+                                                            }
+                                                        },
+                                                        {
+                                                            "service": {
+                                                                "procedureCode": "96416"
+                                                            }
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "meta": {
+        "applicationMode": "sandbox",
+        "senderId": "MN_WeInfuse_App",
+        "traceId": "c5ba9007-71d4-e2c1-dad3-a922021dff73"
+    }
+}

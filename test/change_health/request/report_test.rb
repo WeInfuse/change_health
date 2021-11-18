@@ -56,6 +56,10 @@ class ReportTest < Minitest::Test
         it 'returns report data' do
           assert_equal(@report_data.raw, @report_data.response.parsed_response)
         end
+
+        it 'correct report type' do
+          assert @report_data.is_a? ChangeHealth::Response::Claim::Report835Data
+        end
       end
       describe 'edi report' do
         let(:report_name) { 'R5000000.XY' }
