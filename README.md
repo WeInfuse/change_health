@@ -67,13 +67,13 @@ edata.response
 #<HTTParty::Response:0x7fa354c1fbe8>
 
 edata.response.ok?
-true
+# true
 
 edata.individual_oop_remaining(service_code: '30')
-1344.88
+# 1344.88
 
 edata.raw == edata.response.parsed_response
-true
+# true
 ```
 
 ### Trading Partners
@@ -198,6 +198,8 @@ validation = claim_submission.validation
 
 ### Claim Reports
 [Change Healthcare Claim Responses and Reports Guide](https://developers.changehealthcare.com/eligibilityandclaims/docs/claims-responses-and-reports-getting-started)
+
+#### Get Reports
 ```ruby
 ChangeHealth::Request::Claim::Report.ping # Test your connection
 
@@ -211,10 +213,10 @@ report_list = ChangeHealth::Request::Claim::Report.report_list(headers: report_h
 report_list.report_names
 # ["X3000000.XX", "R5000000.XY", "R5000000.XX", "X3000000.AB", "X3000000.AC", "X3000000.ZZ", "R5000000.XZ", "R5000000.YZ", "R5000000.WA", "R5000000.WB", "R5000000.WC"]
 
-report1_edi = ChangeHealth::Request::Claim::Report.get_report(report_list.report_names.first, as_json_report: false, headers: report_headers)
+report0_edi = ChangeHealth::Request::Claim::Report.get_report(report_list.report_names.first, as_json_report: false)
 # Report in edi format
 
-report1_json = ChangeHealth::Request::Claim::Report.get_report(report_list.report_names.first, as_json_report: true, headers: report_headers)
+report0_json = ChangeHealth::Request::Claim::Report.get_report(report_list.report_names.first, as_json_report: true)
 # Report in json format
 
 reports_json = report_list.report_names.map {|report_name| ChangeHealth::Request::Claim::Report.get_report(report_name, headers: report_headers)}
@@ -222,6 +224,32 @@ reports_json = report_list.report_names.map {|report_name| ChangeHealth::Request
 
 reports_edi = report_list.report_names.map {|report_name| ChangeHealth::Request::Claim::Report.get_report(report_name, as_json_report: false, headers: report_headers)}
 # all reports in edi format
+```
+
+#### Review Individual Claims
+Currently only works for json 277 reports. json 835 reports coming soon!
+
+From a report, you can get an array of claims. For a full list of fields, see `ChangeHealth::Response::Claim::ReportClaim`
+
+```ruby
+report_claims = ChangeHealth::Request::Claim::Report.get_report("X3000000.AB", as_json_report: true).claims
+# list of claims in the report
+
+claim = report_claims.first
+claim.payer_org_name
+# "PREMERA"
+
+claim.subscriber_first_name
+# "JOHNONE"
+
+claim.transaction_set_creation_date
+# Tue, 01 Dec 2020
+
+claim.latest_status_category_codes
+# ["F1"]
+
+claim.latest_total_charge_amount
+# "100"
 ```
 
 ### Configuration
