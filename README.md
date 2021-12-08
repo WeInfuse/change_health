@@ -1,9 +1,17 @@
 [![CircleCI](https://circleci.com/gh/WeInfuse/change_health.svg?style=svg)](https://circleci.com/gh/WeInfuse/change_health)
 
-# Change Health
+```
+   ____ _                              _   _            _ _   _     
+  / ___| |__   __ _ _ __   __ _  ___  | | | | ___  __ _| | |_| |__  
+ | |   | '_ \ / _` | '_ \ / _` |/ _ \ | |_| |/ _ \/ _` | | __| '_ \ 
+ | |___| | | | (_| | | | | (_| |  __/ |  _  |  __/ (_| | | |_| | | |
+  \____|_| |_|\__,_|_| |_|\__, |\___| |_| |_|\___|\__,_|_|\__|_| |_|
+                          |___/                                     
+```
+
 Ruby API wrapper for [Change Health](https://developers.changehealthcare.com/api)
 
-## Installation
+# Installation
 
 Add this line to your application's Gemfile:
 
@@ -19,13 +27,13 @@ Or install it yourself as:
 
     $ gem install change_health
 
-## Usage
+# Usage
 
-### Setup
+## Setup
 
 Make sure you're [configured](#configuration)!
 
-### Eligibility
+## Eligibility
 [Change Healthcare Eligibility Guide](https://developers.changehealthcare.com/eligibilityandclaims/docs)
 ```ruby
 ChangeHealth::Request::Eligibility.ping # Test your connection
@@ -39,7 +47,7 @@ edata = ChangeHealth::Request::Eligibility.new(tradingPartnerServiceId: '000050'
 edata.raw # Raw Hash of JSON response
 ```
 
-#### Benefit(s) objects
+### Benefit(s) objects
 Benefits extends Array and provides a query-like interface.
 
 Benefit extends Hash and provides helpers for single-benefit.
@@ -58,7 +66,7 @@ edata.benefits.where(name: 'Co-Payment', code: 'B', benefitAmount: '30) # Generi
 edata.benefits.find_by(name: 'Co-Payment', code: 'B', benefitAmount: '30) # Generic 'find_by' api returns first object found
 ```
 
-#### Response
+### Response
 
 Response is EligibilityData object
 
@@ -76,7 +84,7 @@ edata.raw == edata.response.parsed_response
 # true
 ```
 
-### Trading Partners
+## Trading Partners
 ```ruby
 # Query trading partners using a wildcard search
 # Returns Array of ChangeHealth::Models::TradingPartner Objects
@@ -89,7 +97,7 @@ trading_partners.first.service_id
 # "ABC123"
 ```
 
-### Claim Submission
+## Claim Submission
 [Change Healthcare Claim Submission Guide](https://developers.changehealthcare.com/eligibilityandclaims/docs/professional-claims-v3-getting-started)
 ```ruby
 ChangeHealth::Request::Claim::Submission.ping # Test your connection
@@ -196,10 +204,10 @@ claim_submission_data = claim_submission.submission
 validation = claim_submission.validation
 ```
 
-### Claim Reports
+## Claim Reports
 [Change Healthcare Claim Responses and Reports Guide](https://developers.changehealthcare.com/eligibilityandclaims/docs/claims-responses-and-reports-getting-started)
 
-#### Get Reports
+### Get Reports
 ```ruby
 ChangeHealth::Request::Claim::Report.ping # Test your connection
 
@@ -226,33 +234,72 @@ reports_edi = report_list.report_names.map {|report_name| ChangeHealth::Request:
 # all reports in edi format
 ```
 
-#### Review Individual Claims
-Currently only works for json 277 reports. json 835 reports coming soon!
+### Inspect Reports
+Currently only works for json 277 reports and json 835 reports. Not for EDI reports
 
-From a report, you can get an array of claims. For a full list of fields, see `ChangeHealth::Response::Claim::ReportClaim`
+From a report, you can get an array of claims
+
+#### Report 277
 
 ```ruby
-report_claims = ChangeHealth::Request::Claim::Report.get_report("X3000000.AB", as_json_report: true).claims
-# list of claims in the report
+report_277_data = ChangeHealth::Request::Claim::Report.get_report("X3000000.AB", as_json_report: true)
 
-claim = report_claims.first
-claim.payer_org_name
+report_277_data.payer_name
 # "PREMERA"
 
-claim.subscriber_first_name
-# "JOHNONE"
-
-claim.transaction_set_creation_date
+report_277_data.report_creation_date
 # Tue, 01 Dec 2020
 
-claim.latest_status_category_codes
+claim_277 = report_277_data.claims.first
+claim_277.payer_name
+# "PREMERA"
+
+claim_277.patient_first_name
+# "JOHNONE"
+
+claim_277.report_creation_date
+# Tue, 01 Dec 2020
+
+# Report 277 specific below
+claim_277.latest_status_category_codes
 # ["F1"]
 
-claim.latest_total_charge_amount
+claim_277.total_charge_amount
 # "100"
+
+claim_277.procedure_codes
+# ["97161"]
 ```
 
-### Configuration
+#### Report 835
+
+```ruby
+report_835_data = ChangeHealth::Request::Claim::Report.get_report("R5000000.XY", as_json_report: true)
+
+report_835_data.payment_method_code
+# "ACH"
+
+report_835_data.total_actual_provider_payment_amount
+# "2563.13"
+
+claim_835 = report_835_data.claims.first
+claim_835.payer_name
+# "NATIONAL GOVERNMENT SERVICES, INC."
+
+claim_835.patient_first_name
+# "JANE"
+
+claim_835.report_creation_date
+# Wed, 22 Apr 2020
+
+claim_835.procedure_codes
+# ["21210", "21026", "21208", "30580"]
+
+claim_835.service_lines.map(&:line_item_charge_amount)
+# ["3600", "1890", "1836", "1680"]
+```
+
+## Configuration
 
 ```ruby
 ChangeHealth.configure do |c|
@@ -263,12 +310,12 @@ ChangeHealth.configure do |c|
 end
 ```
 
-## Development
+# Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
-## Contributing
+# Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/WeInfuse/change\_health.

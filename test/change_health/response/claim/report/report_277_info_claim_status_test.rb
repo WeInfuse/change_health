@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class ReportInfoClaimStatusTest < Minitest::Test
+class Report277InfoClaimStatusTest < Minitest::Test
   describe 'info claim status' do
-    let(:info_claim_status) { ChangeHealth::Response::Claim::ReportInfoClaimStatus.new }
+    let(:info_claim_status) { ChangeHealth::Response::Claim::Report277InfoClaimStatus.new }
 
     describe 'status_category_codes' do
       it 'defaults to no status_category_codes' do

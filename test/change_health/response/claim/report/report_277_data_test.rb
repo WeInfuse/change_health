@@ -10,8 +10,12 @@ class Report277DataTest < Minitest::Test
       assert_equal 1, report_data.transactions.size
     end
 
-    it 'payer_org_name' do
-      assert_equal 'PREMERA', report_data.payer_org_name
+    it 'payer_name' do
+      assert_equal 'PREMERA', report_data.payer_name
+    end
+
+    it 'report creation date' do
+      assert_equal Date.new(2020, 12, 1), report_data.report_creation_date
     end
 
     describe 'claims' do
@@ -21,21 +25,22 @@ class Report277DataTest < Minitest::Test
 
       describe 'claim contents - everything there, from sandbox' do
         let(:actual_claim) { report_data.claims.first }
-        info_claim_status = ChangeHealth::Response::Claim::ReportInfoClaimStatus.new(
+        info_claim_status = ChangeHealth::Response::Claim::Report277InfoClaimStatus.new(
           status_category_codes: ['F1'],
-          total_charge_amount: '100',
-          status_information_effective_date: Date.new(2020, 6, 13)
+          status_information_effective_date: Date.new(2020, 6, 13),
+          total_charge_amount: '100'
         )
-        expected_claim = ChangeHealth::Response::Claim::ReportClaim.new(
-          transaction_set_creation_date: Date.new(2020, 12, 1),
-          payer_org_name: 'PREMERA',
-          service_provider_npi: '1111111111',
-          subscriber_first_name: 'JOHNONE',
-          subscriber_last_name: 'DOEONE',
+        expected_claim = ChangeHealth::Response::Claim::Report277Claim.new(
+          info_claim_statuses: [info_claim_status],
+          patient_first_name: 'JOHNONE',
+          patient_last_name: 'DOEONE',
+          payer_identification: '430',
+          payer_name: 'PREMERA',
           procedure_codes: ['97161'],
-          service_begin_date: Date.new(2020, 2, 14),
-          service_end_date: Date.new(2020, 2, 14),
-          info_claim_statuses: [info_claim_status]
+          report_creation_date: Date.new(2020, 12, 1),
+          service_date_begin: Date.new(2020, 2, 14),
+          service_date_end: Date.new(2020, 2, 14),
+          service_provider_npi: '1111111111'
         )
         expected_claim.keys.each do |attribute|
           it attribute.to_s do
@@ -58,23 +63,27 @@ class Report277DataTest < Minitest::Test
 
       describe 'claim contents - missing some fields' do
         let(:short_report_name) { 'X3000000.XX' }
-        let(:short_json_data) { load_sample("claim/report/report.#{short_report_name}.json.response.json", parse: true) }
-        let(:short_report_data) { ChangeHealth::Response::Claim::Report277Data.new(short_report_name, true, data: short_json_data) }
+        let(:short_json_data) do
+          load_sample("claim/report/report.#{short_report_name}.json.response.json", parse: true)
+        end
+        let(:short_report_data) do
+          ChangeHealth::Response::Claim::Report277Data.new(short_report_name, true, data: short_json_data)
+        end
         let(:short_actual_claim) { short_report_data.claims.first }
 
-        info_claim_status = ChangeHealth::Response::Claim::ReportInfoClaimStatus.new(
+        info_claim_status = ChangeHealth::Response::Claim::Report277InfoClaimStatus.new(
           status_category_codes: ['E1'],
-          total_charge_amount: nil,
-          status_information_effective_date: Date.new(2020, 1, 7)
+          status_information_effective_date: Date.new(2020, 1, 7),
+          total_charge_amount: nil
         )
-        expected_claim = ChangeHealth::Response::Claim::ReportClaim.new(
-          transaction_set_creation_date: Date.new(2020, 1, 7),
-          payer_org_name: 'EXTRA HEALTHY INSURANCE',
-          service_provider_npi: '1760854442',
-          subscriber_first_name: 'johnone',
-          subscriber_last_name: 'doeone',
+        expected_claim = ChangeHealth::Response::Claim::Report277Claim.new(
+          info_claim_statuses: [info_claim_status],
+          patient_first_name: 'johnone',
+          patient_last_name: 'doeone',
+          payer_name: 'EXTRA HEALTHY INSURANCE',
           procedure_codes: [],
-          info_claim_statuses: [info_claim_status]
+          report_creation_date: Date.new(2020, 1, 7),
+          service_provider_npi: '1760854442'
         )
         it 'claim count' do
           assert_equal 1, short_report_data.claims.count
@@ -86,7 +95,7 @@ class Report277DataTest < Minitest::Test
           end
         end
 
-        %i[service_begin_date service_end_date].each do |attribute|
+        %i[service_date_begin service_date_end].each do |attribute|
           it attribute.to_s do
             assert_nil short_actual_claim[attribute]
           end
@@ -111,8 +120,12 @@ class Report277DataTest < Minitest::Test
 
       describe 'complex 277 claims' do
         let(:complex_report_name) { 'X3000000.JE' }
-        let(:complex_json_data) { load_sample("claim/report/report.#{complex_report_name}.json.response.json", parse: true) }
-        let(:complex_report_data) { ChangeHealth::Response::Claim::Report277Data.new(complex_report_name, true, data: complex_json_data) }
+        let(:complex_json_data) do
+          load_sample("claim/report/report.#{complex_report_name}.json.response.json", parse: true)
+        end
+        let(:complex_report_data) do
+          ChangeHealth::Response::Claim::Report277Data.new(complex_report_name, true, data: complex_json_data)
+        end
 
         it 'number of claims' do
           assert_equal 2, complex_report_data.claims.count

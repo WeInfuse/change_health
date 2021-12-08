@@ -1,13 +1,12 @@
 module ChangeHealth
-  # TODO: This should be the response module/folder... next major release
-  module Models
+  module Response
     class Error
       attr_reader :data
 
       SIMPLE_RETRY_CODES = %w[
-            42
-            80
-          ].freeze
+        42
+        80
+      ].freeze
 
       NO_RESUBMIT_MESSAGES = [
         'resubmission not allowed',
@@ -40,7 +39,9 @@ module ChangeHealth
 
       def retryable?
         represents_down? ||
-          (code? && SIMPLE_RETRY_CODES.include?(code) && followupAction? && NO_RESUBMIT_MESSAGES.none? {|msg| followupAction.downcase.include?(msg) })
+          (code? && SIMPLE_RETRY_CODES.include?(code) && followupAction? && NO_RESUBMIT_MESSAGES.none? do |msg|
+             followupAction.downcase.include?(msg)
+           end)
       end
 
       %w[field description code followupAction location].each do |method_name|
@@ -48,7 +49,7 @@ module ChangeHealth
           false == send(method_name).nil?
         end
 
-        define_method("#{method_name}") do
+        define_method(method_name.to_s) do
           @data[method_name]
         end
       end

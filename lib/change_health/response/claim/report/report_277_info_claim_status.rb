@@ -1,7 +1,7 @@
 module ChangeHealth
   module Response
     module Claim
-      class ReportInfoClaimStatus < Hashie::Trash
+      class Report277InfoClaimStatus < Hashie::Trash
         property :status_category_codes, required: false
         property :total_charge_amount, required: false
         property :status_information_effective_date, required: false
