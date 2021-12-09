@@ -16,13 +16,13 @@ module ChangeHealth
       end
 
       def errors?
-        self.errors.is_a?(Array) && false == self.errors.empty?
+        errors.is_a?(Array) && false == errors.empty?
       end
 
       def errors
         errors = @raw.dig('errors') || []
 
-        errors.flatten.map {|error| ChangeHealth::Models::Error.new(error) }
+        errors.flatten.map { |error| ChangeHealth::Response::Error.new(error) }
       end
 
       def recommend_retry?
@@ -34,7 +34,7 @@ module ChangeHealth
 
         return false if error_codes.empty?
 
-        return error_codes.all?(&:retryable?)
+        error_codes.all?(&:retryable?)
       end
     end
   end

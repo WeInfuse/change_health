@@ -4,10 +4,38 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [3.0.0] - 2021-12-08
+### Added
+* Report277Claim - specific to claims from 277 reports
+* Report835Claim - specific to claims from 835 reports
+* Report835ServiceAdjustment & Report835ServiceLine - helper classes for readability of claims from 835 reports
+
+### Changed
+* ReportClaim - removed 277 report unique fields
+
+#### Namespace
+| Previous | Current |
+|-|-|
+| ChangeHealth::Models::Error | ChangeHealth::Response::Error |
+| ChangeHealth::Response::Claim::ReportInfoClaimStatus | ChangeHealth::Response::Claim::Report277InfoClaimStatus|
+
+#### Methods
+| Previous | Current |
+|-|-|
+| Report277Data#payer_org_name | Report277Data#payer_name |
+| ReportClaim#latest_total_charge_amount | ReportClaim#total_charge_amount |
+| ReportClaim#payer_org_name | ReportClaim#payer_name |
+| ReportClaim#service_begin_date | ReportClaim#service_date_begin |
+| ReportClaim#service_end_date | ReportClaim#service_date_end |
+| ReportClaim#subscriber_first_name | ReportClaim#patient_first_name |
+| ReportClaim#subscriber_last_name | ReportClaim#patient_last_name |
+| ReportClaim#transaction_set_creation_date | ReportClaim#report_creation_date |
+
+
 ## [2.3.0] - 2021-11-18
 ### Added
-* Specific classes for 277 & 835 reports - Report277Data & Report835Data
-* ReportClaim & ReportInfoClaimStatus- only works for json 277 reports
+* Report277Data & Report835Data - Specific classes for 277 & 835 reports
+* ReportClaim & ReportInfoClaimStatus - only works for json 277 reports
 
 ### Fixed
 * Headers can now be nil for requests
@@ -188,6 +216,7 @@ Added the ability to hit professional claim submission API. For more details, se
 - Authentication
 - Configuration
 
+[3.0.0]: https://github.com/WeInfuse/change_health/compare/v2.3.0...v3.0.0
 [2.3.0]: https://github.com/WeInfuse/change_health/compare/v2.2.1...v2.3.0
 [2.2.1]: https://github.com/WeInfuse/change_health/compare/v2.2.0...v2.2.1
 [2.2.0]: https://github.com/WeInfuse/change_health/compare/v2.1.0...v2.2.0
