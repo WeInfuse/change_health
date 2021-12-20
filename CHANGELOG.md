@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [3.1.0] - 2021-12-21
+### Added
+#### Claim Submission
+* ServiceLine - drugIdentification & renderingProvider
+* Subscriber - groupNumber
+* Address model w/ postalCode that is formatted to remove dashes, '-'
+  * Note: Using a plain hash for address still works
+* Auto formatting of postal code fields
+
 ## [3.0.0] - 2021-12-08
 ### Added
 * Report277Claim - specific to claims from 277 reports
@@ -216,6 +225,7 @@ Added the ability to hit professional claim submission API. For more details, se
 - Authentication
 - Configuration
 
+[3.1.0]: https://github.com/WeInfuse/change_health/compare/v3.0.0...v3.1.0
 [3.0.0]: https://github.com/WeInfuse/change_health/compare/v2.3.0...v3.0.0
 [2.3.0]: https://github.com/WeInfuse/change_health/compare/v2.2.1...v2.3.0
 [2.2.1]: https://github.com/WeInfuse/change_health/compare/v2.2.0...v2.2.1
