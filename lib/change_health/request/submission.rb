@@ -2,7 +2,6 @@ module ChangeHealth
   module Request
     module Claim
       class Submission < Hashie::Trash
-        
         ENDPOINT = '/medicalnetwork/professionalclaims/v3'.freeze
         HEALTH_CHECK_ENDPOINT = ENDPOINT + '/healthcheck'.freeze
         SUBMISSION_ENDPOINT = ENDPOINT + '/submission'.freeze
@@ -25,11 +24,15 @@ module ChangeHealth
         end
 
         def submission
-          ChangeHealth::Response::Claim::SubmissionData.new(response: ChangeHealth::Connection.new.request(endpoint: SUBMISSION_ENDPOINT, body: self.to_h, headers: professional_headers))
+          ChangeHealth::Response::Claim::SubmissionData.new(response: ChangeHealth::Connection.new.request(
+            endpoint: SUBMISSION_ENDPOINT, body: to_h, headers: professional_headers
+          ))
         end
 
         def validation
-          ChangeHealth::Response::Claim::SubmissionData.new(response: ChangeHealth::Connection.new.request(endpoint: VALIDATION_ENDPOINT, body: self.to_h, headers: professional_headers))
+          ChangeHealth::Response::Claim::SubmissionData.new(response: ChangeHealth::Connection.new.request(
+            endpoint: VALIDATION_ENDPOINT, body: to_h, headers: professional_headers
+          ))
         end
 
         def self.health_check
@@ -37,19 +40,17 @@ module ChangeHealth
         end
 
         def self.ping
-          self.health_check
+          health_check
         end
 
         def professional_headers
           if self[:headers]
             extra_headers = {}
-            extra_headers["X-CHC-ClaimSubmission-SubmitterId"] = self[:headers][:submitter_id]
-            extra_headers["X-CHC-ClaimSubmission-BillerId"] = self[:headers][:biller_id]
-            extra_headers["X-CHC-ClaimSubmission-Username"] = self[:headers][:username]
-            extra_headers["X-CHC-ClaimSubmission-Pwd"] = self[:headers][:password]
+            extra_headers['X-CHC-ClaimSubmission-SubmitterId'] = self[:headers][:submitter_id]
+            extra_headers['X-CHC-ClaimSubmission-BillerId'] = self[:headers][:biller_id]
+            extra_headers['X-CHC-ClaimSubmission-Username'] = self[:headers][:username]
+            extra_headers['X-CHC-ClaimSubmission-Pwd'] = self[:headers][:password]
             extra_headers
-          else
-            nil
           end
         end
       end

@@ -109,12 +109,13 @@ claim_submitter = ChangeHealth::Models::Claim::Submitter.new(
 )
 
 receiver = { organizationName: "EXTRA HEALTHY INSURANCE"}
-address = {
-  "address1": "123 address1",
-  "city": "city1",
-  "state": "wa",
-  "postalCode": "981010000"
-}
+address = ChangeHealth::Models::Claim::Address.new(
+  address1: "123 address1",
+  city: "city1",
+  state: "wa",
+  postalCode: "98101-0000"
+)
+
 subscriber = ChangeHealth::Models::Claim::Subscriber.new(
   member_id: "0000000001",
   payment_responsibility_level_code: "P",
@@ -126,45 +127,45 @@ subscriber = ChangeHealth::Models::Claim::Subscriber.new(
 )
 provider = ChangeHealth::Models::Claim::Provider.new(
   address: address,
- employer_id: "000000000",
- first_name: "johnone",
- last_name: "doetwo",
- npi: "1760854442",
- provider_type: "BillingProvider"
+  employer_id: "000000000",
+  first_name: "johnone",
+  last_name: "doetwo",
+  npi: "1760854442",
+  provider_type: "BillingProvider"
 )
 
 health_care_code_information1 = {
-  "diagnosisTypeCode": "ABK",
-  "diagnosisCode": "S93401A"
+  diagnosisTypeCode: "ABK",
+  diagnosisCode: "S93401A"
 }
 health_care_code_information2 = {
-  "diagnosisTypeCode": "ABF",
-  "diagnosisCode": "S72044G"
+  diagnosisTypeCode: "ABF",
+  diagnosisCode: "S72044G"
 
 }
 service_line1 = ChangeHealth::Models::Claim::ServiceLine.new(
   service_date: "2018-05-14",
   professional_service: {
-    "procedureIdentifier": "HC",
-    "lineItemChargeAmount": "25",
-    "procedureCode": "E0570",
-    "measurementUnit": "UN",
-    "serviceUnitCount": "1",
-    "compositeDiagnosisCodePointers": {
-      "diagnosisCodePointers": ["1","2"]
+    procedureIdentifier: "HC",
+    lineItemChargeAmount: "25",
+    procedureCode: "E0570",
+    measurementUnit: "UN",
+    serviceUnitCount: "1",
+    compositeDiagnosisCodePointers: {
+      diagnosisCodePointers: ["1","2"]
     }
   }
 )
 service_line2 = ChangeHealth::Models::Claim::ServiceLine.new(
   service_date: "20180514",
   professional_service: {
-    "procedureIdentifier": "HC",
-    "lineItemChargeAmount": "3.75",
-    "procedureCode": "A7003",
-    "measurementUnit": "UN",
-    "serviceUnitCount": "1",
-    "compositeDiagnosisCodePointers": {
-      "diagnosisCodePointers": ["1"]
+    procedureIdentifier: "HC",
+    lineItemChargeAmount: "3.75",
+    procedureCode: "A7003",
+    measurementUnit: "UN",
+    serviceUnitCount: "1",
+    compositeDiagnosisCodePointers: {
+      diagnosisCodePointers: ["1"]
     }
   }
 )
