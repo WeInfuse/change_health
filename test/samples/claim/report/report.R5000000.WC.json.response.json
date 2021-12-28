@@ -66,6 +66,9 @@
                                 "firstName": "ERIN",
                                 "npi": "1811901945"
                             },
+                            "outpatientAdjudication": {
+                                "claimPaymentRemarkCode1": "N520"
+                            },
                             "claimSupplementalInformation": {
                                 "coverageAmount": "132"
                             },
@@ -85,6 +88,7 @@
                                             "claimAdjustmentGroupCodeValue": "Contractual Obligations",
                                             "adjustmentReasonCode1": "45",
                                             "adjustmentAmount1": "1685.95",
+                                            "adjustmentQuantity1": "1",
                                             "adjustmentReasonCode2": "253",
                                             "adjustmentAmount2": "29.7"
                                         },
@@ -99,7 +103,14 @@
                                     ],
                                     "serviceSupplementalAmounts": {
                                         "allowedActual": "25"
-                                    }
+                                    },
+                                    "healthCareCheckRemarkCodes": [
+                                        {
+                                            "codeListQualifierCode": "HE",
+                                            "codeListQualifierCodeValue": "Claim Payment Remark Codes",
+                                            "remarkCode": "N510"
+                                        }
+                                    ]
                                 },
                                 {
                                     "serviceDate": "20190325",

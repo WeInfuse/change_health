@@ -43,17 +43,25 @@ class Report835DataTest < Minitest::Test
           claim_adjustment_group_code: 'PR'
         )
 
+        health_care_check_remark_codes = [ChangeHealth::Response::Claim::Report835HealthCareCheckRemarkCode.new(
+          code_list_qualifier_code: 'HE',
+          code_list_qualifier_code_value: 'Claim Payment Remark Codes',
+          remark_code: 'N510'
+        )]
+
         service_lines = []
         service_lines << ChangeHealth::Response::Claim::Report835ServiceLine.new(
           adjudicated_procedure_code: 'D0120',
           allowed_actual: '25',
           line_item_charge_amount: '46',
           line_item_provider_payment_amount: '25',
-          service_adjustments: service_adjustments
+          service_adjustments: service_adjustments,
+          health_care_check_remark_codes: health_care_check_remark_codes
         )
         service_lines += [1, 2, 3, 4]
 
         expected_claim = ChangeHealth::Response::Claim::Report835Claim.new(
+          claim_payment_remark_codes: ['N520'],
           patient_first_name: 'SANDY',
           patient_last_name: 'DOE',
           payer_claim_control_number: '119932404007801',
@@ -68,7 +76,7 @@ class Report835DataTest < Minitest::Test
           total_actual_provider_payment_amount: '810.8',
           total_charge_amount: '226'
         )
-        expected_claim.keys.each do |attribute|
+        expected_claim.each_key do |attribute|
           next if attribute == :service_lines
 
           it attribute.to_s do
@@ -86,7 +94,7 @@ class Report835DataTest < Minitest::Test
 
         expected_service_line = expected_claim.service_lines.first
 
-        expected_service_line.keys.each do |attribute|
+        expected_service_line.each_key do |attribute|
           it attribute.to_s do
             assert_equal expected_service_line[attribute], actual_claim.service_lines.first[attribute]
           end
@@ -94,7 +102,7 @@ class Report835DataTest < Minitest::Test
 
         expected_service_adjustment = expected_service_line.service_adjustments.first
 
-        expected_service_adjustment.keys.each do |attribute|
+        expected_service_adjustment.each_key do |attribute|
           it attribute.to_s do
             assert_equal expected_service_adjustment[attribute],
                          actual_claim.service_lines.first.service_adjustments.first[attribute]

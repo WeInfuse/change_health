@@ -43,6 +43,15 @@ module ChangeHealth
                 total_charge_amount = payment_info.dig('claimPaymentInfo', 'totalClaimChargeAmount')
                 payer_claim_control_number = payment_info.dig('claimPaymentInfo', 'payerClaimControlNumber')
 
+                claim_payment_remark_codes = []
+                claim_payment_remark_codes_index = 1
+                while payment_info.dig('outpatientAdjudication',
+                                       "claimPaymentRemarkCode#{claim_payment_remark_codes_index}")
+                  claim_payment_remark_codes << payment_info.dig('outpatientAdjudication',
+                                                                 "claimPaymentRemarkCode#{claim_payment_remark_codes_index}")
+                  claim_payment_remark_codes_index += 1
+                end
+
                 service_date_begin = nil
                 service_date_end = nil
                 service_lines = []
@@ -51,9 +60,7 @@ module ChangeHealth
                   if service_date_begin.nil? || service_line_date < service_date_begin
                     service_date_begin = service_line_date
                   end
-                  if service_date_end.nil? || service_date_end < service_line_date
-                    service_date_end = service_line_date
-                  end
+                  service_date_end = service_line_date if service_date_end.nil? || service_date_end < service_line_date
 
                   adjudicated_procedure_code = service_line.dig('servicePaymentInformation', 'adjudicatedProcedureCode')
                   allowed_actual = service_line.dig('serviceSupplementalAmounts', 'allowedActual')
@@ -64,12 +71,12 @@ module ChangeHealth
                   service_adjustments = []
                   service_line['serviceAdjustments']&.each do |service_adjustment|
                     adjustments = {}
-                    # - 2 b/c group code & value, / 2 b/c come in pairs
-                    num_adjustments = (service_adjustment.keys.size - 2) / 2
-                    (1..num_adjustments).each do |index|
-                      adjustment_reason = service_adjustment["adjustmentReasonCode#{index}"]
-                      adjustment_amount = service_adjustment["adjustmentAmount#{index}"]
+                    service_adjustment_index = 1
+                    while service_adjustment["adjustmentReasonCode#{service_adjustment_index}"]
+                      adjustment_reason = service_adjustment["adjustmentReasonCode#{service_adjustment_index}"]
+                      adjustment_amount = service_adjustment["adjustmentAmount#{service_adjustment_index}"]
                       adjustments[adjustment_reason] = adjustment_amount
+                      service_adjustment_index += 1
                     end
 
                     claim_adjustment_group_code = service_adjustment['claimAdjustmentGroupCode']
@@ -80,16 +87,27 @@ module ChangeHealth
                     )
                   end
 
+                  health_care_check_remark_codes = []
+                  service_line['healthCareCheckRemarkCodes']&.each do |health_care_check_remark_code|
+                    health_care_check_remark_codes << Report835HealthCareCheckRemarkCode.new(
+                      code_list_qualifier_code: health_care_check_remark_code['codeListQualifierCode'],
+                      code_list_qualifier_code_value: health_care_check_remark_code['codeListQualifierCodeValue'],
+                      remark_code: health_care_check_remark_code['remarkCode']
+                    )
+                  end
+
                   service_lines << Report835ServiceLine.new(
                     adjudicated_procedure_code: adjudicated_procedure_code,
                     allowed_actual: allowed_actual,
                     line_item_charge_amount: line_item_charge_amount,
                     line_item_provider_payment_amount: line_item_provider_payment_amount,
-                    service_adjustments: service_adjustments
+                    service_adjustments: service_adjustments,
+                    health_care_check_remark_codes: health_care_check_remark_codes
                   )
                 end
 
                 report_claims << Report835Claim.new(
+                  claim_payment_remark_codes: claim_payment_remark_codes,
                   patient_first_name: patient_first_name,
                   patient_last_name: patient_last_name,
                   payer_claim_control_number: payer_claim_control_number,

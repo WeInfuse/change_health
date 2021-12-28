@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [3.2.0] - 2021-12-23
+### Added
+* Report835HealthCareCheckRemarkCode
+* Report835Claim - added claim_payment_remark_codes
+
 ## [3.1.0] - 2021-12-21
 ### Added
 #### Claim Submission
@@ -225,6 +230,7 @@ Added the ability to hit professional claim submission API. For more details, se
 - Authentication
 - Configuration
 
+[3.2.0]: https://github.com/WeInfuse/change_health/compare/v3.1.0...v3.2.0
 [3.1.0]: https://github.com/WeInfuse/change_health/compare/v3.0.0...v3.1.0
 [3.0.0]: https://github.com/WeInfuse/change_health/compare/v2.3.0...v3.0.0
 [2.3.0]: https://github.com/WeInfuse/change_health/compare/v2.2.1...v2.3.0
