@@ -37,11 +37,13 @@ module ChangeHealth
 
             transaction['detailInfo']&.each do |detail_info|
               detail_info['paymentInfo']&.each do |payment_info|
+                patient_control_number = payment_info.dig('claimPaymentInfo', 'patientControlNumber')
                 patient_first_name = payment_info.dig('patientName', 'firstName')
                 patient_last_name = payment_info.dig('patientName', 'lastName')
+                patient_member_id = payment_info.dig('patientName', 'memberId')
+                payer_claim_control_number = payment_info.dig('claimPaymentInfo', 'payerClaimControlNumber')
                 service_provider_npi = payment_info.dig('renderingProvider', 'npi')
                 total_charge_amount = payment_info.dig('claimPaymentInfo', 'totalClaimChargeAmount')
-                payer_claim_control_number = payment_info.dig('claimPaymentInfo', 'payerClaimControlNumber')
 
                 claim_payment_remark_codes = []
                 claim_payment_remark_codes_index = 1
@@ -108,13 +110,16 @@ module ChangeHealth
 
                 report_claims << Report835Claim.new(
                   claim_payment_remark_codes: claim_payment_remark_codes,
+                  patient_control_number: patient_control_number,
                   patient_first_name: patient_first_name,
                   patient_last_name: patient_last_name,
+                  patient_member_id: patient_member_id,
                   payer_claim_control_number: payer_claim_control_number,
                   payer_identification: payer_identification,
                   payer_name: payer_name,
                   payment_method_code: payment_method_code,
                   report_creation_date: report_creation_date,
+                  report_name: report_name,
                   service_date_begin: service_date_begin,
                   service_date_end: service_date_end,
                   service_lines: service_lines,

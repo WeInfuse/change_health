@@ -2,8 +2,12 @@ module ChangeHealth
   module Response
     module Claim
       class Report277Claim < ReportClaim
+        property :clearinghouse_trace_number, required: false
         property :info_claim_statuses, required: false
+        property :patient_account_number, required: false
         property :procedure_codes, required: false
+        property :referenced_transaction_trace_number, required: false
+        property :trading_partner_claim_number, required: false
 
         def add_info_claim_status(info_claim_status)
           self[:info_claim_statuses] ||= []

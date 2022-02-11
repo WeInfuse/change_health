@@ -47,7 +47,8 @@
                                                                         "statusCode": "65",
                                                                         "statusCodeValue": "Claim/line has been paid."
                                                                     }
-                                                                ]
+                                                                ],
+                                                                "message": "BILLING NPI IS NOT AUTHORIZED FOR TAX ID"
                                                             }
                                                         ],
                                                         "tradingPartnerClaimNumber": "AAAAAAAAAAA1",
