@@ -26,21 +26,27 @@ class Report277DataTest < Minitest::Test
       describe 'claim contents - everything there, from sandbox' do
         let(:actual_claim) { report_data.claims.first }
         info_claim_status = ChangeHealth::Response::Claim::Report277InfoClaimStatus.new(
+          message: 'BILLING NPI IS NOT AUTHORIZED FOR TAX ID',
           status_category_codes: ['F1'],
           status_information_effective_date: Date.new(2020, 6, 13),
           total_charge_amount: '100'
         )
         expected_claim = ChangeHealth::Response::Claim::Report277Claim.new(
+          clearinghouse_trace_number: '111111111111111',
           info_claim_statuses: [info_claim_status],
+          patient_account_number: '00000',
           patient_first_name: 'JOHNONE',
           patient_last_name: 'DOEONE',
+          patient_member_id: '0000000000',
           payer_identification: '430',
           payer_name: 'PREMERA',
           procedure_codes: ['97161'],
+          referenced_transaction_trace_number: '000000001',
           report_creation_date: Date.new(2020, 12, 1),
           service_date_begin: Date.new(2020, 2, 14),
           service_date_end: Date.new(2020, 2, 14),
-          service_provider_npi: '1111111111'
+          service_provider_npi: '1111111111',
+          trading_partner_claim_number: 'AAAAAAAAAAA1'
         )
         expected_claim.keys.each do |attribute|
           it attribute.to_s do
@@ -83,6 +89,7 @@ class Report277DataTest < Minitest::Test
           payer_name: 'EXTRA HEALTHY INSURANCE',
           procedure_codes: [],
           report_creation_date: Date.new(2020, 1, 7),
+          report_name: 'X3000000.XX',
           service_provider_npi: '1760854442'
         )
         it 'claim count' do

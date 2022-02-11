@@ -255,6 +255,9 @@ claim_277 = report_277_data.claims.first
 claim_277.payer_name
 # "PREMERA"
 
+claim_277.report_name
+# "X3000000.AB"
+
 claim_277.patient_first_name
 # "JOHNONE"
 
@@ -289,6 +292,9 @@ claim_835.payer_name
 
 claim_835.patient_first_name
 # "JANE"
+
+claim_835.patient_member_id
+# "7SL5RA7XR19"
 
 claim_835.report_creation_date
 # Wed, 22 Apr 2020

@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+# [3.3.0] - 2022-02-11
+### Added
+* Report277Claim - 'message' from informationClaimStatuses, clearinghouse_trace_number, patient_account_number, referenced_transaction_trace_number, trading_partner_claim_number
+* Report835Claim - patient_control_number
+* ReportClaim - report_name, patient_member_id
+
 ## [3.2.0] - 2021-12-23
 ### Added
 * Report835HealthCareCheckRemarkCode
@@ -230,6 +236,7 @@ Added the ability to hit professional claim submission API. For more details, se
 - Authentication
 - Configuration
 
+[3.3.0]: https://github.com/WeInfuse/change_health/compare/v3.2.0...v3.3.0
 [3.2.0]: https://github.com/WeInfuse/change_health/compare/v3.1.0...v3.2.0
 [3.1.0]: https://github.com/WeInfuse/change_health/compare/v3.0.0...v3.1.0
 [3.0.0]: https://github.com/WeInfuse/change_health/compare/v2.3.0...v3.0.0

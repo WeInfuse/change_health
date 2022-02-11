@@ -62,13 +62,16 @@ class Report835DataTest < Minitest::Test
 
         expected_claim = ChangeHealth::Response::Claim::Report835Claim.new(
           claim_payment_remark_codes: ['N520'],
+          patient_control_number: '7722337',
           patient_first_name: 'SANDY',
           patient_last_name: 'DOE',
+          patient_member_id: 'SJD11112',
           payer_claim_control_number: '119932404007801',
           payer_identification: '06102',
           payer_name: 'DENTAL OF ABC',
           payment_method_code: 'CHK',
           report_creation_date: Date.new(2019, 4, 5),
+          report_name: 'R5000000.WC',
           service_date_begin: Date.new(2019, 3, 22),
           service_date_end: Date.new(2019, 3, 26),
           service_lines: service_lines,
