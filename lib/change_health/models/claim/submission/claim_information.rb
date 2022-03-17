@@ -35,7 +35,10 @@ module ChangeHealth
         def create_adjustment_detail_array(other_subscriber_information)
           adjustment_details = []
           other_subscriber_information.each do |line_item|
+            puts line_item
             line_item_adjustments = line_item["serviceAdjustments"]
+            puts "line_item_adjustments" * 10
+            puts line_item_adjustments
             line_item_adjustments.each do |group_adjustments|
               adjustment_details << create_group_adjustments(group_adjustments)
             end
@@ -60,3 +63,19 @@ module ChangeHealth
     end
   end
 end
+
+
+        # def create_adjustment_detail_array(other_subscriber_information)
+        #   adjustment_details = []
+        #   other_subscriber_information.each do |line_item|
+        #     line_item_adjustments = line_item["serviceAdjustments"]
+        #     if line_item_adjustments.class == Array
+        #       line_item_adjustments.each do |group_adjustments|
+        #         adjustment_details << create_group_adjustments(group_adjustments)
+        #       end
+        #     else
+        #       adjustment_details << create_group_adjustments(line_item_adjustments)
+        #     end
+        #   end
+        #   adjustment_details
+        # end
