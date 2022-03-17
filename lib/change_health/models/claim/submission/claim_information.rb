@@ -16,6 +16,37 @@ module ChangeHealth
         property :serviceLines, from: :service_lines, required: false
         property :signatureIndicator, from: :signature_indicator, required: false
 
+        def create_group_adjustments(group_adjustments)
+          adjustment_array = []
+          [1, 2, 3].each do |i|
+              if group_adjustments["adjustmentReasonCode"+"#{i}"]
+                adjustment_array << {
+                    adjustmentReasonCode: group_adjustments["adjustmentReasonCode"+"#{i}"],
+                    adjustmentAmount: group_adjustments["adjustmentAmount"+"#{i}"]
+                  }
+            end
+          end
+          {
+            adjustmentDetails: adjustment_array,
+            adjustmentGroupCode: group_adjustments["claimAdjustmentGroupCode"]
+          }
+        end
+      
+        def create_adjustment_detail_array(other_subscriber_information)
+          adjustment_details = []
+          other_subscriber_information.each do |line_item|
+            line_item_adjustments = line_item["serviceAdjustments"]
+            line_item_adjustments.each do |group_adjustments|
+              adjustment_details << create_group_adjustments(group_adjustments)
+            end
+          end
+          adjustment_details
+        end
+
+        def create_other_subscriber_information(other_subscriber_information)
+          create_adjustment_detail_array(other_subscriber_information)
+        end
+
         def add_service_line(service_line)
           self[:serviceLines] ||= []
           self[:serviceLines] << service_line
