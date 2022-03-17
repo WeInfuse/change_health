@@ -1,7 +1,7 @@
 module ChangeHealth
   module Models
     DATE_FORMAT = '%Y%m%d'
-    DATE_FORMATTER = ->(d) {
+    DATE_FORMATTER = lambda { |d|
       begin
         d = Date.parse(d) if d.is_a?(String)
       rescue ArgumentError
@@ -12,37 +12,65 @@ module ChangeHealth
       d
     }
 
-    PARSE_DATE = ->(d) {
+    PARSE_DATE = lambda { |d|
       begin
         d = Date.strptime(d, ChangeHealth::Models::DATE_FORMAT)
-      rescue
+      rescue StandardError
       end
 
       d
     }
 
-    CONTROL_NUMBER = ->() { '%09d' % rand(1_000_000_000) }
+    POSTAL_CODE_FORMATTER = lambda { |postal_code|
+      begin
+        formatted_postal_code = postal_code&.to_s&.tr('-', '')
+      rescue StandardError
+      end
+      formatted_postal_code || postal_code
+    }
+
+    CONTROL_NUMBER = -> { '%09d' % rand(1_000_000_000) }
 
     class Model < Hashie::Trash
       def to_h
-        result = super.to_h
-
-        self.each_pair do |key, value|
-          if key.to_s.downcase.include?('date')
-            result[key] = ChangeHealth::Models::DATE_FORMATTER.call(result[key])
-          end
-          result[key] = nil if value == ""
-        end
-
-        result
+        self.class.hashify(self)
       end
 
-      def as_json(args = {})
-        self.to_h
+      def self.hashify(model)
+        model.map do |key, value|
+          formatted_value = case value
+                            when Hash
+                              hashify(model[key])
+                            when Array
+                              value.map do |element|
+                                if element.is_a?(Hash)
+                                  hashify(element)
+                                else # if it's an array of arrays, can't handle it
+                                  format_value(key, element)
+                                end
+                              end
+                            else
+                              format_value(key, value)
+                            end
+          [key, formatted_value]
+        end.to_h
       end
 
-      def to_json
-        self.to_h.to_json
+      def self.format_value(key, value)
+        return nil if value == ''
+
+        return ChangeHealth::Models::DATE_FORMATTER.call(value) if key.to_s.downcase.include?('date')
+        return ChangeHealth::Models::POSTAL_CODE_FORMATTER.call(value) if key.to_s.downcase.include?('postalcode')
+
+        value
+      end
+
+      def as_json(_args = {})
+        to_h
+      end
+
+      def to_json(*_args)
+        to_h.to_json
       end
     end
   end

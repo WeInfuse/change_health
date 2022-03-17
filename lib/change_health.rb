@@ -5,9 +5,10 @@ require 'change_health/authentication'
 require 'change_health/change_health_exception'
 require 'change_health/connection'
 require 'change_health/extensions'
-require 'change_health/models/error'
 require 'change_health/models/model'
+require 'change_health/models/claim/submission/address'
 require 'change_health/models/claim/submission/claim_information'
+require 'change_health/models/claim/submission/drug_identification'
 require 'change_health/models/claim/submission/provider'
 require 'change_health/models/claim/submission/service_line'
 require 'change_health/models/claim/submission/submitter'
@@ -20,10 +21,20 @@ require 'change_health/request/eligibility'
 require 'change_health/request/submission'
 require 'change_health/request/report'
 require 'change_health/request/trading_partner'
+require 'change_health/response/error'
 require 'change_health/response/response_data'
 require 'change_health/response/claim/submission/submission_data'
 require 'change_health/response/claim/report/report_list_data'
 require 'change_health/response/claim/report/report_data'
+require 'change_health/response/claim/report/report_277_data'
+require 'change_health/response/claim/report/report_835_data'
+require 'change_health/response/claim/report/report_claim'
+require 'change_health/response/claim/report/report_277_claim'
+require 'change_health/response/claim/report/report_277_info_claim_status'
+require 'change_health/response/claim/report/report_835_claim'
+require 'change_health/response/claim/report/report_835_health_care_check_remark_code'
+require 'change_health/response/claim/report/report_835_service_adjustment'
+require 'change_health/response/claim/report/report_835_service_line'
 require 'change_health/response/eligibility/eligibility_benefit'
 require 'change_health/response/eligibility/eligibility_benefits'
 require 'change_health/response/eligibility/eligibility_data'
@@ -45,11 +56,11 @@ module ChangeHealth
     end
 
     def api_endpoint
-      return Connection.base_uri
+      Connection.base_uri
     end
 
     def to_h
-      return {
+      {
         client_id: @client_id,
         client_secret: @client_secret,
         grant_type: @grant_type,
@@ -63,7 +74,7 @@ module ChangeHealth
       self.grant_type    = h[:grant_type]
       self.api_endpoint  = h[:api_endpoint]
 
-      return self
+      self
     end
   end
 

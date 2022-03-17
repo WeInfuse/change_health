@@ -1,0 +1,392 @@
+{
+    "transactions": [
+        {
+            "controlNumber": "0001",
+            "referenceIdentification": "000000001",
+            "transactionSetCreationDate": "20201201",
+            "transactionSetCreationTime": "120558",
+            "payers": [
+                {
+                    "organizationName": "PREMERA",
+                    "payerIdentification": "430",
+                    "claimStatusTransactions": [
+                        {
+                            "provider": {
+                                "organizationName": "CHC3",
+                                "etin": "000000000"
+                            },
+                            "claimStatusDetails": [
+                                {
+                                    "serviceProvider": {
+                                        "organizationName": "HAPPY DOCTORS GROUP",
+                                        "npi": "1111111111"
+                                    },
+                                    "patientClaimStatusDetails": [
+                                        {
+                                            "subscriber": {
+                                                "lastName": "DOEONE",
+                                                "firstName": "JOHNONE",
+                                                "memberId": "0000000000"
+                                            },
+                                            "claims": [
+                                                {
+                                                    "claimStatus": {
+                                                        "referencedTransactionTraceNumber": "000000001",
+                                                        "informationClaimStatuses": [
+                                                            {
+                                                                "statusInformationEffectiveDate": "20200613",
+                                                                "totalClaimChargeAmount": "100",
+                                                                "claimPaymentAmount": "80",
+                                                                "adjudicatedFinalizedDate": "20200609",
+                                                                "remittanceDate": "20200613",
+                                                                "remittanceTraceNumber": "1111111",
+                                                                "informationStatuses": [
+                                                                    {
+                                                                        "healthCareClaimStatusCategoryCode": "F1",
+                                                                        "healthCareClaimStatusCategoryCodeValue": "Finalized/Payment-The claim/line has been paid.",
+                                                                        "statusCode": "65",
+                                                                        "statusCodeValue": "Claim/line has been paid."
+                                                                    }
+                                                                ],
+                                                                "message": "BILLING NPI IS NOT AUTHORIZED FOR TAX ID"
+                                                            }
+                                                        ],
+                                                        "tradingPartnerClaimNumber": "AAAAAAAAAAA1",
+                                                        "patientAccountNumber": "00000",
+                                                        "clearinghouseTraceNumber": "111111111111111",
+                                                        "claimServiceBeginDate": "20200214",
+                                                        "claimServiceEndDate": "20200214"
+                                                    },
+                                                    "serviceLines": [
+                                                        {
+                                                            "service": {
+                                                                "serviceIdQualifierCode": "HC",
+                                                                "serviceIdQualifierCodeValue": "Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes",
+                                                                "procedureCode": "97161",
+                                                                "procedureModifiers": [
+                                                                    "95"
+                                                                ],
+                                                                "chargeAmount": "100",
+                                                                "amountPaid": "80",
+                                                                "submittedUnits": "1"
+                                                            },
+                                                            "serviceClaimStatuses": [
+                                                                {
+                                                                    "effectiveDate": "20200613",
+                                                                    "serviceStatuses": [
+                                                                        {
+                                                                            "healthCareClaimStatusCategoryCode": "F1",
+                                                                            "healthCareClaimStatusCategoryCodeValue": "Finalized/Payment-The claim/line has been paid.",
+                                                                            "statusCode": "65",
+                                                                            "statusCodeValue": "Claim/line has been paid."
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ],
+                                                            "beginServiceLineDate": "20200214",
+                                                            "endServiceLineDate": "20200214"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "organizationName": "PREMERA",
+                    "payerIdentification": "430",
+                    "claimStatusTransactions": [
+                        {
+                            "provider": {
+                                "organizationName": "CHC3",
+                                "etin": "943207296"
+                            },
+                            "claimStatusDetails": [
+                                {
+                                    "serviceProvider": {
+                                        "organizationName": "HAPPY DOCTORS GROUP",
+                                        "npi": "11111111111"
+                                    },
+                                    "patientClaimStatusDetails": [
+                                        {
+                                            "subscriber": {
+                                                "lastName": "DOEONE",
+                                                "firstName": "JANEONE",
+                                                "memberId": "0000000001"
+                                            },
+                                            "claims": [
+                                                {
+                                                    "claimStatus": {
+                                                        "referencedTransactionTraceNumber": "000000001",
+                                                        "informationClaimStatuses": [
+                                                            {
+                                                                "statusInformationEffectiveDate": "20200531",
+                                                                "totalClaimChargeAmount": "225",
+                                                                "claimPaymentAmount": "0",
+                                                                "adjudicatedFinalizedDate": "20200528",
+                                                                "remittanceDate": "20200530",
+                                                                "remittanceTraceNumber": "2222222222222222",
+                                                                "informationStatuses": [
+                                                                    {
+                                                                        "healthCareClaimStatusCategoryCode": "F1",
+                                                                        "healthCareClaimStatusCategoryCodeValue": "Finalized/Payment-The claim/line has been paid.",
+                                                                        "statusCode": "65",
+                                                                        "statusCodeValue": "Claim/line has been paid."
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "tradingPartnerClaimNumber": "333333333333",
+                                                        "patientAccountNumber": "22222",
+                                                        "clearinghouseTraceNumber": "AAAAAAAAAAAAAA2",
+                                                        "claimServiceBeginDate": "20200306",
+                                                        "claimServiceEndDate": "20200306"
+                                                    },
+                                                    "serviceLines": [
+                                                        {
+                                                            "service": {
+                                                                "serviceIdQualifierCode": "HC",
+                                                                "serviceIdQualifierCodeValue": "Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes",
+                                                                "procedureCode": "97110",
+                                                                "procedureModifiers": [
+                                                                    "95"
+                                                                ],
+                                                                "chargeAmount": "225",
+                                                                "amountPaid": "0",
+                                                                "submittedUnits": "1"
+                                                            },
+                                                            "serviceClaimStatuses": [
+                                                                {
+                                                                    "effectiveDate": "20200531",
+                                                                    "serviceStatuses": [
+                                                                        {
+                                                                            "healthCareClaimStatusCategoryCode": "F1",
+                                                                            "healthCareClaimStatusCategoryCodeValue": "Finalized/Payment-The claim/line has been paid.",
+                                                                            "statusCode": "65",
+                                                                            "statusCodeValue": "Claim/line has been paid."
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ],
+                                                            "beginServiceLineDate": "20200306",
+                                                            "endServiceLineDate": "20200306"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "claimStatus": {
+                                                        "referencedTransactionTraceNumber": "000000001",
+                                                        "informationClaimStatuses": [
+                                                            {
+                                                                "statusInformationEffectiveDate": "20200416",
+                                                                "totalClaimChargeAmount": "225",
+                                                                "claimPaymentAmount": "0",
+                                                                "informationStatuses": [
+                                                                    {
+                                                                        "healthCareClaimStatusCategoryCode": "F4",
+                                                                        "healthCareClaimStatusCategoryCodeValue": "Finalized/Adjudication Complete - No payment forthcoming-The claim/encounter has been adjudicated and no further payment is forthcoming.",
+                                                                        "statusCode": "0",
+                                                                        "statusCodeValue": "Cannot provide further status electronically."
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "tradingPartnerClaimNumber": "444444444444",
+                                                        "patientAccountNumber": "33333",
+                                                        "clearinghouseTraceNumber": "AAAAAAAAAAAAAA5",
+                                                        "claimServiceBeginDate": "20200214",
+                                                        "claimServiceEndDate": "20200306"
+                                                    },
+                                                    "serviceLines": [
+                                                        {
+                                                            "service": {
+                                                                "serviceIdQualifierCode": "HC",
+                                                                "serviceIdQualifierCodeValue": "Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes",
+                                                                "procedureCode": "97110",
+                                                                "chargeAmount": "225",
+                                                                "amountPaid": "0",
+                                                                "submittedUnits": "1"
+                                                            },
+                                                            "serviceClaimStatuses": [
+                                                                {
+                                                                    "effectiveDate": "20200416",
+                                                                    "serviceStatuses": [
+                                                                        {
+                                                                            "healthCareClaimStatusCategoryCode": "F4",
+                                                                            "healthCareClaimStatusCategoryCodeValue": "Finalized/Adjudication Complete - No payment forthcoming-The claim/encounter has been adjudicated and no further payment is forthcoming.",
+                                                                            "statusCode": "0",
+                                                                            "statusCodeValue": "Cannot provide further status electronically."
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ],
+                                                            "beginServiceLineDate": "20200214",
+                                                            "endServiceLineDate": "20200306"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "claimStatus": {
+                                                        "referencedTransactionTraceNumber": "000000001",
+                                                        "informationClaimStatuses": [
+                                                            {
+                                                                "statusInformationEffectiveDate": "20200512",
+                                                                "totalClaimChargeAmount": "225",
+                                                                "claimPaymentAmount": "0",
+                                                                "informationStatuses": [
+                                                                    {
+                                                                        "healthCareClaimStatusCategoryCode": "F4",
+                                                                        "healthCareClaimStatusCategoryCodeValue": "Finalized/Adjudication Complete - No payment forthcoming-The claim/encounter has been adjudicated and no further payment is forthcoming.",
+                                                                        "statusCode": "0",
+                                                                        "statusCodeValue": "Cannot provide further status electronically."
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "tradingPartnerClaimNumber": "666666666666",
+                                                        "patientAccountNumber": "55555",
+                                                        "clearinghouseTraceNumber": "AAAAAAAAAAAAAA6",
+                                                        "claimServiceBeginDate": "20200214",
+                                                        "claimServiceEndDate": "20200306"
+                                                    },
+                                                    "serviceLines": [
+                                                        {
+                                                            "service": {
+                                                                "serviceIdQualifierCode": "HC",
+                                                                "serviceIdQualifierCodeValue": "Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes",
+                                                                "procedureCode": "97110",
+                                                                "procedureModifiers": [
+                                                                    "95"
+                                                                ],
+                                                                "chargeAmount": "225",
+                                                                "amountPaid": "0",
+                                                                "submittedUnits": "1"
+                                                            },
+                                                            "serviceClaimStatuses": [
+                                                                {
+                                                                    "effectiveDate": "20200512",
+                                                                    "serviceStatuses": [
+                                                                        {
+                                                                            "healthCareClaimStatusCategoryCode": "F4",
+                                                                            "healthCareClaimStatusCategoryCodeValue": "Finalized/Adjudication Complete - No payment forthcoming-The claim/encounter has been adjudicated and no further payment is forthcoming.",
+                                                                            "statusCode": "0",
+                                                                            "statusCodeValue": "Cannot provide further status electronically."
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ],
+                                                            "beginServiceLineDate": "20200214",
+                                                            "endServiceLineDate": "20200306"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "organizationName": "PREMERA",
+                    "payerIdentification": "430",
+                    "claimStatusTransactions": [
+                        {
+                            "provider": {
+                                "organizationName": "CHC3",
+                                "etin": "943207296"
+                            },
+                            "claimStatusDetails": [
+                                {
+                                    "serviceProvider": {
+                                        "organizationName": "HAPPY DOCTORS GROUP",
+                                        "npi": "1111111111"
+                                    },
+                                    "patientClaimStatusDetails": [
+                                        {
+                                            "subscriber": {
+                                                "lastName": "DOEONE",
+                                                "firstName": "JANEONE",
+                                                "memberId": "0000000001"
+                                            },
+                                            "claims": [
+                                                {
+                                                    "claimStatus": {
+                                                        "referencedTransactionTraceNumber": "000000001",
+                                                        "informationClaimStatuses": [
+                                                            {
+                                                                "statusInformationEffectiveDate": "20200606",
+                                                                "totalClaimChargeAmount": "100",
+                                                                "claimPaymentAmount": "0",
+                                                                "adjudicatedFinalizedDate": "20200602",
+                                                                "remittanceDate": "20200606",
+                                                                "remittanceTraceNumber": "2020060611500789",
+                                                                "informationStatuses": [
+                                                                    {
+                                                                        "healthCareClaimStatusCategoryCode": "F1",
+                                                                        "healthCareClaimStatusCategoryCodeValue": "Finalized/Payment-The claim/line has been paid.",
+                                                                        "statusCode": "65",
+                                                                        "statusCodeValue": "Claim/line has been paid."
+                                                                    }
+                                                                ]
+                                                            }
+                                                        ],
+                                                        "tradingPartnerClaimNumber": "777777777777",
+                                                        "patientAccountNumber": "55555",
+                                                        "clearinghouseTraceNumber": "AAAAAAAAAAAAAA5",
+                                                        "claimServiceBeginDate": "20200214",
+                                                        "claimServiceEndDate": "20200214"
+                                                    },
+                                                    "serviceLines": [
+                                                        {
+                                                            "service": {
+                                                                "serviceIdQualifierCode": "HC",
+                                                                "serviceIdQualifierCodeValue": "Health Care Financing Administration Common Procedural Coding System (HCPCS) Codes",
+                                                                "procedureCode": "97161",
+                                                                "procedureModifiers": [
+                                                                    "95"
+                                                                ],
+                                                                "chargeAmount": "100",
+                                                                "amountPaid": "0",
+                                                                "submittedUnits": "1"
+                                                            },
+                                                            "serviceClaimStatuses": [
+                                                                {
+                                                                    "effectiveDate": "20200606",
+                                                                    "serviceStatuses": [
+                                                                        {
+                                                                            "healthCareClaimStatusCategoryCode": "F1",
+                                                                            "healthCareClaimStatusCategoryCodeValue": "Finalized/Payment-The claim/line has been paid.",
+                                                                            "statusCode": "65",
+                                                                            "statusCodeValue": "Claim/line has been paid."
+                                                                        }
+                                                                    ]
+                                                                }
+                                                            ],
+                                                            "beginServiceLineDate": "20200214",
+                                                            "endServiceLineDate": "20200214"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "meta": {
+        "applicationMode": "sandbox",
+        "senderId": "MN_WeInfuse_App",
+        "traceId": "c5ba9007-71d4-e2c1-dad3-a922021dff73"
+    }
+}

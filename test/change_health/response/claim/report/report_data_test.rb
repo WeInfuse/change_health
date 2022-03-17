@@ -21,7 +21,6 @@ class ReportDataTest < Minitest::Test
     let(:report_data_json) { ChangeHealth::Response::Claim::ReportData.new(report_name, true, data: json_data) }
     let(:edi_data) { load_sample("claim/report/report.#{report_name}.edi.response.json", parse: true) }
     let(:report_data_edi) { ChangeHealth::Response::Claim::ReportData.new(report_name, false, data: json_data) }
-
     it 'json' do
       assert report_data_json.json?
       assert !report_data_json.edi?

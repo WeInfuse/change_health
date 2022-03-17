@@ -1,19 +1,23 @@
 require 'test_helper'
 
 class ErrorTest < Minitest::Test
-
   describe 'errors' do
-    let(:field_error0) { {'field' => 'patient.name', 'description' => 'is too short' } }
-    let(:field_down) { {'field' => 'Http Header', 'description' => 'Please review http headers for this API, please contact support if you are unsure how to resolve.'} }
-    let(:code_needs_fix) { {'code' => '71', 'description' => 'Need more time' } }
-    let(:code_retry_80) { {'code' => '80', 'description' => 'Unable to Respond at Current Time', 'followupAction' => 'Resubmission Allowed'} }
+    let(:field_error0) { { 'field' => 'patient.name', 'description' => 'is too short' } }
+    let(:field_down) do
+      { 'field' => 'Http Header',
+        'description' => 'Please review http headers for this API, please contact support if you are unsure how to resolve.' }
+    end
+    let(:code_needs_fix) { { 'code' => '71', 'description' => 'Need more time' } }
+    let(:code_retry_80) do
+      { 'code' => '80', 'description' => 'Unable to Respond at Current Time',
+        'followupAction' => 'Resubmission Allowed' }
+    end
     let(:code_noretry_80) { code_retry_80.merge('followupAction' => 'xxDo Not Resubmitmm;') }
     let(:json_data) { { 'errors' => errors } }
 
-    let(:error_obj) { ChangeHealth::Models::Error.new(error_to_test) }
+    let(:error_obj) { ChangeHealth::Response::Error.new(error_to_test) }
 
     describe 'retryable?' do
-
       describe 'no code' do
         let(:error_to_test) { field_error0 }
 
@@ -56,7 +60,6 @@ class ErrorTest < Minitest::Test
     end
 
     describe 'represents_down?' do
-
       describe 'retryable code' do
         let(:error_to_test) { code_retry_80 }
 
@@ -83,5 +86,3 @@ class ErrorTest < Minitest::Test
     end
   end
 end
-
-

@@ -13,11 +13,12 @@ module ChangeHealth
 
     format :json
 
-    def request(endpoint: , query: nil, body: nil, headers: {}, auth: true, verb: :post)
+    def request(endpoint:, query: nil, body: nil, headers: {}, auth: true, verb: :post)
       body    = body.to_json if body.is_a?(Hash)
+      headers = {} if headers.nil?
       headers = auth_header.merge(headers) if auth
 
-      self.class.send("#{verb}", endpoint, query: query, body: body, headers: headers)
+      self.class.send(verb.to_s, endpoint, query: query, body: body, headers: headers)
     end
 
     private
@@ -25,7 +26,7 @@ module ChangeHealth
     def auth_header
       @auth ||= Authentication.new
 
-      return @auth.authenticate.access_header
+      @auth.authenticate.access_header
     end
   end
 end

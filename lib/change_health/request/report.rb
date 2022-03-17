@@ -14,18 +14,26 @@ module ChangeHealth
           return if report_name.nil? || report_name.empty?
           final_headers =  ChangeHealth::Request::Claim::Report.report_headers(headers)
 
+          report_type = ChangeHealth::Response::Claim::ReportData.report_type(report_name)
+          return if report_type.nil?
+
           individual_report_endpoint = ENDPOINT + '/' + report_name
-          if as_json_report
-            # https://developers.changehealthcare.com/eligibilityandclaims/docs/what-file-types-does-this-api-get-from-the-mailbox
-            report_type = ChangeHealth::Response::Claim::ReportData.report_type(report_name)
-            return if report_type.nil?
 
-            individual_report_endpoint += '/' + report_type
+          # https://developers.changehealthcare.com/eligibilityandclaims/docs/what-file-types-does-this-api-get-from-the-mailbox
+          individual_report_endpoint += '/' + report_type if as_json_report
+
+          response = ChangeHealth::Connection.new.request(endpoint: individual_report_endpoint, verb: :get, headers: final_headers)
+          if ChangeHealth::Response::Claim::ReportData.is_277?(report_name)
+            ChangeHealth::Response::Claim::Report277Data
+              .new(report_name,
+                   as_json_report,
+                   response: response)
+          else
+            ChangeHealth::Response::Claim::Report835Data
+              .new(report_name,
+                   as_json_report,
+                   response: response)
           end
-
-          ChangeHealth::Response::Claim::ReportData.new(report_name,
-                                                        as_json_report,
-                                                        response: ChangeHealth::Connection.new.request(endpoint: individual_report_endpoint, verb: :get, headers: final_headers))
         end
 
         def self.health_check
