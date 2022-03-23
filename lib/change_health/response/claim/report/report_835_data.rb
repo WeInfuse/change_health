@@ -11,6 +11,10 @@ module ChangeHealth
           transactions&.first&.dig('paymentAndRemitReassociationDetails', 'checkOrEFTTraceNumber')
         end
 
+        def check_issue_or_eft_effective_date
+          ChangeHealth::Models::PARSE_DATE.call(transactions&.first&.dig('financialInformation', 'checkIssueOrEFTEffectiveDate'))
+        end
+
         def payer_identification
           transactions&.first&.dig('payer', 'payerIdentificationNumber')
         end
@@ -107,6 +111,7 @@ module ChangeHealth
                 end
 
                 report_claims << Report835Claim.new(
+                  check_issue_or_eft_effective_date: check_issue_or_eft_effective_date,
                   check_or_eft_trace_number: check_or_eft_trace_number,
                   claim_payment_remark_codes: claim_payment_remark_codes,
                   patient_control_number: patient_control_number,

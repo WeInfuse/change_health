@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 # [3.4.0] - 2022-03-23
 ### Added
-* Report835Claim - check_or_eft_trace_number
+* Report835Claim - check_or_eft_trace_number & check_issue_or_eft_effective_date
 
 # [3.3.0] - 2022-02-11
 ### Added

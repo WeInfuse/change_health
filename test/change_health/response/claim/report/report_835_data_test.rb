@@ -10,6 +10,10 @@ class Report835DataTest < Minitest::Test
       assert_equal 1, report_data.transactions.size
     end
 
+    it 'check_issue_or_eft_effective_date' do
+      assert_equal Date.new(2019, 3, 31), report_data.check_issue_or_eft_effective_date
+    end
+
     it 'check_or_eft_trace_number' do
       assert_equal '12345', report_data.check_or_eft_trace_number
     end
@@ -69,6 +73,7 @@ class Report835DataTest < Minitest::Test
         service_lines += [1, 2, 3, 4]
 
         expected_claim = ChangeHealth::Response::Claim::Report835Claim.new(
+          check_issue_or_eft_effective_date: Date.new(2019, 3, 31),
           check_or_eft_trace_number: '12345',
           claim_payment_remark_codes: ['N520'],
           patient_control_number: '7722337',
