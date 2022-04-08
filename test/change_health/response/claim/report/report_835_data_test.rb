@@ -11,7 +11,7 @@ class Report835DataTest < Minitest::Test
     end
 
     it 'payer_identifier' do
-      assert_equal '1351840597', report_data.check_issue_or_eft_effective_date
+      assert_equal '1351840597', report_data.payer_identifier
     end
 
     it 'payer_name' do
