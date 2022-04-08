@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Report835DataTest < Minitest::Test
+class Report835ServiceLineTest < Minitest::Test
    describe 'line_adjudication_information' do
       let(:service_adjustments) do
          ChangeHealth::Response::Claim::Report835ServiceAdjustment.new(

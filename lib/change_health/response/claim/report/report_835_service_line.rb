@@ -36,10 +36,9 @@ module ChangeHealth
         end
 
         def create_adjustment_detail_array
-          adjustment_details = []
           all_service_adjustments = self.service_adjustments
-          all_service_adjustments.each do |service_adjustments|
-            adjustment_details << create_group_adjustments(service_adjustments)
+          adjustment_details = all_service_adjustments.map do |service_adjustments|
+            create_group_adjustments(service_adjustments)
           end
 
           health_care_check_remark_codes = self[:health_care_check_remark_codes]
