@@ -14,6 +14,18 @@ class Report835DataTest < Minitest::Test
       assert_equal '1351840597', report_data.payer_identifier
     end
 
+    it 'check_issue_or_eft_effective_date' do
+      assert_equal Date.new(2019, 3, 31), report_data.check_issue_or_eft_effective_date
+    end
+
+    it 'check_or_eft_trace_number' do
+      assert_equal '12345', report_data.check_or_eft_trace_number
+    end
+
+    it 'payer_identification' do
+      assert_equal '06102', report_data.payer_identification
+    end
+
     it 'payer_name' do
       assert_equal 'DENTAL OF ABC', report_data.payer_name
     end
@@ -66,6 +78,8 @@ class Report835DataTest < Minitest::Test
 
         expected_claim = ChangeHealth::Response::Claim::Report835Claim.new(
           payer_identifier: '1351840597',
+          check_issue_or_eft_effective_date: Date.new(2019, 3, 31),
+          check_or_eft_trace_number: '12345',
           claim_payment_remark_codes: ['N520'],
           patient_control_number: '7722337',
           patient_first_name: 'SANDY',

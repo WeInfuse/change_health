@@ -7,6 +7,18 @@ module ChangeHealth
           @raw['transactions']
         end
 
+        def check_or_eft_trace_number
+          transactions&.first&.dig('paymentAndRemitReassociationDetails', 'checkOrEFTTraceNumber')
+        end
+
+        def check_issue_or_eft_effective_date
+          ChangeHealth::Models::PARSE_DATE.call(transactions&.first&.dig('financialInformation', 'checkIssueOrEFTEffectiveDate'))
+        end
+
+        def payer_identification
+          transactions&.first&.dig('payer', 'payerIdentificationNumber')
+        end
+
         # Only one payer per report
         def payer_name
           transactions&.first&.dig('payer')&.dig('name')
@@ -32,13 +44,6 @@ module ChangeHealth
           report_claims = []
 
           transactions&.each do |transaction|
-            payment_method_code = transaction.dig('financialInformation', 'paymentMethodCode')
-            payer_name = transaction.dig('payer', 'name')
-            payer_identification = transaction.dig('payer', 'payerIdentificationNumber')
-            report_creation_date = ChangeHealth::Models::PARSE_DATE.call(transaction['productionDate'])
-            total_actual_provider_payment_amount = transaction.dig('financialInformation',
-                                                                   'totalActualProviderPaymentAmount')
-
             transaction['detailInfo']&.each do |detail_info|
               detail_info['paymentInfo']&.each do |payment_info|
                 patient_control_number = payment_info.dig('claimPaymentInfo', 'patientControlNumber')
@@ -60,8 +65,7 @@ module ChangeHealth
 
                 service_date_begin = nil
                 service_date_end = nil
-                service_lines = []
-                payment_info['serviceLines']&.each do |service_line|
+                service_lines = payment_info['serviceLines']&.map do |service_line|
                   service_line_date = ChangeHealth::Models::PARSE_DATE.call(service_line['serviceDate'])
                   if service_date_begin.nil? || service_line_date < service_date_begin
                     service_date_begin = service_line_date
@@ -74,8 +78,7 @@ module ChangeHealth
                   line_item_provider_payment_amount = service_line.dig('servicePaymentInformation',
                                                                        'lineItemProviderPaymentAmount')
 
-                  service_adjustments = []
-                  service_line['serviceAdjustments']&.each do |service_adjustment|
+                  service_adjustments = service_line['serviceAdjustments']&.map do |service_adjustment|
                     adjustments = {}
                     service_adjustment_index = 1
                     while service_adjustment["adjustmentReasonCode#{service_adjustment_index}"]
@@ -87,22 +90,21 @@ module ChangeHealth
 
                     claim_adjustment_group_code = service_adjustment['claimAdjustmentGroupCode']
 
-                    service_adjustments << Report835ServiceAdjustment.new(
+                    Report835ServiceAdjustment.new(
                       adjustments: adjustments,
                       claim_adjustment_group_code: claim_adjustment_group_code
                     )
                   end
 
-                  health_care_check_remark_codes = []
-                  service_line['healthCareCheckRemarkCodes']&.each do |health_care_check_remark_code|
-                    health_care_check_remark_codes << Report835HealthCareCheckRemarkCode.new(
+                  health_care_check_remark_codes = service_line['healthCareCheckRemarkCodes']&.map do |health_care_check_remark_code|
+                    Report835HealthCareCheckRemarkCode.new(
                       code_list_qualifier_code: health_care_check_remark_code['codeListQualifierCode'],
                       code_list_qualifier_code_value: health_care_check_remark_code['codeListQualifierCodeValue'],
                       remark_code: health_care_check_remark_code['remarkCode']
                     )
                   end
 
-                  service_lines << Report835ServiceLine.new(
+                  Report835ServiceLine.new(
                     adjudicated_procedure_code: adjudicated_procedure_code,
                     allowed_actual: allowed_actual,
                     line_item_charge_amount: line_item_charge_amount,
@@ -113,6 +115,8 @@ module ChangeHealth
                 end
 
                 report_claims << Report835Claim.new(
+                  check_issue_or_eft_effective_date: check_issue_or_eft_effective_date,
+                  check_or_eft_trace_number: check_or_eft_trace_number,
                   claim_payment_remark_codes: claim_payment_remark_codes,
                   patient_control_number: patient_control_number,
                   patient_first_name: patient_first_name,

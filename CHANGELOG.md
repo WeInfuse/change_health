@@ -5,12 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-# [3.4.0] - 2022-04-08
+# [3.5.0] - 2022-04-08
 
 ### Added
 
 * Report835Claim - added payer_identifier property
 * Report835ServiceLine - Dynamically creates line_adjustments for remark codes and adjustments that are needed for secondary claims
+
+# [3.4.0] - 2022-03-23
+
+### Added
+* Report835Claim - check_or_eft_trace_number & check_issue_or_eft_effective_date
 
 # [3.3.0] - 2022-02-11
 
@@ -336,6 +341,7 @@ Added the ability to hit professional claim submission API. For more details, se
 * Authentication
 * Configuration
 
+[3.4.0]: https://github.com/WeInfuse/change_health/compare/v3.3.0...v3.4.0
 [3.3.0]: https://github.com/WeInfuse/change_health/compare/v3.2.0...v3.3.0
 [3.2.0]: https://github.com/WeInfuse/change_health/compare/v3.1.0...v3.2.0
 [3.1.0]: https://github.com/WeInfuse/change_health/compare/v3.0.0...v3.1.0
