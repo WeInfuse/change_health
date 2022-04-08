@@ -14,6 +14,7 @@
                 "totalActualProviderPaymentAmount": "810.8",
                 "creditOrDebitFlagCode": "C",
                 "paymentMethodCode": "CHK",
+                "payerIdentifier": "1351840597",
                 "checkIssueOrEFTEffectiveDate": "20190331"
             },
             "payer": {

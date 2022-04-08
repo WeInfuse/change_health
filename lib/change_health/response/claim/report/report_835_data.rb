@@ -24,6 +24,10 @@ module ChangeHealth
           transactions&.first&.dig('payer')&.dig('name')
         end
 
+        def payer_identifier
+          ChangeHealth::Models::PARSE_DATE.call(transactions&.first&.dig('financialInformation', 'payerIdentifier'))
+        end
+
         def payment_method_code
           transactions&.first&.dig('financialInformation', 'paymentMethodCode')
         end
@@ -120,6 +124,7 @@ module ChangeHealth
                   patient_member_id: patient_member_id,
                   payer_claim_control_number: payer_claim_control_number,
                   payer_identification: payer_identification,
+                  payer_identifier: payer_identifier,
                   payer_name: payer_name,
                   payment_method_code: payment_method_code,
                   report_creation_date: report_creation_date,
