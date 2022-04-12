@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+# [3.5.1] - 2022-04-12
+
+* Added properties of `lineAdjudicationInformation` and `otherSubscriberInformation` so they can serialize correctly into JSON
+
 # [3.5.0] - 2022-04-08
 
 ### Added
@@ -341,6 +345,8 @@ Added the ability to hit professional claim submission API. For more details, se
 * Authentication
 * Configuration
 
+[3.5.1]: https://github.com/WeInfuse/change_health/compare/v3.4.0...v3.5.1
+[3.5.0]: https://github.com/WeInfuse/change_health/compare/v3.4.0...v3.5.0
 [3.4.0]: https://github.com/WeInfuse/change_health/compare/v3.3.0...v3.4.0
 [3.3.0]: https://github.com/WeInfuse/change_health/compare/v3.2.0...v3.3.0
 [3.2.0]: https://github.com/WeInfuse/change_health/compare/v3.1.0...v3.2.0

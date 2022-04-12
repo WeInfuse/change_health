@@ -15,6 +15,7 @@ module ChangeHealth
         property :serviceFacilityLocation, from: :service_facility_location, required: false
         property :serviceLines, from: :service_lines, required: false
         property :signatureIndicator, from: :signature_indicator, required: false
+        property :otherSubscriberInformation, from: :other_subscriber_information, required: false
 
         def add_service_line(service_line)
           self[:serviceLines] ||= []
