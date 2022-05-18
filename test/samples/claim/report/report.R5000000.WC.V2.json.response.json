@@ -1,0 +1,1011 @@
+{
+    "transactions": [
+        {
+            "controlNumber": "35681",
+            "paymentAndRemitReassociationDetails": {
+                "traceTypeCode": "1",
+                "checkOrEFTTraceNumber": "12345",
+                "originatingCompanyIdentifier": "1512345678"
+            },
+            "receiverIdentifier": "XYZ CLEARINGHOUSE",
+            "productionDate": "20190405",
+            "financialInformation": {
+                "transactionHandlingCode": "I",
+                "totalActualProviderPaymentAmount": "810.8",
+                "creditOrDebitFlagCode": "C",
+                "paymentMethodCode": "CHK",
+                "payerIdentifier": "1351840597",
+                "checkIssueOrEFTEffectiveDate": "20190331"
+            },
+            "payer": {
+                "name": "DENTAL OF ABC",
+                "payerIdentificationNumber": "06102",
+                "address": {
+                    "address1": "225 MAIN STREET",
+                    "city": "CENTERVILLE",
+                    "state": "PA",
+                    "postalCode": "17111"
+                },
+                "technicalContactInformation": [
+                    {
+                        "contactName": "JANE DOE",
+                        "contactMethods": [
+                            {
+                                "phone": "9005555555"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "payee": {
+                "name": "BAN DDS LLC",
+                "npi": "9999947036",
+                "federalTaxPayersIdentificationNumber": "212121212"
+            },
+            "detailInfo": [
+                {
+                    "assignedNumber": "1",
+                    "providerSummaryInformation": {
+                        "providerIdentifier": "1811901945"
+                    },
+                    "paymentInfo": [
+                        {
+                            "claimPaymentInfo": {
+                                "patientControlNumber": "7722337",
+                                "claimStatusCode": "1",
+                                "totalClaimChargeAmount": "226",
+                                "claimPaymentAmount": "132",
+                                "claimFilingIndicatorCode": "12",
+                                "payerClaimControlNumber": "119932404007801",
+                                "facilityTypeCode": "11",
+                                "claimFrequencyCode": "1"
+                            },
+                                                                                    "subscriber": {
+                                "lastName": "DOE",
+                                "firstName": "SANDY",
+                                "memberId": "SJD11112"
+                            },
+                            "outpatientAdjudication": {
+                                "claimPaymentRemarkCode1": "N520"
+                            },
+                            "claimSupplementalInformation": {
+                                "coverageAmount": "132"
+                            },
+                            "serviceLines": [
+                                {
+                                    "serviceDate": "20190324",
+                                    "servicePaymentInformation": {
+                                        "productOrServiceIDQualifier": "AD",
+                                        "productOrServiceIDQualifierValue": "American Dental Association Codes",
+                                        "adjudicatedProcedureCode": "D0120",
+                                        "lineItemChargeAmount": "46",
+                                        "lineItemProviderPaymentAmount": "25"
+                                    },
+                                    "serviceAdjustments": [
+                                        {
+                                            "claimAdjustmentGroupCode": "CO",
+                                            "claimAdjustmentGroupCodeValue": "Contractual Obligations",
+                                            "adjustmentReasonCode1": "45",
+                                            "adjustmentAmount1": "1685.95",
+                                            "adjustmentQuantity1": "1",
+                                            "adjustmentReasonCode2": "253",
+                                            "adjustmentAmount2": "29.7"
+                                        },
+                                        {
+                                            "claimAdjustmentGroupCode": "PR",
+                                            "claimAdjustmentGroupCodeValue": "Patient Responsibility",
+                                            "adjustmentReasonCode1": "1",
+                                            "adjustmentAmount1": "57.54",
+                                            "adjustmentReasonCode2": "2",
+                                            "adjustmentAmount2": "371.3"
+                                        }
+                                    ],
+                                    "serviceSupplementalAmounts": {
+                                        "allowedActual": "25"
+                                    },
+                                    "healthCareCheckRemarkCodes": [
+                                        {
+                                            "codeListQualifierCode": "HE",
+                                            "codeListQualifierCodeValue": "Claim Payment Remark Codes",
+                                            "remarkCode": "N510"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "serviceDate": "20190325",
+                                    "servicePaymentInformation": {
+                                        "productOrServiceIDQualifier": "AD",
+                                        "productOrServiceIDQualifierValue": "American Dental Association Codes",
+                                        "adjudicatedProcedureCode": "D0220",
+                                        "lineItemChargeAmount": "25",
+                                        "lineItemProviderPaymentAmount": "14"
+                                    },
+                                    "serviceAdjustments": [
+                                        {
+                                            "claimAdjustmentGroupCode": "CO",
+                                            "claimAdjustmentGroupCodeValue": "Contractual Obligations",
+                                            "adjustmentReasonCode1": "45",
+                                            "adjustmentAmount1": "11"
+                                        }
+                                    ],
+                                    "serviceSupplementalAmounts": {
+                                        "allowedActual": "14"
+                                    }
+                                },
+                                {
+                                    "serviceDate": "20190326",
+                                    "servicePaymentInformation": {
+                                        "productOrServiceIDQualifier": "AD",
+                                        "productOrServiceIDQualifierValue": "American Dental Association Codes",
+                                        "adjudicatedProcedureCode": "D0230",
+                                        "lineItemChargeAmount": "22",
+                                        "lineItemProviderPaymentAmount": "10"
+                                    },
+                                    "serviceAdjustments": [
+                                        {
+                                            "claimAdjustmentGroupCode": "CO",
+                                            "claimAdjustmentGroupCodeValue": "Contractual Obligations",
+                                            "adjustmentReasonCode1": "45",
+                                            "adjustmentAmount1": "12"
+                                        }
+                                    ],
+                                    "serviceSupplementalAmounts": {
+                                        "allowedActual": "10"
+                                    }
+                                },
+                                {
+                                    "serviceDate": "20190322",
+                                    "servicePaymentInformation": {
+                                        "productOrServiceIDQualifier": "AD",
+                                        "productOrServiceIDQualifierValue": "American Dental Association Codes",
+                                        "adjudicatedProcedureCode": "D0274",
+                                        "lineItemChargeAmount": "60",
+                                        "lineItemProviderPaymentAmount": "34"
+                                    },
+                                    "serviceAdjustments": [
+                                        {
+                                            "claimAdjustmentGroupCode": "CO",
+                                            "claimAdjustmentGroupCodeValue": "Contractual Obligations",
+                                            "adjustmentReasonCode1": "45",
+                                            "adjustmentAmount1": "26"
+                                        }
+                                    ],
+                                    "serviceSupplementalAmounts": {
+                                        "allowedActual": "34"
+                                    }
+                                },
+                                {
+                                    "serviceDate": "20190323",
+                                    "servicePaymentInformation": {
+                                        "productOrServiceIDQualifier": "AD",
+                                        "productOrServiceIDQualifierValue": "American Dental Association Codes",
+                                        "adjudicatedProcedureCode": "D1110",
+                                        "lineItemChargeAmount": "73",
+                                        "lineItemProviderPaymentAmount": "49"
+                                    },
+                                    "serviceAdjustments": [
+                                        {
+                                            "claimAdjustmentGroupCode": "CO",
+                                            "claimAdjustmentGroupCodeValue": "Contractual Obligations",
+                                            "adjustmentReasonCode1": "45",
+                                            "adjustmentAmount1": "24"
+                                        }
+                                    ],
+                                    "serviceSupplementalAmounts": {
+                                        "allowedActual": "49"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "assignedNumber": "2",
+                    "paymentInfo": [
+                        {
+                            "claimPaymentInfo": {
+                                "patientControlNumber": "7722337",
+                                "claimStatusCode": "1",
+                                "totalClaimChargeAmount": "119",
+                                "claimPaymentAmount": "74",
+                                "claimFilingIndicatorCode": "12",
+                                "payerClaimControlNumber": "119932404007801",
+                                "facilityTypeCode": "11",
+                                "claimFrequencyCode": "1"
+                            },
+                            "patientName": {
+                                "lastName": "DOE",
+                                "firstName": "SALLY",
+                                "memberId": "SJD11111"
+                            },
+                            "subscriber": {
+                                "lastName": "DOE",
+                                "firstName": "JOHN",
+                                "memberId": "SJD11111"
+                            },
+                            "claimSupplementalInformation": {
+                                "coverageAmount": "74"
+                            },
+                            "serviceLines": [
+                                {
+                                    "serviceDate": "20190324",
+                                    "servicePaymentInformation": {
+                                        "productOrServiceIDQualifier": "AD",
+                                        "productOrServiceIDQualifierValue": "American Dental Association Codes",
+                                        "adjudicatedProcedureCode": "D0120",
+                                        "lineItemChargeAmount": "46",
+                                        "lineItemProviderPaymentAmount": "25"
+                                    },
+                                    "serviceAdjustments": [
+                                        {
+                                            "claimAdjustmentGroupCode": "CO",
+                                            "claimAdjustmentGroupCodeValue": "Contractual Obligations",
+                                            "adjustmentReasonCode1": "45",
+                                            "adjustmentAmount1": "21"
+                                        }
+                                    ],
+                                    "serviceSupplementalAmounts": {
+                                        "allowedActual": "25"
+                                    }
+                                },
+                                {
+                                    "serviceDate": "20190324",
+                                    "servicePaymentInformation": {
+                                        "productOrServiceIDQualifier": "AD",
+                                        "productOrServiceIDQualifierValue": "American Dental Association Codes",
+                                        "adjudicatedProcedureCode": "D1110",
+                                        "lineItemChargeAmount": "73",
+                                        "lineItemProviderPaymentAmount": "49"
+                                    },
+                                    "serviceAdjustments": [
+                                        {
+                                            "claimAdjustmentGroupCode": "CO",
+                                            "claimAdjustmentGroupCodeValue": "Contractual Obligations",
+                                            "adjustmentReasonCode1": "45",
+                                            "adjustmentAmount1": "24"
+                                        }
+                                    ],
+                                    "serviceSupplementalAmounts": {
+                                        "allowedActual": "49"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "claimPaymentInfo": {
+                                "patientControlNumber": "7722337",
+                                "claimStatusCode": "1",
+                                "totalClaimChargeAmount": "226",
+                                "claimPaymentAmount": "108",
+                                "patientResponsibilityAmount": "24",
+                                "claimFilingIndicatorCode": "12",
+                                "payerClaimControlNumber": "119932404007801",
+                                "facilityTypeCode": "11",
+                                "claimFrequencyCode": "1"
+                            },
+                            "patientName": {
+                                "lastName": "SMITH",
+                                "firstName": "SALLY",
+                                "memberId": "SJD11113"
+                            },
+                            "claimSupplementalInformation": {
+                                "coverageAmount": "132"
+                            },
+                            "serviceLines": [
+                                {
+                                    "serviceDate": "20190324",
+                                    "servicePaymentInformation": {
+                                        "productOrServiceIDQualifier": "AD",
+                                        "productOrServiceIDQualifierValue": "American Dental Association Codes",
+                                        "adjudicatedProcedureCode": "D0120",
+                                        "lineItemChargeAmount": "46",
+                                        "lineItemProviderPaymentAmount": "25"
+                                    },
+                                    "serviceAdjustments": [
+                                        {
+                                            "claimAdjustmentGroupCode": "CO",
+                                            "claimAdjustmentGroupCodeValue": "Contractual Obligations",
+                                            "adjustmentReasonCode1": "45",
+                                            "adjustmentAmount1": "21"
+                                        }
+                                    ],
+                                    "serviceSupplementalAmounts": {
+                                        "allowedActual": "25"
+                                    }
+                                },
+                                {
+                                    "serviceDate": "20190324",
+                                    "servicePaymentInformation": {
+                                        "productOrServiceIDQualifier": "AD",
+                                        "productOrServiceIDQualifierValue": "American Dental Association Codes",
+                                        "adjudicatedProcedureCode": "D0220",
+                                        "lineItemChargeAmount": "25",
+                                        "lineItemProviderPaymentAmount": "0"
+                                    },
+                                    "serviceAdjustments": [
+                                        {
+                                            "claimAdjustmentGroupCode": "PR",
+                                            "claimAdjustmentGroupCodeValue": "Patient Responsibility",
+                                            "adjustmentReasonCode1": "3",
+                                            "adjustmentAmount1": "14"
+                                        },
+                                        {
+                                            "claimAdjustmentGroupCode": "CO",
+                                            "claimAdjustmentGroupCodeValue": "Contractual Obligations",
+                                            "adjustmentReasonCode1": "45",
+                                            "adjustmentAmount1": "11"
+                                        }
+                                    ],
+                                    "serviceSupplementalAmounts": {
+                                        "allowedActual": "14"
+                                    }
+                                },
+                                {
+                                    "serviceDate": "20190324",
+                                    "servicePaymentInformation": {
+                                        "productOrServiceIDQualifier": "AD",
+                                        "productOrServiceIDQualifierValue": "American Dental Association Codes",
+                                        "adjudicatedProcedureCode": "D0230",
+                                        "lineItemChargeAmount": "22",
+                                        "lineItemProviderPaymentAmount": "0"
+                                    },
+                                    "serviceAdjustments": [
+                                        {
+                                            "claimAdjustmentGroupCode": "PR",
+                                            "claimAdjustmentGroupCodeValue": "Patient Responsibility",
+                                            "adjustmentReasonCode1": "3",
+                                            "adjustmentAmount1": "10"
+                                        },
+                                        {
+                                            "claimAdjustmentGroupCode": "CO",
+                                            "claimAdjustmentGroupCodeValue": "Contractual Obligations",
+                                            "adjustmentReasonCode1": "45",
+                                            "adjustmentAmount1": "12"
+                                        }
+                                    ],
+                                    "serviceSupplementalAmounts": {
+                                        "allowedActual": "10"
+                                    }
+                                },
+                                {
+                                    "serviceDate": "20190324",
+                                    "servicePaymentInformation": {
+                                        "productOrServiceIDQualifier": "AD",
+                                        "productOrServiceIDQualifierValue": "American Dental Association Codes",
+                                        "adjudicatedProcedureCode": "D0274",
+                                        "lineItemChargeAmount": "60",
+                                        "lineItemProviderPaymentAmount": "34"
+                                    },
+                                    "serviceAdjustments": [
+                                        {
+                                            "claimAdjustmentGroupCode": "CO",
+                                            "claimAdjustmentGroupCodeValue": "Contractual Obligations",
+                                            "adjustmentReasonCode1": "45",
+                                            "adjustmentAmount1": "26"
+                                        }
+                                    ],
+                                    "serviceSupplementalAmounts": {
+                                        "allowedActual": "34"
+                                    }
+                                },
+                                {
+                                    "serviceDate": "20190324",
+                                    "servicePaymentInformation": {
+                                        "productOrServiceIDQualifier": "AD",
+                                        "productOrServiceIDQualifierValue": "American Dental Association Codes",
+                                        "adjudicatedProcedureCode": "D1110",
+                                        "lineItemChargeAmount": "73",
+                                        "lineItemProviderPaymentAmount": "49"
+                                    },
+                                    "serviceAdjustments": [
+                                        {
+                                            "claimAdjustmentGroupCode": "CO",
+                                            "claimAdjustmentGroupCodeValue": "Contractual Obligations",
+                                            "adjustmentReasonCode1": "45",
+                                            "adjustmentAmount1": "24"
+                                        }
+                                    ],
+                                    "serviceSupplementalAmounts": {
+                                        "allowedActual": "49"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "claimPaymentInfo": {
+                                "patientControlNumber": "7722337",
+                                "claimStatusCode": "1",
+                                "totalClaimChargeAmount": "1145",
+                                "claimPaymentAmount": "14",
+                                "patientResponsibilityAmount": "902",
+                                "claimFilingIndicatorCode": "12",
+                                "payerClaimControlNumber": "119932404007801",
+                                "facilityTypeCode": "11",
+                                "claimFrequencyCode": "1"
+                            },
+                            "patientName": {
+                                "lastName": "SMITH",
+                                "firstName": "SAM",
+                                "memberId": "SJD11116"
+                            },
+                            "claimSupplementalInformation": {
+                                "coverageAmount": "14"
+                            },
+                            "serviceLines": [
+                                {
+                                    "serviceDate": "20190324",
+                                    "servicePaymentInformation": {
+                                        "productOrServiceIDQualifier": "AD",
+                                        "productOrServiceIDQualifierValue": "American Dental Association Codes",
+                                        "adjudicatedProcedureCode": "D0220",
+                                        "lineItemChargeAmount": "25",
+                                        "lineItemProviderPaymentAmount": "14"
+                                    },
+                                    "serviceAdjustments": [
+                                        {
+                                            "claimAdjustmentGroupCode": "CO",
+                                            "claimAdjustmentGroupCodeValue": "Contractual Obligations",
+                                            "adjustmentReasonCode1": "45",
+                                            "adjustmentAmount1": "11"
+                                        }
+                                    ],
+                                    "serviceSupplementalAmounts": {
+                                        "allowedActual": "14"
+                                    }
+                                },
+                                {
+                                    "serviceDate": "20190324",
+                                    "servicePaymentInformation": {
+                                        "productOrServiceIDQualifier": "AD",
+                                        "productOrServiceIDQualifierValue": "American Dental Association Codes",
+                                        "adjudicatedProcedureCode": "D2790",
+                                        "lineItemChargeAmount": "940",
+                                        "lineItemProviderPaymentAmount": "0"
+                                    },
+                                    "serviceAdjustments": [
+                                        {
+                                            "claimAdjustmentGroupCode": "PR",
+                                            "claimAdjustmentGroupCodeValue": "Patient Responsibility",
+                                            "adjustmentReasonCode1": "3",
+                                            "adjustmentAmount1": "756"
+                                        },
+                                        {
+                                            "claimAdjustmentGroupCode": "CO",
+                                            "claimAdjustmentGroupCodeValue": "Contractual Obligations",
+                                            "adjustmentReasonCode1": "45",
+                                            "adjustmentAmount1": "184"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "serviceDate": "20190324",
+                                    "servicePaymentInformation": {
+                                        "productOrServiceIDQualifier": "AD",
+                                        "productOrServiceIDQualifierValue": "American Dental Association Codes",
+                                        "adjudicatedProcedureCode": "D2950",
+                                        "lineItemChargeAmount": "180",
+                                        "lineItemProviderPaymentAmount": "0"
+                                    },
+                                    "serviceAdjustments": [
+                                        {
+                                            "claimAdjustmentGroupCode": "PR",
+                                            "claimAdjustmentGroupCodeValue": "Patient Responsibility",
+                                            "adjustmentReasonCode1": "3",
+                                            "adjustmentAmount1": "146"
+                                        },
+                                        {
+                                            "claimAdjustmentGroupCode": "CO",
+                                            "claimAdjustmentGroupCodeValue": "Contractual Obligations",
+                                            "adjustmentReasonCode1": "45",
+                                            "adjustmentAmount1": "34"
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "claimPaymentInfo": {
+                                "patientControlNumber": "7722337",
+                                "claimStatusCode": "1",
+                                "totalClaimChargeAmount": "348",
+                                "claimPaymentAmount": "16.8",
+                                "patientResponsibilityAmount": "44.2",
+                                "claimFilingIndicatorCode": "12",
+                                "payerClaimControlNumber": "119932404007801",
+                                "facilityTypeCode": "11",
+                                "claimFrequencyCode": "1"
+                            },
+                            "patientName": {
+                                "lastName": "JONES",
+                                "firstName": "SAM",
+                                "memberId": "SJD11122"
+                            },
+                            "claimSupplementalInformation": {
+                                "coverageAmount": "28"
+                            },
+                            "serviceLines": [
+                                {
+                                    "serviceDate": "20190313",
+                                    "servicePaymentInformation": {
+                                        "productOrServiceIDQualifier": "AD",
+                                        "productOrServiceIDQualifierValue": "American Dental Association Codes",
+                                        "adjudicatedProcedureCode": "D4342",
+                                        "lineItemChargeAmount": "125",
+                                        "lineItemProviderPaymentAmount": "0"
+                                    },
+                                    "serviceAdjustments": [
+                                        {
+                                            "claimAdjustmentGroupCode": "CO",
+                                            "claimAdjustmentGroupCodeValue": "Contractual Obligations",
+                                            "adjustmentReasonCode1": "45",
+                                            "adjustmentAmount1": "125"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "serviceDate": "20190313",
+                                    "servicePaymentInformation": {
+                                        "productOrServiceIDQualifier": "AD",
+                                        "productOrServiceIDQualifierValue": "American Dental Association Codes",
+                                        "adjudicatedProcedureCode": "D4381",
+                                        "lineItemChargeAmount": "43",
+                                        "lineItemProviderPaymentAmount": "0"
+                                    },
+                                    "serviceAdjustments": [
+                                        {
+                                            "claimAdjustmentGroupCode": "PR",
+                                            "claimAdjustmentGroupCodeValue": "Patient Responsibility",
+                                            "adjustmentReasonCode1": "3",
+                                            "adjustmentAmount1": "33"
+                                        },
+                                        {
+                                            "claimAdjustmentGroupCode": "CO",
+                                            "claimAdjustmentGroupCodeValue": "Contractual Obligations",
+                                            "adjustmentReasonCode1": "45",
+                                            "adjustmentAmount1": "10"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "serviceDate": "20190313",
+                                    "servicePaymentInformation": {
+                                        "productOrServiceIDQualifier": "AD",
+                                        "productOrServiceIDQualifierValue": "American Dental Association Codes",
+                                        "adjudicatedProcedureCode": "D2950",
+                                        "lineItemChargeAmount": "180",
+                                        "lineItemProviderPaymentAmount": "16.8"
+                                    },
+                                    "serviceAdjustments": [
+                                        {
+                                            "claimAdjustmentGroupCode": "PR",
+                                            "claimAdjustmentGroupCodeValue": "Patient Responsibility",
+                                            "adjustmentReasonCode1": "3",
+                                            "adjustmentAmount1": "11.2"
+                                        },
+                                        {
+                                            "claimAdjustmentGroupCode": "CO",
+                                            "claimAdjustmentGroupCodeValue": "Contractual Obligations",
+                                            "adjustmentReasonCode1": "45",
+                                            "adjustmentAmount1": "152"
+                                        }
+                                    ],
+                                    "serviceSupplementalAmounts": {
+                                        "allowedActual": "28"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "claimPaymentInfo": {
+                                "patientControlNumber": "7722337",
+                                "claimStatusCode": "1",
+                                "totalClaimChargeAmount": "226",
+                                "claimPaymentAmount": "132",
+                                "claimFilingIndicatorCode": "12",
+                                "payerClaimControlNumber": "119932404007801",
+                                "facilityTypeCode": "11",
+                                "claimFrequencyCode": "1"
+                            },
+                            "patientName": {
+                                "lastName": "JONES",
+                                "firstName": "SALLY",
+                                "memberId": "SJD11133"
+                            },
+                            "claimSupplementalInformation": {
+                                "coverageAmount": "132"
+                            },
+                            "serviceLines": [
+                                {
+                                    "serviceDate": "20190321",
+                                    "servicePaymentInformation": {
+                                        "productOrServiceIDQualifier": "AD",
+                                        "productOrServiceIDQualifierValue": "American Dental Association Codes",
+                                        "adjudicatedProcedureCode": "D0120",
+                                        "lineItemChargeAmount": "46",
+                                        "lineItemProviderPaymentAmount": "25"
+                                    },
+                                    "serviceAdjustments": [
+                                        {
+                                            "claimAdjustmentGroupCode": "CO",
+                                            "claimAdjustmentGroupCodeValue": "Contractual Obligations",
+                                            "adjustmentReasonCode1": "45",
+                                            "adjustmentAmount1": "21"
+                                        }
+                                    ],
+                                    "serviceSupplementalAmounts": {
+                                        "allowedActual": "25"
+                                    }
+                                },
+                                {
+                                    "serviceDate": "20190321",
+                                    "servicePaymentInformation": {
+                                        "productOrServiceIDQualifier": "AD",
+                                        "productOrServiceIDQualifierValue": "American Dental Association Codes",
+                                        "adjudicatedProcedureCode": "D0220",
+                                        "lineItemChargeAmount": "25",
+                                        "lineItemProviderPaymentAmount": "14"
+                                    },
+                                    "serviceAdjustments": [
+                                        {
+                                            "claimAdjustmentGroupCode": "CO",
+                                            "claimAdjustmentGroupCodeValue": "Contractual Obligations",
+                                            "adjustmentReasonCode1": "45",
+                                            "adjustmentAmount1": "11"
+                                        }
+                                    ],
+                                    "serviceSupplementalAmounts": {
+                                        "allowedActual": "14"
+                                    }
+                                },
+                                {
+                                    "serviceDate": "20190321",
+                                    "servicePaymentInformation": {
+                                        "productOrServiceIDQualifier": "AD",
+                                        "productOrServiceIDQualifierValue": "American Dental Association Codes",
+                                        "adjudicatedProcedureCode": "D0230",
+                                        "lineItemChargeAmount": "22",
+                                        "lineItemProviderPaymentAmount": "10"
+                                    },
+                                    "serviceAdjustments": [
+                                        {
+                                            "claimAdjustmentGroupCode": "CO",
+                                            "claimAdjustmentGroupCodeValue": "Contractual Obligations",
+                                            "adjustmentReasonCode1": "45",
+                                            "adjustmentAmount1": "12"
+                                        }
+                                    ],
+                                    "serviceSupplementalAmounts": {
+                                        "allowedActual": "10"
+                                    }
+                                },
+                                {
+                                    "serviceDate": "20190321",
+                                    "servicePaymentInformation": {
+                                        "productOrServiceIDQualifier": "AD",
+                                        "productOrServiceIDQualifierValue": "American Dental Association Codes",
+                                        "adjudicatedProcedureCode": "D0274",
+                                        "lineItemChargeAmount": "60",
+                                        "lineItemProviderPaymentAmount": "34"
+                                    },
+                                    "serviceAdjustments": [
+                                        {
+                                            "claimAdjustmentGroupCode": "CO",
+                                            "claimAdjustmentGroupCodeValue": "Contractual Obligations",
+                                            "adjustmentReasonCode1": "45",
+                                            "adjustmentAmount1": "26"
+                                        }
+                                    ],
+                                    "serviceSupplementalAmounts": {
+                                        "allowedActual": "34"
+                                    }
+                                },
+                                {
+                                    "serviceDate": "20190321",
+                                    "servicePaymentInformation": {
+                                        "productOrServiceIDQualifier": "AD",
+                                        "productOrServiceIDQualifierValue": "American Dental Association Codes",
+                                        "adjudicatedProcedureCode": "D1110",
+                                        "lineItemChargeAmount": "73",
+                                        "lineItemProviderPaymentAmount": "49"
+                                    },
+                                    "serviceAdjustments": [
+                                        {
+                                            "claimAdjustmentGroupCode": "CO",
+                                            "claimAdjustmentGroupCodeValue": "Contractual Obligations",
+                                            "adjustmentReasonCode1": "45",
+                                            "adjustmentAmount1": "24"
+                                        }
+                                    ],
+                                    "serviceSupplementalAmounts": {
+                                        "allowedActual": "49"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "claimPaymentInfo": {
+                                "patientControlNumber": "7722337",
+                                "claimStatusCode": "1",
+                                "totalClaimChargeAmount": "179",
+                                "claimPaymentAmount": "108",
+                                "claimFilingIndicatorCode": "12",
+                                "payerClaimControlNumber": "119932404007801",
+                                "facilityTypeCode": "11",
+                                "claimFrequencyCode": "1"
+                            },
+                            "patientName": {
+                                "lastName": "DOE",
+                                "firstName": "SAM",
+                                "memberId": "SJD99999"
+                            },
+                            "claimSupplementalInformation": {
+                                "coverageAmount": "108"
+                            },
+                            "serviceLines": [
+                                {
+                                    "serviceDate": "20190324",
+                                    "servicePaymentInformation": {
+                                        "productOrServiceIDQualifier": "AD",
+                                        "productOrServiceIDQualifierValue": "American Dental Association Codes",
+                                        "adjudicatedProcedureCode": "D0120",
+                                        "lineItemChargeAmount": "46",
+                                        "lineItemProviderPaymentAmount": "25"
+                                    },
+                                    "serviceAdjustments": [
+                                        {
+                                            "claimAdjustmentGroupCode": "CO",
+                                            "claimAdjustmentGroupCodeValue": "Contractual Obligations",
+                                            "adjustmentReasonCode1": "45",
+                                            "adjustmentAmount1": "21"
+                                        }
+                                    ],
+                                    "serviceSupplementalAmounts": {
+                                        "allowedActual": "25"
+                                    }
+                                },
+                                {
+                                    "serviceDate": "20190324",
+                                    "servicePaymentInformation": {
+                                        "productOrServiceIDQualifier": "AD",
+                                        "productOrServiceIDQualifierValue": "American Dental Association Codes",
+                                        "adjudicatedProcedureCode": "D0274",
+                                        "lineItemChargeAmount": "60",
+                                        "lineItemProviderPaymentAmount": "34"
+                                    },
+                                    "serviceAdjustments": [
+                                        {
+                                            "claimAdjustmentGroupCode": "CO",
+                                            "claimAdjustmentGroupCodeValue": "Contractual Obligations",
+                                            "adjustmentReasonCode1": "45",
+                                            "adjustmentAmount1": "26"
+                                        }
+                                    ],
+                                    "serviceSupplementalAmounts": {
+                                        "allowedActual": "34"
+                                    }
+                                },
+                                {
+                                    "serviceDate": "20190324",
+                                    "servicePaymentInformation": {
+                                        "productOrServiceIDQualifier": "AD",
+                                        "productOrServiceIDQualifierValue": "American Dental Association Codes",
+                                        "adjudicatedProcedureCode": "D1110",
+                                        "lineItemChargeAmount": "73",
+                                        "lineItemProviderPaymentAmount": "49"
+                                    },
+                                    "serviceAdjustments": [
+                                        {
+                                            "claimAdjustmentGroupCode": "CO",
+                                            "claimAdjustmentGroupCodeValue": "Contractual Obligations",
+                                            "adjustmentReasonCode1": "45",
+                                            "adjustmentAmount1": "24"
+                                        }
+                                    ],
+                                    "serviceSupplementalAmounts": {
+                                        "allowedActual": "49"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "claimPaymentInfo": {
+                                "patientControlNumber": "7722337",
+                                "claimStatusCode": "1",
+                                "totalClaimChargeAmount": "129",
+                                "claimPaymentAmount": "82",
+                                "claimFilingIndicatorCode": "12",
+                                "payerClaimControlNumber": "119932404007801",
+                                "facilityTypeCode": "11",
+                                "claimFrequencyCode": "1"
+                            },
+                            "patientName": {
+                                "lastName": "DOE",
+                                "firstName": "SUE",
+                                "memberId": "SJD88888"
+                            },
+                            "claimSupplementalInformation": {
+                                "coverageAmount": "82"
+                            },
+                            "serviceLines": [
+                                {
+                                    "serviceDate": "20190324",
+                                    "servicePaymentInformation": {
+                                        "productOrServiceIDQualifier": "AD",
+                                        "productOrServiceIDQualifierValue": "American Dental Association Codes",
+                                        "adjudicatedProcedureCode": "D0120",
+                                        "lineItemChargeAmount": "46",
+                                        "lineItemProviderPaymentAmount": "25"
+                                    },
+                                    "serviceAdjustments": [
+                                        {
+                                            "claimAdjustmentGroupCode": "CO",
+                                            "claimAdjustmentGroupCodeValue": "Contractual Obligations",
+                                            "adjustmentReasonCode1": "45",
+                                            "adjustmentAmount1": "21"
+                                        }
+                                    ],
+                                    "serviceSupplementalAmounts": {
+                                        "allowedActual": "25"
+                                    }
+                                },
+                                {
+                                    "serviceDate": "20190324",
+                                    "servicePaymentInformation": {
+                                        "productOrServiceIDQualifier": "AD",
+                                        "productOrServiceIDQualifierValue": "American Dental Association Codes",
+                                        "adjudicatedProcedureCode": "D1120",
+                                        "lineItemChargeAmount": "54",
+                                        "lineItemProviderPaymentAmount": "37"
+                                    },
+                                    "serviceAdjustments": [
+                                        {
+                                            "claimAdjustmentGroupCode": "CO",
+                                            "claimAdjustmentGroupCodeValue": "Contractual Obligations",
+                                            "adjustmentReasonCode1": "45",
+                                            "adjustmentAmount1": "17"
+                                        }
+                                    ],
+                                    "serviceSupplementalAmounts": {
+                                        "allowedActual": "37"
+                                    }
+                                },
+                                {
+                                    "serviceDate": "20190324",
+                                    "servicePaymentInformation": {
+                                        "productOrServiceIDQualifier": "AD",
+                                        "productOrServiceIDQualifierValue": "American Dental Association Codes",
+                                        "adjudicatedProcedureCode": "D1208",
+                                        "lineItemChargeAmount": "29",
+                                        "lineItemProviderPaymentAmount": "20"
+                                    },
+                                    "serviceAdjustments": [
+                                        {
+                                            "claimAdjustmentGroupCode": "CO",
+                                            "claimAdjustmentGroupCodeValue": "Contractual Obligations",
+                                            "adjustmentReasonCode1": "45",
+                                            "adjustmentAmount1": "9"
+                                        }
+                                    ],
+                                    "serviceSupplementalAmounts": {
+                                        "allowedActual": "20"
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "claimPaymentInfo": {
+                                "patientControlNumber": "7722337",
+                                "claimStatusCode": "1",
+                                "totalClaimChargeAmount": "221",
+                                "claimPaymentAmount": "144",
+                                "claimFilingIndicatorCode": "12",
+                                "payerClaimControlNumber": "119932404007801",
+                                "facilityTypeCode": "11",
+                                "claimFrequencyCode": "1"
+                            },
+                            "patientName": {
+                                "lastName": "DOE",
+                                "firstName": "DONNA",
+                                "memberId": "SJD77777"
+                            },
+                            "claimSupplementalInformation": {
+                                "coverageAmount": "144"
+                            },
+                            "serviceLines": [
+                                {
+                                    "serviceDate": "20190324",
+                                    "servicePaymentInformation": {
+                                        "productOrServiceIDQualifier": "AD",
+                                        "productOrServiceIDQualifierValue": "American Dental Association Codes",
+                                        "adjudicatedProcedureCode": "D0120",
+                                        "lineItemChargeAmount": "46",
+                                        "lineItemProviderPaymentAmount": "25"
+                                    },
+                                    "serviceAdjustments": [
+                                        {
+                                            "claimAdjustmentGroupCode": "CO",
+                                            "claimAdjustmentGroupCodeValue": "Contractual Obligations",
+                                            "adjustmentReasonCode1": "45",
+                                            "adjustmentAmount1": "21"
+                                        }
+                                    ],
+                                    "serviceSupplementalAmounts": {
+                                        "allowedActual": "25"
+                                    }
+                                },
+                                {
+                                    "serviceDate": "20190324",
+                                    "servicePaymentInformation": {
+                                        "productOrServiceIDQualifier": "AD",
+                                        "productOrServiceIDQualifierValue": "American Dental Association Codes",
+                                        "adjudicatedProcedureCode": "D0330",
+                                        "lineItemChargeAmount": "92",
+                                        "lineItemProviderPaymentAmount": "62"
+                                    },
+                                    "serviceAdjustments": [
+                                        {
+                                            "claimAdjustmentGroupCode": "CO",
+                                            "claimAdjustmentGroupCodeValue": "Contractual Obligations",
+                                            "adjustmentReasonCode1": "45",
+                                            "adjustmentAmount1": "30"
+                                        }
+                                    ],
+                                    "serviceSupplementalAmounts": {
+                                        "allowedActual": "62"
+                                    }
+                                },
+                                {
+                                    "serviceDate": "20190324",
+                                    "servicePaymentInformation": {
+                                        "productOrServiceIDQualifier": "AD",
+                                        "productOrServiceIDQualifierValue": "American Dental Association Codes",
+                                        "adjudicatedProcedureCode": "D1120",
+                                        "lineItemChargeAmount": "54",
+                                        "lineItemProviderPaymentAmount": "37"
+                                    },
+                                    "serviceAdjustments": [
+                                        {
+                                            "claimAdjustmentGroupCode": "CO",
+                                            "claimAdjustmentGroupCodeValue": "Contractual Obligations",
+                                            "adjustmentReasonCode1": "45",
+                                            "adjustmentAmount1": "17"
+                                        }
+                                    ],
+                                    "serviceSupplementalAmounts": {
+                                        "allowedActual": "37"
+                                    }
+                                },
+                                {
+                                    "serviceDate": "20190324",
+                                    "servicePaymentInformation": {
+                                        "productOrServiceIDQualifier": "AD",
+                                        "productOrServiceIDQualifierValue": "American Dental Association Codes",
+                                        "adjudicatedProcedureCode": "D1208",
+                                        "lineItemChargeAmount": "29",
+                                        "lineItemProviderPaymentAmount": "20"
+                                    },
+                                    "serviceAdjustments": [
+                                        {
+                                            "claimAdjustmentGroupCode": "CO",
+                                            "claimAdjustmentGroupCodeValue": "Contractual Obligations",
+                                            "adjustmentReasonCode1": "45",
+                                            "adjustmentAmount1": "9"
+                                        }
+                                    ],
+                                    "serviceSupplementalAmounts": {
+                                        "allowedActual": "20"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "meta": {
+        "applicationMode": "sandbox",
+        "senderId": "MN_WeInfuse_App",
+        "traceId": "849079de-a3c5-899c-2059-46026b1e01bd"
+    }
+}

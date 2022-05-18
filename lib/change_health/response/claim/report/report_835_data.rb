@@ -49,9 +49,9 @@ module ChangeHealth
                 patient_control_number = payment_info.dig('claimPaymentInfo', 'patientControlNumber')
                 patient_first_name = payment_info.dig('patientName', 'firstName')
                 patient_last_name = payment_info.dig('patientName', 'lastName')
-                patient_member_id = payment_info.dig('patientName', 'memberId')
+                patient_member_id = payment_info.dig('patientName', 'memberId') || payment_info.dig('subscriber', 'memberId')
                 payer_claim_control_number = payment_info.dig('claimPaymentInfo', 'payerClaimControlNumber')
-                service_provider_npi = payment_info.dig('renderingProvider', 'npi')
+                service_provider_npi = payment_info.dig('renderingProvider', 'npi') || detail_info['providerSummaryInformation']['providerIdentifier']
                 total_charge_amount = payment_info.dig('claimPaymentInfo', 'totalClaimChargeAmount')
 
                 claim_payment_remark_codes = []

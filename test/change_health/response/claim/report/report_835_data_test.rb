@@ -3,8 +3,11 @@ require 'test_helper'
 class Report835DataTest < Minitest::Test
   describe 'report 835 data' do
     let(:report_name) { 'R5000000.WC' }
+    let(:report_name_2) { 'R5000000.WC.V2' }
     let(:json_data) { load_sample("claim/report/report.#{report_name}.json.response.json", parse: true) }
+    let(:json_data_2) { load_sample("claim/report/report.#{report_name_2}.json.response.json", parse: true) }
     let(:report_data) { ChangeHealth::Response::Claim::Report835Data.new(report_name, true, data: json_data) }
+    let(:report_data_2) { ChangeHealth::Response::Claim::Report835Data.new(report_name_2, true, data: json_data) }
 
     it 'transaction' do
       assert_equal 1, report_data.transactions.size
@@ -49,6 +52,7 @@ class Report835DataTest < Minitest::Test
 
       describe 'claim contents - everything there, from sandbox' do
         let(:actual_claim) { report_data.claims.first }
+        let(:actual_claim_2) { report_data_2.claims.first }
         service_adjustments = []
         service_adjustments << ChangeHealth::Response::Claim::Report835ServiceAdjustment.new(
           adjustments: { '45' => '1685.95', '253' => '29.7' },
@@ -98,11 +102,35 @@ class Report835DataTest < Minitest::Test
           total_actual_provider_payment_amount: '810.8',
           total_charge_amount: '226'
         )
+
+        expected_claim_2 = ChangeHealth::Response::Claim::Report835Claim.new(
+          payer_identifier: '1351840597',
+          check_issue_or_eft_effective_date: Date.new(2019, 3, 31),
+          check_or_eft_trace_number: '12345',
+          claim_payment_remark_codes: ['N520'],
+          patient_control_number: '7722337',
+          patient_first_name: 'SANDY',
+          patient_last_name: 'DOE',
+          patient_member_id: 'SJD11112',
+          payer_claim_control_number: '119932404007801',
+          payer_identification: '06102',
+          payer_name: 'DENTAL OF ABC',
+          payment_method_code: 'CHK',
+          report_creation_date: Date.new(2019, 4, 5),
+          report_name: 'R5000000.WC.V2',
+          service_date_begin: Date.new(2019, 3, 22),
+          service_date_end: Date.new(2019, 3, 26),
+          service_lines: service_lines,
+          service_provider_npi: '1811901945',
+          total_actual_provider_payment_amount: '810.8',
+          total_charge_amount: '226'
+        )
         expected_claim.each_key do |attribute|
           next if attribute == :service_lines
 
           it attribute.to_s do
             assert_equal expected_claim[attribute], actual_claim[attribute]
+            assert_equal expected_claim_2[attribute], actual_claim_2[attribute]
           end
         end
 
