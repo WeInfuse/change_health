@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
+
+# [3.5.4] - 2022-05-18
+
+* Used dig on `service_provider_npi` variable assigning because it produces way fewer bugs
+
 # [3.5.3] - 2022-05-18
 
 * Added new ways to assign `patient_member_id` and `service_provider_npi` for claim reports returned by insurance
@@ -352,6 +357,7 @@ Added the ability to hit professional claim submission API. For more details, se
 * Authentication
 * Configuration
 
+[3.5.4]: https://github.com/WeInfuse/change_health/compare/v3.5.3...v3.5.4
 [3.5.3]: https://github.com/WeInfuse/change_health/compare/v3.5.2...v3.5.3
 [3.5.2]: https://github.com/WeInfuse/change_health/compare/v3.5.1...v3.5.2
 [3.5.1]: https://github.com/WeInfuse/change_health/compare/v3.5.0...v3.5.1
