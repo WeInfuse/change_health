@@ -243,66 +243,68 @@ From a report, you can get an array of claims
 #### Report 277
 
 ```ruby
-report_277_data = ChangeHealth::Request::Claim::Report.get_report("X3000000.AB", as_json_report: true)
+report277_data = ChangeHealth::Request::Claim::Report.get_report("X3000000.AB", as_json_report: true)
 
-report_277_data.payer_name
+report277_data.payer_name
 # "PREMERA"
 
-report_277_data.report_creation_date
+report277_data.report_creation_date
 # Tue, 01 Dec 2020
 
-claim_277 = report_277_data.claims.first
-claim_277.payer_name
+claim277 = report277_data.claims.first
+claim277.payer_name
 # "PREMERA"
 
-claim_277.report_name
+claim277.report_name
 # "X3000000.AB"
 
-claim_277.patient_first_name
+claim277.patient_first_name
 # "JOHNONE"
 
-claim_277.report_creation_date
+claim277.report_creation_date
 # Tue, 01 Dec 2020
 
 # Report 277 specific below
-claim_277.latest_status_category_codes
+claim277.latest_status_category_codes
 # ["F1"]
 
-claim_277.total_charge_amount
+claim277.total_charge_amount
 # "100"
 
-claim_277.procedure_codes
+claim277.procedure_codes
 # ["97161"]
 ```
 
 #### Report 835
 
 ```ruby
-report_835_data = ChangeHealth::Request::Claim::Report.get_report("R5000000.XY", as_json_report: true)
+report835_data = ChangeHealth::Request::Claim::Report.get_report("R5000000.XY", as_json_report: true)
 
-report_835_data.payment_method_code
+payment835 = report835_data.payments.first
+
+payment835.payment_method_code
 # "ACH"
 
-report_835_data.total_actual_provider_payment_amount
+payment835.total_actual_provider_payment_amount
 # "2563.13"
 
-claim_835 = report_835_data.claims.first
-claim_835.payer_name
+claim835 = payment835.claims.first
+claim835.payer_name
 # "NATIONAL GOVERNMENT SERVICES, INC."
 
-claim_835.patient_first_name
+claim835.patient_first_name
 # "JANE"
 
-claim_835.patient_member_id
+claim835.patient_member_id
 # "7SL5RA7XR19"
 
-claim_835.report_creation_date
+claim835.report_creation_date
 # Wed, 22 Apr 2020
 
-claim_835.procedure_codes
+claim835.procedure_codes
 # ["21210", "21026", "21208", "30580"]
 
-claim_835.service_lines.map(&:line_item_charge_amount)
+claim835.service_lines.map(&:line_item_charge_amount)
 # ["3600", "1890", "1836", "1680"]
 ```
 
