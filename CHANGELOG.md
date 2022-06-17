@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+# [4.1.0] - 2022-06-17
+
+### Added
+Report835Claim - Add another way to get `service_provider_npi`
+
 # [4.0.0] - 2022-05-26
 
 ### Changed
@@ -368,6 +373,7 @@ Added the ability to hit professional claim submission API. For more details, se
 * Authentication
 * Configuration
 
+[4.1.0]: https://github.com/WeInfuse/change_health/compare/v4.0.0...v4.1.0
 [4.0.0]: https://github.com/WeInfuse/change_health/compare/v3.5.4...v4.0.0
 [3.5.4]: https://github.com/WeInfuse/change_health/compare/v3.5.3...v3.5.4
 [3.5.3]: https://github.com/WeInfuse/change_health/compare/v3.5.2...v3.5.3

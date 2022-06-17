@@ -49,7 +49,8 @@ module ChangeHealth
                 payer_claim_control_number = payment_info.dig('claimPaymentInfo', 'payerClaimControlNumber')
                 service_provider_npi =
                   payment_info.dig('renderingProvider', 'npi') ||
-                  detail_info.dig('providerSummaryInformation', 'providerIdentifier')
+                  detail_info.dig('providerSummaryInformation', 'providerIdentifier') ||
+                  transaction.dig('payee', 'npi')
                 total_charge_amount = payment_info.dig('claimPaymentInfo', 'totalClaimChargeAmount')
 
                 claim_payment_remark_codes = []
