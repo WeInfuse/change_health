@@ -131,13 +131,18 @@ class Report835DataTest < Minitest::Test
       end
 
       describe 'claim field oddities' do
-        let(:odd_claim) { report_data.payments[1].claims[0] }
+        let(:odd_claim1) { report_data.payments[1].claims[0] }
+        let(:odd_claim2) { report_data.payments[2].claims[0] }
         it 'member id' do
-          assert_equal 'SJD11122', odd_claim.patient_member_id
+          assert_equal 'SJD11122', odd_claim1.patient_member_id
         end
 
-        it 'provider npi' do
-          assert_equal '1811901928', odd_claim.service_provider_npi
+        it 'provider npi from provider info summary' do
+          assert_equal '1811901928', odd_claim1.service_provider_npi
+        end
+
+        it 'provider npi from payee npi' do
+          assert_equal '9999947036', odd_claim2.service_provider_npi
         end
       end
     end
