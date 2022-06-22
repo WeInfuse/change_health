@@ -113,7 +113,7 @@ address = ChangeHealth::Models::Claim::Address.new(
   address1: "123 address1",
   city: "city1",
   state: "wa",
-  postalCode: "98101-0000"
+  postalCode: "981010000"
 )
 
 subscriber = ChangeHealth::Models::Claim::Subscriber.new(
@@ -125,6 +125,17 @@ subscriber = ChangeHealth::Models::Claim::Subscriber.new(
   date_of_birth: "02/01/1980",
   address: address
 )
+
+dependent = ChangeHealth::Models::Claim::Dependent.new(
+  address: address,
+  date_of_birth: "02/01/1980",
+  first_name: "johnone",
+  gender: "M",
+  last_name: "doetwo",
+  member_id: "0000000001",
+  relationship_to_subscriber_code: "01"
+)
+
 provider = ChangeHealth::Models::Claim::Provider.new(
   address: address,
   employer_id: "000000000",
@@ -191,13 +202,14 @@ professional_headers = {
 }
 
 claim_submission = ChangeHealth::Request::Claim::Submission.new(
-  trading_partner_service_id: "9496",
-  submitter: claim_submitter,
-  receiver: receiver,
-  subscriber: subscriber,
-  providers: [provider],
   claim_information: claim_information,
-  headers: professional_headers
+  dependent: dependent,
+  headers: professional_headers,
+  providers: [provider],
+  receiver: receiver,
+  submitter: claim_submitter,
+  subscriber: subscriber,
+  trading_partner_service_id: "9496"
 )
 
 claim_submission_data = claim_submission.submission
