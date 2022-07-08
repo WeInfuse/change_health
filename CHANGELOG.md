@@ -7,22 +7,28 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 # [4.2.1] - 2022-07-08
 
+### Added
+
 * Added `taxonomyCode` property on `ChangeHealth::Models::Claim` so it will serialize properly into JSON
 
 # [4.2.0] - 2022-06-23
 
 ### Added
+
 * Dependent for Claim Submission
 
 # [4.1.0] - 2022-06-17
 
 ### Added
+
 Report835Claim - Add another way to get `service_provider_npi`
 
 # [4.0.0] - 2022-05-26
 
 ### Changed
+
 The assumption that only one payment would be in a report835 was wrong. Corrected that by adding in a model to hold the payment information - Report835Payment. Removed payment related info from Report835Data and Report835Claim. See README for usage
+
 * check_issue_or_eft_effective_date
 * check_or_eft_trace_number
 * payer_identifier
@@ -56,6 +62,7 @@ The assumption that only one payment would be in a report835 was wrong. Correcte
 # [3.4.0] - 2022-03-23
 
 ### Added
+
 * Report835Claim - check_or_eft_trace_number & check_issue_or_eft_effective_date
 
 # [3.3.0] - 2022-02-11
