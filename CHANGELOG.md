@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+# [3.5.5] - 2022-07-08
+
+* Added `taxonomyCode` property on `ChangeHealth::Models::Claim` so it will serialize properly into JSON
+
 # [3.5.4] - 2022-05-18
 
 * Used dig on `service_provider_npi` variable assigning because it produces way fewer bugs
@@ -357,6 +361,7 @@ Added the ability to hit professional claim submission API. For more details, se
 * Authentication
 * Configuration
 
+[3.5.5]: https://github.com/WeInfuse/change_health/compare/v3.5.4...v3.5.5
 [3.5.4]: https://github.com/WeInfuse/change_health/compare/v3.5.3...v3.5.4
 [3.5.3]: https://github.com/WeInfuse/change_health/compare/v3.5.2...v3.5.3
 [3.5.2]: https://github.com/WeInfuse/change_health/compare/v3.5.1...v3.5.2
