@@ -10,6 +10,7 @@ module ChangeHealth
         property :organizationName, from: :organization_name, required: false
         property :npi, required: false
         property :providerType, from: :provider_type, required: false
+        property :taxonomyCode, from: :taxonomy_code, required: false
         property :ssn, required: false # or employer id
       end
     end
