@@ -5,9 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-# [3.5.5] - 2022-07-08
+# [4.2.1] - 2022-07-08
 
 * Added `taxonomyCode` property on `ChangeHealth::Models::Claim` so it will serialize properly into JSON
+
+# [4.2.0] - 2022-06-23
+
+### Added
+* Dependent for Claim Submission
+
+# [4.1.0] - 2022-06-17
+
+### Added
+Report835Claim - Add another way to get `service_provider_npi`
+
+# [4.0.0] - 2022-05-26
+
+### Changed
+The assumption that only one payment would be in a report835 was wrong. Corrected that by adding in a model to hold the payment information - Report835Payment. Removed payment related info from Report835Data and Report835Claim. See README for usage
+* check_issue_or_eft_effective_date
+* check_or_eft_trace_number
+* payer_identifier
+* payment_method_code
+* report_creation_date
+* total_actual_provider_payment_amount
 
 # [3.5.4] - 2022-05-18
 
@@ -361,7 +382,10 @@ Added the ability to hit professional claim submission API. For more details, se
 * Authentication
 * Configuration
 
-[3.5.5]: https://github.com/WeInfuse/change_health/compare/v3.5.4...v3.5.5
+[4.2.1]: https://github.com/WeInfuse/change_health/compare/v4.2.0...v4.2.1
+[4.2.0]: https://github.com/WeInfuse/change_health/compare/v4.1.0...v4.2.0
+[4.1.0]: https://github.com/WeInfuse/change_health/compare/v4.0.0...v4.1.0
+[4.0.0]: https://github.com/WeInfuse/change_health/compare/v3.5.4...v4.0.0
 [3.5.4]: https://github.com/WeInfuse/change_health/compare/v3.5.3...v3.5.4
 [3.5.3]: https://github.com/WeInfuse/change_health/compare/v3.5.2...v3.5.3
 [3.5.2]: https://github.com/WeInfuse/change_health/compare/v3.5.1...v3.5.2

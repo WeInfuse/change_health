@@ -519,7 +519,60 @@
                                     ]
                                 }
                             ]
-                        },
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "controlNumber": "234",
+            "paymentAndRemitReassociationDetails": {
+                "traceTypeCode": "1",
+                "checkOrEFTTraceNumber": "56789",
+                "originatingCompanyIdentifier": "1512345678"
+            },
+            "receiverIdentifier": "XYZ CLEARINGHOUSE",
+            "productionDate": "20190406",
+            "financialInformation": {
+                "transactionHandlingCode": "I",
+                "totalActualProviderPaymentAmount": "818.8",
+                "creditOrDebitFlagCode": "C",
+                "paymentMethodCode": "ACH",
+                "payerIdentifier": "1351840888",
+                "checkIssueOrEFTEffectiveDate": "20190401"
+            },
+            "payer": {
+                "name": "DENTAL OF ABC",
+                "payerIdentificationNumber": "06102",
+                "address": {
+                    "address1": "225 MAIN STREET",
+                    "city": "CENTERVILLE",
+                    "state": "PA",
+                    "postalCode": "17111"
+                },
+                "technicalContactInformation": [
+                    {
+                        "contactName": "JANE DOE",
+                        "contactMethods": [
+                            {
+                                "phone": "9005555555"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "payee": {
+                "name": "BAN DDS LLC",
+                "npi": "9999947036",
+                "federalTaxPayersIdentificationNumber": "212121212"
+            },
+            "detailInfo": [
+                {
+                    "assignedNumber": "1",
+                    "providerSummaryInformation": {
+                        "providerIdentifier": "1811901928"
+                    },
+                    "paymentInfo": [
                         {
                             "claimPaymentInfo": {
                                 "patientControlNumber": "7722337",
@@ -534,13 +587,12 @@
                             },
                             "patientName": {
                                 "lastName": "JONES",
+                                "firstName": "SAM"
+                            },
+                            "subscriber": {
+                                "lastName": "JONES",
                                 "firstName": "SAM",
                                 "memberId": "SJD11122"
-                            },
-                            "renderingProvider": {
-                                "lastName": "BAN",
-                                "firstName": "ERIN",
-                                "npi": "1811901945"
                             },
                             "claimSupplementalInformation": {
                                 "coverageAmount": "28"
@@ -748,7 +800,57 @@
                                     }
                                 }
                             ]
-                        },
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "controlNumber": "786876",
+            "paymentAndRemitReassociationDetails": {
+                "traceTypeCode": "1",
+                "checkOrEFTTraceNumber": "25808",
+                "originatingCompanyIdentifier": "1512345678"
+            },
+            "receiverIdentifier": "XYZ CLEARINGHOUSE",
+            "productionDate": "20190409",
+            "financialInformation": {
+                "transactionHandlingCode": "I",
+                "totalActualProviderPaymentAmount": "555",
+                "creditOrDebitFlagCode": "C",
+                "paymentMethodCode": "CHK",
+                "payerIdentifier": "1351840111",
+                "checkIssueOrEFTEffectiveDate": "20190405"
+            },
+            "payer": {
+                "name": "DENTAL OF ABC",
+                "payerIdentificationNumber": "06102",
+                "address": {
+                    "address1": "225 MAIN STREET",
+                    "city": "CENTERVILLE",
+                    "state": "PA",
+                    "postalCode": "17111"
+                },
+                "technicalContactInformation": [
+                    {
+                        "contactName": "JANE DOE",
+                        "contactMethods": [
+                            {
+                                "phone": "9005555555"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "payee": {
+                "name": "BAN DDS LLC",
+                "npi": "9999947036",
+                "federalTaxPayersIdentificationNumber": "212121212"
+            },
+            "detailInfo": [
+                {
+                    "assignedNumber": "1",
+                    "paymentInfo": [
                         {
                             "claimPaymentInfo": {
                                 "patientControlNumber": "7722337",
@@ -767,8 +869,7 @@
                             },
                             "renderingProvider": {
                                 "lastName": "BAN",
-                                "firstName": "ERIN",
-                                "npi": "1811901945"
+                                "firstName": "ERIN"
                             },
                             "claimSupplementalInformation": {
                                 "coverageAmount": "108"

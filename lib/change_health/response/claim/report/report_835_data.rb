@@ -7,14 +7,6 @@ module ChangeHealth
           @raw['transactions']
         end
 
-        def check_or_eft_trace_number
-          transactions&.first&.dig('paymentAndRemitReassociationDetails', 'checkOrEFTTraceNumber')
-        end
-
-        def check_issue_or_eft_effective_date
-          ChangeHealth::Models::PARSE_DATE.call(transactions&.first&.dig('financialInformation', 'checkIssueOrEFTEffectiveDate'))
-        end
-
         def payer_identification
           transactions&.first&.dig('payer', 'payerIdentificationNumber')
         end
@@ -24,34 +16,41 @@ module ChangeHealth
           transactions&.first&.dig('payer')&.dig('name')
         end
 
-        def payer_identifier
-          ChangeHealth::Models::PARSE_DATE.call(transactions&.first&.dig('financialInformation', 'payerIdentifier'))
-        end
-
-        def payment_method_code
-          transactions&.first&.dig('financialInformation', 'paymentMethodCode')
-        end
-
         def report_creation_date
-          ChangeHealth::Models::PARSE_DATE.call(transactions&.first&.dig('productionDate'))
-        end
-
-        def total_actual_provider_payment_amount
-          transactions&.first&.dig('financialInformation', 'totalActualProviderPaymentAmount')
+          payments.map(&:report_creation_date).min
         end
 
         def claims
-          report_claims = []
+          payments.flat_map(&:claims).compact
+        end
+
+        def payments
+          report_payments = []
 
           transactions&.each do |transaction|
-            transaction['detailInfo']&.each do |detail_info|
-              detail_info['paymentInfo']&.each do |payment_info|
+            check_or_eft_trace_number = transaction.dig('paymentAndRemitReassociationDetails', 'checkOrEFTTraceNumber')
+            check_issue_or_eft_effective_date =
+              ChangeHealth::Models::PARSE_DATE.call(
+                transaction.dig('financialInformation', 'checkIssueOrEFTEffectiveDate')
+              )
+            payer_identifier = transaction.dig('financialInformation', 'payerIdentifier')
+            payment_method_code = transaction.dig('financialInformation', 'paymentMethodCode')
+            report_creation_date = ChangeHealth::Models::PARSE_DATE.call(transaction.dig('productionDate'))
+            total_actual_provider_payment_amount =
+              transaction.dig('financialInformation', 'totalActualProviderPaymentAmount')
+            claims = transaction['detailInfo']&.flat_map do |detail_info|
+              detail_info['paymentInfo']&.map do |payment_info|
                 patient_control_number = payment_info.dig('claimPaymentInfo', 'patientControlNumber')
                 patient_first_name = payment_info.dig('patientName', 'firstName')
                 patient_last_name = payment_info.dig('patientName', 'lastName')
-                patient_member_id = payment_info.dig('patientName', 'memberId') || payment_info.dig('subscriber', 'memberId')
+                patient_member_id =
+                  payment_info.dig('patientName', 'memberId') ||
+                  payment_info.dig('subscriber', 'memberId')
                 payer_claim_control_number = payment_info.dig('claimPaymentInfo', 'payerClaimControlNumber')
-                service_provider_npi = payment_info.dig('renderingProvider', 'npi') || detail_info.dig('providerSummaryInformation', 'providerIdentifier')
+                service_provider_npi =
+                  payment_info.dig('renderingProvider', 'npi') ||
+                  detail_info.dig('providerSummaryInformation', 'providerIdentifier') ||
+                  transaction.dig('payee', 'npi')
                 total_charge_amount = payment_info.dig('claimPaymentInfo', 'totalClaimChargeAmount')
 
                 claim_payment_remark_codes = []
@@ -114,9 +113,7 @@ module ChangeHealth
                   )
                 end
 
-                report_claims << Report835Claim.new(
-                  check_issue_or_eft_effective_date: check_issue_or_eft_effective_date,
-                  check_or_eft_trace_number: check_or_eft_trace_number,
+                Report835Claim.new(
                   claim_payment_remark_codes: claim_payment_remark_codes,
                   patient_control_number: patient_control_number,
                   patient_first_name: patient_first_name,
@@ -124,23 +121,31 @@ module ChangeHealth
                   patient_member_id: patient_member_id,
                   payer_claim_control_number: payer_claim_control_number,
                   payer_identification: payer_identification,
-                  payer_identifier: payer_identifier,
                   payer_name: payer_name,
-                  payment_method_code: payment_method_code,
                   report_creation_date: report_creation_date,
                   report_name: report_name,
                   service_date_begin: service_date_begin,
                   service_date_end: service_date_end,
                   service_lines: service_lines,
                   service_provider_npi: service_provider_npi,
-                  total_actual_provider_payment_amount: total_actual_provider_payment_amount,
                   total_charge_amount: total_charge_amount
                 )
               end
             end
+            report_payments << Report835Payment.new(
+              check_issue_or_eft_effective_date: check_issue_or_eft_effective_date,
+              check_or_eft_trace_number: check_or_eft_trace_number,
+              claims: claims,
+              payer_identifier: payer_identifier,
+              payer_name: payer_name,
+              payment_method_code: payment_method_code,
+              report_creation_date: report_creation_date,
+              report_name: report_name,
+              total_actual_provider_payment_amount: total_actual_provider_payment_amount
+            )
           end
 
-          report_claims
+          report_payments
         end
       end
     end
