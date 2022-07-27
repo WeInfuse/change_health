@@ -37,6 +37,11 @@ class Report835ServiceLineTest < Minitest::Test
          health_care_check_remark_codes: [health_care_check_remark_code, health_care_check_remark_code_2])
       end
 
+      let(:claim_information_with_nil_codes) do
+         ChangeHealth::Response::Claim::Report835ServiceLine.new(adjudicated_procedure_code: 'J1745', allowed_actual: 30_720.0, line_item_charge_amount: 48_000.0, line_item_provider_payment_amount: '18432', service_adjustments: [service_adjustments, service_adjustments_2],
+         health_care_check_remark_codes: nil)
+      end
+
       it 'creates adjustments correctly when there are multiple adjustments in a group code' do
          expected_answer = [
             {
@@ -118,6 +123,39 @@ class Report835ServiceLineTest < Minitest::Test
          ]
 
          actual_result = claim_information_with_remark_codes.create_adjustment_detail_array
+         assert_equal(expected_result, actual_result)
+      end
+
+      it 'creates adjustments correctly when there are remark codes' do
+         expected_result = [
+            {
+               adjustmentDetails: [
+               {
+                  adjustmentReasonCode: "45",
+                  adjustmentAmount: "180.82"
+               },
+               {
+                  adjustmentReasonCode: "253",
+                  adjustmentAmount: "13.24"
+               },
+               {
+                  adjustmentReasonCode: "59", adjustmentAmount: "827.59"
+               }
+               ],
+               adjustmentGroupCode: "PR"
+            },
+            {
+               adjustmentDetails: [
+               {
+                  adjustmentReasonCode: "2",
+                  adjustmentAmount: "165.52"
+               }
+               ],
+               adjustmentGroupCode: "CO"
+            }
+         ]
+
+         actual_result = claim_information_with_nil_codes.create_adjustment_detail_array
          assert_equal(expected_result, actual_result)
       end
    end

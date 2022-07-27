@@ -42,7 +42,7 @@ module ChangeHealth
           end
 
           health_care_check_remark_codes = self[:health_care_check_remark_codes]
-          health_care_check_remark_codes.each do |remark_codes|
+          health_care_check_remark_codes&.each do |remark_codes|
             adjustment_details << create_remark_code_adjustments(remark_codes)
           end
           adjustment_details
