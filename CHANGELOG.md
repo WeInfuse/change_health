@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+# [4.2.4] - 2022-07-28
+
+* Fixed bug where if a `Report835HealthCareCheckRemarkCode` has either the `code_list_qualifier_code` or `code_list_qualifier_code_value` attribute filled in, `Report835ServiceLine` data is mapped incorrectly in the JSON
+
 # [4.2.3] - 2022-07-28
 
 * Adjusted `adjustmentAmount` in object returned from create_adjustment_detail_array to a `0` value instead of an empty string
@@ -397,7 +401,8 @@ Added the ability to hit professional claim submission API. For more details, se
 * Authentication
 * Configuration
 
-[4.2.2]: https://github.com/WeInfuse/change_health/compare/v4.2.2...v4.2.3
+[4.2.4]: https://github.com/WeInfuse/change_health/compare/v4.2.3...v4.2.4
+[4.2.3]: https://github.com/WeInfuse/change_health/compare/v4.2.2...v4.2.3
 [4.2.2]: https://github.com/WeInfuse/change_health/compare/v4.2.1...v4.2.2
 [4.2.1]: https://github.com/WeInfuse/change_health/compare/v4.2.0...v4.2.1
 [4.2.0]: https://github.com/WeInfuse/change_health/compare/v4.1.0...v4.2.0
