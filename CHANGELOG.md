@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 # [4.2.4] - 2022-07-28
 
-* Fixed bug where if a `Report835HealthCareCheckRemarkCode` has either the `code_list_qualifier_code` or `code_list_qualifier_code_value` attribute filled in, `Report835ServiceLine` data is mapped incorrectly in the JSON
+* Removed all RARC Codes (HealthCareCheckRemarkCodes) from JSON
 
 # [4.2.3] - 2022-07-28
 
