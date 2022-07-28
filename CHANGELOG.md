@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+# [4.2.3] - 2022-07-28
+
+* Adjusted `adjustmentAmount` in object returned from create_adjustment_detail_array to a `0` value instead of an empty string
+
 # [4.2.2] - 2022-07-27
 
 * Fixed ChangeHealth::Response::Claim::Report835ServiceLine's `create_adjustment_detail_array` so that if it is `nil` for `health_care_check_remark_codes`, it does not error out
@@ -393,7 +397,8 @@ Added the ability to hit professional claim submission API. For more details, se
 * Authentication
 * Configuration
 
-[4.2.2]: https://github.com/WeInfuse/change_health/compare/v4.2.0...v4.2.2
+[4.2.2]: https://github.com/WeInfuse/change_health/compare/v4.2.2...v4.2.3
+[4.2.2]: https://github.com/WeInfuse/change_health/compare/v4.2.1...v4.2.2
 [4.2.1]: https://github.com/WeInfuse/change_health/compare/v4.2.0...v4.2.1
 [4.2.0]: https://github.com/WeInfuse/change_health/compare/v4.1.0...v4.2.0
 [4.1.0]: https://github.com/WeInfuse/change_health/compare/v4.0.0...v4.1.0
