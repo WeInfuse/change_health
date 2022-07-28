@@ -17,7 +17,9 @@ class Report835ServiceLineTest < Minitest::Test
 
       let(:health_care_check_remark_code) do
          ChangeHealth::Response::Claim::Report835HealthCareCheckRemarkCode.new(
-         remark_code: "M1"
+         remark_code: "M1",
+         code_list_qualifier_code_value: "Claim Payment Remark Codes",
+         code_list_qualifier_code: "HI"
          )
       end
 

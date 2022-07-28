@@ -23,14 +23,14 @@ module ChangeHealth
         end
 
         def create_remark_code_adjustments(remark_codes_array)
-          adjustment_array = remark_codes_array.map do |_key, value|
+          adjustment_array = remark_codes_array.map do |key, value|
             {
               adjustmentReasonCode: value,
               adjustmentAmount: "0"
-            }
+            } if key == :remark_code
           end
           {
-            adjustmentDetails: adjustment_array,
+            adjustmentDetails: adjustment_array.compact,
             adjustmentGroupCode: ""
           }
         end
