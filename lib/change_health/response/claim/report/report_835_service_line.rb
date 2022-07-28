@@ -26,7 +26,7 @@ module ChangeHealth
           adjustment_array = remark_codes_array.map do |_key, value|
             {
               adjustmentReasonCode: value,
-              adjustmentAmount: ""
+              adjustmentAmount: "0"
             }
           end
           {

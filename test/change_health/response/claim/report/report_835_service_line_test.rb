@@ -106,7 +106,7 @@ class Report835ServiceLineTest < Minitest::Test
                adjustmentDetails: [
                {
                   adjustmentReasonCode: "M1",
-                  adjustmentAmount: ""
+                  adjustmentAmount: "0"
                }
                ],
                adjustmentGroupCode: ""
@@ -115,7 +115,7 @@ class Report835ServiceLineTest < Minitest::Test
                adjustmentDetails: [
                {
                   adjustmentReasonCode: "N510",
-                  adjustmentAmount: ""
+                  adjustmentAmount: "0"
                }
                ],
                adjustmentGroupCode: ""
