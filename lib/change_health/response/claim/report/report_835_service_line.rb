@@ -22,28 +22,10 @@ module ChangeHealth
           }
         end
 
-        def create_remark_code_adjustments(remark_codes_array)
-          adjustment_array = remark_codes_array.map do |_key, value|
-            {
-              adjustmentReasonCode: value,
-              adjustmentAmount: "0"
-            }
-          end
-          {
-            adjustmentDetails: adjustment_array,
-            adjustmentGroupCode: ""
-          }
-        end
-
         def create_adjustment_detail_array
           all_service_adjustments = self.service_adjustments
           adjustment_details = all_service_adjustments.map do |service_adjustments|
             create_group_adjustments(service_adjustments)
-          end
-
-          health_care_check_remark_codes = self[:health_care_check_remark_codes]
-          health_care_check_remark_codes&.each do |remark_codes|
-            adjustment_details << create_remark_code_adjustments(remark_codes)
           end
           adjustment_details
         end
