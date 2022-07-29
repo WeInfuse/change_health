@@ -737,7 +737,6 @@
                                     }
                                 },
                                 {
-                                    "serviceDate": "20190321",
                                     "servicePaymentInformation": {
                                         "productOrServiceIDQualifier": "AD",
                                         "productOrServiceIDQualifierValue": "American Dental Association Codes",
