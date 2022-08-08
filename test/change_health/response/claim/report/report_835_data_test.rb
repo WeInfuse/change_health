@@ -133,6 +133,7 @@ class Report835DataTest < Minitest::Test
       describe 'claim field oddities' do
         let(:odd_claim1) { report_data.payments[1].claims[0] }
         let(:odd_claim2) { report_data.payments[2].claims[0] }
+        let(:odd_claim_service_date) { report_data.payments[2].claims[2] }
         it 'member id' do
           assert_equal 'SJD11122', odd_claim1.patient_member_id
         end
@@ -143,6 +144,11 @@ class Report835DataTest < Minitest::Test
 
         it 'provider npi from payee npi' do
           assert_equal '9999947036', odd_claim2.service_provider_npi
+        end
+
+        it 'service line serviceDate missing' do
+          assert_equal Date.new(2019, 3, 23), odd_claim_service_date.service_date_begin
+          assert_equal Date.new(2019, 3, 24), odd_claim_service_date.service_date_end
         end
       end
     end
