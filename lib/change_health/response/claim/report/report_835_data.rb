@@ -117,6 +117,11 @@ module ChangeHealth
                   )
                 end
 
+                if service_date_begin.nil? && service_date_end.nil?
+                  service_date_begin = ChangeHealth::Models::PARSE_DATE.call(payment_info['claimStatementPeriodStart'])
+                  service_date_end = ChangeHealth::Models::PARSE_DATE.call(payment_info['claimStatementPeriodEnd'])
+                end
+
                 Report835Claim.new(
                   claim_payment_remark_codes: claim_payment_remark_codes,
                   patient_control_number: patient_control_number,
