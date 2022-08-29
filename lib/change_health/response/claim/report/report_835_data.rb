@@ -35,7 +35,22 @@ module ChangeHealth
               )
             payer_identifier = transaction.dig('financialInformation', 'payerIdentifier')
             payment_method_code = transaction.dig('financialInformation', 'paymentMethodCode')
-            report_creation_date = ChangeHealth::Models::PARSE_DATE.call(transaction.dig('productionDate'))
+            provider_adjustments = transaction['providerAdjustments']&.map do |provider_adjustment|
+              adjustments = provider_adjustment['adjustments']&.map do |adjustment|
+                {
+                  amount: adjustment['providerAdjustmentAmount'],
+                  identifier: adjustment['providerAdjustmentIdentifier'],
+                  reason_code: adjustment['adjustmentReasonCode']
+                }
+              end
+              Report835ProviderAdjustment.new(
+                adjustments: adjustments,
+                fiscal_period_date: ChangeHealth::Models::PARSE_DATE.call(provider_adjustment['fiscalPeriodDate']),
+                provider_identifier: provider_adjustment['providerIdentifier']
+              )
+            end
+
+            report_creation_date = ChangeHealth::Models::PARSE_DATE.call(transaction['productionDate'])
             total_actual_provider_payment_amount =
               transaction.dig('financialInformation', 'totalActualProviderPaymentAmount')
             claims = transaction['detailInfo']&.flat_map do |detail_info|
@@ -148,6 +163,7 @@ module ChangeHealth
               payer_identifier: payer_identifier,
               payer_name: payer_name,
               payment_method_code: payment_method_code,
+              provider_adjustments: provider_adjustments,
               report_creation_date: report_creation_date,
               report_name: report_name,
               total_actual_provider_payment_amount: total_actual_provider_payment_amount

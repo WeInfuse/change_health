@@ -522,6 +522,26 @@
                         }
                     ]
                 }
+            ],
+            "providerAdjustments": [
+                {
+                    "providerIdentifier": "1124058920",
+                    "fiscalPeriodDate": "20221231",
+                    "adjustments": [
+                        {
+                            "adjustmentReasonCode": "WO",
+                            "adjustmentReasonCodeValue": "Overpayment Recovery",
+                            "providerAdjustmentIdentifier": "20211124 XP732039",
+                            "providerAdjustmentAmount": "52436.08"
+                        },
+                        {
+                            "adjustmentReasonCode": "FB",
+                            "adjustmentReasonCodeValue": "Forwarding Balance",
+                            "providerAdjustmentIdentifier": "9802717391",
+                            "providerAdjustmentAmount": "-49082.64"
+                        }
+                    ]
+                }
             ]
         },
         {

@@ -38,6 +38,18 @@ class Report835DataTest < Minitest::Test
         assert_equal report_name, actual_payment.report_name
         assert_equal '810.8', actual_payment.total_actual_provider_payment_amount
       end
+
+      it 'payment provider adjustments' do
+        assert_equal 1, actual_payment.provider_adjustments.size
+
+        provider_adjustment = actual_payment.provider_adjustments[0]
+
+        assert_equal '1124058920', provider_adjustment.provider_identifier
+        assert_equal Date.new(2022, 12, 31), provider_adjustment.fiscal_period_date
+        adjustments = [{ amount: '52436.08', identifier: '20211124 XP732039', reason_code: 'WO' },
+                       { amount: '-49082.64', identifier: '9802717391', reason_code: 'FB' }]
+        assert_equal adjustments, provider_adjustment.adjustments
+      end
     end
 
     describe 'claims' do
