@@ -205,6 +205,7 @@ claim_submission = ChangeHealth::Request::Claim::Submission.new(
   claim_information: claim_information,
   dependent: dependent,
   headers: professional_headers,
+  pay_to_address: address,
   providers: [provider],
   receiver: receiver,
   submitter: claim_submitter,

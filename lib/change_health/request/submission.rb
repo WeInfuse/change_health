@@ -10,6 +10,7 @@ module ChangeHealth
         property :claimInformation, from: :claim_information, required: false
         property :controlNumber, from: :control_number, required: true, default: ChangeHealth::Models::CONTROL_NUMBER
         property :dependent, required: false
+        property :payToAddress, from: :pay_to_address, required: false
         property :providers, required: false
         property :receiver, required: false
         property :submitter, required: false
