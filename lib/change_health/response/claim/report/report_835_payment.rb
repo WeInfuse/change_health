@@ -8,6 +8,7 @@ module ChangeHealth
         property :payer_identifier, required: false
         property :payer_name, required: false
         property :payment_method_code, required: false
+        property :provider_adjustments, required: false
         property :report_creation_date, required: false
         property :report_name, required: false
         property :total_actual_provider_payment_amount, required: false
