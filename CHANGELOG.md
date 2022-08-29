@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+# [4.4.0] - 2022-08-29
+
+### Added
+
+* Claim Submission - add payToAddress field
+
 # [4.3.0] - 2022-08-08
 
 ### Added
@@ -412,6 +418,7 @@ Added the ability to hit professional claim submission API. For more details, se
 * Authentication
 * Configuration
 
+[4.4.0]: https://github.com/WeInfuse/change_health/compare/v4.3.0...v4.4.0
 [4.3.0]: https://github.com/WeInfuse/change_health/compare/v4.2.5...v4.3.0
 [4.2.5]: https://github.com/WeInfuse/change_health/compare/v4.2.4...v4.2.5
 [4.2.4]: https://github.com/WeInfuse/change_health/compare/v4.2.3...v4.2.4
