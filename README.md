@@ -319,6 +319,9 @@ claim835.procedure_codes
 
 claim835.service_lines.map(&:line_item_charge_amount)
 # ["3600", "1890", "1836", "1680"]
+
+claim835.claim_status_code
+# "19"
 ```
 
 ## Configuration
