@@ -55,6 +55,7 @@ module ChangeHealth
               transaction.dig('financialInformation', 'totalActualProviderPaymentAmount')
             claims = transaction['detailInfo']&.flat_map do |detail_info|
               detail_info['paymentInfo']&.map do |payment_info|
+                claim_status_code = payment_info.dig('claimPaymentInfo', 'claimStatusCode')
                 patient_control_number = payment_info.dig('claimPaymentInfo', 'patientControlNumber')
                 patient_first_name = payment_info.dig('patientName', 'firstName')
                 patient_last_name = payment_info.dig('patientName', 'lastName')
@@ -139,6 +140,7 @@ module ChangeHealth
 
                 Report835Claim.new(
                   claim_payment_remark_codes: claim_payment_remark_codes,
+                  claim_status_code: claim_status_code,
                   patient_control_number: patient_control_number,
                   patient_first_name: patient_first_name,
                   patient_last_name: patient_last_name,

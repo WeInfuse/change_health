@@ -92,6 +92,7 @@ class Report835DataTest < Minitest::Test
 
         expected_claim = ChangeHealth::Response::Claim::Report835Claim.new(
           claim_payment_remark_codes: ['N520'],
+          claim_status_code: '1',
           patient_control_number: '7722337',
           patient_first_name: 'SANDY',
           patient_last_name: 'DOE',
