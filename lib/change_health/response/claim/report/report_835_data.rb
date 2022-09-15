@@ -35,6 +35,7 @@ module ChangeHealth
               )
             payer_identifier = transaction.dig('financialInformation', 'payerIdentifier')
             payment_method_code = transaction.dig('financialInformation', 'paymentMethodCode')
+            payer_address = transaction.dig('payer', 'address')
             provider_adjustments = transaction['providerAdjustments']&.map do |provider_adjustment|
               adjustments = provider_adjustment['adjustments']&.map do |adjustment|
                 {
@@ -164,6 +165,7 @@ module ChangeHealth
               claims: claims,
               payer_identifier: payer_identifier,
               payer_name: payer_name,
+              payer_address: payer_address,
               payment_method_code: payment_method_code,
               provider_adjustments: provider_adjustments,
               report_creation_date: report_creation_date,
