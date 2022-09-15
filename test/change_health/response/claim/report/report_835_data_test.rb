@@ -29,9 +29,16 @@ class Report835DataTest < Minitest::Test
       end
 
       it 'payment contents' do
+        address = {
+                    address1: "225 MAIN STREET",
+                    city: "CENTERVILLE",
+                    state: "PA",
+                    postalCode: "17111"
+                }
         assert_equal Date.new(2019, 3, 31), actual_payment.check_issue_or_eft_effective_date
         assert_equal '12345', actual_payment.check_or_eft_trace_number
         assert_equal '1351840597', actual_payment.payer_identifier
+        assert_equal address[:address1], actual_payment.payer_address["address1"]
         assert_equal 'DENTAL OF ABC', actual_payment.payer_name
         assert_equal 'CHK', actual_payment.payment_method_code
         assert_equal Date.new(2019, 4, 5), actual_payment.report_creation_date

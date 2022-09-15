@@ -35,6 +35,7 @@ module ChangeHealth
               )
             payer_identifier = transaction.dig('financialInformation', 'payerIdentifier')
             payment_method_code = transaction.dig('financialInformation', 'paymentMethodCode')
+            payer_address = transaction.dig('payer', 'address')
             report_creation_date = ChangeHealth::Models::PARSE_DATE.call(transaction.dig('productionDate'))
             total_actual_provider_payment_amount =
               transaction.dig('financialInformation', 'totalActualProviderPaymentAmount')
@@ -138,6 +139,7 @@ module ChangeHealth
               claims: claims,
               payer_identifier: payer_identifier,
               payer_name: payer_name,
+              payer_address: payer_address,
               payment_method_code: payment_method_code,
               report_creation_date: report_creation_date,
               report_name: report_name,
