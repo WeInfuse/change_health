@@ -36,11 +36,27 @@ module ChangeHealth
             payer_identifier = transaction.dig('financialInformation', 'payerIdentifier')
             payment_method_code = transaction.dig('financialInformation', 'paymentMethodCode')
             payer_address = transaction.dig('payer', 'address')
-            report_creation_date = ChangeHealth::Models::PARSE_DATE.call(transaction.dig('productionDate'))
+            provider_adjustments = transaction['providerAdjustments']&.map do |provider_adjustment|
+              adjustments = provider_adjustment['adjustments']&.map do |adjustment|
+                {
+                  amount: adjustment['providerAdjustmentAmount'],
+                  identifier: adjustment['providerAdjustmentIdentifier'],
+                  reason_code: adjustment['adjustmentReasonCode']
+                }
+              end
+              Report835ProviderAdjustment.new(
+                adjustments: adjustments,
+                fiscal_period_date: ChangeHealth::Models::PARSE_DATE.call(provider_adjustment['fiscalPeriodDate']),
+                provider_identifier: provider_adjustment['providerIdentifier']
+              )
+            end
+
+            report_creation_date = ChangeHealth::Models::PARSE_DATE.call(transaction['productionDate'])
             total_actual_provider_payment_amount =
               transaction.dig('financialInformation', 'totalActualProviderPaymentAmount')
             claims = transaction['detailInfo']&.flat_map do |detail_info|
               detail_info['paymentInfo']&.map do |payment_info|
+                claim_status_code = payment_info.dig('claimPaymentInfo', 'claimStatusCode')
                 patient_control_number = payment_info.dig('claimPaymentInfo', 'patientControlNumber')
                 patient_first_name = payment_info.dig('patientName', 'firstName')
                 patient_last_name = payment_info.dig('patientName', 'lastName')
@@ -67,10 +83,14 @@ module ChangeHealth
                 service_date_end = nil
                 service_lines = payment_info['serviceLines']&.map do |service_line|
                   service_line_date = ChangeHealth::Models::PARSE_DATE.call(service_line['serviceDate'])
-                  if service_date_begin.nil? || service_line_date < service_date_begin
-                    service_date_begin = service_line_date
+                  unless service_line_date.nil?
+                    if service_date_begin.nil? || service_line_date < service_date_begin
+                      service_date_begin = service_line_date
+                    end
+                    if service_date_end.nil? || service_date_end < service_line_date
+                      service_date_end = service_line_date
+                    end
                   end
-                  service_date_end = service_line_date if service_date_end.nil? || service_date_end < service_line_date
 
                   adjudicated_procedure_code = service_line.dig('servicePaymentInformation', 'adjudicatedProcedureCode')
                   allowed_actual = service_line.dig('serviceSupplementalAmounts', 'allowedActual')
@@ -114,8 +134,14 @@ module ChangeHealth
                   )
                 end
 
+                if service_date_begin.nil? && service_date_end.nil?
+                  service_date_begin = ChangeHealth::Models::PARSE_DATE.call(payment_info['claimStatementPeriodStart'])
+                  service_date_end = ChangeHealth::Models::PARSE_DATE.call(payment_info['claimStatementPeriodEnd'])
+                end
+
                 Report835Claim.new(
                   claim_payment_remark_codes: claim_payment_remark_codes,
+                  claim_status_code: claim_status_code,
                   patient_control_number: patient_control_number,
                   patient_first_name: patient_first_name,
                   patient_last_name: patient_last_name,
@@ -141,6 +167,7 @@ module ChangeHealth
               payer_name: payer_name,
               payer_address: payer_address,
               payment_method_code: payment_method_code,
+              provider_adjustments: provider_adjustments,
               report_creation_date: report_creation_date,
               report_name: report_name,
               total_actual_provider_payment_amount: total_actual_provider_payment_amount

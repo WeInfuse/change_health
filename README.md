@@ -205,6 +205,7 @@ claim_submission = ChangeHealth::Request::Claim::Submission.new(
   claim_information: claim_information,
   dependent: dependent,
   headers: professional_headers,
+  pay_to_address: address,
   providers: [provider],
   receiver: receiver,
   submitter: claim_submitter,
@@ -318,6 +319,9 @@ claim835.procedure_codes
 
 claim835.service_lines.map(&:line_item_charge_amount)
 # ["3600", "1890", "1836", "1680"]
+
+claim835.claim_status_code
+# "19"
 ```
 
 ## Configuration
