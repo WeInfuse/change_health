@@ -30,15 +30,15 @@ class Report835DataTest < Minitest::Test
 
       it 'payment contents' do
         address = {
-                    address1: "225 MAIN STREET",
-                    city: "CENTERVILLE",
-                    state: "PA",
-                    postalCode: "17111"
-                }
+          address1: '225 MAIN STREET',
+          city: 'CENTERVILLE',
+          state: 'PA',
+          postalCode: '17111'
+        }
         assert_equal Date.new(2019, 3, 31), actual_payment.check_issue_or_eft_effective_date
         assert_equal '12345', actual_payment.check_or_eft_trace_number
         assert_equal '1351840597', actual_payment.payer_identifier
-        assert_equal address[:address1], actual_payment.payer_address["address1"]
+        assert_equal address[:address1], actual_payment.payer_address['address1']
         assert_equal 'DENTAL OF ABC', actual_payment.payer_name
         assert_equal 'CHK', actual_payment.payment_method_code
         assert_equal Date.new(2019, 4, 5), actual_payment.report_creation_date
@@ -80,6 +80,12 @@ class Report835DataTest < Minitest::Test
           claim_adjustment_group_code: 'PR'
         )
 
+        claim_adjustments = []
+        claim_adjustments << ChangeHealth::Response::Claim::Report835ServiceAdjustment.new(
+          adjustments: { '23' => '19166.72' },
+          claim_adjustment_group_code: 'OA'
+        )
+
         health_care_check_remark_codes = [ChangeHealth::Response::Claim::Report835HealthCareCheckRemarkCode.new(
           code_list_qualifier_code: 'HE',
           code_list_qualifier_code_value: 'Claim Payment Remark Codes',
@@ -98,6 +104,7 @@ class Report835DataTest < Minitest::Test
         service_lines += [1, 2, 3, 4]
 
         expected_claim = ChangeHealth::Response::Claim::Report835Claim.new(
+          claim_adjustments: claim_adjustments,
           claim_payment_remark_codes: ['N520'],
           claim_status_code: '1',
           patient_control_number: '7722337',
