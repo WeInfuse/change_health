@@ -73,6 +73,14 @@
                             "claimSupplementalInformation": {
                                 "coverageAmount": "132"
                             },
+                            "claimAdjustments": [
+                                {
+                                    "claimAdjustmentGroupCode": "OA",
+                                    "claimAdjustmentGroupCodeValue": "Other adjustments",
+                                    "adjustmentReasonCode1": "23",
+                                    "adjustmentAmount1": "19166.72"
+                                }
+                            ],
                             "serviceLines": [
                                 {
                                     "serviceDate": "20190324",
