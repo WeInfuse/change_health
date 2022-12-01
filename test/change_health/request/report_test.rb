@@ -3,7 +3,7 @@ require 'test_helper'
 class ReportTest < Minitest::Test
   describe 'report' do
     let(:claim_report) { ChangeHealth::Request::Claim::Report }
-    let(:report_headers) { {username: "HeyThere", password: "Bob"}}
+    let(:report_headers) { { username: 'HeyThere', password: 'Bob' } }
 
     describe '#health_check' do
       let(:response) { build_response(file: 'health_check.response.json') }
@@ -78,6 +78,26 @@ class ReportTest < Minitest::Test
 
         it 'returns report data' do
           assert_equal(@report_data.raw, @report_data.response.parsed_response)
+        end
+      end
+      describe 'non 277 or 835 report' do
+        let(:report_name) { 'AA000000.AA' }
+        let(:response) { build_response(file: "claim/report/report.#{report_name}.response.json") }
+        let(:report_list_endpoint) { ChangeHealth::Request::Claim::Report::ENDPOINT + "/#{report_name}" }
+
+        before do
+          stub_change_health(endpoint: report_list_endpoint, response: response, verb: :get)
+
+          @report_data = claim_report.get_report(report_name, as_json_report: false, headers: report_headers)
+        end
+
+        it 'calls report' do
+          assert_requested(@stub)
+        end
+
+        it 'returns report data' do
+          assert_equal(@report_data.raw, @report_data.response.parsed_response)
+          assert_equal('Some content', @report_data.raw['report_content'])
         end
       end
     end
