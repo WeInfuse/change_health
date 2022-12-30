@@ -324,6 +324,16 @@ claim835.claim_status_code
 # "19"
 ```
 
+### Delete Reports
+[Delete Endpoint FAQ](https://developers.changehealthcare.com/eligibilityandclaims/docs/claims-responses-and-reports-faq#delete-http-endpoint)
+
+[Delete Endpoint API Reference](https://developers.changehealthcare.com/eligibilityandclaims/reference/delete_single_report_v2_reports__filename__delete)
+
+
+```ruby
+ChangeHealth::Request::Claim::Report.delete_report("R5000000.XY")
+```
+
 ## Configuration
 
 ```ruby

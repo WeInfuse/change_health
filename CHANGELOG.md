@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+# [4.11.0] - 2022-12-30
+
+### Added
+
+* ChangeHealth::Request::Claim::Report - delete a report
+
 # [4.10.1] - 2022-12-29
 
 ### Fixed
@@ -460,6 +466,7 @@ Added the ability to hit professional claim submission API. For more details, se
 * Authentication
 * Configuration
 
+[4.11.0]: https://github.com/WeInfuse/change_health/compare/v4.10.1...v4.11.0
 [4.10.1]: https://github.com/WeInfuse/change_health/compare/v4.10.0...v4.10.1
 [4.10.0]: https://github.com/WeInfuse/change_health/compare/v4.9.0...v4.10.0
 [4.9.0]: https://github.com/WeInfuse/change_health/compare/v4.8.0...v4.9.0
