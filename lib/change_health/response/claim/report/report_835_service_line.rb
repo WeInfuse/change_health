@@ -23,11 +23,9 @@ module ChangeHealth
         end
 
         def create_adjustment_detail_array
-          all_service_adjustments = self.service_adjustments
-          adjustment_details = all_service_adjustments.map do |service_adjustments|
+          service_adjustments&.map do |service_adjustments|
             create_group_adjustments(service_adjustments)
-          end
-          adjustment_details
+          end || []
         end
       end
     end
