@@ -18,7 +18,7 @@ class ReportTest < Minitest::Test
       end
     end
 
-    describe '#report_list mock' do
+    describe '#report_list' do
       let(:response) { build_response(file: 'claim/report/list.example.response.json') }
       let(:report_list_endpoint) { ChangeHealth::Request::Claim::Report::ENDPOINT }
 
@@ -37,14 +37,14 @@ class ReportTest < Minitest::Test
       end
     end
 
-    describe 'single report mock' do
+    describe '#get_report' do
       describe 'json report' do
         let(:report_name) { 'R5000000.XY' }
         let(:response) { build_response(file: "claim/report/report.#{report_name}.json.response.json") }
-        let(:report_list_endpoint) { ChangeHealth::Request::Claim::Report::ENDPOINT + "/#{report_name}/835" }
+        let(:single_report_endpoint) { ChangeHealth::Request::Claim::Report::ENDPOINT + "/#{report_name}/835" }
 
         before do
-          stub_change_health(endpoint: report_list_endpoint, response: response, verb: :get)
+          stub_change_health(endpoint: single_report_endpoint, response: response, verb: :get)
 
           @report_data = claim_report.get_report(report_name, headers: report_headers)
         end
@@ -64,10 +64,10 @@ class ReportTest < Minitest::Test
       describe 'edi report' do
         let(:report_name) { 'R5000000.XY' }
         let(:response) { build_response(file: "claim/report/report.#{report_name}.edi.response.json") }
-        let(:report_list_endpoint) { ChangeHealth::Request::Claim::Report::ENDPOINT + "/#{report_name}" }
+        let(:single_report_endpoint) { ChangeHealth::Request::Claim::Report::ENDPOINT + "/#{report_name}" }
 
         before do
-          stub_change_health(endpoint: report_list_endpoint, response: response, verb: :get)
+          stub_change_health(endpoint: single_report_endpoint, response: response, verb: :get)
 
           @report_data = claim_report.get_report(report_name, as_json_report: false, headers: report_headers)
         end
@@ -83,10 +83,10 @@ class ReportTest < Minitest::Test
       describe 'non 277 or 835 report' do
         let(:report_name) { 'AA000000.AA' }
         let(:response) { build_response(file: "claim/report/report.#{report_name}.response.json") }
-        let(:report_list_endpoint) { ChangeHealth::Request::Claim::Report::ENDPOINT + "/#{report_name}" }
+        let(:single_report_endpoint) { ChangeHealth::Request::Claim::Report::ENDPOINT + "/#{report_name}" }
 
         before do
-          stub_change_health(endpoint: report_list_endpoint, response: response, verb: :get)
+          stub_change_health(endpoint: single_report_endpoint, response: response, verb: :get)
 
           @report_data = claim_report.get_report(report_name, as_json_report: false, headers: report_headers)
         end
@@ -98,6 +98,28 @@ class ReportTest < Minitest::Test
         it 'returns report data' do
           assert_equal(@report_data.raw, @report_data.response.parsed_response)
           assert_equal('Some content', @report_data.raw['report_content'])
+        end
+      end
+    end
+
+    describe '#delete_report' do
+      describe 'get response confirming deletion' do
+        let(:report_name) { 'X3000000.XX' }
+        let(:response) { build_response(file: "claim/report/report.#{report_name}.delete.response.json") }
+        let(:single_report_endpoint) { ChangeHealth::Request::Claim::Report::ENDPOINT + "/#{report_name}" }
+
+        before do
+          stub_change_health(endpoint: single_report_endpoint, response: response, verb: :delete)
+
+          @response = claim_report.delete_report(report_name, headers: report_headers)
+        end
+
+        it 'calls report' do
+          assert_requested(@stub)
+        end
+
+        it 'returns response' do
+          assert_equal('success', @response.parsed_response['status'])
         end
       end
     end

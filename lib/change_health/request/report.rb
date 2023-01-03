@@ -48,6 +48,20 @@ module ChangeHealth
           end
         end
 
+        def self.delete_report(report_name, headers: nil)
+          return if report_name.nil? || report_name.empty?
+
+          final_headers = ChangeHealth::Request::Claim::Report.report_headers(headers)
+
+          individual_report_endpoint = "#{ENDPOINT}/#{report_name}"
+
+          ChangeHealth::Connection.new.request(
+            endpoint: individual_report_endpoint,
+            verb: :delete,
+            headers: final_headers
+          )
+        end
+
         def self.health_check
           ChangeHealth::Connection.new.request(endpoint: HEALTH_CHECK_ENDPOINT, verb: :get)
         end
@@ -57,12 +71,12 @@ module ChangeHealth
         end
 
         def self.report_headers(headers)
-          if headers
-            extra_headers = {}
-            extra_headers['X-CHC-Reports-Username'] = headers[:username]
-            extra_headers['X-CHC-Reports-Password'] = headers[:password]
-            extra_headers
-          end
+          return unless headers
+
+          extra_headers = {}
+          extra_headers['X-CHC-Reports-Username'] = headers[:username]
+          extra_headers['X-CHC-Reports-Password'] = headers[:password]
+          extra_headers
         end
       end
     end
