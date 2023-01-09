@@ -24,6 +24,10 @@ module ChangeHealth
         self[:dependents] << dependent
       end
 
+      def input_payload
+        self.to_h
+      end
+
       def query
         ChangeHealth::Response::EligibilityData.new(response: ChangeHealth::Connection.new.request(endpoint: ENDPOINT, body: self.to_h))
       end

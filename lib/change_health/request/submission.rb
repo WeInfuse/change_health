@@ -25,6 +25,10 @@ module ChangeHealth
           self[:providers] << provider
         end
 
+        def input_payload
+          self.to_h
+        end
+
         def submission
           ChangeHealth::Response::Claim::SubmissionData.new(response: ChangeHealth::Connection.new.request(
             endpoint: SUBMISSION_ENDPOINT, body: to_h, headers: professional_headers
