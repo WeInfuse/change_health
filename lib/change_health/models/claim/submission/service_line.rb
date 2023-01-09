@@ -6,7 +6,7 @@ module ChangeHealth
         property :serviceDate, from: :service_date, required: false
         property :professionalService, from: :professional_service, required: false
         property :renderingProvider, from: :rendering_provider, required: false
-        property :procedureModifier, from: :procedure_modifier, required: false
+        property :procedureModifiers, from: :procedure_modifiers, required: false
         property :lineAdjudicationInformation, from: :line_adjudication_information, required: false
       end
     end
