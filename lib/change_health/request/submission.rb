@@ -18,6 +18,7 @@ module ChangeHealth
         property :headers, required: false
         # Need one or the other, trading partner id or trading partner service id
         property :tradingPartnerId, from: :trading_partner_id, required: false
+        property :tradingPartnerName, from: :trading_partner_name, required: false
         property :tradingPartnerServiceId, from: :trading_partner_service_id, required: false
 
         def add_provider(provider)
