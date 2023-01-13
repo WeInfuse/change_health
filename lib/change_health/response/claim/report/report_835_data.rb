@@ -126,8 +126,8 @@ module ChangeHealth
                   )
                 end
 
-                class_of_contract_code = payment_info['otherClaimRelatedIdentification']['classOfContractCode']
-                group_or_policy_number = payment_info['otherClaimRelatedIdentification']['groupOrPolicyNumber']
+                class_of_contract_code = payment_info.dig('otherClaimRelatedIdentification', 'classOfContractCode')
+                group_or_policy_number = payment_info.dig('otherClaimRelatedIdentification', 'groupOrPolicyNumber')
 
                 claim_supplemental_information = payment_info['claimSupplementalInformation']
                 raw_service_lines = payment_info['serviceLines']&.map do |service_line|
