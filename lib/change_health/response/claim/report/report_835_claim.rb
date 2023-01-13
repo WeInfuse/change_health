@@ -13,6 +13,9 @@ module ChangeHealth
         property :total_charge_amount, required: false
         property :payer_identification, required: false
         property :patient_responsibility_amount, required: false
+        property :class_of_contract_code, required: false
+        property :group_or_policy_number, required: false
+        property :claim_supplemental_information, required: false
 
         def procedure_codes
           service_lines&.map(&:adjudicated_procedure_code)

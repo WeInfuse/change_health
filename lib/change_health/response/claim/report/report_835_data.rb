@@ -126,7 +126,10 @@ module ChangeHealth
                   )
                 end
 
+                class_of_contract_code = payment_info['otherClaimRelatedIdentification']['classOfContractCode']
+                group_or_policy_number = payment_info['otherClaimRelatedIdentification']['groupOrPolicyNumber']
 
+                claim_supplemental_information = payment_info['claimSupplementalInformation']
                 raw_service_lines = payment_info['serviceLines']&.map do |service_line|
                   service_line
                 end
@@ -150,13 +153,18 @@ module ChangeHealth
                   payer_name: payer_name,
                   report_creation_date: report_creation_date,
                   report_name: report_name,
+                  class_of_contract_code: class_of_contract_code,
+                  group_or_policy_number: group_or_policy_number,
                   service_date_begin: service_date_begin,
                   service_date_end: service_date_end,
                   service_lines: service_lines,
                   raw_service_lines: raw_service_lines,
                   service_provider_npi: service_provider_npi,
                   total_charge_amount: total_charge_amount,
-                  patient_responsibility_amount: patient_responsibility_amount
+                  patient_responsibility_amount: patient_responsibility_amount,
+                  group_or_policy_number: group_or_policy_number,
+                  class_of_contract_code: class_of_contract_code,
+                  claim_supplemental_information: claim_supplemental_information
                 )
               end
             end
