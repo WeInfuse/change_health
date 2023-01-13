@@ -13,6 +13,7 @@ module ChangeHealth
         property :report_creation_date, required: false
         property :report_name, required: false
         property :total_actual_provider_payment_amount, required: false
+        property :payer_phone_number, required: false
       end
     end
   end
