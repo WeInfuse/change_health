@@ -180,10 +180,12 @@ module ChangeHealth
             end
 
             claim_adjustment_group_code = adjustment['claimAdjustmentGroupCode']
+            claim_adjustment_group_code_value = adjustment['claimAdjustmentGroupCodeValue']
 
             Report835ServiceAdjustment.new(
               adjustments: adjustments,
-              claim_adjustment_group_code: claim_adjustment_group_code
+              claim_adjustment_group_code: claim_adjustment_group_code,
+              claim_adjustment_group_code_value: claim_adjustment_group_code_value
             )
           end
         end
