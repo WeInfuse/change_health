@@ -121,6 +121,11 @@ module ChangeHealth
                   )
                 end
 
+
+                raw_service_lines = payment_info['serviceLines']&.map do |service_line|
+                  service_line
+                end
+
                 if service_date_begin.nil? && service_date_end.nil?
                   service_date_begin = ChangeHealth::Models::PARSE_DATE.call(payment_info['claimStatementPeriodStart'])
                   service_date_end = ChangeHealth::Models::PARSE_DATE.call(payment_info['claimStatementPeriodEnd'])
@@ -143,6 +148,7 @@ module ChangeHealth
                   service_date_begin: service_date_begin,
                   service_date_end: service_date_end,
                   service_lines: service_lines,
+                  raw_service_lines: raw_service_lines,
                   service_provider_npi: service_provider_npi,
                   total_charge_amount: total_charge_amount
                 )
