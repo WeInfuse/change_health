@@ -12,6 +12,7 @@ module ChangeHealth
         property :raw_service_lines, required: false
         property :total_charge_amount, required: false
         property :payer_identification, required: false
+        property :patient_responsibility_amount, required: false
 
         def procedure_codes
           service_lines&.map(&:adjudicated_procedure_code)

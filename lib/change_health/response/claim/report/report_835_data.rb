@@ -16,6 +16,10 @@ module ChangeHealth
           transactions&.first&.dig('payer')&.dig('name')
         end
 
+        def payer_phone_number
+          transactions&.first&.dig('payer', 'technicalContactInformation')&.collect{|c| c.dig('contactMethods') }&.flatten&.last&.dig('phone')
+        end
+
         def report_creation_date
           payments.map(&:report_creation_date).min
         end
@@ -70,6 +74,7 @@ module ChangeHealth
                   detail_info.dig('providerSummaryInformation', 'providerIdentifier') ||
                   transaction.dig('payee', 'npi')
                 total_charge_amount = payment_info.dig('claimPaymentInfo', 'totalClaimChargeAmount')
+                patient_responsibility_amount = payment_info.dig('claimPaymentInfo', 'patientResponsibilityAmount')
 
                 claim_payment_remark_codes = []
                 claim_payment_remark_codes_index = 1
@@ -150,7 +155,8 @@ module ChangeHealth
                   service_lines: service_lines,
                   raw_service_lines: raw_service_lines,
                   service_provider_npi: service_provider_npi,
-                  total_charge_amount: total_charge_amount
+                  total_charge_amount: total_charge_amount,
+                  patient_responsibility_amount: patient_responsibility_amount
                 )
               end
             end
@@ -165,6 +171,7 @@ module ChangeHealth
               provider_adjustments: provider_adjustments,
               report_creation_date: report_creation_date,
               report_name: report_name,
+              payer_phone_number: payer_phone_number,
               total_actual_provider_payment_amount: total_actual_provider_payment_amount
             )
           end
