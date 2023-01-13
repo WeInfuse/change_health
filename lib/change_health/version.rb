@@ -1,3 +1,3 @@
 module ChangeHealth
-  VERSION = '4.13.3'.freeze
+  VERSION = '4.13.4'.freeze
 end
