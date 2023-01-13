@@ -162,8 +162,6 @@ module ChangeHealth
                   service_provider_npi: service_provider_npi,
                   total_charge_amount: total_charge_amount,
                   patient_responsibility_amount: patient_responsibility_amount,
-                  group_or_policy_number: group_or_policy_number,
-                  class_of_contract_code: class_of_contract_code,
                   claim_supplemental_information: claim_supplemental_information
                 )
               end
