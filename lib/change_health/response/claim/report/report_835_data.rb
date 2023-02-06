@@ -16,6 +16,22 @@ module ChangeHealth
           transactions&.first&.dig('payer')&.dig('name')
         end
 
+        def payer_state
+          transactions&.first&.dig('payer')&.dig('address', 'state')
+        end
+
+        def payee_npi
+          transactions&.first&.dig('payer')&.dig('npi')
+        end
+
+        def payee_name
+          transactions&.first&.dig('payer')&.dig('name')
+        end
+
+        def payee_tin
+          transactions&.first&.dig('payer')&.dig('federalTaxPayersIdentificationNumber')
+        end
+
         def payer_phone_number
           transactions&.first&.dig('payer', 'technicalContactInformation')&.collect{|c| c.dig('contactMethods') }&.flatten&.last&.dig('phone')
         end
@@ -37,6 +53,7 @@ module ChangeHealth
               ChangeHealth::Models::PARSE_DATE.call(
                 transaction.dig('financialInformation', 'checkIssueOrEFTEffectiveDate')
               )
+
             payer_identifier = transaction.dig('financialInformation', 'payerIdentifier')
             payment_method_code = transaction.dig('financialInformation', 'paymentMethodCode')
             payer_address = transaction.dig('payer', 'address')
@@ -62,13 +79,20 @@ module ChangeHealth
               detail_info['paymentInfo']&.map do |payment_info|
                 claim_payment_amount = payment_info.dig('claimPaymentInfo', 'claimPaymentAmount')
                 claim_status_code = payment_info.dig('claimPaymentInfo', 'claimStatusCode')
+                claim_frequency_code = payment_info.dig('claimPaymentInfo', 'claimFrequencyCode')
                 patient_control_number = payment_info.dig('claimPaymentInfo', 'patientControlNumber')
                 patient_first_name = payment_info.dig('patientName', 'firstName')
                 patient_last_name = payment_info.dig('patientName', 'lastName')
+
+
                 patient_member_id =
                   payment_info.dig('patientName', 'memberId') ||
                   payment_info.dig('subscriber', 'memberId')
                 payer_claim_control_number = payment_info.dig('claimPaymentInfo', 'payerClaimControlNumber')
+                
+                filing_indicator_code = payment_info.dig('claimPaymentInfo', 'claimFilingIndicatorCode')
+                rendering_provider_npi = payment_info.dig('renderingProvider', 'npi')
+                claim_received_date = ChangeHealth::Models::PARSE_DATE.call(payment_info.dig('claimReceivedDate'))
                 service_provider_npi =
                   payment_info.dig('renderingProvider', 'npi') ||
                   detail_info.dig('providerSummaryInformation', 'providerIdentifier') ||
@@ -162,7 +186,16 @@ module ChangeHealth
                   service_provider_npi: service_provider_npi,
                   total_charge_amount: total_charge_amount,
                   patient_responsibility_amount: patient_responsibility_amount,
-                  claim_supplemental_information: claim_supplemental_information
+                  claim_supplemental_information: claim_supplemental_information,
+                  payee_npi: payee_npi,
+                  filing_indicator_code: filing_indicator_code,
+                  payee_name: payee_name,
+                  payee_tin: payee_tin,
+                  rendering_provider_npi: rendering_provider_npi,
+                  payer_state: payer_state,
+                  payment_method_code: payment_method_code,
+                  claim_received_date: claim_received_date,
+                  claim_frequency_code: claim_frequency_code
                 )
               end
             end
