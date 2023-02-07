@@ -21,15 +21,15 @@ module ChangeHealth
         end
 
         def payee_npi
-          transactions&.first&.dig('payer')&.dig('npi')
+          transactions&.first&.dig('payee')&.dig('npi')
         end
 
         def payee_name
-          transactions&.first&.dig('payer')&.dig('name')
+          transactions&.first&.dig('payee')&.dig('name')
         end
 
         def payee_tin
-          transactions&.first&.dig('payer')&.dig('federalTaxPayersIdentificationNumber')
+          transactions&.first&.dig('payee')&.dig('federalTaxPayersIdentificationNumber')
         end
 
         def payer_phone_number
