@@ -91,7 +91,7 @@ module ChangeHealth
                 payer_claim_control_number = payment_info.dig('claimPaymentInfo', 'payerClaimControlNumber')
                 
                 filing_indicator_code = payment_info.dig('claimPaymentInfo', 'claimFilingIndicatorCode')
-                rendering_provider_npi = payment_info.dig('renderingProvider', 'npi')
+                rendering_provider_npi = payment_info.dig('renderingProvider', 'npi') || payment_info['serviceLines'].first.dig('renderingProviderInformation','npi')
                 claim_received_date = ChangeHealth::Models::PARSE_DATE.call(payment_info.dig('claimReceivedDate'))
                 service_provider_npi =
                   payment_info.dig('renderingProvider', 'npi') ||
