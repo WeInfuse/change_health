@@ -113,7 +113,9 @@ module ChangeHealth
 
                 service_date_begin = nil
                 service_date_end = nil
+                provider_contol_number = nil
                 service_lines = payment_info['serviceLines']&.map do |service_line|
+                  provider_contol_number = service_line.dig('providerControlNumber') if service_line.dig('providerControlNumber')
                   service_line_date = ChangeHealth::Models::PARSE_DATE.call(service_line['serviceDate'])
                   unless service_line_date.nil?
                     if service_date_begin.nil? || service_line_date < service_date_begin
@@ -131,6 +133,7 @@ module ChangeHealth
                                                                        'lineItemProviderPaymentAmount')
 
                   service_adjustments = adjustments(service_line['serviceAdjustments'])
+                  provider_contol_number = service_line.dig('providerControlNumber')
 
                   health_care_check_remark_codes = service_line['healthCareCheckRemarkCodes']&.map do |health_care_check_remark_code|
                     Report835HealthCareCheckRemarkCode.new(
@@ -146,6 +149,7 @@ module ChangeHealth
                     line_item_charge_amount: line_item_charge_amount,
                     line_item_provider_payment_amount: line_item_provider_payment_amount,
                     service_adjustments: service_adjustments,
+                    provider_contol_number: provider_contol_number,
                     health_care_check_remark_codes: health_care_check_remark_codes
                   )
                 end
@@ -182,6 +186,7 @@ module ChangeHealth
                   service_date_begin: service_date_begin,
                   service_date_end: service_date_end,
                   service_lines: service_lines,
+                  provider_contol_number: provider_contol_number,
                   raw_service_lines: raw_service_lines,
                   service_provider_npi: service_provider_npi,
                   total_charge_amount: total_charge_amount,
