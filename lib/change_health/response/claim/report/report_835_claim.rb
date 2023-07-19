@@ -27,7 +27,7 @@ module ChangeHealth
         property :claim_received_date, required: false
         property :unit_of_service_paid_count, required: false
         property :claim_frequency_code, required: false
-        property :provider_contol_number, required: false
+        property :provider_control_number, required: false
 
         def procedure_codes
           service_lines&.map(&:adjudicated_procedure_code)
