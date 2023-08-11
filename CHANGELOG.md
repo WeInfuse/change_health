@@ -5,12 +5,58 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+# [4.13.0] - 2023-08-11
+
+### Added
+
+#### Ability to submit a institutional claim
+
+* Added the following classes
+ * ChangeHealth::Models::Claim::ClaimCodeInformation
+ * ChangeHealth::Models::Claim::InstitutionalService
+* Added fields to existing submission classes
+ * ClaimInformation - claimCodeInformation, claimNote, claimNotes, etc
+ * ServiceLine - assignedNumber, institutionalService
+* ChangeHealth::Request::Claim::Submission#submission now takes `is_professional` argument which defaults to `true`
+ * `true` for professional claim submission
+ * `false` for institutional claim submission
+
+
+#### Added other submission classes
+
+These are used by professional claims and sometimes institutional
+* ChangeHealth::Models::Claim::ClaimSupplementalInformation
+* ChangeHealth::Models::Claim::ContactInformation
+* ChangeHealth::Models::Claim::Diagnosis
+* ChangeHealth::Models::Claim::LineAdjudicationInformation
+* ChangeHealth::Models::Claim::OtherPayerName
+* ChangeHealth::Models::Claim::OtherSubscriberInformation
+* ChangeHealth::Models::Claim::OtherSubscriberName
+* ChangeHealth::Models::Claim::ProfessionalService
+* ChangeHealth::Models::Claim::Receiver
+* ChangeHealth::Models::Claim::ReportInformation
+* ChangeHealth::Models::Claim::ServiceFacilityLocation
+
+
+### Deprecated
+
+Some endpoint constants in Submission:
+* ChangeHealth::Request::Claim::Submission::ENDPOINT
+* ChangeHealth::Request::Claim::Submission::HEALTH_CHECK_ENDPOINT
+* ChangeHealth::Request::Claim::Submission::VALIDATION_ENDPOINT
+* ChangeHealth::Request::Claim::Submission::SUBMISSION_ENDPOINT
+
+Replace with:
+* ENDPOINT -> PROFESSIONAL_ENDPOINT
+* HEALTH_CHECK_ENDPOINT -> PROFESSIONAL_ENDPOINT || INSTITUTIONAL_ENDPOINT + HEALTH_CHECK_SUFFIX
+* VALIDATION_ENDPOINT -> PROFESSIONAL_ENDPOINT || INSTITUTIONAL_ENDPOINT + SUBMISSION_SUFFIX
+* SUBMISSION_ENDPOINT -> PROFESSIONAL_ENDPOINT || INSTITUTIONAL_ENDPOINT + VALIDATION_SUFFIX
+
 # [4.12.0] - 2023-1-23
 
 ### Added
 
 * Property `insuranceTypeCode` for ChangeHealth::Models::Claim::Subscriber
-
 
 # [4.11.0] - 2022-12-30
 

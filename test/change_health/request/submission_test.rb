@@ -2,15 +2,18 @@ require 'test_helper'
 
 class SubmissionTest < Minitest::Test
   describe 'claim_submission' do
-    let(:professional_headers) {
+    let(:professional_headers) do
       {
-        submitter_id: "submittedIdValue",
-        biller_id: "billerIdValue",
-        username: "usernameValue",
-        password: "passwordValue",
+        submitter_id: 'submittedIdValue',
+        biller_id: 'billerIdValue',
+        username: 'usernameValue',
+        password: 'passwordValue'
       }
-    }
+    end
     let(:claim_submission) { ChangeHealth::Request::Claim::Submission.new(headers: professional_headers) }
+
+    let(:professional_endpoint) { ChangeHealth::Request::Claim::Submission::PROFESSIONAL_ENDPOINT }
+    let(:institutional_endpoint) { ChangeHealth::Request::Claim::Submission::INSTITUTIONAL_ENDPOINT }
 
     describe 'object' do
       describe 'serializes' do
@@ -19,7 +22,6 @@ class SubmissionTest < Minitest::Test
 
           assert_equal(claim_submission.controlNumber, result['controlNumber'])
         end
-
       end
 
       describe 'providers' do
@@ -28,7 +30,7 @@ class SubmissionTest < Minitest::Test
         end
 
         it 'can add a provider' do
-          provider = { firstName: 'jane'}
+          provider = { firstName: 'jane' }
           claim_submission.add_provider(provider)
           assert_equal(1, claim_submission.providers.size)
           assert_equal(provider[:firstName], claim_submission.providers.first[:firstName])
@@ -39,12 +41,25 @@ class SubmissionTest < Minitest::Test
     describe 'api' do
       describe '#health_check' do
         let(:response) { build_response(file: 'health_check.response.json') }
-        let(:health_check_endpoint) { ChangeHealth::Request::Claim::Submission::HEALTH_CHECK_ENDPOINT }
+        let(:professional_health_check_endpoint) do
+          professional_endpoint + ChangeHealth::Request::Claim::Submission::HEALTH_CHECK_SUFFIX
+        end
+        let(:institutional_health_check_endpoint) do
+          institutional_endpoint + ChangeHealth::Request::Claim::Submission::HEALTH_CHECK_SUFFIX
+        end
 
-        it 'calls health check' do
-          stub_change_health(endpoint: health_check_endpoint, response: response, verb: :get)
+        it 'calls professional health check' do
+          stub_change_health(endpoint: professional_health_check_endpoint, response: response, verb: :get)
 
           claim_submission.class.health_check
+
+          assert_requested(@stub)
+        end
+
+        it 'calls institutional health check' do
+          stub_change_health(endpoint: institutional_health_check_endpoint, response: response, verb: :get)
+
+          claim_submission.class.health_check(is_professional: false)
 
           assert_requested(@stub)
         end
@@ -52,39 +67,85 @@ class SubmissionTest < Minitest::Test
 
       describe '#validation mock' do
         let(:response) { build_response(file: '/claim/validation/validation.response.json') }
-        let(:validation_endpoint) { ChangeHealth::Request::Claim::Submission::VALIDATION_ENDPOINT }
-
-        before do
-          stub_change_health(endpoint: validation_endpoint, response: response)
-
-          @validation_data = claim_submission.validation
+        let(:professional_validation_endpoint) do
+          professional_endpoint + ChangeHealth::Request::Claim::Submission::VALIDATION_SUFFIX
+        end
+        let(:institutional_validation_endpoint) do
+          institutional_endpoint + ChangeHealth::Request::Claim::Submission::VALIDATION_SUFFIX
         end
 
-        it 'calls submission' do
-          assert_requested(@stub)
+        describe 'professional' do
+          before do
+            stub_change_health(endpoint: professional_validation_endpoint, response: response)
+
+            @validation_data = claim_submission.validation
+          end
+
+          it 'calls submission' do
+            assert_requested(@stub)
+          end
+
+          it 'returns claim_validation data' do
+            assert_equal(@validation_data.raw, @validation_data.response.parsed_response)
+          end
         end
 
-        it 'returns claim_validation data' do
-          assert_equal(@validation_data.raw, @validation_data.response.parsed_response)
+        describe 'institutional' do
+          before do
+            stub_change_health(endpoint: institutional_validation_endpoint, response: response)
+
+            @validation_data = claim_submission.validation(is_professional: false)
+          end
+
+          it 'calls submission' do
+            assert_requested(@stub)
+          end
+
+          it 'returns claim_validation data' do
+            assert_equal(@validation_data.raw, @validation_data.response.parsed_response)
+          end
         end
       end
 
       describe '#submission mock' do
         let(:response) { build_response(file: 'claim/submission/success.example.response.json') }
-        let(:submission_endpoint) { ChangeHealth::Request::Claim::Submission::SUBMISSION_ENDPOINT }
-
-        before do
-          stub_change_health(endpoint: submission_endpoint, response: response)
-
-          @submission_data = claim_submission.submission
+        let(:professional_submission_endpoint) do
+          professional_endpoint + ChangeHealth::Request::Claim::Submission::SUBMISSION_SUFFIX
+        end
+        let(:institutional_submission_endpoint) do
+          institutional_endpoint + ChangeHealth::Request::Claim::Submission::SUBMISSION_SUFFIX
         end
 
-        it 'calls submission' do
-          assert_requested(@stub)
+        describe 'professional' do
+          before do
+            stub_change_health(endpoint: professional_submission_endpoint, response: response)
+
+            @submission_data = claim_submission.submission
+          end
+
+          it 'calls submission' do
+            assert_requested(@stub)
+          end
+
+          it 'returns claim_submission data' do
+            assert_equal(@submission_data.raw, @submission_data.response.parsed_response)
+          end
         end
 
-        it 'returns claim_submission data' do
-          assert_equal(@submission_data.raw, @submission_data.response.parsed_response)
+        describe 'institutional' do
+          before do
+            stub_change_health(endpoint: institutional_submission_endpoint, response: response)
+
+            @submission_data = claim_submission.submission(is_professional: false)
+          end
+
+          it 'calls submission' do
+            assert_requested(@stub)
+          end
+
+          it 'returns claim_submission data' do
+            assert_equal(@submission_data.raw, @submission_data.response.parsed_response)
+          end
         end
       end
     end
