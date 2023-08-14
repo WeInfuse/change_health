@@ -2,20 +2,28 @@ module ChangeHealth
   module Request
     module Claim
       class Submission < Hashie::Trash
-        ENDPOINT = '/medicalnetwork/professionalclaims/v3'.freeze
+        PROFESSIONAL_ENDPOINT = '/medicalnetwork/professionalclaims/v3'.freeze
+        INSTITUTIONAL_ENDPOINT = '/medicalnetwork/institutionalclaims/v1'.freeze
+        HEALTH_CHECK_SUFFIX = '/healthcheck'.freeze
+        SUBMISSION_SUFFIX = '/submission'.freeze
+        VALIDATION_SUFFIX = '/validation'.freeze
+
+        # Deprecated but still here for backwards compatibility
+        ENDPOINT = PROFESSIONAL_ENDPOINT
         HEALTH_CHECK_ENDPOINT = ENDPOINT + '/healthcheck'.freeze
         SUBMISSION_ENDPOINT = ENDPOINT + '/submission'.freeze
         VALIDATION_ENDPOINT = ENDPOINT + '/validation'.freeze
+        # End Deprecated
 
         property :claimInformation, from: :claim_information, required: false
         property :controlNumber, from: :control_number, required: true, default: ChangeHealth::Models::CONTROL_NUMBER
         property :dependent, required: false
+        property :headers, required: false
         property :payToAddress, from: :pay_to_address, required: false
         property :providers, required: false
         property :receiver, required: false
         property :submitter, required: false
         property :subscriber, required: false
-        property :headers, required: false
         # Need one or the other, trading partner id or trading partner service id
         property :tradingPartnerId, from: :trading_partner_id, required: false
         property :tradingPartnerServiceId, from: :trading_partner_service_id, required: false
@@ -25,35 +33,41 @@ module ChangeHealth
           self[:providers] << provider
         end
 
-        def submission
+        def submission(is_professional: true)
+          endpoint = is_professional ? PROFESSIONAL_ENDPOINT : INSTITUTIONAL_ENDPOINT
+          endpoint += SUBMISSION_SUFFIX
           ChangeHealth::Response::Claim::SubmissionData.new(response: ChangeHealth::Connection.new.request(
-            endpoint: SUBMISSION_ENDPOINT, body: to_h, headers: professional_headers
+            endpoint: endpoint, body: to_h, headers: professional_headers
           ))
         end
 
-        def validation
+        def validation(is_professional: true)
+          endpoint = is_professional ? PROFESSIONAL_ENDPOINT : INSTITUTIONAL_ENDPOINT
+          endpoint += VALIDATION_SUFFIX
           ChangeHealth::Response::Claim::SubmissionData.new(response: ChangeHealth::Connection.new.request(
-            endpoint: VALIDATION_ENDPOINT, body: to_h, headers: professional_headers
+            endpoint: endpoint, body: to_h, headers: professional_headers
           ))
         end
 
-        def self.health_check
-          ChangeHealth::Connection.new.request(endpoint: HEALTH_CHECK_ENDPOINT, verb: :get)
+        def self.health_check(is_professional: true)
+          endpoint = is_professional ? PROFESSIONAL_ENDPOINT : INSTITUTIONAL_ENDPOINT
+          endpoint += HEALTH_CHECK_SUFFIX
+          ChangeHealth::Connection.new.request(endpoint: endpoint, verb: :get)
         end
 
-        def self.ping
-          health_check
+        def self.ping(is_professional: true)
+          health_check(is_professional: is_professional)
         end
 
         def professional_headers
-          if self[:headers]
-            extra_headers = {}
-            extra_headers['X-CHC-ClaimSubmission-SubmitterId'] = self[:headers][:submitter_id]
-            extra_headers['X-CHC-ClaimSubmission-BillerId'] = self[:headers][:biller_id]
-            extra_headers['X-CHC-ClaimSubmission-Username'] = self[:headers][:username]
-            extra_headers['X-CHC-ClaimSubmission-Pwd'] = self[:headers][:password]
-            extra_headers
-          end
+          return unless self[:headers]
+
+          extra_headers = {}
+          extra_headers['X-CHC-ClaimSubmission-SubmitterId'] = self[:headers][:submitter_id]
+          extra_headers['X-CHC-ClaimSubmission-BillerId'] = self[:headers][:biller_id]
+          extra_headers['X-CHC-ClaimSubmission-Username'] = self[:headers][:username]
+          extra_headers['X-CHC-ClaimSubmission-Pwd'] = self[:headers][:password]
+          extra_headers
         end
       end
     end

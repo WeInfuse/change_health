@@ -98,17 +98,26 @@ trading_partners.first.service_id
 ```
 
 ## Claim Submission
-[Change Healthcare Claim Submission Guide](https://developers.changehealthcare.com/eligibilityandclaims/docs/professional-claims-v3-getting-started)
+
+### Professional Claims
+[Change Healthcare Professional Claim Submission Guide](https://developers.changehealthcare.com/eligibilityandclaims/docs/professional-claims-v3-getting-started)
 ```ruby
 ChangeHealth::Request::Claim::Submission.ping # Test your connection
 
-contact_information = { name: "SUBMITTER CONTACT INFO", phoneNumber: "123456789"}
-claim_submitter = ChangeHealth::Models::Claim::Submitter.new(
+contact_information = ChangeHealth::Models::Claim::ContactInformation.new(
+  name: "SUBMITTER CONTACT INFO",
+  phone_number: "123456789"
+)
+
+submitter = ChangeHealth::Models::Claim::Submitter.new(
   organization_name: "REGIONAL PPO NETWORK",
   contact_information: contact_information
 )
 
-receiver = { organizationName: "EXTRA HEALTHY INSURANCE"}
+receiver = ChangeHealth::Models::Claim::Receiver.new(
+  organization_name: "EXTRA HEALTHY INSURANCE"
+)
+
 address = ChangeHealth::Models::Claim::Address.new(
   address1: "123 address1",
   city: "city1",
@@ -145,41 +154,44 @@ provider = ChangeHealth::Models::Claim::Provider.new(
   provider_type: "BillingProvider"
 )
 
-health_care_code_information1 = {
-  diagnosisTypeCode: "ABK",
-  diagnosisCode: "S93401A"
-}
-health_care_code_information2 = {
-  diagnosisTypeCode: "ABF",
-  diagnosisCode: "S72044G"
+diagnosis1 = ChangeHealth::Models::Claim::Diagnosis.new(
+  diagnosis_type_code: "ABK",
+  diagnosis_code: "S93401A"
+)
 
-}
+diagnosis2 = ChangeHealth::Models::Claim::Diagnosis.new(
+  diagnosis_type_code: "ABF",
+  diagnosis_code: "S72044G"
+)
+
 service_line1 = ChangeHealth::Models::Claim::ServiceLine.new(
   service_date: "2018-05-14",
-  professional_service: {
-    procedureIdentifier: "HC",
-    lineItemChargeAmount: "25",
-    procedureCode: "E0570",
-    measurementUnit: "UN",
-    serviceUnitCount: "1",
-    compositeDiagnosisCodePointers: {
+  professional_service: ChangeHealth::Models::Claim::ProfessionalService.new(
+    line_item_charge_amount: "25",
+    measurement_unit: "UN",
+    procedure_code: "E0570",
+    procedure_identifier: "HC",
+    service_unit_count: "1",
+    composite_diagnosis_code_pointers: {
       diagnosisCodePointers: ["1","2"]
     }
-  }
+  )
 )
+
 service_line2 = ChangeHealth::Models::Claim::ServiceLine.new(
   service_date: "20180514",
-  professional_service: {
-    procedureIdentifier: "HC",
-    lineItemChargeAmount: "3.75",
-    procedureCode: "A7003",
-    measurementUnit: "UN",
-    serviceUnitCount: "1",
-    compositeDiagnosisCodePointers: {
+  professional_service: ChangeHealth::Models::Claim::ProfessionalService.new(
+    line_item_charge_amount: "3.75",
+    measurement_unit: "UN",
+    procedure_code: "A7003",
+    procedure_identifier: "HC",
+    service_unit_count: "1",
+    composite_diagnosis_code_pointers: {
       diagnosisCodePointers: ["1"]
     }
-  }
+  )
 )
+
 claim_information = ChangeHealth::Models::Claim::ClaimInformation.new(
   benefits_assignment_certification_indicator: "Y",
   claim_charge_amount: "28.75",
@@ -190,11 +202,11 @@ claim_information = ChangeHealth::Models::Claim::ClaimInformation.new(
   plan_participation_code: "A",
   release_information_code: "Y",
   signature_indicator: "Y",
-  health_care_code_information: [health_care_code_information1, health_care_code_information2],
+  health_care_code_information: [diagnosis1, diagnosis2],
   service_lines: [service_line1, service_line2]
 )
 
-professional_headers = {
+headers = {
   submitter_id: '111000',
   biller_id: '000111',
   username: '222333hey',
@@ -204,11 +216,11 @@ professional_headers = {
 claim_submission = ChangeHealth::Request::Claim::Submission.new(
   claim_information: claim_information,
   dependent: dependent,
-  headers: professional_headers,
+  headers: headers,
   pay_to_address: address,
   providers: [provider],
   receiver: receiver,
-  submitter: claim_submitter,
+  submitter: submitter,
   subscriber: subscriber,
   trading_partner_service_id: "9496"
 )
@@ -216,6 +228,136 @@ claim_submission = ChangeHealth::Request::Claim::Submission.new(
 claim_submission_data = claim_submission.submission
 
 validation = claim_submission.validation
+```
+
+### Institutional Claims
+[Change Healthcare Institutional Claim Submission Guide](https://developers.changehealthcare.com/eligibilityandclaims/docs/institutional-claims-v1-api-getting-started)
+```ruby
+ChangeHealth::Request::Claim::Submission.ping(is_professional: false) # Test your connection
+
+claim_code_information = ChangeHealth::Models::Claim::ClaimCodeInformation.new(
+  admission_source_code: "7",
+  admission_type_code: "1",
+  patient_status_code: "10"
+)
+
+other_diagnosis_information_list = [[
+  ChangeHealth::Models::Claim::Diagnosis.new(
+    other_diagnosis_code: "S72044G",
+    qualifier_code: "ABF"
+  ),
+  ChangeHealth::Models::Claim::Diagnosis.new(
+    other_diagnosis_code: "S72044H",
+    qualifier_code: "ABF"
+  )
+]]
+
+principal_diagnosis = ChangeHealth::Models::Claim::Diagnosis.new(
+  principal_diagnosis_code: "S93401A",
+  qualifier_code: "ABK"
+)
+
+service_line1 = ChangeHealth::Models::Claim::ServiceLine.new(
+  assigned_number: "1",
+  institutional_service: ChangeHealth::Models::Claim::InstitutionalService.new(
+    line_item_charge_amount: "25",
+    measurement_unit: "UN",
+    procedure_code: "E0570",
+    procedure_identifier: "HC",
+    service_line_revenue_code: "X",
+    service_unit_count: "1",
+  )
+)
+
+service_line2 = ChangeHealth::Models::Claim::ServiceLine.new(
+  assigned_number: "2",
+  institutional_service: ChangeHealth::Models::Claim::InstitutionalService.new(
+    line_item_charge_amount: "3.75",
+    measurement_unit: "UN",
+    procedure_code: "A7003",
+    procedure_identifier: "HC",
+    service_line_revenue_code: "Y",
+    service_unit_count: "1",
+  )
+)
+
+claim_information = ChangeHealth::Models::Claim::ClaimInformation.new(
+  benefits_assignment_certification_indicator: "Y",
+  claim_charge_amount: "28.75",
+  claim_code_information: claim_code_information,
+  claim_filing_code: "CI",
+  claim_frequency_code: "1",
+  other_diagnosis_information_list: other_diagnosis_information_list,
+  patient_control_number: "12345",
+  place_of_service_code: "11",
+  plan_participation_code: "A",
+  principal_diagnosis: principal_diagnosis,
+  release_information_code: "Y",
+  signature_indicator: "Y",
+  service_lines: [service_line1, service_line2]
+)
+
+headers = {
+  submitter_id: '111000',
+  biller_id: '000111',
+  username: '222333hey',
+  password: 'builder1'
+}
+
+address = ChangeHealth::Models::Claim::Address.new(
+  address1: "123 address1",
+  city: "city1",
+  state: "wa",
+  postalCode: "981010000"
+)
+
+provider = ChangeHealth::Models::Claim::Provider.new(
+  address: address,
+  employer_id: "000000000",
+  first_name: "johnone",
+  last_name: "doetwo",
+  npi: "1760854442",
+  organization_name: "EXTRA HEALTHY INSURANCE",
+  provider_type: "BillingProvider"
+)
+
+receiver = ChangeHealth::Models::Claim::Receiver.new(
+  organization_name: "EXTRA HEALTHY INSURANCE"
+)
+
+contact_information = ChangeHealth::Models::Claim::ContactInformation.new(
+  name: "SUBMITTER CONTACT INFO",
+  phone_number: "123456789"
+)
+
+submitter = ChangeHealth::Models::Claim::Submitter.new(
+  organization_name: "REGIONAL PPO NETWORK",
+  contact_information: contact_information
+)
+
+subscriber = ChangeHealth::Models::Claim::Subscriber.new(
+  member_id: "0000000001",
+  payment_responsibility_level_code: "P",
+  first_name: "johnone",
+  last_name: "doetwo",
+  gender: "M",
+  date_of_birth: "02/01/1980",
+  address: address
+)
+
+claim_submission = ChangeHealth::Request::Claim::Submission.new(
+  claim_information: claim_information,
+  headers: headers,
+  providers: [provider],
+  receiver: receiver,
+  submitter: submitter,
+  subscriber: subscriber,
+  trading_partner_service_id: "9496"
+)
+
+claim_submission_data = claim_submission.submission(is_professional: false)
+
+validation = claim_submission.validation(is_professional: false)
 ```
 
 ## Claim Reports

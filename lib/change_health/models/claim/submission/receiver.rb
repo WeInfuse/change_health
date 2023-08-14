@@ -1,8 +1,7 @@
 module ChangeHealth
   module Models
     module Claim
-      class Submitter < Model
-        property :contactInformation, from: :contact_information
+      class Receiver < Model
         property :organizationName, from: :organization_name
       end
     end
