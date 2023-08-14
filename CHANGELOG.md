@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-#### Ability to submit a institutional claim
+#### Ability to submit an institutional claim
 
 * Added the following classes
  * ChangeHealth::Models::Claim::ClaimCodeInformation
