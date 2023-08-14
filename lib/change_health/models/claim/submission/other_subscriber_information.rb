@@ -10,7 +10,7 @@ module ChangeHealth
         property :otherSubscriberName, from: :other_subscriber_name
         property :payerPaidAmount, from: :payer_paid_amount
         property :paymentResponsibilityLevelCode, from: :payment_responsibility_level_code
-        property :releaseOfInformationCode, from: :release_information_code
+        property :releaseOfInformationCode, from: :release_of_information_code
       end
     end
   end
