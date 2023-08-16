@@ -109,7 +109,8 @@ module ChangeHealth
                   claim_payment_remark_codes_index += 1
                 end
 
-                claim_adjustments = adjustments(payment_info['claimAdjustments'])
+                #claim_adjustments = adjustments(payment_info['claimAdjustments'])
+                claim_adjustments = payment_info['claimAdjustments']
 
                 service_date_begin = nil
                 service_date_end = nil
