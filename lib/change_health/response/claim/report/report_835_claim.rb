@@ -2,6 +2,7 @@ module ChangeHealth
   module Response
     module Claim
       class Report835Claim < ReportClaim
+        property :raw_claim_adjustments, required: false
         property :claim_adjustments, required: false
         property :claim_payment_amount, required: false
         property :claim_payment_remark_codes, required: false

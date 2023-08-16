@@ -110,6 +110,7 @@ module ChangeHealth
                 end
 
                 claim_adjustments = adjustments(payment_info['claimAdjustments'])
+                raw_claim_adjustments = payment_info['claimAdjustments']
 
                 service_date_begin = nil
                 service_date_end = nil
@@ -169,6 +170,7 @@ module ChangeHealth
 
                 Report835Claim.new(
                   claim_adjustments: claim_adjustments,
+                  raw_claim_adjustments: raw_claim_adjustments,
                   claim_payment_amount: claim_payment_amount,
                   claim_payment_remark_codes: claim_payment_remark_codes,
                   claim_status_code: claim_status_code,
