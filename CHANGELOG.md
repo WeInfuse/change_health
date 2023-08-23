@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+# [4.13.1] - 2023-08-23
+
+### Fixed
+
+Added institional claim submission specific headers so that institutional claims that required headers will go through in production
+
 # [4.13.0] - 2023-08-11
 
 ### Added
@@ -519,6 +525,7 @@ Added the ability to hit professional claim submission API. For more details, se
 * Authentication
 * Configuration
 
+[4.13.1]: https://github.com/WeInfuse/change_health/compare/v4.13.0...v4.13.1
 [4.13.0]: https://github.com/WeInfuse/change_health/compare/v4.12.0...v4.13.0
 [4.12.0]: https://github.com/WeInfuse/change_health/compare/v4.11.0...v4.12.0
 [4.11.0]: https://github.com/WeInfuse/change_health/compare/v4.10.1...v4.11.0

@@ -36,17 +36,25 @@ module ChangeHealth
         def submission(is_professional: true)
           endpoint = is_professional ? PROFESSIONAL_ENDPOINT : INSTITUTIONAL_ENDPOINT
           endpoint += SUBMISSION_SUFFIX
-          ChangeHealth::Response::Claim::SubmissionData.new(response: ChangeHealth::Connection.new.request(
-            endpoint: endpoint, body: to_h, headers: professional_headers
-          ))
+          ChangeHealth::Response::Claim::SubmissionData.new(
+            response: ChangeHealth::Connection.new.request(
+              endpoint: endpoint,
+              body: to_h,
+              headers: is_professional ? professional_headers : institutional_headers
+            )
+          )
         end
 
         def validation(is_professional: true)
           endpoint = is_professional ? PROFESSIONAL_ENDPOINT : INSTITUTIONAL_ENDPOINT
           endpoint += VALIDATION_SUFFIX
-          ChangeHealth::Response::Claim::SubmissionData.new(response: ChangeHealth::Connection.new.request(
-            endpoint: endpoint, body: to_h, headers: professional_headers
-          ))
+          ChangeHealth::Response::Claim::SubmissionData.new(
+            response: ChangeHealth::Connection.new.request(
+              endpoint: endpoint,
+              body: to_h,
+              headers: is_professional ? professional_headers : institutional_headers
+            )
+          )
         end
 
         def self.health_check(is_professional: true)
@@ -62,12 +70,23 @@ module ChangeHealth
         def professional_headers
           return unless self[:headers]
 
-          extra_headers = {}
-          extra_headers['X-CHC-ClaimSubmission-SubmitterId'] = self[:headers][:submitter_id]
-          extra_headers['X-CHC-ClaimSubmission-BillerId'] = self[:headers][:biller_id]
-          extra_headers['X-CHC-ClaimSubmission-Username'] = self[:headers][:username]
-          extra_headers['X-CHC-ClaimSubmission-Pwd'] = self[:headers][:password]
-          extra_headers
+          {
+            'X-CHC-ClaimSubmission-BillerId' => self[:headers][:biller_id],
+            'X-CHC-ClaimSubmission-Pwd' => self[:headers][:password],
+            'X-CHC-ClaimSubmission-SubmitterId' => self[:headers][:submitter_id],
+            'X-CHC-ClaimSubmission-Username' => self[:headers][:username]
+          }
+        end
+
+        def institutional_headers
+          return unless self[:headers]
+
+          {
+            'X-CHC-InstitutionalClaims-BillerId' => self[:headers][:biller_id],
+            'X-CHC-InstitutionalClaims-Pwd' => self[:headers][:password],
+            'X-CHC-InstitutionalClaims-SubmitterId' => self[:headers][:submitter_id],
+            'X-CHC-InstitutionalClaims-Username' => self[:headers][:username]
+          }
         end
       end
     end
