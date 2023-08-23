@@ -2,7 +2,7 @@ require 'test_helper'
 
 class SubmissionTest < Minitest::Test
   describe 'claim_submission' do
-    let(:professional_headers) do
+    let(:headers) do
       {
         submitter_id: 'submittedIdValue',
         biller_id: 'billerIdValue',
@@ -10,7 +10,7 @@ class SubmissionTest < Minitest::Test
         password: 'passwordValue'
       }
     end
-    let(:claim_submission) { ChangeHealth::Request::Claim::Submission.new(headers: professional_headers) }
+    let(:claim_submission) { ChangeHealth::Request::Claim::Submission.new(headers: headers) }
 
     let(:professional_endpoint) { ChangeHealth::Request::Claim::Submission::PROFESSIONAL_ENDPOINT }
     let(:institutional_endpoint) { ChangeHealth::Request::Claim::Submission::INSTITUTIONAL_ENDPOINT }
@@ -145,6 +145,38 @@ class SubmissionTest < Minitest::Test
 
           it 'returns claim_submission data' do
             assert_equal(@submission_data.raw, @submission_data.response.parsed_response)
+          end
+        end
+
+        describe 'headers' do
+          describe 'professional' do
+            it 'given headers' do
+              expected = {
+                'X-CHC-ClaimSubmission-BillerId' => 'billerIdValue',
+                'X-CHC-ClaimSubmission-Pwd' => 'passwordValue',
+                'X-CHC-ClaimSubmission-SubmitterId' => 'submittedIdValue',
+                'X-CHC-ClaimSubmission-Username' => 'usernameValue'
+              }
+              assert_equal(expected, claim_submission.professional_headers)
+            end
+            it 'no headers' do
+              assert_nil(ChangeHealth::Request::Claim::Submission.new.professional_headers)
+            end
+          end
+
+          describe 'institutional' do
+            it 'given headers' do
+              expected = {
+                'X-CHC-InstitutionalClaims-BillerId' => 'billerIdValue',
+                'X-CHC-InstitutionalClaims-Pwd' => 'passwordValue',
+                'X-CHC-InstitutionalClaims-SubmitterId' => 'submittedIdValue',
+                'X-CHC-InstitutionalClaims-Username' => 'usernameValue'
+              }
+              assert_equal(expected, claim_submission.institutional_headers)
+            end
+            it 'no headers' do
+              assert_nil(ChangeHealth::Request::Claim::Submission.new.institutional_headers)
+            end
           end
         end
       end
