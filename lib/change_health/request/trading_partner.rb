@@ -1,17 +1,17 @@
 module ChangeHealth
   module Request
     class TradingPartner < Hashie::Trash
-      ENDPOINT = '/tradingpartners/v7/partners'.freeze
+      ENDPOINT = '/medicalnetwork/payerfinder/v1/payers'.freeze
 
       def self.query(term)
         params = {
-          query: term,
-          serviceName: 'medicalEligibility',
-          strictFilters: true
+          businessName: term,
+          serviceName: 'Eligibility'
         }
+
         response = ChangeHealth::Connection.new.request(endpoint: ENDPOINT, verb: :get, query: params)
-        trading_partners_data = ChangeHealth::Response::TradingPartnersData.new(response).medical_eligibility_enabled
-        trading_partners_data.map {|partner| ChangeHealth::Models::TradingPartner.new(name: partner.name, service_id: partner.medical_eligibility_service_id) }
+        trading_partners_data = ChangeHealth::Response::TradingPartnersData.new(response['payers'])
+        trading_partners_data.map { |partner| ChangeHealth::Models::TradingPartner.new(name: partner.name, service_id: partner.service_id) }
       end
     end
   end

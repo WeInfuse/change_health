@@ -1,102 +1,40 @@
-[
-  {
-    "tradingPartnerId": "ABC123",
-    "tradingPartnerName": "Aetna Test Payer",
-    "tradingPartnerAliases": [{
-      "alias": "Aetna Test Long Term Care",
-      "aliasNotes": "AKA"
-    }],
-    "tradingPartnerModified": 1234567890,
-    "tradingPartnerAttribute": {
-      "states": ["Texas"]
-    },
-    "clearingHouses": {
-      "legacyExchange": [{
-        "serviceName": "professionalClaims",
-        "serviceConnections": {
-          "direct": {
-            "serviceId": "1234"
-          }
-        },
-        "serviceModified": 11122233344455,
-        "enrollmentStatus": "Register with payer",
-        "acceptsSecondary": true,
-        "currentStatus": "Active",
-        "clearingHouse": "legacyExchange"
-      }, {
-        "serviceName": "claimStatus",
-        "serviceConnections": {
-          "direct": {
-            "serviceId": "ABCDEF"
-          }
-        },
-        "serviceModified": 1122345554321,
-        "enrollmentStatus": "No enrollment required",
-        "currentStatus": "Active",
-        "clearingHouse": "legacyExchange"
-      }, {
-        "serviceName": "medicalEligibility",
-        "serviceConnections": {
-          "direct": {
-            "serviceId": "ABCDEF"
-          }
-        },
-        "serviceModified": 1122345554321,
-        "enrollmentStatus": "No enrollment required",
-        "acceptsSecondary": true,
-        "currentStatus": "Active",
-        "clearingHouse": "legacyExchange"
-      }]
-    }
-  },
-  {
-    "tradingPartnerId": "DEF123",
-    "tradingPartnerName": "Aetna Test Payer 2",
-    "tradingPartnerAliases": [{
-      "alias": "Aetna Test 2 Long Term Care",
-      "aliasNotes": "AKA"
-    }],
-    "tradingPartnerModified": 1234567890,
-    "tradingPartnerAttribute": {
-      "states": ["Texas"]
-    },
-    "clearingHouses": {
-      "legacyExchange": [{
-        "serviceName": "professionalClaims",
-        "serviceConnections": {
-          "direct": {
-            "serviceId": "1234"
-          }
-        },
-        "serviceModified": 11122233344455,
-        "enrollmentStatus": "Register with payer",
-        "acceptsSecondary": true,
-        "currentStatus": "Active",
-        "clearingHouse": "legacyExchange"
-      }, {
-        "serviceName": "claimStatus",
-        "serviceConnections": {
-          "direct": {
-            "serviceId": "ABCDEF"
-          }
-        },
-        "serviceModified": 1122345554321,
-        "enrollmentStatus": "No enrollment required",
-        "currentStatus": "Active",
-        "clearingHouse": "legacyExchange"
-      }, {
-        "serviceName": "notMedicalEligibility",
-        "serviceConnections": {
-          "direct": {
-            "serviceId": "ABCDEF"
-          }
-        },
-        "serviceModified": 1122345554321,
-        "enrollmentStatus": "No enrollment required",
-        "acceptsSecondary": true,
-        "currentStatus": "Active",
-        "clearingHouse": "legacyExchange"
-      }]
-    }
-  }
-]
+{
+  "start": 0,
+  "size": 50,
+  "total": 542,
+  "payers": [
+      {
+          "acceptsSecondary": "N",
+          "alias": "Test Alias",
+          "businessName": "Blue Cross Blue Shield of Testing",
+          "clearingHouse": "NPD",
+          "enrollmentStatus": "No Enrollment Required",
+          "lineOfBusiness": "Dental",
+          "passThroughFee": "N",
+          "planType": "Test",
+          "reportLevel": "4-Clm Level A/R",
+          "serviceDate": "2007-10-19T00:00:00",
+          "serviceId": "61474",
+          "serviceModified": "2007-11-01T00:00:00",
+          "serviceName": "Eligibility",
+          "serviceNotes1": "Dental Blue Select Product"
+      },
+      {
+          "acceptsSecondary": "Y",
+          "businessName": "Blue Cross Blue Shield of Testing 2",
+          "clearingHouse": "NPD",
+          "enrollmentMethod": "OKC/POSI Setup",
+          "enrollmentStatus": "Enrollment Required",
+          "enrollmentType": "Registration",
+          "lineOfBusiness": "Hospital",
+          "passThroughFee": "N",
+          "planType": "Test 2 Alias",
+          "reportLevel": "4-Clm Level A/R",
+          "serviceDate": "2002-04-12T00:00:00",
+          "serviceId": "12B82",
+          "serviceModified": "2012-03-23T00:00:00",
+          "serviceName": "Claims",
+          "states": "MS"
+      }
+  ]
+}

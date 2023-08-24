@@ -7,8 +7,8 @@ class TradingPartnerRequestTest < Minitest::Test
     describe 'api' do
       describe '#query' do
         let(:response) { build_response(file: 'trading_partners_query.response.json') }
-        let(:search_term) { 'Aetn' }
-        let(:ep) { ChangeHealth::Request::TradingPartner::ENDPOINT.dup.concat("?query=#{search_term}&serviceName=medicalEligibility&strictFilters=true") }
+        let(:search_term) { 'Test' }
+        let(:ep) { ChangeHealth::Request::TradingPartner::ENDPOINT.dup.concat("?businessName=#{search_term}&serviceName=Eligibility") }
 
         before do
           stub_change_health(endpoint: ep, response: response, verb: :get)
