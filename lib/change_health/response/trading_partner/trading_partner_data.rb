@@ -20,12 +20,6 @@ module ChangeHealth
       def medical_eligibility_service
         service_name == 'Eligibility'
       end
-
-      def medical_eligibility_service_id
-        return nil unless medical_eligibility_service
-
-        @raw['serviceId']
-      end
     end
   end
 end

@@ -14,10 +14,5 @@ class TradingPartnerDataTest < Minitest::Test
       assert_equal true, trading_partners_data[0].medical_eligibility_service
       assert_equal false, trading_partners_data[1].medical_eligibility_service
     end
-
-    it "medical_eligibility_service_id" do
-      assert_equal "61474", trading_partners_data[0].service_id
-      assert_equal "12B82", trading_partners_data[1].service_id
-    end
   end
 end
