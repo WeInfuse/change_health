@@ -2,6 +2,14 @@ require 'test_helper'
 
 class ModelTest < Minitest::Test
   class FakeModel < ChangeHealth::Models::Model
+    # date and hour
+    property :dateAndHourObject, default: Time.new(2002, 10, 31, 2, 2)
+    property :someDateAndHourString, default: '2018-10-13 12:42'
+    # hour
+    property :hourObject, default: Time.new(2034, 12, 5, 14, 18)
+    property :hourString, default: '1739'
+    property :longHourString, default: '2018/10/13 03:47'
+    # date
     property :dateObject, default: Date.new(2020, 5, 30)
     property :someDateString, default: '2020-04-30'
     property :someNotDateString, default: 'cat'
@@ -10,6 +18,10 @@ class ModelTest < Minitest::Test
     property :daate, default: '2020-06-30'
     property :daateObject, default: Date.new(2020, 7, 30)
     property :emptyValue, default: ''
+    property :dateHash, default: {
+      property1: 'something'
+    }
+    # post code
     property :shortPostalCode, default: '12345'
     property :longDashPostalCode, default: '12345-6789'
     property :longNoDashPostalCode, default: '123456789'
@@ -29,26 +41,56 @@ class ModelTest < Minitest::Test
 
   describe 'model' do
     let(:model) { FakeModel.new }
+    describe '#date_hour_formatter' do
+      it 'formats time object to Change Health format' do
+        assert_equal('200210310202', ChangeHealth::Models.date_hour_formatter(model.dateAndHourObject))
+      end
 
-    describe '#DATE_FORMATTER' do
+      it 'formats date/hour strings to Change Health format' do
+        assert_equal('201810131242', ChangeHealth::Models.date_hour_formatter(model.someDateAndHourString))
+      end
+    end
+
+    describe '#time_formatter' do
+      it 'formats times to Change Health format' do
+        assert_equal('1418', ChangeHealth::Models.hour_formatter(model.hourObject))
+      end
+
+      it 'formats time only strings to Change Health format' do
+        assert_equal('1739', ChangeHealth::Models.hour_formatter(model.hourString))
+      end
+
+      it 'formats  date/hour strings to Change Health format' do
+        assert_equal('0347', ChangeHealth::Models.hour_formatter(model.longHourString))
+      end
+    end
+
+    describe '#date_formatter' do
       it 'formats dates to Change Health format' do
-        assert_equal('20200530', ChangeHealth::Models::DATE_FORMATTER.call(model.dateObject))
+        assert_equal('20200530', ChangeHealth::Models.date_formatter(model.dateObject))
       end
 
       it 'formats date strings to Change Health format' do
-        assert_equal('20200430', ChangeHealth::Models::DATE_FORMATTER.call(model.someDateString))
+        assert_equal('20200430', ChangeHealth::Models.date_formatter(model.someDateString))
       end
 
       it 'leaves strings alone that are not dates' do
-        assert_equal(model.someNotDateString, ChangeHealth::Models::DATE_FORMATTER.call(model.someNotDateString))
+        assert_equal(model.someNotDateString, ChangeHealth::Models.date_formatter(model.someNotDateString))
       end
 
       it 'leaves booleans alone' do
-        assert_equal(true, ChangeHealth::Models::DATE_FORMATTER.call(model.booleanWithDateInName))
+        assert_equal(true, ChangeHealth::Models.date_formatter(model.booleanWithDateInName))
+      end
+
+      it 'leaves hashes alone' do
+        date_hash = {
+          property1: 'something'
+        }
+        assert_equal(date_hash, ChangeHealth::Models.date_formatter(model.dateHash))
       end
 
       it 'handles nil' do
-        assert_nil ChangeHealth::Models::DATE_FORMATTER.call(model.nilDate)
+        assert_nil ChangeHealth::Models.date_formatter(model.nilDate)
       end
     end
 
@@ -95,14 +137,29 @@ class ModelTest < Minitest::Test
     describe '#to_h' do
       let(:hmodel) { model.to_h }
 
+      it 'translates dateAndHour properties as both date & hour' do
+        assert_equal('200210310202', hmodel[:dateAndHourObject])
+        assert_equal('201810131242', hmodel[:someDateAndHourString])
+      end
+
+      it 'translates hour properties' do
+        assert_equal('1418', hmodel[:hourObject])
+        assert_equal('1739', hmodel[:hourString])
+        assert_equal('0347', hmodel[:longHourString])
+      end
+
       it 'translates any property with date in the name that is a dateish object' do
         assert_equal('20200530', hmodel[:dateObject])
         assert_equal('20200430', hmodel[:someDateString])
       end
 
       it 'leaves alone properties named date that are not dates' do
+        date_hash = {
+          property1: 'something'
+        }
         assert_equal('cat', hmodel[:someNotDateString])
         assert_equal(true, hmodel[:booleanWithDateInName])
+        assert_equal(date_hash, hmodel[:dateHash])
       end
 
       it 'leave other properties completely alone' do

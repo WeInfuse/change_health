@@ -6,6 +6,7 @@ module ChangeHealth
         property :benefitsAssignmentCertificationIndicator, from: :benefits_assignment_certification_indicator
         property :claimChargeAmount, from: :claim_charge_amount
         property :claimCodeInformation, from: :claim_code_information
+        property :claimDateInformation, from: :claim_date_information
         property :claimFilingCode, from: :claim_filing_code
         property :claimFrequencyCode, from: :claim_frequency_code
         property :claimNote, from: :claim_note
