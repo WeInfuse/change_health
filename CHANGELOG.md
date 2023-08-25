@@ -5,16 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-# [4.13.2] - 2022-08-24
+# [5.0.0] - 2022-08-24
 
 ### Changed
 
 Endpoint for trading_partner request has changed.
 
+* **breaking:** removed medical_eligibility_enabled from trading_partners_data
+* **breaking:** removed medical_eligibility_service_id from trading_partner_data
+* **breaking:** removed services from trading_partner_data
 * updated endpoint on trading_partner
 * updated params on trading_partner to only return Eligibility service types
 * updated mapping on trading_partner_data for new response from endpoint
-* removed medical_eligibility_enabled from trading_partners_data
 * updated tests
 
 # [4.13.1] - 2023-08-23
@@ -537,6 +539,7 @@ Added the ability to hit professional claim submission API. For more details, se
 * Authentication
 * Configuration
 
+[5.0.0]: https://github.com/WeInfuse/change_health/compare/v4.13.1...v5.0.0
 [4.13.1]: https://github.com/WeInfuse/change_health/compare/v4.13.0...v4.13.1
 [4.13.0]: https://github.com/WeInfuse/change_health/compare/v4.12.0...v4.13.0
 [4.12.0]: https://github.com/WeInfuse/change_health/compare/v4.11.0...v4.12.0
