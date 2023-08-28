@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+# [4.14.0] - 2023-08-24
+
+### Added
+
+* ChangeHealth::Models::Claim::ClaimDateInformation
+
+### Deprecated
+
+* ChangeHealth::Models::DATE_FORMATTER -> ChangeHealth::Models.date_formatter
+
 # [4.13.1] - 2023-08-23
 
 ### Fixed
@@ -525,6 +535,7 @@ Added the ability to hit professional claim submission API. For more details, se
 * Authentication
 * Configuration
 
+[4.14.0]: https://github.com/WeInfuse/change_health/compare/v4.13.1...v4.14.0
 [4.13.1]: https://github.com/WeInfuse/change_health/compare/v4.13.0...v4.13.1
 [4.13.0]: https://github.com/WeInfuse/change_health/compare/v4.12.0...v4.13.0
 [4.12.0]: https://github.com/WeInfuse/change_health/compare/v4.11.0...v4.12.0

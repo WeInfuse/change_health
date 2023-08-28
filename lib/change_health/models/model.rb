@@ -1,16 +1,36 @@
 module ChangeHealth
   module Models
-    DATE_FORMAT = '%Y%m%d'
-    DATE_FORMATTER = lambda { |d|
+    DATE_FORMAT = '%Y%m%d'.freeze
+    DATE_HOUR_FORMAT = '%Y%m%d%H%M'.freeze
+    HOUR_FORMAT = '%H%M'.freeze
+
+    # Deprecated should use date_formatter instead
+    DATE_FORMATTER = lambda { |date|
+      time_formatter(date, DATE_FORMAT)
+    }
+
+    def self.date_formatter(date)
+      time_formatter(date, DATE_FORMAT)
+    end
+
+    def self.date_hour_formatter(date_hour)
+      time_formatter(date_hour, DATE_HOUR_FORMAT)
+    end
+
+    def self.hour_formatter(hour)
+      time_formatter(hour, HOUR_FORMAT)
+    end
+
+    def self.time_formatter(time, format)
       begin
-        d = Date.parse(d) if d.is_a?(String)
+        time = Time.parse(time) if time.is_a?(String)
       rescue ArgumentError
       end
 
-      d = d.strftime(ChangeHealth::Models::DATE_FORMAT) if d.respond_to?(:strftime)
+      time = time.strftime(format) if time.respond_to?(:strftime)
 
-      d
-    }
+      time
+    end
 
     PARSE_DATE = lambda { |d|
       begin
@@ -59,7 +79,12 @@ module ChangeHealth
       def self.format_value(key, value)
         return nil if value == ''
 
-        return ChangeHealth::Models::DATE_FORMATTER.call(value) if key.to_s.downcase.include?('date')
+        return ChangeHealth::Models.date_hour_formatter(value) if key.to_s.downcase.include?('dateandhour')
+
+        return ChangeHealth::Models.hour_formatter(value) if key.to_s.downcase.include?('hour')
+
+        return ChangeHealth::Models.date_formatter(value) if key.to_s.downcase.include?('date')
+
         return ChangeHealth::Models::POSTAL_CODE_FORMATTER.call(value) if key.to_s.downcase.include?('postalcode')
 
         value
