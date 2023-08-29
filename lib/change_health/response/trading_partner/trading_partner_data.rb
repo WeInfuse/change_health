@@ -16,10 +16,6 @@ module ChangeHealth
       def service_name
         @raw['serviceName']
       end
-
-      def medical_eligibility_service
-        service_name == 'Eligibility'
-      end
     end
   end
 end

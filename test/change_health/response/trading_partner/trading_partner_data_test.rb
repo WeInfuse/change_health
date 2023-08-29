@@ -9,10 +9,5 @@ class TradingPartnerDataTest < Minitest::Test
       assert_equal "Blue Cross Blue Shield of Testing", trading_partners_data[0].name
       assert_equal "Blue Cross Blue Shield of Testing 2", trading_partners_data[1].name
     end
-
-    it "medical_eligibility_service" do
-      assert_equal true, trading_partners_data[0].medical_eligibility_service
-      assert_equal false, trading_partners_data[1].medical_eligibility_service
-    end
   end
 end
