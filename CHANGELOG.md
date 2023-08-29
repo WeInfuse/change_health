@@ -20,6 +20,17 @@ Endpoint for trading_partner request has changed.
 * updated mapping on trading_partner_data for new response from endpoint
 * updated tests
 
+
+# [4.14.0] - 2023-08-24
+
+### Added
+
+* ChangeHealth::Models::Claim::ClaimDateInformation
+
+### Deprecated
+
+* ChangeHealth::Models::DATE_FORMATTER -> ChangeHealth::Models.date_formatter
+
 # [4.13.1] - 2023-08-23
 
 ### Fixed
@@ -540,7 +551,8 @@ Added the ability to hit professional claim submission API. For more details, se
 * Authentication
 * Configuration
 
-[5.0.0]: https://github.com/WeInfuse/change_health/compare/v4.13.1...v5.0.0
+[5.0.0]: https://github.com/WeInfuse/change_health/compare/v4.14.0...v5.0.0
+[4.14.0]: https://github.com/WeInfuse/change_health/compare/v4.13.1...v4.14.0
 [4.13.1]: https://github.com/WeInfuse/change_health/compare/v4.13.0...v4.13.1
 [4.13.0]: https://github.com/WeInfuse/change_health/compare/v4.12.0...v4.13.0
 [4.12.0]: https://github.com/WeInfuse/change_health/compare/v4.11.0...v4.12.0
