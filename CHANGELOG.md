@@ -13,6 +13,7 @@ Endpoint for trading_partner request has changed.
 
 * **breaking:** removed medical_eligibility_enabled from trading_partners_data
 * **breaking:** removed medical_eligibility_service_id from trading_partner_data
+* **breaking:** removed medical_eligibility_service from trading_partner_data
 * **breaking:** removed services from trading_partner_data
 * updated endpoint on trading_partner
 * updated params on trading_partner to only return Eligibility service types
