@@ -6,21 +6,15 @@ module ChangeHealth
       end
 
       def name
-        @raw.dig('tradingPartnerName')
+        @raw['businessName']
       end
 
-      def services
-        @raw.dig('clearingHouses', 'legacyExchange')
+      def service_id
+        @raw['serviceId']
       end
 
-      def medical_eligibility_service
-        return nil unless services
-        services.detect {|service| service.dig('serviceName') == 'medicalEligibility' }
-      end
-
-      def medical_eligibility_service_id
-        return nil unless medical_eligibility_service
-        medical_eligibility_service.dig('serviceConnections', 'direct', 'serviceId')
+      def service_name
+        @raw['serviceName']
       end
     end
   end
