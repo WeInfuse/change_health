@@ -16,6 +16,18 @@ module ChangeHealth
       def service_name
         @raw['serviceName']
       end
+
+      def alias
+        @raw['alias']
+      end
+
+      def line_of_business
+        @raw['lineOfBusiness']
+      end
+
+      def plan_type
+        @raw['planType']
+      end
     end
   end
 end
