@@ -3,6 +3,7 @@ module ChangeHealth
     module Claim
       class Provider < Model
         property :address
+        property :claimOfficeNumber, from: :claim_office_number
         property :contactInformation, from: :contact_information
         property :employerId, from: :employer_id # or ssn
         property :firstName, from: :first_name
