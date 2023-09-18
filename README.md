@@ -269,6 +269,8 @@ service_line1 = ChangeHealth::Models::Claim::ServiceLine.new(
     measurement_unit: "UN",
     procedure_code: "E0570",
     procedure_identifier: "HC",
+    service_date: "2018-05-14",
+    service_date_end: "2018-05-14",
     service_line_revenue_code: "X",
     service_unit_count: "1",
   )
