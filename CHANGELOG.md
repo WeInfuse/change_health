@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+# [5.3.0] - 2023-09-18
+
+### Added
+
+* Added new model ChangeHealth::Models::Claim::BillingPayToAddressName
+* serviceDate, serviceDateEnd attributes to ChangeHealth::Models::Claim::InstitutionalService
+* billingPayToAddressName, tradingPartnerName attributes to ChangeHealth::Request::Claim::Submission
+
 # [5.2.0] - 2023-09-05
 
 ### Added
@@ -34,7 +42,6 @@ Endpoint for trading_partner request has changed.
 * updated mapping on trading_partner_data for new response from endpoint
 * updated tests
 
-
 # [4.14.0] - 2023-08-24
 
 ### Added
@@ -58,19 +65,19 @@ Added institional claim submission specific headers so that institutional claims
 #### Ability to submit an institutional claim
 
 * Added the following classes
- * ChangeHealth::Models::Claim::ClaimCodeInformation
- * ChangeHealth::Models::Claim::InstitutionalService
+* ChangeHealth::Models::Claim::ClaimCodeInformation
+* ChangeHealth::Models::Claim::InstitutionalService
 * Added fields to existing submission classes
- * ClaimInformation - claimCodeInformation, claimNote, claimNotes, etc
- * ServiceLine - assignedNumber, institutionalService
+* ClaimInformation - claimCodeInformation, claimNote, claimNotes, etc
+* ServiceLine - assignedNumber, institutionalService
 * ChangeHealth::Request::Claim::Submission#submission now takes `is_professional` argument which defaults to `true`
- * `true` for professional claim submission
- * `false` for institutional claim submission
-
+* `true` for professional claim submission
+* `false` for institutional claim submission
 
 #### Added other submission classes
 
 These are used by professional claims and sometimes institutional
+
 * ChangeHealth::Models::Claim::ClaimSupplementalInformation
 * ChangeHealth::Models::Claim::ContactInformation
 * ChangeHealth::Models::Claim::Diagnosis
@@ -83,16 +90,17 @@ These are used by professional claims and sometimes institutional
 * ChangeHealth::Models::Claim::ReportInformation
 * ChangeHealth::Models::Claim::ServiceFacilityLocation
 
-
 ### Deprecated
 
 Some endpoint constants in Submission:
+
 * ChangeHealth::Request::Claim::Submission::ENDPOINT
 * ChangeHealth::Request::Claim::Submission::HEALTH_CHECK_ENDPOINT
 * ChangeHealth::Request::Claim::Submission::VALIDATION_ENDPOINT
 * ChangeHealth::Request::Claim::Submission::SUBMISSION_ENDPOINT
 
 Replace with:
+
 * ENDPOINT -> PROFESSIONAL_ENDPOINT
 * HEALTH_CHECK_ENDPOINT -> PROFESSIONAL_ENDPOINT || INSTITUTIONAL_ENDPOINT + HEALTH_CHECK_SUFFIX
 * VALIDATION_ENDPOINT -> PROFESSIONAL_ENDPOINT || INSTITUTIONAL_ENDPOINT + SUBMISSION_SUFFIX
@@ -167,6 +175,7 @@ Replace with:
 # [4.2.5] - 2022-07-29
 
 ### Fixed
+
 * Report835Data can now handle when a service line doesn't have a service date
 
 # [4.2.4] - 2022-07-28
