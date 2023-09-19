@@ -235,6 +235,11 @@ validation = claim_submission.validation
 ```ruby
 ChangeHealth::Request::Claim::Submission.ping(is_professional: false) # Test your connection
 
+billing_pay_to_address_name = ChangeHealth::Models::Claim::BillingPayToAddressName.new(
+  entity_type_qualifier: "2",
+  address: address
+)
+
 claim_code_information = ChangeHealth::Models::Claim::ClaimCodeInformation.new(
   admission_source_code: "7",
   admission_type_code: "1",
@@ -264,6 +269,8 @@ service_line1 = ChangeHealth::Models::Claim::ServiceLine.new(
     measurement_unit: "UN",
     procedure_code: "E0570",
     procedure_identifier: "HC",
+    service_date: "2018-05-14",
+    service_date_end: "2018-05-14",
     service_line_revenue_code: "X",
     service_unit_count: "1",
   )
@@ -352,7 +359,8 @@ claim_submission = ChangeHealth::Request::Claim::Submission.new(
   receiver: receiver,
   submitter: submitter,
   subscriber: subscriber,
-  trading_partner_service_id: "9496"
+  trading_partner_service_id: "9496",
+  billing_pay_to_address_name: billing_pay_to_address_name
 )
 
 claim_submission_data = claim_submission.submission(is_professional: false)
