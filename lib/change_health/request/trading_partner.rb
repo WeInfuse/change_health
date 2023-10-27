@@ -6,7 +6,8 @@ module ChangeHealth
       def self.query(term)
         params = {
           businessName: term,
-          serviceName: 'Eligibility'
+          serviceName: 'Eligibility',
+          clearingHouse: 'dbq'
         }
 
         response = ChangeHealth::Connection.new.request(endpoint: ENDPOINT, verb: :get, query: params)
