@@ -88,7 +88,7 @@ edata.raw == edata.response.parsed_response
 ```ruby
 # Query trading partners using a wildcard search
 # Returns Array of ChangeHealth::Models::TradingPartner Objects
-# Query params include: term, service_name(default: 'Eligibility'), clearing_house(default: 'npd')
+# Query params: term, service_name(default: 'Eligibility'), clearing_house(default: 'npd')
 trading_partners = ChangeHealth::Request::TradingPartner.query(term: "Aetna", service_name: 'Eligibility', clearing_house: 'dbq')
 
 trading_partners.first.name
