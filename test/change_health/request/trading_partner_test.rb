@@ -8,7 +8,7 @@ class TradingPartnerRequestTest < Minitest::Test
       describe '#query' do
         let(:response) { build_response(file: 'trading_partners_query.response.json') }
         let(:search_term) { 'Test' }
-        let(:ep) { ChangeHealth::Request::TradingPartner::ENDPOINT.dup.concat("?businessName=#{search_term}&serviceName=Eligibility&clearingHouse=npd") }
+        let(:ep) { ChangeHealth::Request::TradingPartner::ENDPOINT.dup.concat("?businessName=#{search_term}&serviceName=Eligibility&clearingHouse=dbq") }
 
         before do
           stub_change_health(endpoint: ep, response: response, verb: :get)

@@ -3,11 +3,11 @@ module ChangeHealth
     class TradingPartner < Hashie::Trash
       ENDPOINT = '/medicalnetwork/payerfinder/v1/payers'.freeze
 
-      def self.query(filter, clearing_house = 'npd', service_name = 'Eligibility')
+      def self.query(term)
         params = {
-          businessName: filter,
-          serviceName: service_name,
-          clearingHouse: clearing_house
+          businessName: term,
+          serviceName: 'Eligibility',
+          clearingHouse: 'dbq'
         }
 
         response = ChangeHealth::Connection.new.request(endpoint: ENDPOINT, verb: :get, query: params)
