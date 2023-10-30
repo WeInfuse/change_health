@@ -3,7 +3,7 @@ module ChangeHealth
     class TradingPartner < Hashie::Trash
       ENDPOINT = '/medicalnetwork/payerfinder/v1/payers'.freeze
 
-      def self.query(term, service_name = 'Eligibility', clearing_house = 'npd')
+      def self.query(term, service_name: 'Eligibility', clearing_house: 'npd')
         params = {
           businessName: term,
           serviceName: service_name,
