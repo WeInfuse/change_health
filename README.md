@@ -363,6 +363,14 @@ claim_submission = ChangeHealth::Request::Claim::Submission.new(
   billing_pay_to_address_name: billing_pay_to_address_name
 )
 
+claim_supplemental_information = ChangeHealth::Models::Claim::ClaimSupplementalInformation.new(
+  claim_control_number: 'claimControlNumber',
+  demo_project_identifier: 'demoProjectIdentifier',
+  prior_authorization_number: 'priorAuthorizationNumber',
+  referral_number: 'referralNumber',
+  report_information: 'reportInformation'
+)
+
 claim_submission_data = claim_submission.submission(is_professional: false)
 
 validation = claim_submission.validation(is_professional: false)
