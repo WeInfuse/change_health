@@ -181,6 +181,7 @@ service_line1 = ChangeHealth::Models::Claim::ServiceLine.new(
 
 service_line2 = ChangeHealth::Models::Claim::ServiceLine.new(
   service_date: "20180514",
+  service_date_end: "20180514",
   professional_service: ChangeHealth::Models::Claim::ProfessionalService.new(
     line_item_charge_amount: "3.75",
     measurement_unit: "UN",
@@ -270,8 +271,6 @@ service_line1 = ChangeHealth::Models::Claim::ServiceLine.new(
     measurement_unit: "UN",
     procedure_code: "E0570",
     procedure_identifier: "HC",
-    service_date: "2018-05-14",
-    service_date_end: "2018-05-14",
     service_line_revenue_code: "X",
     service_unit_count: "1",
   )

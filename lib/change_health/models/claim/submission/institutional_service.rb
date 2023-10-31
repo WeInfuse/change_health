@@ -8,8 +8,6 @@ module ChangeHealth
         property :procedureCode, from: :procedure_code
         property :procedureIdentifier, from: :procedure_identifier
         property :procedureModifiers, from: :procedure_modifiers
-        property :serviceDate, from: :service_date, required: false
-        property :serviceDateEnd, from: :service_date_end, required: false
         property :serviceLineRevenueCode, from: :service_line_revenue_code
         property :serviceUnitCount, from: :service_unit_count
       end
