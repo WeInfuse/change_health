@@ -12,6 +12,7 @@ module ChangeHealth
         property :placeOfServiceCode, from: :place_of_service_code, required: false
         property :planParticipationCode, from: :plan_participation_code, required: false
         property :releaseInformationCode, from: :release_information_code, required: false
+        property :serviceFacilityLocation, from: :service_facility_location
         property :serviceFacilityLocation, from: :service_facility_location, required: false
         property :serviceLines, from: :service_lines, required: false
         property :signatureIndicator, from: :signature_indicator, required: false
