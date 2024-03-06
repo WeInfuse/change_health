@@ -9,7 +9,7 @@ class ConnectionTest < Minitest::Test
 
       @connection = ChangeHealth::Connection.new
 
-      WebMock.after_request do |request, response|
+      WebMock.after_request do |request, _response|
         @request = request
       end
     end
@@ -27,6 +27,28 @@ class ConnectionTest < Minitest::Test
 
         assert_requested(@stub, times: 1)
       end
+
+      describe 'headers are overridden' do
+        before do
+          @config = ChangeHealth.configuration.to_h
+        end
+
+        after do
+          ChangeHealth.configuration.from_h(@config)
+        end
+
+        it 'honors the header' do
+          override_headers = { Authorization: 'mytoken', other_header: 'hi' }
+          ChangeHealth.configuration.auth_headers = override_headers
+
+          @connection.request(endpoint: fake_endpoint)
+
+          assert_not_requested(@auth_stub)
+          assert_requested(@stub, times: 1)
+          assert_equal('mytoken', @request.headers['Authorization'])
+          assert_equal('hi', @request.headers['Other-Header'])
+        end
+      end
     end
 
     it 'returns response' do
@@ -38,10 +60,10 @@ class ConnectionTest < Minitest::Test
     end
 
     it 'changes body to json for hashes' do
-      @connection.request(auth: false, body: {h: 10}, endpoint: fake_endpoint)
+      @connection.request(auth: false, body: { h: 10 }, endpoint: fake_endpoint)
 
       assert_requested(@stub, times: 1)
-      assert_equal({h:10}.to_json, @request.body)
+      assert_equal({ h: 10 }.to_json, @request.body)
     end
 
     it 'changes body to json for hashes' do
@@ -52,17 +74,50 @@ class ConnectionTest < Minitest::Test
     end
 
     it 'passes headers' do
-      @connection.request(headers: {'x' => '10'}, endpoint: fake_endpoint)
+      @connection.request(headers: { 'x' => '10' }, endpoint: fake_endpoint)
 
       assert_requested(@stub, times: 1)
       assert_equal('10', @request.headers['X'])
     end
 
     it 'has precedence over auth header' do
-      @connection.request(headers: {'Authorization' => 'eep'}, endpoint: fake_endpoint)
+      @connection.request(headers: { 'Authorization' => 'eep' }, endpoint: fake_endpoint)
 
       assert_requested(@stub, times: 1)
       assert_equal('eep', @request.headers['Authorization'])
+    end
+
+    describe '#endpoint_for' do
+      it 'returns default endpoint for class' do
+        assert_equal(ChangeHealth::Request::Eligibility::ENDPOINT,
+                     ChangeHealth::Connection.endpoint_for(ChangeHealth::Request::Eligibility))
+      end
+
+      describe 'configuration has overrides' do
+        before do
+          @config = ChangeHealth.configuration.to_h
+        end
+
+        after do
+          ChangeHealth.configuration.from_h(@config)
+        end
+
+        it 'uses configuration' do
+          new_endpoint = '/someotherendpoint'
+
+          ChangeHealth.configuration.endpoints = { 'ChangeHealth::Request::Eligibility' => new_endpoint }
+
+          assert_equal(new_endpoint, ChangeHealth::Connection.endpoint_for(ChangeHealth::Request::Eligibility))
+        end
+
+        it 'works with symbols' do
+          new_endpoint = '/someotherendpoint'
+
+          ChangeHealth.configuration.endpoints = { 'ChangeHealth::Request::Eligibility': new_endpoint }
+
+          assert_equal(new_endpoint, ChangeHealth::Connection.endpoint_for(ChangeHealth::Request::Eligibility))
+        end
+      end
     end
   end
 end

@@ -23,8 +23,10 @@ class ChangeHealthTest < Minitest::Test
     end
 
     {
+      auth_headers: {a: 'b', c: 'd'},
       client_id: 'a',
       client_secret: 'b',
+      endpoints: {'SomeClass': '/abc'},
       grant_type: 'c',
       api_endpoint: 'http://hi.com',
     }.each do |method, value|
