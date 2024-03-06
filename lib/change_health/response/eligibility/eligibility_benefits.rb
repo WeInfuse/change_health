@@ -42,12 +42,12 @@ module ChangeHealth
           method_name = "#{method}_#{type_mod}"
 
           define_method(method_name) do |**kwargs|
-            self.send(method).send("#{type_mod}s").where(kwargs).first
+            self.send(method).send("#{type_mod}s").where(**kwargs).first
           end
 
           if ('copayment' == type_mod)
             define_method(method_name.gsub('copayment', 'copay')) do |**kwargs|
-              self.send(method_name, kwargs)
+              self.send(method_name, **kwargs)
             end
           end
         end
@@ -57,24 +57,24 @@ module ChangeHealth
             method_name = "#{method}_#{type_mod}_#{time_mod}"
 
             define_method(method_name) do |**kwargs|
-              self.send(method).send("#{type_mod}s").send("#{time_mod}s").where(kwargs).first || self.send(method).send("#{type_mod}s").where(kwargs).first
+              self.send(method).send("#{type_mod}s").send("#{time_mod}s").where(**kwargs).first || self.send(method).send("#{type_mod}s").where(**kwargs).first
             end
 
             if ('out_of_pocket' == type_mod)
               define_method(method_name.gsub('out_of_pocket', 'oop')) do |**kwargs|
-                self.send(method_name, kwargs)
+                self.send(method_name, **kwargs)
               end
 
               if ('year' == time_mod)
                 define_method(method_name.gsub('out_of_pocket', 'oop').gsub('year', 'total')) do |**kwargs|
-                  self.send(method_name, kwargs)
+                  self.send(method_name, **kwargs)
                 end
               end
             end
 
             if ('year' == time_mod)
               define_method(method_name.gsub('year', 'total')) do |**kwargs|
-                self.send(method_name, kwargs)
+                self.send(method_name, **kwargs)
               end
             end
           end

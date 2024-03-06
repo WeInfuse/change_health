@@ -66,7 +66,7 @@ module ChangeHealth
       end
 
       def medicare?(**kwargs)
-        false == benefits.empty? && benefits.where(kwargs).all? {|b| b.medicare? }
+        false == benefits.empty? && benefits.where(**kwargs).all? {|b| b.medicare? }
       end
 
       def plan?(name)

@@ -25,7 +25,9 @@ module ChangeHealth
       end
 
       def query
-        ChangeHealth::Response::EligibilityData.new(response: ChangeHealth::Connection.new.request(endpoint: ENDPOINT, body: self.to_h))
+        endpoint = ChangeHealth::Connection.endpoint_for(self.class)
+
+        ChangeHealth::Response::EligibilityData.new(response: ChangeHealth::Connection.new.request(endpoint: endpoint, body: self.to_h))
       end
 
       def self.health_check

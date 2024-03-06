@@ -61,11 +61,13 @@ require 'change_health/response/trading_partner/trading_partners_data'
 
 module ChangeHealth
   class Configuration
-    attr_accessor :client_id, :client_secret, :grant_type
+    attr_accessor :client_id, :client_secret, :grant_type, :auth_headers, :endpoints
 
     def initialize
+      @auth_headers  = nil
       @client_id     = nil
       @client_secret = nil
+      @endpoints     = nil
       @grant_type    = :client_credentials
     end
 
@@ -79,16 +81,20 @@ module ChangeHealth
 
     def to_h
       {
+        auth_headers: @auth_headers,
         client_id: @client_id,
         client_secret: @client_secret,
+        endpoints: @endpoints,
         grant_type: @grant_type,
         api_endpoint: api_endpoint
       }
     end
 
     def from_h(h)
+      self.auth_headers  = h[:auth_headers]
       self.client_id     = h[:client_id]
       self.client_secret = h[:client_secret]
+      self.endpoints     = h[:endpoints]
       self.grant_type    = h[:grant_type]
       self.api_endpoint  = h[:api_endpoint]
 
