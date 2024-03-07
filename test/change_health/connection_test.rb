@@ -88,35 +88,52 @@ class ConnectionTest < Minitest::Test
     end
 
     describe '#endpoint_for' do
-      it 'returns default endpoint for class' do
-        assert_equal(ChangeHealth::Request::Eligibility::ENDPOINT,
-                     ChangeHealth::Connection.endpoint_for(ChangeHealth::Request::Eligibility))
+      before do
+        @config = ChangeHealth.configuration.to_h
       end
 
-      describe 'configuration has overrides' do
-        before do
-          @config = ChangeHealth.configuration.to_h
-        end
+      after do
+        ChangeHealth.configuration.from_h(@config)
+      end
 
-        after do
-          ChangeHealth.configuration.from_h(@config)
-        end
+      it 'returns default endpoint for class if no default specified' do
+        assert_equal(
+          ChangeHealth::Request::Eligibility::ENDPOINT,
+          ChangeHealth::Connection.endpoint_for(ChangeHealth::Request::Eligibility)
+        )
+      end
 
-        it 'uses configuration' do
-          new_endpoint = '/someotherendpoint'
+      it 'returns inputted default if no configuration' do
+        default_endpoint = 'blahblah'
+        assert_equal(
+          default_endpoint,
+          ChangeHealth::Connection.endpoint_for(
+            ChangeHealth::Request::Eligibility,
+            default_endpoint: default_endpoint
+          )
+        )
+      end
 
-          ChangeHealth.configuration.endpoints = { 'ChangeHealth::Request::Eligibility' => new_endpoint }
+      it 'uses configuration over default' do
+        new_endpoint = '/someotherendpoint'
 
-          assert_equal(new_endpoint, ChangeHealth::Connection.endpoint_for(ChangeHealth::Request::Eligibility))
-        end
+        ChangeHealth.configuration.endpoints = { 'ChangeHealth::Request::Eligibility' => new_endpoint }
 
-        it 'works with symbols' do
-          new_endpoint = '/someotherendpoint'
+        assert_equal(
+          new_endpoint,
+          ChangeHealth::Connection.endpoint_for(
+            ChangeHealth::Request::Eligibility,
+            default_endpoint: 'blahblah'
+          )
+        )
+      end
 
-          ChangeHealth.configuration.endpoints = { 'ChangeHealth::Request::Eligibility': new_endpoint }
+      it 'works with symbols' do
+        new_endpoint = '/someotherendpoint'
 
-          assert_equal(new_endpoint, ChangeHealth::Connection.endpoint_for(ChangeHealth::Request::Eligibility))
-        end
+        ChangeHealth.configuration.endpoints = { 'ChangeHealth::Request::Eligibility': new_endpoint }
+
+        assert_equal(new_endpoint, ChangeHealth::Connection.endpoint_for(ChangeHealth::Request::Eligibility))
       end
     end
   end

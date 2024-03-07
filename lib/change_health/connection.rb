@@ -21,10 +21,11 @@ module ChangeHealth
       self.class.send(verb.to_s, endpoint, query: query, body: body, headers: headers)
     end
 
-    def self.endpoint_for(klass)
+    def self.endpoint_for(klass, default_endpoint: nil)
       endpoint_options = ChangeHealth.configuration.endpoints || {}
+      default_endpoint ||= klass::ENDPOINT
 
-      endpoint_options[klass.to_s] || endpoint_options[klass.to_s.to_sym] || klass::ENDPOINT
+      endpoint_options[klass.to_s] || endpoint_options[klass.to_s.to_sym] || default_endpoint
     end
 
     private
