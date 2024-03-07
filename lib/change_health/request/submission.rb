@@ -15,6 +15,7 @@ module ChangeHealth
         VALIDATION_ENDPOINT = ENDPOINT + '/validation'.freeze
         # End Deprecated
 
+        property :attending
         property :billing
         property :billingPayToAddressName, from: :billing_pay_to_address_name
         property :claimInformation, from: :claim_information

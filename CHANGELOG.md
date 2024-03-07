@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-* providers - billing, referring, rendering, and supervising - directly to ChangeHealth::Request::Claim::Submission
+* providers - attending, billing, referring, rendering, and supervising - directly to ChangeHealth::Request::Claim::Submission
 
 # [5.6.0] - 2024-03-06
 
