@@ -36,11 +36,12 @@ module ChangeHealth
         end
 
         def submission(is_professional: true)
-          endpoint = is_professional ? PROFESSIONAL_ENDPOINT : INSTITUTIONAL_ENDPOINT
-          endpoint += SUBMISSION_SUFFIX
           ChangeHealth::Response::Claim::SubmissionData.new(
             response: ChangeHealth::Connection.new.request(
-              endpoint: endpoint,
+              endpoint: self.class.endpoint(
+                is_professional: is_professional,
+                suffix: SUBMISSION_SUFFIX
+              ),
               body: to_h,
               headers: is_professional ? professional_headers : institutional_headers
             )
@@ -48,11 +49,12 @@ module ChangeHealth
         end
 
         def validation(is_professional: true)
-          endpoint = is_professional ? PROFESSIONAL_ENDPOINT : INSTITUTIONAL_ENDPOINT
-          endpoint += VALIDATION_SUFFIX
           ChangeHealth::Response::Claim::SubmissionData.new(
             response: ChangeHealth::Connection.new.request(
-              endpoint: endpoint,
+              endpoint: self.class.endpoint(
+                is_professional: is_professional,
+                suffix: VALIDATION_SUFFIX
+              ),
               body: to_h,
               headers: is_professional ? professional_headers : institutional_headers
             )
@@ -60,13 +62,27 @@ module ChangeHealth
         end
 
         def self.health_check(is_professional: true)
-          endpoint = is_professional ? PROFESSIONAL_ENDPOINT : INSTITUTIONAL_ENDPOINT
-          endpoint += HEALTH_CHECK_SUFFIX
-          ChangeHealth::Connection.new.request(endpoint: endpoint, verb: :get)
+          ChangeHealth::Connection.new.request(
+            endpoint: endpoint(
+              is_professional: is_professional,
+              suffix: HEALTH_CHECK_SUFFIX
+            ),
+            verb: :get
+          )
         end
 
         def self.ping(is_professional: true)
           health_check(is_professional: is_professional)
+        end
+
+        def self.endpoint(is_professional: true, suffix: '')
+          default_endpoint = is_professional ? PROFESSIONAL_ENDPOINT : INSTITUTIONAL_ENDPOINT
+          default_endpoint += suffix
+
+          ChangeHealth::Connection.endpoint_for(
+            ChangeHealth::Request::Claim::Submission,
+            default_endpoint: default_endpoint
+          )
         end
 
         def professional_headers

@@ -181,5 +181,50 @@ class SubmissionTest < Minitest::Test
         end
       end
     end
+
+    describe '#self.endpoint' do
+      it 'professional w/ suffix' do
+        suffix = '/whatever'
+        endpoint = ChangeHealth::Request::Claim::Submission.endpoint(
+          is_professional: true,
+          suffix: suffix
+        )
+
+        expected_endpoint = professional_endpoint + suffix
+        assert_equal expected_endpoint, endpoint
+      end
+
+      it 'institutional w/out suffix' do
+        endpoint = ChangeHealth::Request::Claim::Submission.endpoint(
+          is_professional: false
+        )
+        assert_equal institutional_endpoint, endpoint
+      end
+
+      describe 'configuration override' do
+        before do
+          @config = ChangeHealth.configuration.to_h
+        end
+
+        after do
+          ChangeHealth.configuration.from_h(@config)
+        end
+
+        it 'respects configuration' do
+          new_endpoint = '/someotherendpoint'
+
+          ChangeHealth.configuration.endpoints = {
+            'ChangeHealth::Request::Claim::Submission' => new_endpoint
+          }
+
+          endpoint = ChangeHealth::Request::Claim::Submission.endpoint(
+            is_professional: false,
+            suffix: 'STUFF'
+          )
+
+          assert_equal new_endpoint, endpoint
+        end
+      end
+    end
   end
 end
