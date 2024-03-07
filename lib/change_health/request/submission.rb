@@ -15,20 +15,25 @@ module ChangeHealth
         VALIDATION_ENDPOINT = ENDPOINT + '/validation'.freeze
         # End Deprecated
 
-        property :billingPayToAddressName, from: :billing_pay_to_address_name, required: false
-        property :claimInformation, from: :claim_information, required: false
+        property :attending
+        property :billing
+        property :billingPayToAddressName, from: :billing_pay_to_address_name
+        property :claimInformation, from: :claim_information
         property :controlNumber, from: :control_number, required: true, default: ChangeHealth::Models::CONTROL_NUMBER
-        property :dependent, required: false
-        property :headers, required: false
-        property :payToAddress, from: :pay_to_address, required: false
-        property :providers, required: false
-        property :receiver, required: false
-        property :submitter, required: false
-        property :subscriber, required: false
+        property :dependent
+        property :headers
+        property :payToAddress, from: :pay_to_address
+        property :providers
+        property :receiver
+        property :referring
+        property :rendering
+        property :submitter
+        property :subscriber
+        property :supervising
         # Need one or the other, trading partner id or trading partner service id
-        property :tradingPartnerId, from: :trading_partner_id, required: false
-        property :tradingPartnerName, from: :trading_partner_name, required: false
-        property :tradingPartnerServiceId, from: :trading_partner_service_id, required: false
+        property :tradingPartnerId, from: :trading_partner_id
+        property :tradingPartnerName, from: :trading_partner_name
+        property :tradingPartnerServiceId, from: :trading_partner_service_id
 
         def add_provider(provider)
           self[:providers] ||= []
