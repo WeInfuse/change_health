@@ -6,21 +6,31 @@ module ChangeHealth
         HEALTH_CHECK_ENDPOINT = ENDPOINT + '/healthcheck'.freeze
 
         def self.report_list(headers: nil)
+          endpoint = ChangeHealth::Connection.endpoint_for(self)
           final_headers = ChangeHealth::Request::Claim::Report.report_headers(headers)
           ChangeHealth::Response::Claim::ReportListData.new(response: ChangeHealth::Connection.new.request(
-            endpoint: ENDPOINT, verb: :get, headers: final_headers
+            endpoint: endpoint, verb: :get, headers: final_headers
           ))
         end
 
-        def self.get_report(report_name, as_json_report: true, headers: nil)
+        def self.get_report(
+          report_name,
+          as_json_report: true,
+          headers: nil,
+          report_type: nil
+        )
           return if report_name.nil? || report_name.empty?
 
           final_headers = ChangeHealth::Request::Claim::Report.report_headers(headers)
 
-          individual_report_endpoint = "#{ENDPOINT}/#{report_name}"
+          endpoint = ChangeHealth::Connection.endpoint_for(self)
+
+          individual_report_endpoint = "#{endpoint}/#{report_name}"
 
           # https://developers.changehealthcare.com/eligibilityandclaims/docs/what-file-types-does-this-api-get-from-the-mailbox
-          if as_json_report
+          if report_type
+            individual_report_endpoint += "/#{report_type}"
+          elsif as_json_report
             report_type = ChangeHealth::Response::Claim::ReportData.report_type(report_name)
             individual_report_endpoint += "/#{report_type}"
           end
@@ -53,7 +63,8 @@ module ChangeHealth
 
           final_headers = ChangeHealth::Request::Claim::Report.report_headers(headers)
 
-          individual_report_endpoint = "#{ENDPOINT}/#{report_name}"
+          endpoint = ChangeHealth::Connection.endpoint_for(self)
+          individual_report_endpoint = "#{endpoint}/#{report_name}"
 
           ChangeHealth::Connection.new.request(
             endpoint: individual_report_endpoint,

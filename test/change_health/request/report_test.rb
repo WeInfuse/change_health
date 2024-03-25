@@ -123,5 +123,49 @@ class ReportTest < Minitest::Test
         end
       end
     end
+
+    describe 'can use custom endpoint' do
+      let(:new_endpoint) { '/someNewReportEndpoint' }
+      before do
+        @config = ChangeHealth.configuration.to_h
+
+        ChangeHealth.configuration.endpoints = {
+          'ChangeHealth::Request::Claim::Report' => new_endpoint
+        }
+      end
+
+      after do
+        ChangeHealth.configuration.from_h(@config)
+      end
+
+      it '#report_list' do
+        stub_change_health(endpoint: new_endpoint, verb: :get)
+        claim_report.report_list
+        assert_requested(@stub)
+      end
+
+      describe '#get_report' do
+        let(:report_name) { 'R5000000.XY' }
+        it 'custom beginning path' do
+          stub_change_health(endpoint: "#{new_endpoint}/#{report_name}", verb: :get)
+          claim_report.get_report(report_name, as_json_report: false)
+          assert_requested(@stub)
+        end
+
+        it 'custom report type' do
+          report_type = '999'
+          stub_change_health(endpoint: "#{new_endpoint}/#{report_name}/#{report_type}", verb: :get)
+          claim_report.get_report(report_name, report_type: report_type)
+          assert_requested(@stub)
+        end
+      end
+
+      it '#delete_report' do
+        report_name = 'X3000000.XX'
+        stub_change_health(endpoint: "#{new_endpoint}/#{report_name}", verb: :delete)
+        claim_report.delete_report(report_name)
+        assert_requested(@stub)
+      end
+    end
   end
 end
