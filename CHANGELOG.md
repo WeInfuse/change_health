@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+# [5.8.1] - 2024-04-01
+
+### Fixed
+
+ChangeHealth::Response::Error is retryable for retryable codes that do not have a followup action.
+Previously, a followup action was required to be retryable.
+
 # [5.8.0] - 2024-03-25
 
 ### Added
@@ -625,6 +632,7 @@ Added the ability to hit professional claim submission API. For more details, se
 * Authentication
 * Configuration
 
+[5.8.1]: https://github.com/WeInfuse/change_health/compare/v5.8.0...v5.8.1
 [5.8.0]: https://github.com/WeInfuse/change_health/compare/v5.7.0...v5.8.0
 [5.7.0]: https://github.com/WeInfuse/change_health/compare/v5.6.0...v5.7.0
 [5.6.0]: https://github.com/WeInfuse/change_health/compare/v5.5.0...v5.6.0
