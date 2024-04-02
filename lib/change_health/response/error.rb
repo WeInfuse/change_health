@@ -39,9 +39,7 @@ module ChangeHealth
 
       def retryable?
         represents_down? ||
-          (code? && SIMPLE_RETRY_CODES.include?(code) && followupAction? && NO_RESUBMIT_MESSAGES.none? do |msg|
-             followupAction.downcase.include?(msg)
-           end)
+          (code? && SIMPLE_RETRY_CODES.include?(code) && can_follow_up?)
       end
 
       %w[field description code followupAction location].each do |method_name|
@@ -51,6 +49,16 @@ module ChangeHealth
 
         define_method(method_name.to_s) do
           @data[method_name]
+        end
+      end
+
+      private
+
+      def can_follow_up?
+        return true if followupAction.nil? || followupAction.empty?
+
+        followupAction? && NO_RESUBMIT_MESSAGES.none? do |msg|
+          followupAction.downcase.include?(msg)
         end
       end
     end
