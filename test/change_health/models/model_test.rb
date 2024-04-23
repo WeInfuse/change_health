@@ -101,6 +101,12 @@ class ModelTest < Minitest::Test
         assert_equal(Date.new(2016, 9, 15), ChangeHealth::Models::PARSE_DATE.call('20160915'))
       end
 
+      it 'handles alternate format' do
+        assert_equal(Date.new(2012, 5, 1), ChangeHealth::Models::PARSE_DATE.call('2012-05-01'))
+        assert_equal(Date.new(2015, 1, 1), ChangeHealth::Models::PARSE_DATE.call('2015-01-01'))
+        assert_equal(Date.new(2016, 9, 15), ChangeHealth::Models::PARSE_DATE.call('2016-09-15'))
+      end
+
       it 'returns input if bad date format' do
         fake_date_string = 'lskjdf'
         assert_equal(fake_date_string, ChangeHealth::Models::PARSE_DATE.call(fake_date_string))

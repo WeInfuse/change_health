@@ -34,7 +34,7 @@ module ChangeHealth
 
     PARSE_DATE = lambda { |d|
       begin
-        d = Date.strptime(d, ChangeHealth::Models::DATE_FORMAT)
+        d = Date.strptime(d.tr('-', ''), ChangeHealth::Models::DATE_FORMAT)
       rescue StandardError
       end
 
