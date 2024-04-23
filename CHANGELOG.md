@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 * orderingProvider to ChangeHealth::Models::Claim::ServiceLine
 
+# [5.10.0] - 2024-04-23
+
+### Added
+
+* Support date format YYYY-MM-DD
+
 # [5.9.0] - 2024-04-19
 
 ### Added
@@ -644,6 +650,7 @@ Added the ability to hit professional claim submission API. For more details, se
 * Authentication
 * Configuration
 
+[5.10.0]: https://github.com/WeInfuse/change_health/compare/v5.9.0...v5.10.0
 [5.9.0]: https://github.com/WeInfuse/change_health/compare/v5.8.1...v5.9.0
 [5.8.1]: https://github.com/WeInfuse/change_health/compare/v5.8.0...v5.8.1
 [5.8.0]: https://github.com/WeInfuse/change_health/compare/v5.7.0...v5.8.0
