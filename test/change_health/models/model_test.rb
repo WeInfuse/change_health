@@ -105,6 +105,7 @@ class ModelTest < Minitest::Test
         assert_equal(Date.new(2012, 5, 1), ChangeHealth::Models::PARSE_DATE.call('2012-05-01'))
         assert_equal(Date.new(2015, 1, 1), ChangeHealth::Models::PARSE_DATE.call('2015-01-01'))
         assert_equal(Date.new(2016, 9, 15), ChangeHealth::Models::PARSE_DATE.call('2016-09-15'))
+        assert_equal(Date.new(2016, 9, 15), ChangeHealth::Models::PARSE_DATE.call('20-1-6-09----1--5'))
       end
 
       it 'returns input if bad date format' do
