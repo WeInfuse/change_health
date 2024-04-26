@@ -22,18 +22,31 @@ class ReportTest < Minitest::Test
       let(:response) { build_response(file: 'claim/report/list.example.response.json') }
       let(:report_list_endpoint) { ChangeHealth::Request::Claim::Report::ENDPOINT }
 
-      before do
+      it 'calls report list' do
         stub_change_health(endpoint: report_list_endpoint, response: response, verb: :get)
 
-        @report_list_data = claim_report.report_list(headers: report_headers)
-      end
+        claim_report.report_list
 
-      it 'calls report list' do
         assert_requested(@stub)
       end
 
       it 'returns report list data' do
-        assert_equal(@report_list_data.raw, @report_list_data.response.parsed_response)
+        stub_change_health(endpoint: report_list_endpoint, response: response, verb: :get)
+
+        report_list_data = claim_report.report_list(headers: report_headers)
+
+        assert_equal(report_list_data.raw, report_list_data.response.parsed_response)
+      end
+
+      it 'accepts more url' do
+        more_url = '?someAdditionalUrl=more'
+        whole_url = report_list_endpoint + more_url
+
+        stub_change_health(endpoint: whole_url, response: response, verb: :get)
+
+        claim_report.report_list(more_url: more_url)
+
+        assert_requested(@stub)
       end
     end
 

@@ -5,8 +5,8 @@ module ChangeHealth
         ENDPOINT = '/medicalnetwork/reports/v2'.freeze
         HEALTH_CHECK_ENDPOINT = ENDPOINT + '/healthcheck'.freeze
 
-        def self.report_list(headers: nil)
-          endpoint = ChangeHealth::Connection.endpoint_for(self)
+        def self.report_list(headers: nil, more_url: nil)
+          endpoint = ChangeHealth::Connection.endpoint_for(self) + more_url.to_s
           final_headers = ChangeHealth::Request::Claim::Report.report_headers(headers)
           ChangeHealth::Response::Claim::ReportListData.new(response: ChangeHealth::Connection.new.request(
             endpoint: endpoint, verb: :get, headers: final_headers
