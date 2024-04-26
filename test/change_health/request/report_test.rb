@@ -38,13 +38,13 @@ class ReportTest < Minitest::Test
         assert_equal(report_list_data.raw, report_list_data.response.parsed_response)
       end
 
-      it 'accepts additional url' do
-        additional_url = '?someAdditionalUrl=more'
-        whole_url = report_list_endpoint + additional_url
+      it 'accepts more url' do
+        more_url = '?someAdditionalUrl=more'
+        whole_url = report_list_endpoint + more_url
 
         stub_change_health(endpoint: whole_url, response: response, verb: :get)
 
-        claim_report.report_list(additional_url: additional_url)
+        claim_report.report_list(more_url: more_url)
 
         assert_requested(@stub)
       end
