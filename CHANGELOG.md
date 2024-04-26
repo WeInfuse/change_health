@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-* additional_url option to ChangeHealth::Request::Claim::Report
+* more_url option to ChangeHealth::Request::Claim::Report
 
 # [5.11.0] - 2024-04-23
 
