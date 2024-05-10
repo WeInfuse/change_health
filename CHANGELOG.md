@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+# [5.12.1] - 2024-05-10
+
+### Fixed
+
+* For ChangeHealth::Response::Claim::ReportData, if multiple json values can be used to find a value, it will now use other json values if the first choice is empty but not nil like `""`
+
 # [5.12.0] - 2024-04-26
 
 ### Added
@@ -656,6 +662,7 @@ Added the ability to hit professional claim submission API. For more details, se
 * Authentication
 * Configuration
 
+[5.12.1]: https://github.com/WeInfuse/change_health/compare/v5.12.0...v5.12.1
 [5.12.0]: https://github.com/WeInfuse/change_health/compare/v5.11.0...v5.12.0
 [5.11.0]: https://github.com/WeInfuse/change_health/compare/v5.10.0...v5.11.0
 [5.10.0]: https://github.com/WeInfuse/change_health/compare/v5.9.0...v5.10.0

@@ -3,7 +3,7 @@ module ChangeHealth
     module Claim
       class ReportData < ChangeHealth::Response::ResponseData
         attr_reader :report_name, :json
-        alias_method :json?, :json
+        alias json? json
 
         def initialize(report_name, json, data: nil, response: nil)
           super(data: data, response: response)
@@ -38,6 +38,11 @@ module ChangeHealth
 
         def self.is_835?(report_name)
           report_name.start_with?('R5')
+        end
+
+        # Ripped from rails Object#presence method
+        def presence(obj)
+          obj unless obj.respond_to?(:empty?) ? !!obj.empty? : !obj
         end
       end
     end

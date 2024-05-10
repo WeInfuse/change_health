@@ -877,6 +877,9 @@
             "detailInfo": [
                 {
                     "assignedNumber": "1",
+                    "providerSummaryInformation": {
+                        "providerIdentifier": ""
+                    },
                     "paymentInfo": [
                         {
                             "claimPaymentInfo": {

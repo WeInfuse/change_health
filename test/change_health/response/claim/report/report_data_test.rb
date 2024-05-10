@@ -31,4 +31,36 @@ class ReportDataTest < Minitest::Test
       assert report_data_edi.edi?
     end
   end
+
+  describe 'utility methods' do
+    let(:report_data) { ChangeHealth::Response::Claim::ReportData.new('name', {}) }
+
+    describe 'presence' do
+      it 'uses empty and is not present' do
+        x = []
+        assert_equal true, x.empty?
+        assert_nil report_data.presence(x)
+      end
+
+      it 'uses empty and is present' do
+        x = [1, 2, 3]
+        assert_equal false, x.empty?
+        assert_equal x, report_data.presence(x)
+      end
+
+      it 'does not use empty and is not present' do
+        x = false
+
+        assert_equal false, x.respond_to?(:empty?)
+        assert_nil report_data.presence(x)
+      end
+
+      it 'does not use empty and is present' do
+        x = true
+
+        assert_equal false, x.respond_to?(:empty?)
+        assert_equal x, report_data.presence(x)
+      end
+    end
+  end
 end
