@@ -44,8 +44,8 @@ module ChangeHealth
                       referenced_transaction_trace_number = claim_status['referencedTransactionTraceNumber']
                       trading_partner_claim_number = claim_status['tradingPartnerClaimNumber']
 
-                      service_date_begin = ChangeHealth::Models::PARSE_DATE.call(claim_status['claimServiceBeginDate'] || claim_status['claimServiceDate'])
-                      service_date_end = ChangeHealth::Models::PARSE_DATE.call(claim_status['claimServiceEndDate'] || claim_status['claimServiceDate'])
+                      service_date_begin = ChangeHealth::Models::PARSE_DATE.call(presence(claim_status['claimServiceBeginDate']) || presence(claim_status['claimServiceDate']))
+                      service_date_end = ChangeHealth::Models::PARSE_DATE.call(presence(claim_status['claimServiceEndDate']) || presence(claim_status['claimServiceDate']))
 
                       info_claim_statuses = []
                       claim_status['informationClaimStatuses']&.each do |info_claim_status|
