@@ -668,7 +668,7 @@ Added the ability to hit professional claim submission API. For more details, se
 * Authentication
 * Configuration
 
-[5.13.0]: https://github.com/WeInfuse/change_health/compare/v5.12.01...v5.13.0
+[5.13.0]: https://github.com/WeInfuse/change_health/compare/v5.12.1...v5.13.0
 [5.12.1]: https://github.com/WeInfuse/change_health/compare/v5.12.0...v5.12.1
 [5.12.0]: https://github.com/WeInfuse/change_health/compare/v5.11.0...v5.12.0
 [5.11.0]: https://github.com/WeInfuse/change_health/compare/v5.10.0...v5.11.0
