@@ -33,6 +33,7 @@ class Report277DataTest < Minitest::Test
         )
         expected_claim = ChangeHealth::Response::Claim::Report277Claim.new(
           clearinghouse_trace_number: '111111111111111',
+          id: '2102948947',
           info_claim_statuses: [info_claim_status],
           patient_account_number: '00000',
           patient_first_name: 'JOHNONE',
