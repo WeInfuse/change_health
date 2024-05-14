@@ -20,6 +20,7 @@ module ChangeHealth
           report_claims = []
 
           transactions&.each do |transaction|
+            id = transaction.dig('id')
             report_creation_date = ChangeHealth::Models::PARSE_DATE.call(transaction['transactionSetCreationDate'])
             transaction['payers']&.each do |payer|
               payer_identification = payer['payerIdentification']
@@ -67,6 +68,7 @@ module ChangeHealth
                       end
                       report_claims << Report277Claim.new(
                         clearinghouse_trace_number: clearinghouse_trace_number,
+                        id: id,
                         info_claim_statuses: info_claim_statuses,
                         patient_account_number: patient_account_number,
                         patient_first_name: patient_first_name,

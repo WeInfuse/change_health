@@ -2,17 +2,18 @@ module ChangeHealth
   module Response
     module Claim
       class Report835Payment < Hashie::Trash
-        property :check_issue_or_eft_effective_date, required: false
-        property :check_or_eft_trace_number, required: false
-        property :claims, required: false
-        property :payer_identifier, required: false
-        property :payer_name, required: false
-        property :payment_method_code, required: false
-        property :payer_address, required: false
-        property :provider_adjustments, required: false
-        property :report_creation_date, required: false
-        property :report_name, required: false
-        property :total_actual_provider_payment_amount, required: false
+        property :check_issue_or_eft_effective_date
+        property :check_or_eft_trace_number
+        property :claims
+        property :id
+        property :payer_identifier
+        property :payer_name
+        property :payment_method_code
+        property :payer_address
+        property :provider_adjustments
+        property :report_creation_date
+        property :report_name
+        property :total_actual_provider_payment_amount
       end
     end
   end

@@ -108,6 +108,7 @@ class Report835DataTest < Minitest::Test
           claim_payment_amount: '132',
           claim_payment_remark_codes: ['N520'],
           claim_status_code: '1',
+          id: '84298742037',
           patient_control_number: '7722337',
           patient_first_name: 'SANDY',
           patient_last_name: 'DOE',
