@@ -69,7 +69,11 @@
                                 "npi": "1811901945"
                             },
                             "outpatientAdjudication": {
-                                "claimPaymentRemarkCode1": "N520"
+                                "claimPaymentRemarkCode1": "N520",
+                                "claimPaymentRemarkCode2": "",
+                                "claimPaymentRemarkCode3": "",
+                                "claimPaymentRemarkCode4": "",
+                                "claimPaymentRemarkCode5": ""
                             },
                             "claimSupplementalInformation": {
                                 "coverageAmount": "132"
@@ -79,7 +83,15 @@
                                     "claimAdjustmentGroupCode": "OA",
                                     "claimAdjustmentGroupCodeValue": "Other adjustments",
                                     "adjustmentReasonCode1": "23",
-                                    "adjustmentAmount1": "19166.72"
+                                    "adjustmentAmount1": "19166.72",
+                                    "adjustmentReasonCode2": "",
+                                    "adjustmentAmount2": "0.00",
+                                    "adjustmentReasonCode3": "",
+                                    "adjustmentAmount3": "0",
+                                    "adjustmentReasonCode4": "",
+                                    "adjustmentAmount4": "",
+                                    "adjustmentReasonCode5": "",
+                                    "adjustmentAmount5": ""
                                 }
                             ],
                             "serviceLines": [
@@ -100,7 +112,13 @@
                                             "adjustmentAmount1": "1685.95",
                                             "adjustmentQuantity1": "1",
                                             "adjustmentReasonCode2": "253",
-                                            "adjustmentAmount2": "29.7"
+                                            "adjustmentAmount2": "29.7",
+                                            "adjustmentReasonCode3": "",
+                                            "adjustmentAmount3": "0",
+                                            "adjustmentReasonCode4": "",
+                                            "adjustmentAmount4": "0.00",
+                                            "adjustmentReasonCode5": "",
+                                            "adjustmentAmount5": ""
                                         },
                                         {
                                             "claimAdjustmentGroupCode": "PR",
@@ -108,7 +126,13 @@
                                             "adjustmentReasonCode1": "1",
                                             "adjustmentAmount1": "57.54",
                                             "adjustmentReasonCode2": "2",
-                                            "adjustmentAmount2": "371.3"
+                                            "adjustmentAmount2": "371.3",
+                                            "adjustmentReasonCode3": "",
+                                            "adjustmentAmount3": "0",
+                                            "adjustmentReasonCode4": "",
+                                            "adjustmentAmount4": "0.00",
+                                            "adjustmentReasonCode5": "",
+                                            "adjustmentAmount5": ""
                                         }
                                     ],
                                     "serviceSupplementalAmounts": {
