@@ -74,10 +74,16 @@ module ChangeHealth
 
                 claim_payment_remark_codes = []
                 claim_payment_remark_codes_index = 1
-                while payment_info.dig('outpatientAdjudication',
-                                       "claimPaymentRemarkCode#{claim_payment_remark_codes_index}")
-                  claim_payment_remark_codes << payment_info.dig('outpatientAdjudication',
-                                                                 "claimPaymentRemarkCode#{claim_payment_remark_codes_index}")
+
+                loop do
+                  current_claim_payment_remark_code = payment_info
+                                                      .dig(
+                                                        'outpatientAdjudication',
+                                                        "claimPaymentRemarkCode#{claim_payment_remark_codes_index}"
+                                                      )
+                  break unless presence(current_claim_payment_remark_code)
+
+                  claim_payment_remark_codes << current_claim_payment_remark_code
                   claim_payment_remark_codes_index += 1
                 end
 
@@ -174,12 +180,14 @@ module ChangeHealth
         def adjustments(list)
           list&.map do |adjustment|
             adjustments = {}
-            service_adjustment_index = 1
-            while adjustment["adjustmentReasonCode#{service_adjustment_index}"]
-              adjustment_reason = adjustment["adjustmentReasonCode#{service_adjustment_index}"]
-              adjustment_amount = adjustment["adjustmentAmount#{service_adjustment_index}"]
-              adjustments[adjustment_reason] = adjustment_amount
-              service_adjustment_index += 1
+            adjustment_index = 1
+            loop do
+              current_adjustment_reason = adjustment["adjustmentReasonCode#{adjustment_index}"]
+              break unless presence(current_adjustment_reason)
+
+              adjustment_amount = adjustment["adjustmentAmount#{adjustment_index}"]
+              adjustments[current_adjustment_reason] = adjustment_amount
+              adjustment_index += 1
             end
 
             claim_adjustment_group_code = adjustment['claimAdjustmentGroupCode']
