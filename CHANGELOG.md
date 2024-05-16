@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+# [5.13.2] - 2024-05-16
+
+### Fixed
+
+* For ChangeHealth::Response::Claim::Report835Data, the following lists of values will now ignore empty "" in the json, even if the WHOLE field is empty
+- claim_payment_remark_codes
+- claim_adjustments
+- service_adjustments
+
 # [5.13.1] - 2024-05-15
 
 ### Fixed
@@ -677,6 +686,7 @@ Added the ability to hit professional claim submission API. For more details, se
 * Authentication
 * Configuration
 
+[5.13.2]: https://github.com/WeInfuse/change_health/compare/v5.13.1...v5.13.2
 [5.13.1]: https://github.com/WeInfuse/change_health/compare/v5.13.0...v5.13.1
 [5.13.0]: https://github.com/WeInfuse/change_health/compare/v5.12.1...v5.13.0
 [5.12.1]: https://github.com/WeInfuse/change_health/compare/v5.12.0...v5.12.1
