@@ -179,6 +179,24 @@ class Report835DataTest < Minitest::Test
           assert_equal Date.new(2019, 3, 23), odd_claim_service_date.service_date_begin
           assert_equal Date.new(2019, 3, 24), odd_claim_service_date.service_date_end
         end
+
+        describe 'all blank adjustments' do
+          it 'claimPaymentRemarkCodes' do
+            assert_equal [], odd_claim1.claim_payment_remark_codes
+          end
+
+          it 'claimAdjustments' do
+            assert_nil odd_claim1.claim_adjustments
+          end
+
+          it 'serviceAdjustments' do
+            assert_nil odd_claim1.service_lines[0].service_adjustments
+          end
+
+          it 'healthCareCheckRemarkCodes' do
+            assert_nil odd_claim1.service_lines[0].health_care_check_remark_codes
+          end
+        end
       end
     end
   end

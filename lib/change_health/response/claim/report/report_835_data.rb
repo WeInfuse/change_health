@@ -110,13 +110,16 @@ module ChangeHealth
 
                   service_adjustments = adjustments(service_line['serviceAdjustments'])
 
-                  health_care_check_remark_codes = service_line['healthCareCheckRemarkCodes']&.map do |health_care_check_remark_code|
+                  health_care_check_remark_codes = presence(service_line['healthCareCheckRemarkCodes']&.filter_map do |health_care_check_remark_code|
+                    remark_code = health_care_check_remark_code['remarkCode']
+                    next unless presence(remark_code)
+
                     Report835HealthCareCheckRemarkCode.new(
                       code_list_qualifier_code: health_care_check_remark_code['codeListQualifierCode'],
                       code_list_qualifier_code_value: health_care_check_remark_code['codeListQualifierCodeValue'],
-                      remark_code: health_care_check_remark_code['remarkCode']
+                      remark_code: remark_code
                     )
-                  end
+                  end)
 
                   Report835ServiceLine.new(
                     adjudicated_procedure_code: adjudicated_procedure_code,
@@ -178,7 +181,7 @@ module ChangeHealth
         private
 
         def adjustments(list)
-          list&.map do |adjustment|
+          presence(list&.filter_map do |adjustment|
             adjustments = {}
             adjustment_index = 1
             loop do
@@ -192,11 +195,13 @@ module ChangeHealth
 
             claim_adjustment_group_code = adjustment['claimAdjustmentGroupCode']
 
-            Report835ServiceAdjustment.new(
-              adjustments: adjustments,
-              claim_adjustment_group_code: claim_adjustment_group_code
-            )
-          end
+            if presence(adjustments)
+              Report835ServiceAdjustment.new(
+                adjustments: adjustments,
+                claim_adjustment_group_code: claim_adjustment_group_code
+              )
+            end
+          end)
         end
       end
     end

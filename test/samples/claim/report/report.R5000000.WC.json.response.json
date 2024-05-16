@@ -143,6 +143,11 @@
                                             "codeListQualifierCode": "HE",
                                             "codeListQualifierCodeValue": "Claim Payment Remark Codes",
                                             "remarkCode": "N510"
+                                        },
+                                        {
+                                            "codeListQualifierCode": "HE",
+                                            "codeListQualifierCodeValue": "Claim Payment Remark Codes",
+                                            "remarkCode": ""
                                         }
                                     ]
                                 },
@@ -651,6 +656,37 @@
                             "claimSupplementalInformation": {
                                 "coverageAmount": "28"
                             },
+                            "outpatientAdjudication": {
+                                "claimPaymentRemarkCode1": "",
+                                "claimPaymentRemarkCode2": "",
+                                "claimPaymentRemarkCode3": "",
+                                "claimPaymentRemarkCode4": "",
+                                "claimPaymentRemarkCode5": ""
+                            },
+                            "claimAdjustments": [
+                                {
+                                    "claimAdjustmentGroupCode": "",
+                                    "claimAdjustmentGroupCodeValue": "",
+                                    "adjustmentReasonCode1": "",
+                                    "adjustmentAmount1": "",
+                                    "adjustmentQuantity1": "",
+                                    "adjustmentReasonCode2": "",
+                                    "adjustmentAmount2": "",
+                                    "adjustmentQuantity2": "",
+                                    "adjustmentReasonCode3": "",
+                                    "adjustmentAmount3": "",
+                                    "adjustmentQuantity3": "",
+                                    "adjustmentReasonCode4": "",
+                                    "adjustmentAmount4": "",
+                                    "adjustmentQuantity4": "",
+                                    "adjustmentReasonCode5": "",
+                                    "adjustmentAmount5": "",
+                                    "adjustmentQuantity5": "",
+                                    "adjustmentReasonCode6": "",
+                                    "adjustmentAmount6": "",
+                                    "adjustmentQuantity6": ""
+                                }
+                            ],
                             "serviceLines": [
                                 {
                                     "serviceDate": "20190313",
@@ -663,10 +699,60 @@
                                     },
                                     "serviceAdjustments": [
                                         {
-                                            "claimAdjustmentGroupCode": "CO",
-                                            "claimAdjustmentGroupCodeValue": "Contractual Obligations",
-                                            "adjustmentReasonCode1": "45",
-                                            "adjustmentAmount1": "125"
+                                            "claimAdjustmentGroupCode": "",
+                                            "claimAdjustmentGroupCodeValue": "",
+                                            "adjustmentReasonCode1": "",
+                                            "adjustmentAmount1": "",
+                                            "adjustmentQuantity1": "",
+                                            "adjustmentReasonCode2": "",
+                                            "adjustmentAmount2": "",
+                                            "adjustmentQuantity2": "",
+                                            "adjustmentReasonCode3": "",
+                                            "adjustmentAmount3": "",
+                                            "adjustmentQuantity3": "",
+                                            "adjustmentReasonCode4": "",
+                                            "adjustmentAmount4": "",
+                                            "adjustmentQuantity4": "",
+                                            "adjustmentReasonCode5": "",
+                                            "adjustmentAmount5": "",
+                                            "adjustmentQuantity5": "",
+                                            "adjustmentReasonCode6": "",
+                                            "adjustmentAmount6": "",
+                                            "adjustmentQuantity6": ""
+                                        },
+                                        {
+                                            "claimAdjustmentGroupCode": "",
+                                            "claimAdjustmentGroupCodeValue": "",
+                                            "adjustmentReasonCode1": "",
+                                            "adjustmentAmount1": "",
+                                            "adjustmentQuantity1": "",
+                                            "adjustmentReasonCode2": "",
+                                            "adjustmentAmount2": "",
+                                            "adjustmentQuantity2": "",
+                                            "adjustmentReasonCode3": "",
+                                            "adjustmentAmount3": "",
+                                            "adjustmentQuantity3": "",
+                                            "adjustmentReasonCode4": "",
+                                            "adjustmentAmount4": "",
+                                            "adjustmentQuantity4": "",
+                                            "adjustmentReasonCode5": "",
+                                            "adjustmentAmount5": "",
+                                            "adjustmentQuantity5": "",
+                                            "adjustmentReasonCode6": "",
+                                            "adjustmentAmount6": "",
+                                            "adjustmentQuantity6": ""
+                                        }
+                                    ],
+                                    "healthCareCheckRemarkCodes": [
+                                        {
+                                            "codeListQualifierCode": "HE",
+                                            "codeListQualifierCodeValue": "Claim Payment Remark Codes",
+                                            "remarkCode": ""
+                                        },
+                                        {
+                                            "codeListQualifierCode": "HE",
+                                            "codeListQualifierCodeValue": "Claim Payment Remark Codes",
+                                            "remarkCode": ""
                                         }
                                     ]
                                 },
