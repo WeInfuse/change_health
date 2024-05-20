@@ -28,7 +28,7 @@ module ChangeHealth
           report_payments = []
 
           transactions&.each do |transaction|
-            id = transaction.dig('id')
+            payment_id = transaction.dig('id')
             check_or_eft_trace_number = transaction.dig('paymentAndRemitReassociationDetails', 'checkOrEFTTraceNumber')
             check_issue_or_eft_effective_date =
               ChangeHealth::Models::PARSE_DATE.call(
@@ -56,6 +56,7 @@ module ChangeHealth
             total_actual_provider_payment_amount =
               transaction.dig('financialInformation', 'totalActualProviderPaymentAmount')
             claims = transaction['detailInfo']&.flat_map do |detail_info|
+              claim_id = detail_info.dig('id')
               detail_info['paymentInfo']&.map do |payment_info|
                 claim_payment_amount = payment_info.dig('claimPaymentInfo', 'claimPaymentAmount')
                 claim_status_code = payment_info.dig('claimPaymentInfo', 'claimStatusCode')
@@ -141,7 +142,7 @@ module ChangeHealth
                   claim_payment_amount: claim_payment_amount,
                   claim_payment_remark_codes: claim_payment_remark_codes,
                   claim_status_code: claim_status_code,
-                  id: id,
+                  id: claim_id,
                   patient_control_number: patient_control_number,
                   patient_first_name: patient_first_name,
                   patient_last_name: patient_last_name,
@@ -163,7 +164,7 @@ module ChangeHealth
               check_issue_or_eft_effective_date: check_issue_or_eft_effective_date,
               check_or_eft_trace_number: check_or_eft_trace_number,
               claims: claims,
-              id: id,
+              id: payment_id,
               payer_identifier: payer_identifier,
               payer_name: payer_name,
               payer_address: payer_address,
