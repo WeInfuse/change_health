@@ -1,7 +1,7 @@
 {
     "transactions": [
         {
-            "id": "84298742037",
+            "id": "3029342309",
             "controlNumber": "35681",
             "paymentAndRemitReassociationDetails": {
                 "traceTypeCode": "1",
@@ -45,6 +45,7 @@
             },
             "detailInfo": [
                 {
+                    "id": "84298742037",
                     "assignedNumber": "1",
                     "paymentInfo": [
                         {
@@ -143,6 +144,11 @@
                                             "codeListQualifierCode": "HE",
                                             "codeListQualifierCodeValue": "Claim Payment Remark Codes",
                                             "remarkCode": "N510"
+                                        },
+                                        {
+                                            "codeListQualifierCode": "HE",
+                                            "codeListQualifierCodeValue": "Claim Payment Remark Codes",
+                                            "remarkCode": "N381"
                                         },
                                         {
                                             "codeListQualifierCode": "HE",
@@ -583,7 +589,7 @@
             ]
         },
         {
-            "id": "823947293874",
+            "id": "39293473",
             "controlNumber": "234",
             "paymentAndRemitReassociationDetails": {
                 "traceTypeCode": "1",
@@ -627,6 +633,7 @@
             },
             "detailInfo": [
                 {
+                    "id": "823947293874",
                     "assignedNumber": "1",
                     "providerSummaryInformation": {
                         "providerIdentifier": "1811901928"

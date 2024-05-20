@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+# [5.13.3] - 2024-05-20
+
+### Fixed
+
+* Grab "id" per claim for ChangeHealth::Response::Claim::Report835Claim INSTEAD of per transaction. B/c each transaction is a payment, not a claim
+
 # [5.13.2] - 2024-05-16
 
 ### Fixed
@@ -686,6 +692,7 @@ Added the ability to hit professional claim submission API. For more details, se
 * Authentication
 * Configuration
 
+[5.13.3]: https://github.com/WeInfuse/change_health/compare/v5.13.2...v5.13.3
 [5.13.2]: https://github.com/WeInfuse/change_health/compare/v5.13.1...v5.13.2
 [5.13.1]: https://github.com/WeInfuse/change_health/compare/v5.13.0...v5.13.1
 [5.13.0]: https://github.com/WeInfuse/change_health/compare/v5.12.1...v5.13.0

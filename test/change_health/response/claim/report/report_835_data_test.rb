@@ -37,6 +37,7 @@ class Report835DataTest < Minitest::Test
         }
         assert_equal Date.new(2019, 3, 31), actual_payment.check_issue_or_eft_effective_date
         assert_equal '12345', actual_payment.check_or_eft_trace_number
+        assert_equal '3029342309', actual_payment.id
         assert_equal '1351840597', actual_payment.payer_identifier
         assert_equal address[:address1], actual_payment.payer_address['address1']
         assert_equal 'DENTAL OF ABC', actual_payment.payer_name
@@ -86,11 +87,18 @@ class Report835DataTest < Minitest::Test
           claim_adjustment_group_code: 'OA'
         )
 
-        health_care_check_remark_codes = [ChangeHealth::Response::Claim::Report835HealthCareCheckRemarkCode.new(
-          code_list_qualifier_code: 'HE',
-          code_list_qualifier_code_value: 'Claim Payment Remark Codes',
-          remark_code: 'N510'
-        )]
+        health_care_check_remark_codes = [
+          ChangeHealth::Response::Claim::Report835HealthCareCheckRemarkCode.new(
+            code_list_qualifier_code: 'HE',
+            code_list_qualifier_code_value: 'Claim Payment Remark Codes',
+            remark_code: 'N510'
+          ),
+          ChangeHealth::Response::Claim::Report835HealthCareCheckRemarkCode.new(
+            code_list_qualifier_code: 'HE',
+            code_list_qualifier_code_value: 'Claim Payment Remark Codes',
+            remark_code: 'N381'
+          )
+        ]
 
         service_lines = []
         service_lines << ChangeHealth::Response::Claim::Report835ServiceLine.new(
