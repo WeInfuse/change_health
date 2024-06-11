@@ -180,5 +180,89 @@ class ReportTest < Minitest::Test
         assert_requested(@stub)
       end
     end
+
+    describe 'can use custom base uri per request' do
+      let(:endpoint) { ChangeHealth::Request::Claim::Report::ENDPOINT }
+      let(:new_base_uri) { 'different.uri' }
+
+      it '#report_list' do
+        stub_change_health(endpoint: endpoint, verb: :get, base_uri: new_base_uri)
+        claim_report.report_list(base_uri: new_base_uri)
+        assert_requested(@stub)
+      end
+
+      describe '#get_report' do
+        let(:report_name) { 'R5000000.XY' }
+        it 'single report' do
+          stub_change_health(endpoint: endpoint + "/#{report_name}", verb: :get, base_uri: new_base_uri)
+          claim_report.get_report(report_name, as_json_report: false, base_uri: new_base_uri)
+          assert_requested(@stub)
+        end
+
+        it 'custom report type' do
+          report_type = '999'
+          stub_change_health(endpoint: endpoint + "/#{report_name}/#{report_type}", verb: :get, base_uri: new_base_uri)
+          claim_report.get_report(report_name, report_type: report_type, base_uri: new_base_uri)
+          assert_requested(@stub)
+        end
+      end
+
+      it '#delete_report' do
+        report_name = 'X3000000.XX'
+        stub_change_health(endpoint: endpoint + "/#{report_name}", verb: :delete, base_uri: new_base_uri)
+        claim_report.delete_report(report_name, base_uri: new_base_uri)
+        assert_requested(@stub)
+      end
+    end
+
+    describe 'can use custom auth headers per request' do
+      let(:endpoint) { ChangeHealth::Request::Claim::Report::ENDPOINT }
+      let(:new_auth_header) { { Authorization: 'mytoken', other_header: 'hi' } }
+      let(:report_name) { 'R5000000.XY' }
+
+      before do
+        @config = ChangeHealth.configuration.to_h
+
+        # set default headers so we can assert they are overridden
+        default_headers = { Authorization: 'different.token', other_header: 'hello' }
+        ChangeHealth.configuration.auth_headers = default_headers
+
+        WebMock.after_request do |request, _response|
+          @request = request
+        end
+      end
+
+      after do
+        ChangeHealth.configuration.from_h(@config)
+      end
+
+      it '#report_list' do
+        stub_change_health(endpoint: endpoint, verb: :get)
+        claim_report.report_list(auth_headers: new_auth_header)
+
+        assert_not_requested(@auth_stub)
+        assert_requested(@stub)
+        assert_equal('mytoken', @request.headers['Authorization'])
+        assert_equal('hi', @request.headers['Other-Header'])
+      end
+
+      it '#get_report' do
+        stub_change_health(endpoint: endpoint + "/#{report_name}", verb: :get)
+        claim_report.get_report(report_name, as_json_report: false, auth_headers: {})
+
+        assert_requested(@auth_stub)
+        assert_requested(@stub)
+      end
+
+      it '#delete_report' do
+        stub_change_health(endpoint: endpoint + "/#{report_name}", verb: :delete)
+        claim_report.delete_report(report_name, auth_headers: new_auth_header)
+
+        assert_not_requested(@auth_stub)
+        assert_requested(@stub)
+        assert_equal('mytoken', @request.headers['Authorization'])
+        assert_equal('hi', @request.headers['Other-Header'])
+      end
+    end
   end
 end

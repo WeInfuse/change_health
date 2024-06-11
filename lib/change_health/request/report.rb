@@ -5,11 +5,15 @@ module ChangeHealth
         ENDPOINT = '/medicalnetwork/reports/v2'.freeze
         HEALTH_CHECK_ENDPOINT = ENDPOINT + '/healthcheck'.freeze
 
-        def self.report_list(headers: nil, more_url: nil)
+        def self.report_list(headers: nil, more_url: nil, base_uri: nil, auth_headers: nil)
           endpoint = ChangeHealth::Connection.endpoint_for(self) + more_url.to_s
           final_headers = ChangeHealth::Request::Claim::Report.report_headers(headers)
           ChangeHealth::Response::Claim::ReportListData.new(response: ChangeHealth::Connection.new.request(
-            endpoint: endpoint, verb: :get, headers: final_headers
+            endpoint: endpoint,
+            verb: :get,
+            headers: final_headers,
+            base_uri: base_uri,
+            auth_headers: auth_headers
           ))
         end
 
@@ -17,7 +21,9 @@ module ChangeHealth
           report_name,
           as_json_report: true,
           headers: nil,
-          report_type: nil
+          report_type: nil,
+          base_uri: nil,
+          auth_headers: nil
         )
           return if report_name.nil? || report_name.empty?
 
@@ -38,7 +44,9 @@ module ChangeHealth
           response = ChangeHealth::Connection.new.request(
             endpoint: individual_report_endpoint,
             verb: :get,
-            headers: final_headers
+            headers: final_headers,
+            base_uri: base_uri,
+            auth_headers: auth_headers
           )
           if ChangeHealth::Response::Claim::ReportData.is_277?(report_name)
             ChangeHealth::Response::Claim::Report277Data
@@ -58,7 +66,7 @@ module ChangeHealth
           end
         end
 
-        def self.delete_report(report_name, headers: nil)
+        def self.delete_report(report_name, headers: nil, base_uri: nil, auth_headers: nil)
           return if report_name.nil? || report_name.empty?
 
           final_headers = ChangeHealth::Request::Claim::Report.report_headers(headers)
@@ -69,7 +77,9 @@ module ChangeHealth
           ChangeHealth::Connection.new.request(
             endpoint: individual_report_endpoint,
             verb: :delete,
-            headers: final_headers
+            headers: final_headers,
+            base_uri: base_uri,
+            auth_headers: auth_headers
           )
         end
 

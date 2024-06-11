@@ -63,13 +63,14 @@ class Minitest::Test
       .to_return(response)
   end
 
-  def stub_change_health(endpoint: , setup_auth: true, response: nil, verb: :post)
+  def stub_change_health(endpoint: , setup_auth: true, response: nil, verb: :post, base_uri: nil)
+    base_uri ||= ChangeHealth.configuration.api_endpoint
     response ||= build_response(body: {})
 
     if true == setup_auth
       stub_change_health_auth
     end
 
-    @stub = stub_request(verb, File.join(ChangeHealth.configuration.api_endpoint, endpoint)).to_return(response)
+    @stub = stub_request(verb, File.join(base_uri, endpoint)).to_return(response)
   end
 end
