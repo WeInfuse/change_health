@@ -48,6 +48,30 @@ class ConnectionTest < Minitest::Test
           assert_equal('mytoken', @request.headers['Authorization'])
           assert_equal('hi', @request.headers['Other-Header'])
         end
+
+        it 'can override on a per-request basis' do
+          override_headers = { Authorization: 'mytoken', other_header: 'hi' }
+
+          @connection.request(endpoint: fake_endpoint, auth_headers: override_headers)
+
+          assert_not_requested(@auth_stub)
+          assert_requested(@stub, times: 1)
+          assert_equal('mytoken', @request.headers['Authorization'])
+          assert_equal('hi', @request.headers['Other-Header'])
+        end
+
+        it 'can override to auth endpoint on a per-request basis' do
+          # set default headers so we can assert they are overridden
+          default_headers = { Authorization: 'mytoken', other_header: 'hi' }
+          ChangeHealth.configuration.auth_headers = default_headers
+
+          override_headers = {}
+
+          @connection.request(endpoint: fake_endpoint, auth_headers: override_headers)
+
+          assert_requested(@auth_stub, times: 1)
+          assert_requested(@stub, times: 1)
+        end
       end
     end
 
@@ -85,6 +109,13 @@ class ConnectionTest < Minitest::Test
 
       assert_requested(@stub, times: 1)
       assert_equal('eep', @request.headers['Authorization'])
+    end
+
+    it 'can override base uri per request' do
+      stub_change_health(endpoint: fake_endpoint, base_uri: 'different.uri')
+      @connection.request(endpoint: fake_endpoint, base_uri: 'different.uri')
+
+      assert_requested(@stub, times: 1)
     end
 
     describe '#endpoint_for' do

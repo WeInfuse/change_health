@@ -9,14 +9,15 @@ module ChangeHealth
       @request_time = nil
     end
 
-    def authenticate
+    def authenticate(base_uri: nil)
       if (self.expires?)
+        base_uri ||= Connection.base_uri
         request = {
           body: { client_id: ChangeHealth.configuration.client_id, client_secret: ChangeHealth.configuration.client_secret, grant_type: ChangeHealth.configuration.grant_type },
           endpoint: AUTH_ENDPOINT
         }
 
-        response = Connection.new.request(**request, auth: false)
+        response = Connection.new.request(**request, auth: false, base_uri: base_uri)
 
         if (false == response.ok?)
           @response = nil
