@@ -215,6 +215,39 @@ class ReportTest < Minitest::Test
       end
     end
 
+    describe 'can use custom endpoint per request' do
+      let(:endpoint) { '/different/endpoint' }
+
+      it '#report_list' do
+        stub_change_health(endpoint: endpoint, verb: :get)
+        claim_report.report_list(endpoint: endpoint)
+        assert_requested(@stub)
+      end
+
+      describe '#get_report' do
+        let(:report_name) { 'R5000000.XY' }
+        it 'single report' do
+          stub_change_health(endpoint: endpoint + "/#{report_name}", verb: :get)
+          claim_report.get_report(report_name, as_json_report: false, endpoint: endpoint)
+          assert_requested(@stub)
+        end
+
+        it 'custom report type' do
+          report_type = '999'
+          stub_change_health(endpoint: endpoint + "/#{report_name}/#{report_type}", verb: :get)
+          claim_report.get_report(report_name, report_type: report_type, endpoint: endpoint)
+          assert_requested(@stub)
+        end
+      end
+
+      it '#delete_report' do
+        report_name = 'X3000000.XX'
+        stub_change_health(endpoint: endpoint + "/#{report_name}", verb: :delete)
+        claim_report.delete_report(report_name, endpoint: endpoint)
+        assert_requested(@stub)
+      end
+    end
+
     describe 'can use custom auth headers per request' do
       let(:endpoint) { ChangeHealth::Request::Claim::Report::ENDPOINT }
       let(:new_auth_header) { { Authorization: 'mytoken', other_header: 'hi' } }

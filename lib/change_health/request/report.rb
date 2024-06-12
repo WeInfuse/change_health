@@ -5,8 +5,9 @@ module ChangeHealth
         ENDPOINT = '/medicalnetwork/reports/v2'.freeze
         HEALTH_CHECK_ENDPOINT = ENDPOINT + '/healthcheck'.freeze
 
-        def self.report_list(headers: nil, more_url: nil, base_uri: nil, auth_headers: nil)
-          endpoint = ChangeHealth::Connection.endpoint_for(self) + more_url.to_s
+        def self.report_list(headers: nil, more_url: nil, base_uri: nil, endpoint: nil, auth_headers: nil)
+          endpoint ||= ChangeHealth::Connection.endpoint_for(self)
+          endpoint += more_url.to_s
           final_headers = ChangeHealth::Request::Claim::Report.report_headers(headers)
           ChangeHealth::Response::Claim::ReportListData.new(response: ChangeHealth::Connection.new.request(
             endpoint: endpoint,
@@ -23,13 +24,14 @@ module ChangeHealth
           headers: nil,
           report_type: nil,
           base_uri: nil,
+          endpoint: nil,
           auth_headers: nil
         )
           return if report_name.nil? || report_name.empty?
 
           final_headers = ChangeHealth::Request::Claim::Report.report_headers(headers)
 
-          endpoint = ChangeHealth::Connection.endpoint_for(self)
+          endpoint ||= ChangeHealth::Connection.endpoint_for(self)
 
           individual_report_endpoint = "#{endpoint}/#{report_name}"
 
@@ -66,12 +68,12 @@ module ChangeHealth
           end
         end
 
-        def self.delete_report(report_name, headers: nil, base_uri: nil, auth_headers: nil)
+        def self.delete_report(report_name, headers: nil, base_uri: nil, endpoint: nil, auth_headers: nil)
           return if report_name.nil? || report_name.empty?
 
           final_headers = ChangeHealth::Request::Claim::Report.report_headers(headers)
 
-          endpoint = ChangeHealth::Connection.endpoint_for(self)
+          endpoint ||= ChangeHealth::Connection.endpoint_for(self)
           individual_report_endpoint = "#{endpoint}/#{report_name}"
 
           ChangeHealth::Connection.new.request(

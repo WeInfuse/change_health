@@ -54,11 +54,12 @@ class Minitest::Test
     return response
   end
 
-  def stub_change_health_auth(body: nil, response: nil)
+  def stub_change_health_auth(body: nil, response: nil, base_uri: nil)
+    base_uri ||= ChangeHealth.configuration.api_endpoint
     body ||= { client_id: '123', client_secret: 'abc', grant_type: 'cat' }
     response ||= build_response(body: { access_token: 'let.me.in', expires_in: 3600, token_type: 'bearer' })
 
-    @auth_stub = stub_request(:post, File.join(ChangeHealth.configuration.api_endpoint, ChangeHealth::Authentication::AUTH_ENDPOINT))
+    @auth_stub = stub_request(:post, File.join(base_uri, ChangeHealth::Authentication::AUTH_ENDPOINT))
       .with(body: body)
       .to_return(response)
   end
@@ -68,7 +69,7 @@ class Minitest::Test
     response ||= build_response(body: {})
 
     if true == setup_auth
-      stub_change_health_auth
+      stub_change_health_auth(base_uri: base_uri)
     end
 
     @stub = stub_request(verb, File.join(base_uri, endpoint)).to_return(response)
