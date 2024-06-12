@@ -27,18 +27,18 @@ module ChangeHealth
         end
 
         def input_payload
-          self.to_h
+          self.to_h.deep_transform_keys { |key| key.to_s.camelize(:lower) }
         end
 
         def submission
           ChangeHealth::Response::Claim::SubmissionData.new(response: ChangeHealth::Connection.new.request(
-            endpoint: SUBMISSION_ENDPOINT, body: to_h, headers: professional_headers
+            endpoint: SUBMISSION_ENDPOINT, body: input_payload, headers: professional_headers
           ))
         end
 
         def validation
           ChangeHealth::Response::Claim::SubmissionData.new(response: ChangeHealth::Connection.new.request(
-            endpoint: VALIDATION_ENDPOINT, body: to_h, headers: professional_headers
+            endpoint: VALIDATION_ENDPOINT, body: input_payload, headers: professional_headers
           ))
         end
 
