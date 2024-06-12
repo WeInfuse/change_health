@@ -52,7 +52,7 @@ module ChangeHealth
                             else
                               format_value(key, value)
                             end
-          [key, formatted_value]
+          [key.to_s.camelize(:lower), formatted_value]
         end.to_h
       end
 
