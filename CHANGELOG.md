@@ -9,13 +9,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-* The following report endpoints can override the base URI and authentication headers per request if needed:
+* The following report methods can override the base URI, endpoint, and authentication headers per request if needed:
   - `ChangeHealth::Request::Claim::Report.report_list`
   - `ChangeHealth::Request::Claim::Report.get_report`
   - `ChangeHealth::Request::Claim::Report.delete_report`
 
   Provide the following parameters to override the defaults set in Configuration:
   - `base_uri`
+  - `endpoint`
   - `auth_headers` - an empty hash can also be provided (`{}`), which will issue a request to the authentication endpoint instead of using the configured headers.
 
 # [5.13.3] - 2024-05-20
