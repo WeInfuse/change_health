@@ -40,7 +40,7 @@ module ChangeHealth
           self[:providers] << provider
         end
 
-        def submission(is_professional: true, headers: nil, base_uri:, auth_headers:)
+        def submission(is_professional: true, headers: nil, base_uri: nil, auth_headers: nil)
           headers ||= is_professional ? professional_headers : institutional_headers
           ChangeHealth::Response::Claim::SubmissionData.new(
             response: ChangeHealth::Connection.new.request(
