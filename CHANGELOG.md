@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+# [5.15.0] - 2024-06-19
+
+### Added
+
+* Ability to accept alternate `base_uri` and `auth_headers` in submission.
+
 # [5.14.0] - 2024-06-11
 
 ### Added
@@ -706,6 +712,7 @@ Added the ability to hit professional claim submission API. For more details, se
 * Authentication
 * Configuration
 
+[5.15.0]: https://github.com/WeInfuse/change_health/compare/v5.14.0...v5.15.0
 [5.14.0]: https://github.com/WeInfuse/change_health/compare/v5.13.3...v5.14.0
 [5.13.3]: https://github.com/WeInfuse/change_health/compare/v5.13.2...v5.13.3
 [5.13.2]: https://github.com/WeInfuse/change_health/compare/v5.13.1...v5.13.2
