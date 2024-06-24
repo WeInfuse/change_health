@@ -42,12 +42,13 @@ module ChangeHealth
 
         def submission(is_professional: true, headers: nil, base_uri: nil, auth_headers: nil)
           headers ||= is_professional ? professional_headers : institutional_headers
+          endpoint ||= self.class.endpoint(
+            is_professional: is_professional,
+            suffix: SUBMISSION_SUFFIX
+          )
           ChangeHealth::Response::Claim::SubmissionData.new(
             response: ChangeHealth::Connection.new.request(
-              endpoint: self.class.endpoint(
-                is_professional: is_professional,
-                suffix: SUBMISSION_SUFFIX
-              ),
+              endpoint: endpoint,
               base_uri: base_uri,
               body: to_h,
               headers: headers,
