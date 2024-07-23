@@ -16,13 +16,19 @@ module ChangeHealth
       end
 
       def errors?
-        errors.is_a?(Array) && false == errors.empty?
+        field_error = errors.is_a?(Array) && false == errors.empty?
+
+        field_error || server_error.is_a?(ChangeHealthException)
       end
 
       def errors
         errors = @raw.dig('errors') || []
 
         errors.flatten.map { |error| ChangeHealth::Response::Error.new(error) }
+      end
+
+      def server_error
+        ChangeHealthException.from_response(@response, msg: 'Request') if @raw.dig('error')
       end
 
       def recommend_retry?

@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+# [5.17.0] - 2024-07-23
+
+### Added
+
+* Additional error handling for different format of error response
+
+```
+{
+    "error": "invalid_request",
+    "error_description": "Invalid request"
+}
+```
+
 # [5.16.0] - 2024-06-24
 
 ### Added
@@ -718,6 +731,7 @@ Added the ability to hit professional claim submission API. For more details, se
 * Authentication
 * Configuration
 
+[5.17.0]: https://github.com/WeInfuse/change_health/compare/v5.16.0...v5.17.0
 [5.16.0]: https://github.com/WeInfuse/change_health/compare/v5.15.0...v5.16.0
 [5.15.0]: https://github.com/WeInfuse/change_health/compare/v5.14.0...v5.15.0
 [5.14.0]: https://github.com/WeInfuse/change_health/compare/v5.13.3...v5.14.0
