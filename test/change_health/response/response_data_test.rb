@@ -84,6 +84,24 @@ class ResponseDataTest < Minitest::Test
               assert_equal('Failed Request: HTTP code: 500 MSG: Invalid request', fake_data.server_error.message)
             end
           end
+
+          describe 'inputDto error' do
+            let(:json_data) { load_sample('error_response.inputDto.json', parse: true) }
+
+            it 'true if inputDto error' do
+              assert_equal(true, fake_data.errors?)
+              assert_equal(4, fake_data.errors.size)
+              assert_equal(
+                [
+                  'inputDto',
+                  '["The inputDto field is required."]',
+                  '$.claimInformation.serviceLines[0].professionalService.serviceUnitCount',
+                  '["The JSON value could not be converted to System.String. Path: $.claimInformation.serviceLines[0].professionalService.serviceUnitCount | LineNumber: 0 | BytePositionInLine: 763."]'
+                ], fake_data.errors.map(&:message)
+              )
+              assert_nil(fake_data.server_error)
+            end
+          end
         end
       end
 
