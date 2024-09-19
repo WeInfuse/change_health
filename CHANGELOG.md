@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+# [5.18.0] - 2024-08-19
+
+### Added
+
+* Additional error handling for different format of error response
+
+```
+"errors": {
+        "inputDto": [
+            "The inputDto field is required."
+        ],
+        "$.claimInformation.serviceLines[0].professionalService.serviceUnitCount": [
+            "The JSON value could not be converted to System.String. Path: $.claimInformation.serviceLines[0].professionalService.serviceUnitCount | LineNumber: 0 | BytePositionInLine: 763."
+        ]
+    }
+```
+
 # [5.17.0] - 2024-07-23
 
 ### Added
@@ -731,6 +748,7 @@ Added the ability to hit professional claim submission API. For more details, se
 * Authentication
 * Configuration
 
+[5.18.0]: https://github.com/WeInfuse/change_health/compare/v5.17.0...v5.18.0
 [5.17.0]: https://github.com/WeInfuse/change_health/compare/v5.16.0...v5.17.0
 [5.16.0]: https://github.com/WeInfuse/change_health/compare/v5.15.0...v5.16.0
 [5.15.0]: https://github.com/WeInfuse/change_health/compare/v5.14.0...v5.15.0

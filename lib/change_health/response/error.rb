@@ -22,7 +22,7 @@ module ChangeHealth
       end
 
       def message
-        field_message || code_message
+        field_message || code_message || @data.to_s
       end
 
       def field_message
@@ -48,7 +48,7 @@ module ChangeHealth
         end
 
         define_method(method_name.to_s) do
-          @data[method_name]
+          @data[method_name] if @data.is_a?(Hash)
         end
       end
 

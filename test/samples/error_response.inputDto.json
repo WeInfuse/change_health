@@ -1,0 +1,14 @@
+{
+    "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+    "title": "One or more validation errors occurred.",
+    "errors": {
+        "inputDto": [
+            "The inputDto field is required."
+        ],
+        "$.claimInformation.serviceLines[0].professionalService.serviceUnitCount": [
+            "The JSON value could not be converted to System.String. Path: $.claimInformation.serviceLines[0].professionalService.serviceUnitCount | LineNumber: 0 | BytePositionInLine: 763."
+        ]
+    },
+    "status": 400,
+    "traceId": "00-95f98ad07510c6ef1ea6b6360d632274-a75d67ff7326830b-00"
+}
