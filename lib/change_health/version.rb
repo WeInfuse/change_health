@@ -1,3 +1,3 @@
 module ChangeHealth
-  VERSION = '5.18.0'.freeze
+  VERSION = '5.19.0'.freeze
 end

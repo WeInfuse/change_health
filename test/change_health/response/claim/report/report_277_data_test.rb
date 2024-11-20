@@ -28,6 +28,7 @@ class Report277DataTest < Minitest::Test
         info_claim_status = ChangeHealth::Response::Claim::Report277InfoClaimStatus.new(
           message: 'BILLING NPI IS NOT AUTHORIZED FOR TAX ID',
           status_category_codes: ['F1'],
+          status_code_values: ['Claim/line has been paid.'],
           status_information_effective_date: Date.new(2020, 6, 13),
           total_charge_amount: '100'
         )
@@ -80,6 +81,7 @@ class Report277DataTest < Minitest::Test
 
         info_claim_status = ChangeHealth::Response::Claim::Report277InfoClaimStatus.new(
           status_category_codes: ['E1'],
+          status_code_values: ['Entity was unable to respond within the expected time frame. Usage: This code requires use of an Entity Code.'],
           status_information_effective_date: Date.new(2020, 1, 7),
           total_charge_amount: nil
         )

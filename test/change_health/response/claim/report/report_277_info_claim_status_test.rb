@@ -16,5 +16,18 @@ class Report277InfoClaimStatusTest < Minitest::Test
         assert_equal(status_category_code, info_claim_status.status_category_codes.first)
       end
     end
+
+    describe 'status_code_values' do
+      it 'defaults to no status_code_values' do
+        assert_nil(info_claim_status.status_code_values)
+      end
+
+      it 'can add a status_code_value' do
+        status_code_value = 'Claim/line has been paid.'
+        info_claim_status.add_status_code_value(status_code_value)
+        assert_equal(1, info_claim_status.status_code_values.size)
+        assert_equal(status_code_value, info_claim_status.status_code_values.first)
+      end
+    end
   end
 end

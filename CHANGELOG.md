@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+# [5.19.0] - 2024-11-20
+
+### Added
+
+* Support for `statusCodeValue` field in ChangeHealthcare 277 report response JSON. The values for a specific 277 report can be found in the `Report277InfoClaimStatus` model as `status_code_values`.
+
 # [5.18.0] - 2024-08-19
 
 ### Added
@@ -748,6 +754,7 @@ Added the ability to hit professional claim submission API. For more details, se
 * Authentication
 * Configuration
 
+[5.19.0]: https://github.com/WeInfuse/change_health/compare/v5.18.0...v5.19.0
 [5.18.0]: https://github.com/WeInfuse/change_health/compare/v5.17.0...v5.18.0
 [5.17.0]: https://github.com/WeInfuse/change_health/compare/v5.16.0...v5.17.0
 [5.16.0]: https://github.com/WeInfuse/change_health/compare/v5.15.0...v5.16.0
