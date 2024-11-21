@@ -54,17 +54,19 @@ module ChangeHealth
                         status_information_effective_date = ChangeHealth::Models::PARSE_DATE.call(info_claim_status['statusInformationEffectiveDate'])
                         total_charge_amount = info_claim_status['totalClaimChargeAmount']
 
-                        status_category_codes = []
-                        status_code_values = []
+                        info_statuses = []
                         info_claim_status['informationStatuses']&.each do |info_status|
-                          status_category_codes << info_status['healthCareClaimStatusCategoryCode']
-                          status_code_values << info_status['statusCodeValue']
+                          info_statuses << Report277InfoStatus.new(
+                            status_category_code: info_status['healthCareClaimStatusCategoryCode'],
+                            status_category_code_value: info_status['healthCareClaimStatusCategoryCodeValue'],
+                            status_code: info_status['statusCode'],
+                            status_code_value: info_status['statusCodeValue']
+                          )
                         end
 
                         info_claim_statuses << Report277InfoClaimStatus.new(
                           message: message,
-                          status_category_codes: status_category_codes,
-                          status_code_values: status_code_values,
+                          info_statuses: info_statuses,
                           total_charge_amount: total_charge_amount,
                           status_information_effective_date: status_information_effective_date
                         )

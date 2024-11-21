@@ -19,8 +19,12 @@ module ChangeHealth
           self[:procedure_codes] << procedure_code
         end
 
+        def latest_info_statuses
+          latest_info_claim_status&.info_statuses
+        end
+
         def latest_status_category_codes
-          latest_info_claim_status&.status_category_codes
+          latest_info_statuses&.map(&:status_category_code)
         end
 
         def total_charge_amount
