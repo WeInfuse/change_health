@@ -5,11 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-# [5.19.0] - 2024-11-20
+# [6.0.0] - 2024-11-22
+
+Previously the only field extracted from the `informationStatuses` section of the 277 report JSON was `healthCareClaimStatusCategoryCode`. This version includes the following additional fields from this section: `healthCareClaimStatusCategoryCodeValue`, `statusCode` & `statusCodeValue`.
+
+### Removed
+
+Breaking changes:
+
+* `Report277InfoClaimStatus#status_category_codes`
+* `Report277InfoClaimStatus#add_status_category_code`
 
 ### Added
 
-* Support for `statusCodeValue` field in ChangeHealthcare 277 report response JSON. The values for a specific 277 report can be found in the `Report277InfoClaimStatus` model as `status_code_values`.
+* `ChangeHealth::Response::Claim::Report277InfoStatus` model that encapsulates the fields listed above.
+* `Report277InfoClaimStatus#info_statuses` property that stores all `Report277InfoStatus` found in the `informationStatuses` section of the 277 JSON.
+* `Report277InfoClaimStatus#add_info_status` method to add individual `Report277InfoStatus`.
+* `Report277Data#latest_info_statuses` method to return the latest `informationStatuses` in the 277 JSON.
 
 # [5.18.0] - 2024-08-19
 
@@ -754,7 +766,7 @@ Added the ability to hit professional claim submission API. For more details, se
 * Authentication
 * Configuration
 
-[5.19.0]: https://github.com/WeInfuse/change_health/compare/v5.18.0...v5.19.0
+[6.0.0]: https://github.com/WeInfuse/change_health/compare/v5.18.0...v6.0.0
 [5.18.0]: https://github.com/WeInfuse/change_health/compare/v5.17.0...v5.18.0
 [5.17.0]: https://github.com/WeInfuse/change_health/compare/v5.16.0...v5.17.0
 [5.16.0]: https://github.com/WeInfuse/change_health/compare/v5.15.0...v5.16.0
