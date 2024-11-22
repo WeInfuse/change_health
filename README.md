@@ -436,6 +436,20 @@ claim277.report_creation_date
 # Tue, 01 Dec 2020
 
 # Report 277 specific below
+statuses = claim277.latest_info_statuses
+
+statuses.first.status_category_code
+# "F1"
+
+statuses.first.status_category_code_value
+# "Finalized/Payment-The claim/line has been paid."
+
+statuses.first.status_code
+# "20"
+
+statuses.first.status_code_value
+# "Accepted for processing."
+
 claim277.latest_status_category_codes
 # ["F1"]
 

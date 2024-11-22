@@ -21,7 +21,7 @@ Breaking changes:
 * `ChangeHealth::Response::Claim::Report277InfoStatus` model that encapsulates the fields listed above.
 * `Report277InfoClaimStatus#info_statuses` property that stores all `Report277InfoStatus` found in the `informationStatuses` section of the 277 JSON.
 * `Report277InfoClaimStatus#add_info_status` method to add individual `Report277InfoStatus`.
-* `Report277Data#latest_info_statuses` method to return the latest `informationStatuses` in the 277 JSON.
+* `Report277Data#latest_info_statuses` method to return the latest `informationStatuses` in the 277 JSON. See README for usage.
 
 # [5.18.0] - 2024-08-19
 
