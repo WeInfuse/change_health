@@ -3,13 +3,13 @@ module ChangeHealth
     module Claim
       class Report277InfoClaimStatus < Hashie::Trash
         property :message, required: false
-        property :status_category_codes, required: false
+        property :info_statuses, required: false
         property :total_charge_amount, required: false
         property :status_information_effective_date, required: false
 
-        def add_status_category_code(status_category_code)
-          self[:status_category_codes] ||= []
-          self[:status_category_codes] << status_category_code
+        def add_info_status(info_status)
+          self[:info_statuses] ||= []
+          self[:info_statuses] << info_status
         end
       end
     end

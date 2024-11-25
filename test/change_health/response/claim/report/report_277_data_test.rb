@@ -25,9 +25,15 @@ class Report277DataTest < Minitest::Test
 
       describe 'claim contents - everything there, from sandbox' do
         let(:actual_claim) { report_data.claims.first }
+        info_status = ChangeHealth::Response::Claim::Report277InfoStatus.new(
+          status_category_code: 'F1',
+          status_category_code_value: 'Finalized/Payment-The claim/line has been paid.',
+          status_code: '65',
+          status_code_value: 'Claim/line has been paid.'
+        )
         info_claim_status = ChangeHealth::Response::Claim::Report277InfoClaimStatus.new(
           message: 'BILLING NPI IS NOT AUTHORIZED FOR TAX ID',
-          status_category_codes: ['F1'],
+          info_statuses: [info_status],
           status_information_effective_date: Date.new(2020, 6, 13),
           total_charge_amount: '100'
         )
@@ -78,8 +84,14 @@ class Report277DataTest < Minitest::Test
         end
         let(:short_actual_claim) { short_report_data.claims.first }
 
+        info_status = ChangeHealth::Response::Claim::Report277InfoStatus.new(
+          status_category_code: 'E1',
+          status_category_code_value: 'Response not possible - System Status',
+          status_code: '689',
+          status_code_value: 'Entity was unable to respond within the expected time frame. Usage: This code requires use of an Entity Code.'
+        )
         info_claim_status = ChangeHealth::Response::Claim::Report277InfoClaimStatus.new(
-          status_category_codes: ['E1'],
+          info_statuses: [info_status],
           status_information_effective_date: Date.new(2020, 1, 7),
           total_charge_amount: nil
         )
