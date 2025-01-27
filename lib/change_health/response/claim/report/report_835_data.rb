@@ -93,15 +93,18 @@ module ChangeHealth
                 service_date_begin = nil
                 service_date_end = nil
                 service_lines = payment_info['serviceLines']&.map do |service_line|
-                  service_line_date = ChangeHealth::Models::PARSE_DATE.call(service_line['serviceDate'])
-                  unless service_line_date.nil?
-                    if service_date_begin.nil? || service_line_date < service_date_begin
-                      service_date_begin = service_line_date
-                    end
-                    if service_date_end.nil? || service_date_end < service_line_date
-                      service_date_end = service_line_date
-                    end
-                  end
+                  service_line_date_parsed = ChangeHealth::Models::PARSE_DATE.call(service_line['serviceDate'])
+                  service_line_date_begin_parsed = ChangeHealth::Models::PARSE_DATE.call(service_line['serviceStartDate'])
+                  service_line_date_end_parsed = ChangeHealth::Models::PARSE_DATE.call(service_line['serviceEndDate'])
+
+                  all_dates = [service_line_date_parsed, service_line_date_begin_parsed, service_line_date_end_parsed]
+
+                  service_line_date_begin = all_dates.compact.min
+                  service_line_date = service_line_date_begin
+                  service_line_date_end = all_dates.compact.max
+
+                  service_date_begin = [service_date_begin, service_line_date_begin].compact.min
+                  service_date_end = [service_date_end, service_line_date_end].compact.max
 
                   adjudicated_procedure_code = service_line.dig('servicePaymentInformation', 'adjudicatedProcedureCode')
                   allowed_actual = service_line.dig('serviceSupplementalAmounts', 'allowedActual')
@@ -125,15 +128,21 @@ module ChangeHealth
                   Report835ServiceLine.new(
                     adjudicated_procedure_code: adjudicated_procedure_code,
                     allowed_actual: allowed_actual,
+                    health_care_check_remark_codes: health_care_check_remark_codes,
                     line_item_charge_amount: line_item_charge_amount,
                     line_item_provider_payment_amount: line_item_provider_payment_amount,
                     service_adjustments: service_adjustments,
-                    health_care_check_remark_codes: health_care_check_remark_codes
+                    service_date: service_line_date,
+                    service_date_begin: service_line_date_begin,
+                    service_date_end: service_line_date_end
                   )
                 end
 
-                if service_date_begin.nil? && service_date_end.nil?
+                if service_date_begin.nil?
                   service_date_begin = ChangeHealth::Models::PARSE_DATE.call(payment_info['claimStatementPeriodStart'])
+                end
+
+                if service_date_end.nil?
                   service_date_end = ChangeHealth::Models::PARSE_DATE.call(payment_info['claimStatementPeriodEnd'])
                 end
 

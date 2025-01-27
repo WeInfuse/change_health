@@ -107,7 +107,10 @@ class Report835DataTest < Minitest::Test
           line_item_charge_amount: '46',
           line_item_provider_payment_amount: '25',
           service_adjustments: service_adjustments,
-          health_care_check_remark_codes: health_care_check_remark_codes
+          health_care_check_remark_codes: health_care_check_remark_codes,
+          service_date: Date.new(2019, 3, 24),
+          service_date_begin: Date.new(2019, 3, 24),
+          service_date_end: Date.new(2019, 3, 24)
         )
         service_lines += [1, 2, 3, 4]
 
@@ -171,6 +174,8 @@ class Report835DataTest < Minitest::Test
         let(:odd_claim1) { report_data.payments[1].claims[0] }
         let(:odd_claim2) { report_data.payments[2].claims[0] }
         let(:odd_claim_service_date) { report_data.payments[2].claims[2] }
+        let(:service_start_and_end) {report_data.payments[0].claims[1]}
+
         it 'member id' do
           assert_equal 'SJD11122', odd_claim1.patient_member_id
         end
@@ -186,6 +191,22 @@ class Report835DataTest < Minitest::Test
         it 'service line serviceDate missing' do
           assert_equal Date.new(2019, 3, 23), odd_claim_service_date.service_date_begin
           assert_equal Date.new(2019, 3, 24), odd_claim_service_date.service_date_end
+        end
+
+        it 'service line has start & end date' do
+          assert_equal Date.new(2019, 3, 24), service_start_and_end.service_date_begin
+          assert_equal Date.new(2019, 3, 29), service_start_and_end.service_date_end
+
+          early_service_line = service_start_and_end.service_lines[0]
+          later_service_line = service_start_and_end.service_lines[1]
+
+          assert_equal Date.new(2019, 3, 24), early_service_line.service_date
+          assert_equal Date.new(2019, 3, 24), early_service_line.service_date_begin
+          assert_equal Date.new(2019, 3, 27), early_service_line.service_date_end
+
+          assert_equal Date.new(2019, 3, 28), later_service_line.service_date
+          assert_equal Date.new(2019, 3, 28), later_service_line.service_date_begin
+          assert_equal Date.new(2019, 3, 29), later_service_line.service_date_end
         end
 
         describe 'all blank adjustments' do
