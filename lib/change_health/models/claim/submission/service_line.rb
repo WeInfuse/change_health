@@ -10,7 +10,7 @@ module ChangeHealth
         property :professionalService, from: :professional_service
         property :renderingProvider, from: :rendering_provider
         property :serviceDate, from: :service_date
-        property :serviceDateEnd, from: :service_date_end, required: false
+        property :serviceDateEnd, from: :service_date_end
       end
     end
   end

@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+# [6.1.0] - 2025-01-24
+
+### Added
+
+* `Report835ServiceLine#service_date`
+* `Report835ServiceLine#service_date_begin`
+* `Report835ServiceLine#service_date_end`
+
 # [6.0.0] - 2024-11-22
 
 Previously the only field extracted from the `informationStatuses` section of the 277 report JSON was `healthCareClaimStatusCategoryCode`. This version includes the following additional fields from this section: `healthCareClaimStatusCategoryCodeValue`, `statusCode` & `statusCodeValue`.
@@ -766,6 +774,7 @@ Added the ability to hit professional claim submission API. For more details, se
 * Authentication
 * Configuration
 
+[6.1.0]: https://github.com/WeInfuse/change_health/compare/v6.0.0...v6.1.0
 [6.0.0]: https://github.com/WeInfuse/change_health/compare/v5.18.0...v6.0.0
 [5.18.0]: https://github.com/WeInfuse/change_health/compare/v5.17.0...v5.18.0
 [5.17.0]: https://github.com/WeInfuse/change_health/compare/v5.16.0...v5.17.0

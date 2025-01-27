@@ -2,12 +2,15 @@ module ChangeHealth
   module Response
     module Claim
       class Report835ServiceLine < Hashie::Trash
-        property :adjudicated_procedure_code, required: false
-        property :allowed_actual, required: false
-        property :health_care_check_remark_codes, required: false
-        property :line_item_charge_amount, required: false
-        property :line_item_provider_payment_amount, required: false
-        property :service_adjustments, required: false
+        property :adjudicated_procedure_code
+        property :allowed_actual
+        property :health_care_check_remark_codes
+        property :line_item_charge_amount
+        property :line_item_provider_payment_amount
+        property :service_adjustments
+        property :service_date
+        property :service_date_begin
+        property :service_date_end
 
         def create_group_adjustments(service_adjustments)
           adjustment_array = service_adjustments[:adjustments].map do |key, value|
