@@ -98,6 +98,8 @@
                             "serviceLines": [
                                 {
                                     "serviceDate": "20190324",
+                                    "serviceStartDate": "",
+                                    "serviceEndDate": "",
                                     "servicePaymentInformation": {
                                         "productOrServiceIDQualifier": "AD",
                                         "productOrServiceIDQualifierValue": "American Dental Association Codes",

@@ -97,11 +97,11 @@ module ChangeHealth
                   service_line_date_begin_parsed = ChangeHealth::Models::PARSE_DATE.call(service_line['serviceStartDate'])
                   service_line_date_end_parsed = ChangeHealth::Models::PARSE_DATE.call(service_line['serviceEndDate'])
 
-                  all_dates = [service_line_date_parsed, service_line_date_begin_parsed, service_line_date_end_parsed]
+                  all_dates = [service_line_date_parsed, service_line_date_begin_parsed, service_line_date_end_parsed].select{|date| date.is_a?(Date)}
 
-                  service_line_date_begin = all_dates.compact.min
+                  service_line_date_begin = all_dates.min
                   service_line_date = service_line_date_begin
-                  service_line_date_end = all_dates.compact.max
+                  service_line_date_end = all_dates.max
 
                   service_date_begin = [service_date_begin, service_line_date_begin].compact.min
                   service_date_end = [service_date_end, service_line_date_end].compact.max

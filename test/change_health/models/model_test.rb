@@ -111,6 +111,8 @@ class ModelTest < Minitest::Test
       it 'returns input if bad date format' do
         fake_date_string = 'lskjdf'
         assert_equal(fake_date_string, ChangeHealth::Models::PARSE_DATE.call(fake_date_string))
+        assert_equal('', ChangeHealth::Models::PARSE_DATE.call(''))
+        assert_nil ChangeHealth::Models::PARSE_DATE.call(nil)
       end
     end
 
