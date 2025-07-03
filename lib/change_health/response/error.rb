@@ -26,7 +26,9 @@ module ChangeHealth
       end
 
       def field_message
-        "#{field}: #{description}" if field?
+        return "#{field}: #{description}" if field?
+
+        description
       end
 
       def code_message
