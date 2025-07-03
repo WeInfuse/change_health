@@ -22,13 +22,11 @@ module ChangeHealth
       end
 
       def message
-        field_message || code_message || @data.to_s
+        field_message || code_message || description || @data.to_s
       end
 
       def field_message
         return "#{field}: #{description}" if field?
-
-        description
       end
 
       def code_message

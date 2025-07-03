@@ -173,7 +173,7 @@ class ResponseDataTest < Minitest::Test
 
           it 'has message' do
             assert_equal('patient.name: is too short', fake_data.errors[0].message)
-            assert_equal('Need more time', fake_data.errors[1].message)
+            assert_equal('71: Need more time', fake_data.errors[1].message)
             assert_equal('71: Need more time', fake_data.errors[1].code_message)
           end
 
