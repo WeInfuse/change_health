@@ -9,7 +9,7 @@ class ChangeHealthTest < Minitest::Test
 
   describe '#connection' do
     it 'returns a connection object' do
-      assert(ChangeHealth::ChangeHealthClient.connection.is_a?(ChangeHealth::Connection))
+      assert_kind_of(ChangeHealth::Connection, ChangeHealth::ChangeHealthClient.connection)
     end
   end
 
@@ -23,26 +23,26 @@ class ChangeHealthTest < Minitest::Test
     end
 
     {
-      auth_headers: {a: 'b', c: 'd'},
+      auth_headers: { a: 'b', c: 'd' },
       client_id: 'a',
       client_secret: 'b',
-      endpoints: {'SomeClass': '/abc'},
+      endpoints: { SomeClass: '/abc' },
       grant_type: 'c',
-      api_endpoint: 'http://hi.com',
+      api_endpoint: 'http://hi.com'
     }.each do |method, value|
       it "can set #{method} via configuration" do
-        assert(ChangeHealth.configuration.respond_to?(method))
+        assert_respond_to(ChangeHealth.configuration, method)
         ChangeHealth.configuration.send("#{method}=", value)
 
-        assert_equal(value, ChangeHealth.configuration.send("#{method}"))
+        assert_equal(value, ChangeHealth.configuration.send(method.to_s))
       end
 
       it "can set #{method} via configure block" do
         ChangeHealth.configure do |c|
-          assert(c.respond_to?(method))
+          assert_respond_to(c, method)
           c.send("#{method}=", value)
 
-          assert_equal(value, ChangeHealth.configuration.send("#{method}"))
+          assert_equal(value, ChangeHealth.configuration.send(method.to_s))
         end
       end
     end

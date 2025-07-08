@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 module ChangeHealth
   class Connection
-    URI_BUILDER = ->(host) { "https://#{host}apigw.changehealthcare.com/".freeze }
+    URI_BUILDER = ->(host) { "https://#{host}apigw.changehealthcare.com/" }
 
     QA_ENDPOINT   = URI_BUILDER.call('sandbox.')
     PROD_ENDPOINT = URI_BUILDER.call('')
@@ -13,6 +15,7 @@ module ChangeHealth
 
     format :json
 
+    # rubocop:disable Metrics/ParameterLists
     def request(
       endpoint:,
       query: nil,
@@ -30,6 +33,7 @@ module ChangeHealth
 
       self.class.send(verb.to_s, endpoint, query: query, body: body, headers: headers, base_uri: base_uri)
     end
+    # rubocop:enable Metrics/ParameterLists
 
     def self.endpoint_for(klass, default_endpoint: nil)
       endpoint_options = ChangeHealth.configuration.endpoints || {}

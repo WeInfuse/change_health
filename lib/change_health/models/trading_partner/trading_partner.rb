@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ChangeHealth
   module Models
     class TradingPartner < Hashie::Trash

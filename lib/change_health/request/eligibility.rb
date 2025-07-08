@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module ChangeHealth
   module Request
     class Eligibility < Hashie::Trash
-      ENDPOINT = '/medicalnetwork/eligibility/v3'.freeze
-      HEALTH_CHECK_ENDPOINT = ENDPOINT + '/healthcheck'.freeze
+      ENDPOINT = '/medicalnetwork/eligibility/v3'
+      HEALTH_CHECK_ENDPOINT = "#{ENDPOINT}/healthcheck"
 
       property :controlNumber, from: :control_number, required: true, default: ChangeHealth::Models::CONTROL_NUMBER
       property :dependents, required: false
@@ -16,8 +18,8 @@ module ChangeHealth
       property :tradingPartnerId, from: :trading_partner_id, required: false
       property :tradingPartnerServiceId, from: :trading_partner_service_id, required: false
 
-      alias_method :partnerId?, :partnerId
-      alias_method :partner_id?, :partnerId
+      alias partnerId? partnerId
+      alias partner_id? partnerId
 
       def add_dependent(dependent)
         self[:dependents] ||= []
@@ -27,7 +29,8 @@ module ChangeHealth
       def query
         endpoint = ChangeHealth::Connection.endpoint_for(self.class)
 
-        ChangeHealth::Response::EligibilityData.new(response: ChangeHealth::Connection.new.request(endpoint: endpoint, body: self.to_h))
+        ChangeHealth::Response::EligibilityData.new(response: ChangeHealth::Connection.new.request(endpoint: endpoint,
+                                                                                                   body: to_h))
       end
 
       def self.health_check
@@ -35,7 +38,7 @@ module ChangeHealth
       end
 
       def self.ping
-        self.health_check
+        health_check
       end
     end
   end

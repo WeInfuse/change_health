@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ChangeHealth
   module Models
     module Eligibility
@@ -16,7 +18,7 @@ module ChangeHealth
         property :serviceProviderNumber, from: :service_provider_number, required: false
         property :taxId, from: :tax_id, required: false
 
-        alias_method :name?, :name
+        alias name? name
       end
     end
   end

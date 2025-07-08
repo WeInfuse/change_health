@@ -8,7 +8,7 @@ class BillingPayToAddressNameTest < Minitest::Test
     describe 'serializes' do
       it 'can serialize to json' do
         assert_equal(billing_pay_to_address_name.entityTypeQualifier, parsed['entityTypeQualifier'])
-        assert_equal(billing_pay_to_address_name.entityTypeQualifier, '2')
+        assert_equal('2', billing_pay_to_address_name.entityTypeQualifier)
       end
     end
   end

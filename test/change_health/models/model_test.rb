@@ -86,6 +86,7 @@ class ModelTest < Minitest::Test
         date_hash = {
           property1: 'something'
         }
+
         assert_equal(date_hash, ChangeHealth::Models.date_formatter(model.dateHash))
       end
 
@@ -110,6 +111,7 @@ class ModelTest < Minitest::Test
 
       it 'returns input if bad date format' do
         fake_date_string = 'lskjdf'
+
         assert_equal(fake_date_string, ChangeHealth::Models::PARSE_DATE.call(fake_date_string))
         assert_equal('', ChangeHealth::Models::PARSE_DATE.call(''))
         assert_nil ChangeHealth::Models::PARSE_DATE.call(nil)
@@ -166,6 +168,7 @@ class ModelTest < Minitest::Test
         date_hash = {
           property1: 'something'
         }
+
         assert_equal('cat', hmodel[:someNotDateString])
         assert_equal(true, hmodel[:booleanWithDateInName])
         assert_equal(date_hash, hmodel[:dateHash])

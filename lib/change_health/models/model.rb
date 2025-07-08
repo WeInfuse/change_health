@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module ChangeHealth
   module Models
-    DATE_FORMAT = '%Y%m%d'.freeze
-    DATE_HOUR_FORMAT = '%Y%m%d%H%M'.freeze
-    HOUR_FORMAT = '%H%M'.freeze
+    DATE_FORMAT = '%Y%m%d'
+    DATE_HOUR_FORMAT = '%Y%m%d%H%M'
+    HOUR_FORMAT = '%H%M'
 
     # Deprecated should use date_formatter instead
     DATE_FORMATTER = lambda { |date|
@@ -21,6 +23,7 @@ module ChangeHealth
       time_formatter(hour, HOUR_FORMAT)
     end
 
+    # rubocop:disable Lint/SuppressedException
     def self.time_formatter(time, format)
       begin
         time = Time.parse(time) if time.is_a?(String)
@@ -31,7 +34,9 @@ module ChangeHealth
 
       time
     end
+    # rubocop:enable Lint/SuppressedException
 
+    # rubocop:disable Lint/SuppressedException
     PARSE_DATE = lambda { |d|
       begin
         d = Date.strptime(d.tr('-', ''), ChangeHealth::Models::DATE_FORMAT)
@@ -40,7 +45,9 @@ module ChangeHealth
 
       d
     }
+    # rubocop:enable Lint/SuppressedException
 
+    # rubocop:disable Lint/SuppressedException
     POSTAL_CODE_FORMATTER = lambda { |postal_code|
       begin
         formatted_postal_code = postal_code&.to_s&.tr('-', '')
@@ -48,14 +55,16 @@ module ChangeHealth
       end
       formatted_postal_code || postal_code
     }
+    # rubocop:enable Lint/SuppressedException
 
-    CONTROL_NUMBER = -> { '%09d' % rand(1_000_000_000) }
+    CONTROL_NUMBER = -> { format('%09d', rand(1_000_000_000)) }
 
     class Model < Hashie::Trash
       def to_h
         self.class.hashify(self)
       end
 
+      # rubocop:disable Style/MapToHash
       def self.hashify(model)
         model.map do |key, value|
           formatted_value = case value
@@ -75,17 +84,20 @@ module ChangeHealth
           [key, formatted_value]
         end.to_h
       end
+      # rubocop:enable Style/MapToHash
 
       def self.format_value(key, value)
         return nil if value == ''
 
-        return ChangeHealth::Models.date_hour_formatter(value) if key.to_s.downcase.include?('dateandhour')
+        downcased_key = key.to_s.downcase
 
-        return ChangeHealth::Models.hour_formatter(value) if key.to_s.downcase.include?('hour')
+        return ChangeHealth::Models.date_hour_formatter(value) if downcased_key.include?('dateandhour')
 
-        return ChangeHealth::Models.date_formatter(value) if key.to_s.downcase.include?('date')
+        return ChangeHealth::Models.hour_formatter(value) if downcased_key.include?('hour')
 
-        return ChangeHealth::Models::POSTAL_CODE_FORMATTER.call(value) if key.to_s.downcase.include?('postalcode')
+        return ChangeHealth::Models.date_formatter(value) if downcased_key.include?('date')
+
+        return ChangeHealth::Models::POSTAL_CODE_FORMATTER.call(value) if downcased_key.include?('postalcode')
 
         value
       end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ChangeHealth
   module Response
     module Claim
@@ -13,7 +15,7 @@ module ChangeHealth
 
         # Only one payer per report
         def payer_name
-          transactions&.first&.dig('payer')&.dig('name')
+          transactions&.first&.dig('payer', 'name')
         end
 
         def report_creation_date
@@ -24,11 +26,16 @@ module ChangeHealth
           payments.flat_map(&:claims).compact
         end
 
+        # rubocop:disable Metrics/AbcSize
+        # rubocop:disable Metrics/BlockLength
+        # rubocop:disable Metrics/MethodLength
+        # rubocop:disable Metrics/PerceivedComplexity
+        # rubocop:disable Metrics/CyclomaticComplexity
         def payments
           report_payments = []
 
           transactions&.each do |transaction|
-            payment_id = transaction.dig('id')
+            payment_id = transaction['id']
             check_or_eft_trace_number = transaction.dig('paymentAndRemitReassociationDetails', 'checkOrEFTTraceNumber')
             check_issue_or_eft_effective_date =
               ChangeHealth::Models::PARSE_DATE.call(
@@ -56,7 +63,7 @@ module ChangeHealth
             total_actual_provider_payment_amount =
               transaction.dig('financialInformation', 'totalActualProviderPaymentAmount')
             claims = transaction['detailInfo']&.flat_map do |detail_info|
-              claim_id = detail_info.dig('id')
+              claim_id = detail_info['id']
               detail_info['paymentInfo']&.map do |payment_info|
                 claim_payment_amount = payment_info.dig('claimPaymentInfo', 'claimPaymentAmount')
                 claim_status_code = payment_info.dig('claimPaymentInfo', 'claimStatusCode')
@@ -97,7 +104,10 @@ module ChangeHealth
                   service_line_date_begin_parsed = ChangeHealth::Models::PARSE_DATE.call(service_line['serviceStartDate'])
                   service_line_date_end_parsed = ChangeHealth::Models::PARSE_DATE.call(service_line['serviceEndDate'])
 
-                  all_dates = [service_line_date_parsed, service_line_date_begin_parsed, service_line_date_end_parsed].select{|date| date.is_a?(Date)}
+                  all_dates = [service_line_date_parsed, service_line_date_begin_parsed,
+                               service_line_date_end_parsed].select do |date|
+                    date.is_a?(Date)
+                  end
 
                   service_line_date_begin = all_dates.min
                   service_line_date = service_line_date_begin
@@ -114,16 +124,18 @@ module ChangeHealth
 
                   service_adjustments = adjustments(service_line['serviceAdjustments'])
 
-                  health_care_check_remark_codes = presence(service_line['healthCareCheckRemarkCodes']&.filter_map do |health_care_check_remark_code|
-                    remark_code = health_care_check_remark_code['remarkCode']
-                    next unless presence(remark_code)
+                  health_care_check_remark_codes = presence(
+                    service_line['healthCareCheckRemarkCodes']&.filter_map do |health_care_check_remark_code|
+                      remark_code = health_care_check_remark_code['remarkCode']
+                      next unless presence(remark_code)
 
-                    Report835HealthCareCheckRemarkCode.new(
-                      code_list_qualifier_code: health_care_check_remark_code['codeListQualifierCode'],
-                      code_list_qualifier_code_value: health_care_check_remark_code['codeListQualifierCodeValue'],
-                      remark_code: remark_code
-                    )
-                  end)
+                      Report835HealthCareCheckRemarkCode.new(
+                        code_list_qualifier_code: health_care_check_remark_code['codeListQualifierCode'],
+                        code_list_qualifier_code_value: health_care_check_remark_code['codeListQualifierCodeValue'],
+                        remark_code: remark_code
+                      )
+                    end
+                  )
 
                   Report835ServiceLine.new(
                     adjudicated_procedure_code: adjudicated_procedure_code,
@@ -187,6 +199,11 @@ module ChangeHealth
 
           report_payments
         end
+        # rubocop:enable Metrics/AbcSize
+        # rubocop:enable Metrics/BlockLength
+        # rubocop:enable Metrics/MethodLength
+        # rubocop:enable Metrics/PerceivedComplexity
+        # rubocop:enable Metrics/CyclomaticComplexity
 
         private
 

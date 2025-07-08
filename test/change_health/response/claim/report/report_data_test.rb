@@ -4,12 +4,14 @@ class ReportDataTest < Minitest::Test
   describe 'report type' do
     it '277' do
       report_name = 'X3000000.XX'
+
       assert_equal '277', ChangeHealth::Response::Claim::ReportData.report_type(report_name)
       assert ChangeHealth::Response::Claim::ReportData.is_277?(report_name)
     end
 
     it '835' do
       report_name = 'R5000000.XY'
+
       assert_equal '835', ChangeHealth::Response::Claim::ReportData.report_type(report_name)
       assert ChangeHealth::Response::Claim::ReportData.is_835?(report_name)
     end
@@ -22,13 +24,13 @@ class ReportDataTest < Minitest::Test
     let(:edi_data) { load_sample("claim/report/report.#{report_name}.edi.response.json", parse: true) }
     let(:report_data_edi) { ChangeHealth::Response::Claim::ReportData.new(report_name, false, data: json_data) }
     it 'json' do
-      assert report_data_json.json?
+      assert_predicate report_data_json, :json?
       assert !report_data_json.edi?
     end
 
     it 'edi' do
       assert !report_data_edi.json?
-      assert report_data_edi.edi?
+      assert_predicate report_data_edi, :edi?
     end
   end
 
@@ -38,12 +40,14 @@ class ReportDataTest < Minitest::Test
     describe 'presence' do
       it 'uses empty and is not present' do
         x = []
+
         assert_equal true, x.empty?
         assert_nil report_data.presence(x)
       end
 
       it 'uses empty and is present' do
         x = [1, 2, 3]
+
         assert_equal false, x.empty?
         assert_equal x, report_data.presence(x)
       end

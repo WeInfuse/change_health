@@ -1,22 +1,25 @@
+# frozen_string_literal: true
+
 module ChangeHealth
-  class ChangeHealthException < Exception
+  class ChangeHealthException < StandardError
     def self.from_response(response, msg: nil)
-      exception_msg = "Failed #{msg}:"
-      exception_msg << " HTTP code: #{response.code} MSG: "
+      error_msg = nil
 
       begin
-        error_response = response.parsed_response
-
-        if (error_response.is_a?(Hash) && error_response.include?("error_description"))
-          exception_msg << error_response["error_description"]
-        else
-          exception_msg << error_response
-        end
+        error_msg = parse_error_msg(response.parsed_response)
       rescue JSON::ParserError
-        exception_msg << response.body
+        error_msg = response.body
       end
 
-      return ChangeHealthException.new(exception_msg)
+      ChangeHealthException.new("Failed #{msg}: HTTP code: #{response&.code} MSG: #{error_msg}")
+    end
+
+    def self.parse_error_msg(error_response)
+      if error_response.is_a?(Hash) && error_response.include?('error_description')
+        error_response['error_description']
+      else
+        error_response
+      end
     end
   end
 end

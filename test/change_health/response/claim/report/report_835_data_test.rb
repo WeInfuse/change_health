@@ -24,28 +24,25 @@ class Report835DataTest < Minitest::Test
 
     describe 'payments' do
       let(:actual_payment) { report_data.payments[0] }
+
       it 'count' do
         assert_equal report_data.transactions.size, report_data.payments.count
       end
 
+      # rubocop:disable Minitest/MultipleAssertions
       it 'payment contents' do
-        address = {
-          address1: '225 MAIN STREET',
-          city: 'CENTERVILLE',
-          state: 'PA',
-          postalCode: '17111'
-        }
         assert_equal Date.new(2019, 3, 31), actual_payment.check_issue_or_eft_effective_date
         assert_equal '12345', actual_payment.check_or_eft_trace_number
         assert_equal '3029342309', actual_payment.id
         assert_equal '1351840597', actual_payment.payer_identifier
-        assert_equal address[:address1], actual_payment.payer_address['address1']
+        assert_equal '225 MAIN STREET', actual_payment.payer_address['address1']
         assert_equal 'DENTAL OF ABC', actual_payment.payer_name
         assert_equal 'CHK', actual_payment.payment_method_code
         assert_equal Date.new(2019, 4, 5), actual_payment.report_creation_date
         assert_equal report_name, actual_payment.report_name
         assert_equal '810.8', actual_payment.total_actual_provider_payment_amount
       end
+      # rubocop:enable Minitest/MultipleAssertions
 
       it 'payment provider adjustments' do
         assert_equal 1, actual_payment.provider_adjustments.size
@@ -56,6 +53,7 @@ class Report835DataTest < Minitest::Test
         assert_equal Date.new(2022, 12, 31), provider_adjustment.fiscal_period_date
         adjustments = [{ amount: '52436.08', identifier: '20211124 XP732039', reason_code: 'WO' },
                        { amount: '-49082.64', identifier: '9802717391', reason_code: 'FB' }]
+
         assert_equal adjustments, provider_adjustment.adjustments
       end
     end
@@ -174,7 +172,7 @@ class Report835DataTest < Minitest::Test
         let(:odd_claim1) { report_data.payments[1].claims[0] }
         let(:odd_claim2) { report_data.payments[2].claims[0] }
         let(:odd_claim_service_date) { report_data.payments[2].claims[2] }
-        let(:service_start_and_end) {report_data.payments[0].claims[1]}
+        let(:service_start_and_end) { report_data.payments[0].claims[1] }
 
         it 'member id' do
           assert_equal 'SJD11122', odd_claim1.patient_member_id
@@ -193,16 +191,19 @@ class Report835DataTest < Minitest::Test
           assert_equal Date.new(2019, 3, 24), odd_claim_service_date.service_date_end
         end
 
-        it 'service line has start & end date' do
+        it 'early service line has dates' do
+          early_service_line = service_start_and_end.service_lines[0]
+
           assert_equal Date.new(2019, 3, 24), service_start_and_end.service_date_begin
           assert_equal Date.new(2019, 3, 29), service_start_and_end.service_date_end
-
-          early_service_line = service_start_and_end.service_lines[0]
-          later_service_line = service_start_and_end.service_lines[1]
 
           assert_equal Date.new(2019, 3, 24), early_service_line.service_date
           assert_equal Date.new(2019, 3, 24), early_service_line.service_date_begin
           assert_equal Date.new(2019, 3, 27), early_service_line.service_date_end
+        end
+
+        it 'later service line has end dates' do
+          later_service_line = service_start_and_end.service_lines[1]
 
           assert_equal Date.new(2019, 3, 28), later_service_line.service_date
           assert_equal Date.new(2019, 3, 28), later_service_line.service_date_begin
@@ -211,7 +212,7 @@ class Report835DataTest < Minitest::Test
 
         describe 'all blank adjustments' do
           it 'claimPaymentRemarkCodes' do
-            assert_equal [], odd_claim1.claim_payment_remark_codes
+            assert_empty odd_claim1.claim_payment_remark_codes
           end
 
           it 'claimAdjustments' do

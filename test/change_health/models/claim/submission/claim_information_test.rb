@@ -22,12 +22,13 @@ class ClaimInformationTest < Minitest::Test
         end
 
         it 'can add a service line' do
-          serviceLine = {
+          service_line = {
             professionalService: 'cat'
           }
-          claim_information.add_service_line(serviceLine)
+          claim_information.add_service_line(service_line)
+
           assert_equal(1, claim_information.serviceLines.size)
-          assert_equal(serviceLine[:professionalService], claim_information.serviceLines.first[:professionalService])
+          assert_equal(service_line[:professionalService], claim_information.serviceLines.first[:professionalService])
         end
 
         it 'defaults to no health_care_code_information' do
@@ -36,10 +37,11 @@ class ClaimInformationTest < Minitest::Test
 
         it 'can add a health_care_code_information' do
           health_care_code_information = {
-            "diagnosisTypeCode": 'ABK',
-            "diagnosisCode": 'S93401A'
+            diagnosisTypeCode: 'ABK',
+            diagnosisCode: 'S93401A'
           }
           claim_information.add_health_care_code_information(health_care_code_information)
+
           assert_equal(1, claim_information.healthCareCodeInformation.size)
           assert_equal(health_care_code_information[:diagnosisTypeCode],
                        claim_information.healthCareCodeInformation.first[:diagnosisTypeCode])
