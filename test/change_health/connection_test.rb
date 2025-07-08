@@ -78,8 +78,8 @@ class ConnectionTest < Minitest::Test
     it 'returns response' do
       response = @connection.request(endpoint: fake_endpoint)
 
-      assert(response.ok?)
-      assert_equal({}, response.parsed_response)
+      assert_predicate(response, :ok?)
+      assert_empty(response.parsed_response)
       assert_equal('{}', response.body)
     end
 
@@ -136,6 +136,7 @@ class ConnectionTest < Minitest::Test
 
       it 'returns inputted default if no configuration' do
         default_endpoint = 'blahblah'
+
         assert_equal(
           default_endpoint,
           ChangeHealth::Connection.endpoint_for(

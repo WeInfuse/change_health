@@ -12,15 +12,15 @@ class SubscriberTest < Minitest::Test
           assert_equal(subscriber.memberId, parsed['memberId'])
         end
 
-        it "converts dateOfBirth to specified date format" do
+        it 'converts dateOfBirth to specified date format' do
           assert_equal(d.strftime(ChangeHealth::Models::DATE_FORMAT), subscriber.to_h[:dateOfBirth])
         end
 
-        it "works for as_json" do
+        it 'works for as_json' do
           assert_equal(d.strftime(ChangeHealth::Models::DATE_FORMAT), subscriber.as_json[:dateOfBirth])
         end
 
-        it "works for to_json" do
+        it 'works for to_json' do
           assert_equal(d.strftime(ChangeHealth::Models::DATE_FORMAT), parsed['dateOfBirth'])
         end
       end

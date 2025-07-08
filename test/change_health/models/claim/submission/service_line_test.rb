@@ -12,15 +12,15 @@ class ServiceLineTest < Minitest::Test
           assert_equal(service_line.professionalService, parsed['professionalService'])
         end
 
-        it "converts serviceDate to specified date format" do
+        it 'converts serviceDate to specified date format' do
           assert_equal(d.strftime(ChangeHealth::Models::DATE_FORMAT), service_line.to_h[:serviceDate])
         end
 
-        it "works for as_json" do
+        it 'works for as_json' do
           assert_equal(d.strftime(ChangeHealth::Models::DATE_FORMAT), service_line.as_json[:serviceDate])
         end
 
-        it "works for to_json" do
+        it 'works for to_json' do
           assert_equal(d.strftime(ChangeHealth::Models::DATE_FORMAT), parsed['serviceDate'])
         end
       end

@@ -26,42 +26,37 @@ class Report835ServiceLineTest < Minitest::Test
       )
     end
 
-    it 'creates adjustments correctly when there are multiple adjustments in a group code' do
-      expected_answer = [
-        {
-          adjustmentDetails: [
-            {
-              adjustmentReasonCode: '45',
-              adjustmentAmount: '180.82'
-            },
-            {
-              adjustmentReasonCode: '253',
-              adjustmentAmount: '13.24'
-            },
-            {
-              adjustmentReasonCode: '59', adjustmentAmount: '827.59'
-            }
-          ],
-          adjustmentGroupCode: 'PR'
-        },
-        {
-          adjustmentDetails: [
-            {
-              adjustmentReasonCode: '2',
-              adjustmentAmount: '165.52'
-            }
-          ],
-          adjustmentGroupCode: 'CO'
-        }
-      ]
+    describe 'multiple adjustments in a group code' do
+      let(:expected_answer) do
+        [
+          {
+            adjustmentDetails: [
+              { adjustmentReasonCode: '45', adjustmentAmount: '180.82' },
+              { adjustmentReasonCode: '253', adjustmentAmount: '13.24' },
+              { adjustmentReasonCode: '59', adjustmentAmount: '827.59' }
+            ],
+            adjustmentGroupCode: 'PR'
+          },
+          {
+            adjustmentDetails: [
+              { adjustmentReasonCode: '2', adjustmentAmount: '165.52' }
+            ],
+            adjustmentGroupCode: 'CO'
+          }
+        ]
+      end
 
-      actual_result = claim_information.create_adjustment_detail_array
-      assert_equal(expected_answer, actual_result)
+      it 'creates adjustments correctly' do
+        actual_result = claim_information.create_adjustment_detail_array
+
+        assert_equal(expected_answer, actual_result)
+      end
     end
 
     it 'Can handle no service adjustments when creating detail array' do
       claim_information.service_adjustments = nil
-      assert_equal([], claim_information.create_adjustment_detail_array)
+
+      assert_empty(claim_information.create_adjustment_detail_array)
     end
   end
 end

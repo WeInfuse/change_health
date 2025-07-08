@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 module ChangeHealth
   module Request
     module Claim
       class Report
-        ENDPOINT = '/medicalnetwork/reports/v2'.freeze
-        HEALTH_CHECK_ENDPOINT = ENDPOINT + '/healthcheck'.freeze
+        ENDPOINT = '/medicalnetwork/reports/v2'
+        HEALTH_CHECK_ENDPOINT = "#{ENDPOINT}/healthcheck"
 
         def self.report_list(headers: nil, more_url: nil, base_uri: nil, endpoint: nil, auth_headers: nil)
           endpoint ||= ChangeHealth::Connection.endpoint_for(self)
@@ -18,6 +20,10 @@ module ChangeHealth
           ))
         end
 
+        # rubocop:disable Metrics/CyclomaticComplexity
+        # rubocop:disable Metrics/MethodLength
+        # rubocop:disable Metrics/PerceivedComplexity
+        # rubocop:disable Metrics/ParameterLists
         def self.get_report(
           report_name,
           as_json_report: true,
@@ -67,6 +73,10 @@ module ChangeHealth
                    response: response)
           end
         end
+        # rubocop:enable Metrics/CyclomaticComplexity
+        # rubocop:enable Metrics/MethodLength
+        # rubocop:enable Metrics/PerceivedComplexity
+        # rubocop:enable Metrics/ParameterLists
 
         def self.delete_report(report_name, headers: nil, base_uri: nil, endpoint: nil, auth_headers: nil)
           return if report_name.nil? || report_name.empty?

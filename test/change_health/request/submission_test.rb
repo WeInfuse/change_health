@@ -32,6 +32,7 @@ class SubmissionTest < Minitest::Test
         it 'can add a provider' do
           provider = { firstName: 'jane' }
           claim_submission.add_provider(provider)
+
           assert_equal(1, claim_submission.providers.size)
           assert_equal(provider[:firstName], claim_submission.providers.first[:firstName])
         end
@@ -157,6 +158,7 @@ class SubmissionTest < Minitest::Test
                 'X-CHC-ClaimSubmission-SubmitterId' => 'submittedIdValue',
                 'X-CHC-ClaimSubmission-Username' => 'usernameValue'
               }
+
               assert_equal(expected, claim_submission.professional_headers)
             end
             it 'no headers' do
@@ -172,6 +174,7 @@ class SubmissionTest < Minitest::Test
                 'X-CHC-InstitutionalClaims-SubmitterId' => 'submittedIdValue',
                 'X-CHC-InstitutionalClaims-Username' => 'usernameValue'
               }
+
               assert_equal(expected, claim_submission.institutional_headers)
             end
             it 'no headers' do
@@ -191,6 +194,7 @@ class SubmissionTest < Minitest::Test
         )
 
         expected_endpoint = professional_endpoint + suffix
+
         assert_equal expected_endpoint, endpoint
       end
 
@@ -198,6 +202,7 @@ class SubmissionTest < Minitest::Test
         endpoint = ChangeHealth::Request::Claim::Submission.endpoint(
           is_professional: false
         )
+
         assert_equal institutional_endpoint, endpoint
       end
 

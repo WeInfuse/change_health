@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ChangeHealth
   module Response
     class TradingPartnerData

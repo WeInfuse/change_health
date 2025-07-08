@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ChangeHealth
   module Response
     module Claim
@@ -21,7 +23,8 @@ module ChangeHealth
 
         def self.report_type(report_name)
           return '277' if is_277?(report_name)
-          return '835' if is_835?(report_name)
+
+          '835' if is_835?(report_name)
         end
 
         def is_277?

@@ -71,7 +71,7 @@ class ReportTest < Minitest::Test
         end
 
         it 'correct report type' do
-          assert @report_data.is_a? ChangeHealth::Response::Claim::Report835Data
+          assert_kind_of ChangeHealth::Response::Claim::Report835Data, @report_data
         end
       end
       describe 'edi report' do
@@ -154,6 +154,7 @@ class ReportTest < Minitest::Test
       it '#report_list' do
         stub_change_health(endpoint: new_endpoint, verb: :get)
         claim_report.report_list
+
         assert_requested(@stub)
       end
 
@@ -162,6 +163,7 @@ class ReportTest < Minitest::Test
         it 'custom beginning path' do
           stub_change_health(endpoint: "#{new_endpoint}/#{report_name}", verb: :get)
           claim_report.get_report(report_name, as_json_report: false)
+
           assert_requested(@stub)
         end
 
@@ -169,6 +171,7 @@ class ReportTest < Minitest::Test
           report_type = '999'
           stub_change_health(endpoint: "#{new_endpoint}/#{report_name}/#{report_type}", verb: :get)
           claim_report.get_report(report_name, report_type: report_type)
+
           assert_requested(@stub)
         end
       end
@@ -177,6 +180,7 @@ class ReportTest < Minitest::Test
         report_name = 'X3000000.XX'
         stub_change_health(endpoint: "#{new_endpoint}/#{report_name}", verb: :delete)
         claim_report.delete_report(report_name)
+
         assert_requested(@stub)
       end
     end
@@ -188,6 +192,7 @@ class ReportTest < Minitest::Test
       it '#report_list' do
         stub_change_health(endpoint: endpoint, verb: :get, base_uri: new_base_uri)
         claim_report.report_list(base_uri: new_base_uri)
+
         assert_requested(@stub)
       end
 
@@ -196,6 +201,7 @@ class ReportTest < Minitest::Test
         it 'single report' do
           stub_change_health(endpoint: endpoint + "/#{report_name}", verb: :get, base_uri: new_base_uri)
           claim_report.get_report(report_name, as_json_report: false, base_uri: new_base_uri)
+
           assert_requested(@stub)
         end
 
@@ -203,6 +209,7 @@ class ReportTest < Minitest::Test
           report_type = '999'
           stub_change_health(endpoint: endpoint + "/#{report_name}/#{report_type}", verb: :get, base_uri: new_base_uri)
           claim_report.get_report(report_name, report_type: report_type, base_uri: new_base_uri)
+
           assert_requested(@stub)
         end
       end
@@ -211,6 +218,7 @@ class ReportTest < Minitest::Test
         report_name = 'X3000000.XX'
         stub_change_health(endpoint: endpoint + "/#{report_name}", verb: :delete, base_uri: new_base_uri)
         claim_report.delete_report(report_name, base_uri: new_base_uri)
+
         assert_requested(@stub)
       end
     end
@@ -221,6 +229,7 @@ class ReportTest < Minitest::Test
       it '#report_list' do
         stub_change_health(endpoint: endpoint, verb: :get)
         claim_report.report_list(endpoint: endpoint)
+
         assert_requested(@stub)
       end
 
@@ -229,6 +238,7 @@ class ReportTest < Minitest::Test
         it 'single report' do
           stub_change_health(endpoint: endpoint + "/#{report_name}", verb: :get)
           claim_report.get_report(report_name, as_json_report: false, endpoint: endpoint)
+
           assert_requested(@stub)
         end
 
@@ -236,6 +246,7 @@ class ReportTest < Minitest::Test
           report_type = '999'
           stub_change_health(endpoint: endpoint + "/#{report_name}/#{report_type}", verb: :get)
           claim_report.get_report(report_name, report_type: report_type, endpoint: endpoint)
+
           assert_requested(@stub)
         end
       end
@@ -244,6 +255,7 @@ class ReportTest < Minitest::Test
         report_name = 'X3000000.XX'
         stub_change_health(endpoint: endpoint + "/#{report_name}", verb: :delete)
         claim_report.delete_report(report_name, endpoint: endpoint)
+
         assert_requested(@stub)
       end
     end

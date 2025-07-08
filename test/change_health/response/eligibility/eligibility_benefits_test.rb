@@ -5,7 +5,7 @@ class EligibilityBenefitsTest < Minitest::Test
     let(:json_data) { load_sample('000050.example.response.json', parse: true) }
     let(:edata) { ChangeHealth::Response::EligibilityData.new(data: json_data) }
     let(:benefits) { edata.benefits }
-    let(:medicare) {
+    let(:medicare) do
       b = benefits.last.dup
       b['insuranceTypeCode'] = 'MA'
       b.delete('coverageLevel')
@@ -13,7 +13,7 @@ class EligibilityBenefitsTest < Minitest::Test
       b.delete('inPlanNetworkIndicator')
       b.delete('inPlanNetworkIndicatorCode')
       b
-    }
+    end
 
     describe 'benefits' do
       describe '#where' do
@@ -28,7 +28,7 @@ class EligibilityBenefitsTest < Minitest::Test
           end
 
           it 'handles arrays' do
-            assert_equal(5, benefits.where(serviceTypeCodes: ['30', 'BZ']).size)
+            assert_equal(5, benefits.where(serviceTypeCodes: %w[30 BZ]).size)
           end
         end
 
@@ -38,7 +38,7 @@ class EligibilityBenefitsTest < Minitest::Test
           end
 
           it 'can handle arrays' do
-            assert_equal(7, benefits.where(inPlanNetworkIndicatorCode: ['Y', 'N']).size)
+            assert_equal(7, benefits.where(inPlanNetworkIndicatorCode: %w[Y N]).size)
           end
         end
       end
@@ -46,7 +46,8 @@ class EligibilityBenefitsTest < Minitest::Test
       describe '#where_not' do
         it 'filters results' do
           assert_equal(benefits.size - 3, benefits.where_not(serviceTypeCodes: '30', coverageLevelCode: 'IND').size)
-          assert_equal(benefits.size - 1, benefits.where_not(serviceTypeCodes: '30', coverageLevelCode: 'IND', timeQualifierCode: ChangeHealth::Response::EligibilityBenefit::REMAINING).size)
+          assert_equal(benefits.size - 1,
+                       benefits.where_not(serviceTypeCodes: '30', coverageLevelCode: 'IND', timeQualifierCode: ChangeHealth::Response::EligibilityBenefit::REMAINING).size)
         end
       end
 
@@ -58,9 +59,9 @@ class EligibilityBenefitsTest < Minitest::Test
 
       describe '#find_by' do
         it 'finds one' do
-          assert(benefits.find_by(serviceTypeCodes: '30').is_a?(Hash))
-          assert(benefits.find_by(serviceTypeCodes: '30', coverageLevelCode: 'IND').is_a?(Hash))
-          assert(benefits.find_by(serviceTypeCodes: '30', coverageLevelCode: 'IND', timeQualifierCode: ChangeHealth::Response::EligibilityBenefit::REMAINING).is_a?(Hash))
+          assert_kind_of(Hash, benefits.find_by(serviceTypeCodes: '30'))
+          assert_kind_of(Hash, benefits.find_by(serviceTypeCodes: '30', coverageLevelCode: 'IND'))
+          assert_kind_of(Hash, benefits.find_by(serviceTypeCodes: '30', coverageLevelCode: 'IND', timeQualifierCode: ChangeHealth::Response::EligibilityBenefit::REMAINING))
         end
       end
 
@@ -78,7 +79,7 @@ class EligibilityBenefitsTest < Minitest::Test
             b = benefits.dup
             b << medicare
 
-            assert(medicare.medicare?)
+            assert_predicate(medicare, :medicare?)
             assert_equal(8, b.individual.size)
           end
         end
@@ -161,45 +162,52 @@ class EligibilityBenefitsTest < Minitest::Test
       describe 'filtering helpers' do
         describe '#visits' do
           it 'filters by time visit' do
-            assert_equal(benefits.where(timeQualifierCode: ChangeHealth::Response::EligibilityBenefit::VISIT), benefits.visits)
+            assert_equal(benefits.where(timeQualifierCode: ChangeHealth::Response::EligibilityBenefit::VISIT),
+                         benefits.visits)
           end
         end
 
         describe '#years' do
           it 'filters by time year' do
-            assert_equal(benefits.where(timeQualifierCode: ChangeHealth::Response::EligibilityBenefit::YEAR), benefits.years)
+            assert_equal(benefits.where(timeQualifierCode: ChangeHealth::Response::EligibilityBenefit::YEAR),
+                         benefits.years)
           end
         end
 
         describe '#remainings' do
           it 'filters by time remaining' do
-            assert_equal(benefits.where(timeQualifierCode: ChangeHealth::Response::EligibilityBenefit::REMAINING), benefits.remainings)
+            assert_equal(benefits.where(timeQualifierCode: ChangeHealth::Response::EligibilityBenefit::REMAINING),
+                         benefits.remainings)
           end
         end
 
         describe '#out_of_pockets' do
           it 'filters by time out_of_pocket' do
-            assert_equal(benefits.where(code: ChangeHealth::Response::EligibilityBenefit::OUT_OF_POCKET), benefits.out_of_pockets)
+            assert_equal(benefits.where(code: ChangeHealth::Response::EligibilityBenefit::OUT_OF_POCKET),
+                         benefits.out_of_pockets)
             assert_equal(benefits.where(code: ChangeHealth::Response::EligibilityBenefit::OUT_OF_POCKET), benefits.oops)
           end
         end
 
         describe '#copayments' do
           it 'filters by time copayments' do
-            assert_equal(benefits.where(code: ChangeHealth::Response::EligibilityBenefit::COPAYMENT), benefits.copayments)
+            assert_equal(benefits.where(code: ChangeHealth::Response::EligibilityBenefit::COPAYMENT),
+                         benefits.copayments)
             assert_equal(benefits.where(code: ChangeHealth::Response::EligibilityBenefit::COPAYMENT), benefits.copays)
           end
         end
 
         describe '#deductibles' do
           it 'filters by time deductibles' do
-            assert_equal(benefits.where(code: ChangeHealth::Response::EligibilityBenefit::DEDUCTIBLE), benefits.deductibles)
+            assert_equal(benefits.where(code: ChangeHealth::Response::EligibilityBenefit::DEDUCTIBLE),
+                         benefits.deductibles)
           end
         end
 
         describe '#coinsurances' do
           it 'filters by time coinsurances' do
-            assert_equal(benefits.where(code: ChangeHealth::Response::EligibilityBenefit::COINSURANCE), benefits.coinsurances)
+            assert_equal(benefits.where(code: ChangeHealth::Response::EligibilityBenefit::COINSURANCE),
+                         benefits.coinsurances)
           end
         end
       end
@@ -208,7 +216,7 @@ class EligibilityBenefitsTest < Minitest::Test
         describe 'individual' do
           describe '#individual_coinsurance' do
             it 'finds the first one' do
-              assert_equal(0.3, benefits.individual_coinsurance.amount)
+              assert_in_delta(0.3, benefits.individual_coinsurance.amount)
             end
 
             it 'can filter by more args' do
@@ -218,8 +226,8 @@ class EligibilityBenefitsTest < Minitest::Test
 
           describe '#individual_oop_remaining' do
             it 'finds the first one' do
-              assert_equal(4195.37, benefits.individual_oop_remaining.amount)
-              assert_equal(4195.37, benefits.individual_out_of_pocket_remaining.amount)
+              assert_in_delta(4195.37, benefits.individual_oop_remaining.amount)
+              assert_in_delta(4195.37, benefits.individual_out_of_pocket_remaining.amount)
             end
 
             it 'can filter by more args' do
@@ -279,8 +287,8 @@ class EligibilityBenefitsTest < Minitest::Test
 
           describe '#family_oop_remaining' do
             it 'finds the first one' do
-              assert_equal(9355.76, benefits.family_oop_remaining.amount)
-              assert_equal(9355.76, benefits.family_out_of_pocket_remaining.amount)
+              assert_in_delta(9355.76, benefits.family_oop_remaining.amount)
+              assert_in_delta(9355.76, benefits.family_out_of_pocket_remaining.amount)
             end
 
             it 'can filter by more args' do
@@ -290,8 +298,8 @@ class EligibilityBenefitsTest < Minitest::Test
 
           describe '#family_oop_total' do
             it 'finds the first one' do
-              assert_equal(11200, benefits.family_oop_total.amount)
-              assert_equal(11200, benefits.family_out_of_pocket_total.amount)
+              assert_equal(11_200, benefits.family_oop_total.amount)
+              assert_equal(11_200, benefits.family_out_of_pocket_total.amount)
             end
 
             it 'can filter by more args' do
@@ -302,7 +310,7 @@ class EligibilityBenefitsTest < Minitest::Test
           describe 'deductible' do
             describe '#family_deductible_remaining' do
               it 'finds the first one' do
-                assert_equal(855.75, benefits.family_deductible_remaining.amount)
+                assert_in_delta(855.75, benefits.family_deductible_remaining.amount)
               end
 
               it 'can filter by more args' do

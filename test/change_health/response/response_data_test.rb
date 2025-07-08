@@ -25,26 +25,29 @@ class ResponseDataTest < Minitest::Test
     let(:fake_data) { FakeData.new(data: json_data) }
     describe '#initialize' do
       it 'can take data' do
-        assert(false == fake_data.nil?)
+        assert_equal(false, fake_data.nil?)
       end
 
       it 'can take a response' do
         fake_data = FakeData.new(response: FakeResponse.new(-> { 'hi' }))
-        assert(false == fake_data.nil?)
+
+        assert_equal(false, fake_data.nil?)
       end
 
       it 'defaults to empty' do
         fake_data_empty = FakeData.new
-        assert(false == fake_data_empty.nil?)
+
+        assert_equal(false, fake_data_empty.nil?)
       end
 
       it 'handles bad response gracefully' do
         fake_data = FakeData.new(response: FakeResponse.new(-> { JSON.parse('bad json') }))
-        assert(false == fake_data.nil?)
+
+        assert_equal(false, fake_data.nil?)
       end
 
       it 'does not handle other errors gracefully' do
-        assert_raises { FakeData.new(response: FakeResponse.new(-> { nil.say_hi! })) }
+        assert_raises(StandardError) { FakeData.new(response: FakeResponse.new(-> { nil.say_hi! })) }
       end
     end
 
@@ -87,19 +90,34 @@ class ResponseDataTest < Minitest::Test
 
           describe 'inputDto error' do
             let(:json_data) { load_sample('error_response.inputDto.json', parse: true) }
+            let(:err_msg) do
+              [
+                '["',
+                'The JSON value could not be converted to System.String.',
+                ' ',
+                'Path: $.claimInformation.serviceLines[0].professionalService.serviceUnitCount',
+                ' | ',
+                'LineNumber: 0',
+                ' | ',
+                'BytePositionInLine: 763',
+                '."]'
+              ].join
+            end
 
             it 'true if inputDto error' do
               assert_equal(true, fake_data.errors?)
-              assert_equal(4, fake_data.errors.size)
-              assert_equal(
-                [
-                  'inputDto',
-                  '["The inputDto field is required."]',
-                  '$.claimInformation.serviceLines[0].professionalService.serviceUnitCount',
-                  '["The JSON value could not be converted to System.String. Path: $.claimInformation.serviceLines[0].professionalService.serviceUnitCount | LineNumber: 0 | BytePositionInLine: 763."]'
-                ], fake_data.errors.map(&:message)
-              )
               assert_nil(fake_data.server_error)
+            end
+
+            it 'has correct errors' do
+              assert_equal(4, fake_data.errors.size)
+              assert_equal('inputDto', fake_data.errors[0].message)
+              assert_equal('["The inputDto field is required."]', fake_data.errors[1].message)
+              assert_equal(
+                '$.claimInformation.serviceLines[0].professionalService.serviceUnitCount',
+                fake_data.errors[2].message
+              )
+              assert_equal(err_msg, fake_data.errors[3].message)
             end
           end
         end
@@ -108,16 +126,21 @@ class ResponseDataTest < Minitest::Test
       describe 'more complicated errors' do
         let(:field_error0) { { 'field' => 'patient.name', 'description' => 'is too short' } }
         let(:field_error1) { { 'field' => 'cat', 'description' => 'has meow' } }
+        let(:desc) do
+          'Please review http headers for this API, please contact support if you are unsure how to resolve.'
+        end
         let(:field_down) do
-          { 'field' => 'Http Header',
-            'description' => 'Please review http headers for this API, please contact support if you are unsure how to resolve.' }
+          {
+            'field' => 'Http Header',
+            'description' => desc
+          }
         end
         let(:code_needs_fix) { { 'code' => '71', 'description' => 'Need more time' } }
-        let(:code_retry_80) do
+        let(:code_retry) do
           { 'code' => '80', 'description' => 'Unable to Respond at Current Time',
             'followupAction' => 'Resubmission Allowed' }
         end
-        let(:code_noretry_80) { code_retry_80.merge('followupAction' => 'xxDo Not Resubmitmm;') }
+        let(:code_noretry) { code_retry.merge('followupAction' => 'xxDo Not Resubmitmm;') }
         let(:json_data) { { 'errors' => errors } }
 
         describe 'multiple errors' do
@@ -155,7 +178,7 @@ class ResponseDataTest < Minitest::Test
             [
               field_error0,
               code_needs_fix,
-              code_noretry_80
+              code_noretry
             ]
           end
 
@@ -203,8 +226,8 @@ class ResponseDataTest < Minitest::Test
           describe 'when errors' do
             let(:errors) do
               [
-                code_retry_80,
-                code_retry_80.merge('code' => '42')
+                code_retry,
+                code_retry.merge('code' => '42')
               ]
             end
 

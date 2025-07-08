@@ -1,14 +1,16 @@
+# frozen_string_literal: true
+
 module ChangeHealth
   module Extensions
     module InNetworkW
       def in_network
-        self.where(inPlanNetworkIndicatorCode: 'Y') + self.where(inPlanNetworkIndicatorCode: 'W')
+        where(inPlanNetworkIndicatorCode: 'Y') + where(inPlanNetworkIndicatorCode: 'W')
       end
     end
 
     module InNetworkMissing
       def in_network
-        self.where_not(inPlanNetworkIndicatorCode: 'N')
+        where_not(inPlanNetworkIndicatorCode: 'N')
       end
     end
 
@@ -32,7 +34,7 @@ module ChangeHealth
 
     module IndividualsAllNonFamily
       def individuals
-        self.where_not(coverageLevelCode: 'FAM')
+        where_not(coverageLevelCode: 'FAM')
       end
     end
   end

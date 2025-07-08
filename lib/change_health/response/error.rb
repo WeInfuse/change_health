@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ChangeHealth
   module Response
     class Error
@@ -13,9 +15,9 @@ module ChangeHealth
         'do not resubmit'
       ].freeze
 
-      DOWN_FIELD = 'Http Header'.freeze
+      DOWN_FIELD = 'Http Header'
 
-      DOWN_MESSAGE = 'Please review http headers for this API, please contact support if you are unsure how to resolve.'.freeze
+      DOWN_MESSAGE = 'Please review http headers for this API, please contact support if you are unsure how to resolve.'
 
       def initialize(data)
         @data = data

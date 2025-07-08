@@ -1,111 +1,130 @@
+# frozen_string_literal: true
+
 module ChangeHealth
   module Response
     class EligibilityBenefits < Array
       def initialize(benefits)
-        super(benefits.map {|benefit| ChangeHealth::Response::EligibilityBenefit.new(benefit) })
+        super(benefits.map { |benefit| ChangeHealth::Response::EligibilityBenefit.new(benefit) })
       end
 
       def where(**kwargs)
-        self.class.new(self.select {|benefit| kwargs.all? {|k,v| benefit_matches?(benefit, k, v) } })
+        self.class.new(self.select { |benefit| kwargs.all? { |k, v| benefit_matches?(benefit, k, v) } })
       end
 
       def where_not(**kwargs)
-        self.class.new(self.reject {|benefit| kwargs.all? {|k,v| benefit_matches?(benefit, k, v) } })
+        self.class.new(reject { |benefit| kwargs.all? { |k, v| benefit_matches?(benefit, k, v) } })
       end
 
-      def +(other_obj)
-        self.class.new(self.to_a + other_obj.to_a)
+      def +(other)
+        self.class.new(to_a + other.to_a)
       end
 
       def find_by(**kwargs)
-        self.find {|benefit| kwargs.all? {|k,v| benefit[k].is_a?(Array) ? benefit[k].include?(v) : v == benefit[k] } }
+        find { |benefit| kwargs.all? { |k, v| benefit[k].is_a?(Array) ? benefit[k].include?(v) : v == benefit[k] } }
       end
 
       def in_network
-        self.where(inPlanNetworkIndicatorCode: 'Y')
+        where(inPlanNetworkIndicatorCode: 'Y')
       end
 
       ChangeHealth::Response::EligibilityBenefit::HELPERS.each do |key, types|
         types.each do |method, value|
           define_method("#{method}s") do
-            self.where(key => value)
+            where(key => value)
           end
         end
       end
 
-      %w(family individual employee child employee_and_child).each do |method|
+      # rubocop:disable Metrics/BlockLength
+      %w[family individual employee child employee_and_child].each do |method|
         define_method(method) do
-          self.send("#{method}s")
+          send("#{method}s")
         end
 
-        %w(copayment coinsurance).each do |type_mod|
+        co_types = %w[copayment coinsurance]
+        remaining_types = %w[deductible out_of_pocket]
+        date_types = %w[year remaining]
+
+        co_types.each do |type_mod|
           method_name = "#{method}_#{type_mod}"
 
           define_method(method_name) do |**kwargs|
-            self.send(method).send("#{type_mod}s").where(**kwargs).first
+            send(method).send("#{type_mod}s").where(**kwargs).first
           end
 
-          if ('copayment' == type_mod)
-            define_method(method_name.gsub('copayment', 'copay')) do |**kwargs|
-              self.send(method_name, **kwargs)
-            end
+          next unless 'copayment' == type_mod
+
+          define_method(method_name.gsub('copayment', 'copay')) do |**kwargs|
+            send(method_name, **kwargs)
           end
         end
 
-        %w(deductible out_of_pocket).each do |type_mod|
-          %w(year remaining).each do |time_mod|
+        remaining_types.each do |type_mod|
+          date_types.each do |time_mod|
             method_name = "#{method}_#{type_mod}_#{time_mod}"
 
+            # rubocop:disable Layout/LineLength
             define_method(method_name) do |**kwargs|
-              self.send(method).send("#{type_mod}s").send("#{time_mod}s").where(**kwargs).first || self.send(method).send("#{type_mod}s").where(**kwargs).first
+              send(method).send("#{type_mod}s").send("#{time_mod}s").where(**kwargs).first || send(method).send("#{type_mod}s").where(**kwargs).first
             end
+            # rubocop:enable Layout/LineLength
 
-            if ('out_of_pocket' == type_mod)
+            if 'out_of_pocket' == type_mod
               define_method(method_name.gsub('out_of_pocket', 'oop')) do |**kwargs|
-                self.send(method_name, **kwargs)
+                send(method_name, **kwargs)
               end
 
-              if ('year' == time_mod)
+              if 'year' == time_mod
                 define_method(method_name.gsub('out_of_pocket', 'oop').gsub('year', 'total')) do |**kwargs|
-                  self.send(method_name, **kwargs)
+                  send(method_name, **kwargs)
                 end
               end
             end
 
-            if ('year' == time_mod)
-              define_method(method_name.gsub('year', 'total')) do |**kwargs|
-                self.send(method_name, **kwargs)
-              end
+            next unless 'year' == time_mod
+
+            define_method(method_name.gsub('year', 'total')) do |**kwargs|
+              send(method_name, **kwargs)
             end
           end
         end
       end
+      # rubocop:enable Metrics/BlockLength
 
-      alias_method :oops, :out_of_pockets
-      alias_method :copays, :copayments
+      alias oops out_of_pockets
+      alias copays copayments
 
       private
-      def benefit_matches?(benefit, k, v)
-        if benefit[k].is_a?(Array)
-          if v.is_a?(Array)
-            return v.any? {|possible_v| benefit[k].include?(possible_v) }
-          else
-            return benefit[k].include?(v)
+
+      def benefit_matches?(benefit, key, value)
+        return benefit_array_matches?(benefit[key], value) if benefit[key].is_a?(Array)
+
+        return value.include?(benefit[key]) if value.is_a?(Array)
+
+        medicare_benefit = benefit_medicare?(benefit, key, value) if benefit.medicare?
+
+        medicare_benefit.nil? ? value == benefit[key] : medicare_benefit
+      end
+
+      def benefit_array_matches?(benefit_array, value)
+        if value.is_a?(Array)
+          value.any? do |possible_v|
+            benefit_array.include?(possible_v)
           end
         else
-          if v.is_a?(Array)
-            return v.include?(benefit[k])
-          elsif benefit.medicare?
-            if :inPlanNetworkIndicatorCode == k.to_sym
-              return false == benefit.in_plan_network? if 'N' == v
-              return benefit.in_plan_network? if 'Y' == v
-            elsif :coverageLevelCode == k.to_sym
-              return false == benefit.individual? if EligibilityBenefit::INDIVIDUAL != v
-              return benefit.individual? if EligibilityBenefit::INDIVIDUAL == v
-            end
-          end
+          benefit_array.include?(value)
+        end
+      end
 
-          return v == benefit[k]
+      def benefit_medicare?(benefit, key, value)
+        if :inPlanNetworkIndicatorCode == key.to_sym
+          return false == benefit.in_plan_network? if 'N' == value
+
+          benefit.in_plan_network? if 'Y' == value
+        elsif :coverageLevelCode == key.to_sym
+          return false == benefit.individual? if EligibilityBenefit::INDIVIDUAL != value
+
+          benefit.individual? if EligibilityBenefit::INDIVIDUAL == value
         end
       end
     end

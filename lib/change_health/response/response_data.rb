@@ -1,8 +1,11 @@
+# frozen_string_literal: true
+
 module ChangeHealth
   module Response
     class ResponseData
       attr_reader :response, :raw
 
+      # rubocop:disable Lint/SuppressedException
       def initialize(data: nil, response: nil)
         @response = response
         @raw      = data
@@ -14,6 +17,7 @@ module ChangeHealth
 
         @raw ||= {}
       end
+      # rubocop:enable Lint/SuppressedException
 
       def errors?
         field_error = errors.is_a?(Array) && false == errors.empty?
@@ -22,13 +26,13 @@ module ChangeHealth
       end
 
       def errors
-        errors = @raw.dig('errors') || []
+        errors = @raw['errors'] || []
 
         errors.flatten.map { |error| ChangeHealth::Response::Error.new(error) }
       end
 
       def server_error
-        ChangeHealthException.from_response(@response, msg: 'Request') if @raw.dig('error')
+        ChangeHealthException.from_response(@response, msg: 'Request') if @raw['error']
       end
 
       def recommend_retry?

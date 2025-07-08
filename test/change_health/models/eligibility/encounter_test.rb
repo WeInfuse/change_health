@@ -12,16 +12,16 @@ class EncounterTest < Minitest::Test
           assert_equal(encounter.date_range?, parsed['dateRange'])
         end
 
-        [:beginningDateOfService, :dateOfService, :endDateOfService].each do |key|
+        %i[beginningDateOfService dateOfService endDateOfService].each do |key|
           it "converts #{key} to specified date format" do
             assert_equal(d.strftime(ChangeHealth::Models::DATE_FORMAT), encounter.to_h[key])
           end
 
-          it "works for as_json" do
+          it 'works for as_json' do
             assert_equal(d.strftime(ChangeHealth::Models::DATE_FORMAT), encounter.as_json[key])
           end
 
-          it "works for to_json" do
+          it 'works for to_json' do
             assert_equal(d.strftime(ChangeHealth::Models::DATE_FORMAT), parsed[key.to_s])
           end
         end

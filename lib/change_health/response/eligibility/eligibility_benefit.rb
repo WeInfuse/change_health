@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ChangeHealth
   module Response
     class EligibilityBenefit < Hash
@@ -21,8 +23,8 @@ module ChangeHealth
       SERVICE_YEAR  = '22'
       YEAR          = '23'
       YTD           = '24'
-      DAY           =  '7'
-      REMAINING     = '29'
+      DAY = '7'
+      REMAINING = '29'
 
       CODES = {
         out_of_pocket: OUT_OF_POCKET,
@@ -30,7 +32,7 @@ module ChangeHealth
         coinsurance: COINSURANCE,
         non_covered: NON_COVERED,
         deductible: DEDUCTIBLE
-      }
+      }.freeze
       COVERAGES = {
         individual: INDIVIDUAL,
         child: CHILD,
@@ -38,99 +40,100 @@ module ChangeHealth
         family: FAMILY,
         employee_and_child: EMPLOYEE_AND_CHILD,
         employee_and_spouse: EMPLOYEE_AND_SPOUSE
-      }
+      }.freeze
       TIMEFRAMES = {
         visit: VISIT,
         year: YEAR,
         remaining: REMAINING
-      }
+      }.freeze
       MEDICARE = {
         part_a: 'MA',
         part_b: 'MB',
         primary: 'MP'
-      }
+      }.freeze
       HELPERS = {
         timeQualifierCode: TIMEFRAMES,
         coverageLevelCode: COVERAGES,
         code: CODES
-      }
+      }.freeze
 
       HELPERS.each do |key, types|
         types.each do |method, value|
           define_method("#{method}?") do
-            value == self[key] || :individual == method && self[key].nil? && self.medicare?
+            value == self[key] || (:individual == method && self[key].nil? && medicare?)
           end
         end
       end
 
       def medicare?
-        MEDICARE.values.include?(self.insuranceTypeCode)
+        MEDICARE.value?(insuranceTypeCode)
       end
 
-      %w(benefitAmount benefitPercent).each do |amount_method|
-        define_method("#{amount_method}") do
+      %w[benefitAmount benefitPercent].each do |amount_method|
+        define_method(amount_method.to_s) do
           format_amount(amount_method)
         end
       end
 
-      %w(insuranceType insuranceTypeCode benefitsDateInformation additionalInformation).each do |method|
-        define_method("#{method}") do
+      %w[insuranceType insuranceTypeCode benefitsDateInformation additionalInformation].each do |method|
+        define_method(method.to_s) do
           self[method]
         end
       end
-      alias_method :date_info, :benefitsDateInformation
-      alias_method :insurance_type, :insuranceType
-      alias_method :insurance_type_code, :insuranceTypeCode
-      alias_method :additional_info, :additionalInformation
+      alias date_info benefitsDateInformation
+      alias insurance_type insuranceType
+      alias insurance_type_code insuranceTypeCode
+      alias additional_info additionalInformation
 
       def descriptions
-        data = self.additionalInformation || []
+        data = additionalInformation || []
 
-        data.map {|info| info['description'] }.compact
+        data.filter_map { |info| info['description'] }
       end
 
       def in_plan_network?
-        return 'Y' == self[:inPlanNetworkIndicatorCode] || self[:inPlanNetworkIndicatorCode].nil? && self.medicare?
+        'Y' == self[:inPlanNetworkIndicatorCode] || (self[:inPlanNetworkIndicatorCode].nil? && medicare?)
       end
-      alias_method :in_plan?, :in_plan_network?
-      alias_method :in_network?, :in_plan_network?
+      alias in_plan? in_plan_network?
+      alias in_network? in_plan_network?
 
       def amount
-        self.coinsurance? ? self.benefitPercent : self.benefitAmount
+        coinsurance? ? benefitPercent : benefitAmount
       end
 
       def services
-        self['serviceTypeCodes']&.each_with_index&.map {|stc, i| [stc, self['serviceTypes']&.at(i)]} || []
+        self['serviceTypeCodes']&.each_with_index&.map { |stc, i| [stc, self['serviceTypes']&.at(i)] } || []
       end
 
-      %w(eligibilityBegin eligibilityEnd planBegin planEnd service).each do |f|
+      %w[eligibilityBegin eligibilityEnd planBegin planEnd service].each do |f|
         define_method(f) do
-          return ChangeHealth::Models::PARSE_DATE.call(self.date_info&.dig(f))
+          ChangeHealth::Models::PARSE_DATE.call(date_info&.dig(f))
         end
       end
-      alias_method :eligibility_begin_date, :eligibilityBegin
-      alias_method :eligibility_end_date, :eligibilityEnd
-      alias_method :plan_begin_date, :planBegin
-      alias_method :plan_end_date, :planEnd
-      alias_method :service_date, :service
+      alias eligibility_begin_date eligibilityBegin
+      alias eligibility_end_date eligibilityEnd
+      alias plan_begin_date planBegin
+      alias plan_end_date planEnd
+      alias service_date service
 
       def plan_date_range
-        pd = self.date_info&.dig('plan') || ''
+        pd = date_info&.dig('plan') || ''
         pd.split('-')
       end
 
       def plan_date_range_start
-        ChangeHealth::Models::PARSE_DATE.call(self.plan_date_range[0])
+        ChangeHealth::Models::PARSE_DATE.call(plan_date_range[0])
       end
 
       def plan_date_range_end
-        ChangeHealth::Models::PARSE_DATE.call(self.plan_date_range[1])
+        ChangeHealth::Models::PARSE_DATE.call(plan_date_range[1])
       end
 
       private
+
       def format_amount(key)
         amt = self[key]
-        amt = amt.to_f unless amt.nil?
+        amt&.to_f
       end
     end
   end
