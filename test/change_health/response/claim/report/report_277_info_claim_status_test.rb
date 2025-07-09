@@ -12,6 +12,7 @@ class Report277InfoClaimStatusTest < Minitest::Test
 
       it 'can add an info_status' do
         info_claim_status.add_info_status(info_status)
+
         assert_equal(1, info_claim_status.info_statuses.size)
         assert_equal(info_status, info_claim_status.info_statuses.first)
       end

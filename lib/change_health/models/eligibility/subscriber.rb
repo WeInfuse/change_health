@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ChangeHealth
   module Models
     module Eligibility
@@ -14,7 +16,8 @@ module ChangeHealth
         property :idCard, from: :id_card, required: false
         property :idCardIssueDate, from: :id_card_issued_date, required: false
         property :lastName, from: :last_name, required: false
-        property :medicaidRecipientIdentificationNumber, from: :medicaid_recipient_identification_number, required: false
+        property :medicaidRecipientIdentificationNumber, from: :medicaid_recipient_identification_number,
+                                                         required: false
         property :memberId, from: :member_id, required: false
         property :providerCode, from: :provider_code, required: false
         property :providerIdentifier, from: :provider_identification, required: false

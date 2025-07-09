@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'httparty'
 require 'hashie'
 require 'change_health/version'
@@ -91,13 +93,13 @@ module ChangeHealth
       }
     end
 
-    def from_h(h)
-      self.auth_headers  = h[:auth_headers]
-      self.client_id     = h[:client_id]
-      self.client_secret = h[:client_secret]
-      self.endpoints     = h[:endpoints]
-      self.grant_type    = h[:grant_type]
-      self.api_endpoint  = h[:api_endpoint]
+    def from_h(other_hash)
+      self.auth_headers  = other_hash[:auth_headers]
+      self.client_id     = other_hash[:client_id]
+      self.client_secret = other_hash[:client_secret]
+      self.endpoints     = other_hash[:endpoints]
+      self.grant_type    = other_hash[:grant_type]
+      self.api_endpoint  = other_hash[:api_endpoint]
 
       self
     end

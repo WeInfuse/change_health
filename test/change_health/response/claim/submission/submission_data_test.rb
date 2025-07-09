@@ -1,13 +1,11 @@
 require 'test_helper'
 
 class SubmissionDataTest < Minitest::Test
-
   describe 'submission data' do
     let(:json_data) { load_sample('claim/submission/success.example.response.json', parse: true) }
     let(:submission_data) { ChangeHealth::Response::Claim::SubmissionData.new(data: json_data) }
 
     describe 'object' do
-
       describe 'trading partner' do
         it 'gets the trading partner id' do
           assert_equal('RANDOM_ID', submission_data.trading_partner_id)

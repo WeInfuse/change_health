@@ -21,7 +21,7 @@ class TradingPartnerRequestTest < Minitest::Test
         end
 
         it 'returns an Array of Models::TradingPartner objects' do
-          assert_equal ChangeHealth::Models::TradingPartner, @trading_partners.first.class
+          assert_instance_of ChangeHealth::Models::TradingPartner, @trading_partners.first
           refute_nil @trading_partners.first.name
           refute_nil @trading_partners.first.service_id
         end

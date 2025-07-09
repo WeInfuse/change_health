@@ -7,21 +7,21 @@ class ExtensionsTest < Minitest::Test
   end
 
   describe 'extensions' do
-    let(:json_data) {
+    let(:json_data) do
       [
         {
-          "inPlanNetworkIndicatorCode": "Y"
+          inPlanNetworkIndicatorCode: 'Y'
         },
         {
-          "inPlanNetworkIndicatorCode": "W",
-          "coverageLevelCode": "IND"
+          inPlanNetworkIndicatorCode: 'W',
+          coverageLevelCode: 'IND'
         },
         {
-          "inPlanNetworkIndicatorCode": "N",
-          "coverageLevelCode": "FAM"
+          inPlanNetworkIndicatorCode: 'N',
+          coverageLevelCode: 'FAM'
         }
       ]
-    }
+    end
     let(:benefits_default) { ChangeHealth::Response::EligibilityBenefits.new(json_data) }
     let(:benefits) { TestExtensions.new(json_data) }
 

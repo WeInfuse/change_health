@@ -1,18 +1,20 @@
+# frozen_string_literal: true
+
 module ChangeHealth
   module Request
     module Claim
       class Submission < Hashie::Trash
-        PROFESSIONAL_ENDPOINT = '/medicalnetwork/professionalclaims/v3'.freeze
-        INSTITUTIONAL_ENDPOINT = '/medicalnetwork/institutionalclaims/v1'.freeze
-        HEALTH_CHECK_SUFFIX = '/healthcheck'.freeze
-        SUBMISSION_SUFFIX = '/submission'.freeze
-        VALIDATION_SUFFIX = '/validation'.freeze
+        PROFESSIONAL_ENDPOINT = '/medicalnetwork/professionalclaims/v3'
+        INSTITUTIONAL_ENDPOINT = '/medicalnetwork/institutionalclaims/v1'
+        HEALTH_CHECK_SUFFIX = '/healthcheck'
+        SUBMISSION_SUFFIX = '/submission'
+        VALIDATION_SUFFIX = '/validation'
 
         # Deprecated but still here for backwards compatibility
         ENDPOINT = PROFESSIONAL_ENDPOINT
-        HEALTH_CHECK_ENDPOINT = ENDPOINT + '/healthcheck'.freeze
-        SUBMISSION_ENDPOINT = ENDPOINT + '/submission'.freeze
-        VALIDATION_ENDPOINT = ENDPOINT + '/validation'.freeze
+        HEALTH_CHECK_ENDPOINT = "#{ENDPOINT}/healthcheck"
+        SUBMISSION_ENDPOINT = "#{ENDPOINT}/submission"
+        VALIDATION_ENDPOINT = "#{ENDPOINT}/validation"
         # End Deprecated
 
         property :attending

@@ -12,6 +12,7 @@ class Report835ServiceAdjustmentTest < Minitest::Test
       it 'can add a status_category_code' do
         adjustment = 'pony'
         service_adjustment.add_adjustment(adjustment)
+
         assert_equal(1, service_adjustment.adjustments.size)
         assert_equal(adjustment, service_adjustment.adjustments.first)
       end

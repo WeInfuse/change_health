@@ -19,8 +19,9 @@ class EligibilityTest < Minitest::Test
         end
 
         it 'can add a dependent' do
-          dependent = { firstName: 'jane'}
+          dependent = { firstName: 'jane' }
           eligibility.add_dependent(dependent)
+
           assert_equal(1, eligibility.dependents.size)
           assert_equal(dependent[:firstName], eligibility.dependents.first[:firstName])
         end

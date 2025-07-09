@@ -17,6 +17,7 @@ class AuthenticationTest < Minitest::Test
     describe 'authentication' do
       it 'calls change_health endpoint' do
         auth.authenticate
+
         assert_requested(@auth_stub, times: 1)
       end
 
@@ -31,7 +32,8 @@ class AuthenticationTest < Minitest::Test
 
       it 'fails with a resonable exception and with nil response' do
         stub_request(:post, File.join(ChangeHealth.configuration.api_endpoint, ChangeHealth::Authentication::AUTH_ENDPOINT))
-          .with(body: { client_id: 'wrong', client_secret: ChangeHealth.configuration.client_secret, grant_type: ChangeHealth.configuration.grant_type })
+          .with(body: { client_id: 'wrong', client_secret: ChangeHealth.configuration.client_secret,
+                        grant_type: ChangeHealth.configuration.grant_type })
           .to_return(build_response(file: 'error_response.json', status: 401))
 
         auth.expire!

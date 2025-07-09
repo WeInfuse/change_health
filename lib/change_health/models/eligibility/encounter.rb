@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ChangeHealth
   module Models
     module Eligibility
@@ -8,9 +10,9 @@ module ChangeHealth
         property :endDateOfService, from: :end_date_of_service, required: false
         property :serviceTypeCodes, from: :service_type_codes, required: false
 
-        alias_method :dateRange?, :dateRange
-        alias_method :date_range?, :dateRange
-        alias_method :service_type_codes, :serviceTypeCodes
+        alias dateRange? dateRange
+        alias date_range? dateRange
+        alias service_type_codes serviceTypeCodes
 
         def add_service_type_code(code)
           self[:serviceTypeCodes] ||= []

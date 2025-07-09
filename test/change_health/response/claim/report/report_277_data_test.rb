@@ -55,7 +55,7 @@ class Report277DataTest < Minitest::Test
           service_provider_npi: '1111111111',
           trading_partner_claim_number: 'AAAAAAAAAAA1'
         )
-        expected_claim.keys.each do |attribute|
+        expected_claim.each_key do |attribute|
           it attribute.to_s do
             assert_equal expected_claim[attribute], actual_claim[attribute]
           end
@@ -67,7 +67,7 @@ class Report277DataTest < Minitest::Test
 
         expected_info_claim_status = expected_claim.info_claim_statuses.first
 
-        expected_info_claim_status.keys.each do |attribute|
+        expected_info_claim_status.each_key do |attribute|
           it attribute.to_s do
             assert_equal expected_info_claim_status[attribute], actual_claim.info_claim_statuses.first[attribute]
           end
@@ -88,7 +88,11 @@ class Report277DataTest < Minitest::Test
           status_category_code: 'E1',
           status_category_code_value: 'Response not possible - System Status',
           status_code: '689',
-          status_code_value: 'Entity was unable to respond within the expected time frame. Usage: This code requires use of an Entity Code.'
+          status_code_value: [
+            'Entity was unable to respond within the expected time frame.',
+            ' ',
+            'Usage: This code requires use of an Entity Code.'
+          ].join
         )
         info_claim_status = ChangeHealth::Response::Claim::Report277InfoClaimStatus.new(
           info_statuses: [info_status],
@@ -105,11 +109,12 @@ class Report277DataTest < Minitest::Test
           report_name: 'X3000000.XX',
           service_provider_npi: '1760854442'
         )
+
         it 'claim count' do
           assert_equal 1, short_report_data.claims.count
         end
 
-        expected_claim.keys.each do |attribute|
+        expected_claim.each_key do |attribute|
           it attribute.to_s do
             assert_equal expected_claim[attribute], short_actual_claim[attribute]
           end
@@ -127,7 +132,7 @@ class Report277DataTest < Minitest::Test
 
         expected_info_claim_status = expected_claim.info_claim_statuses.first
 
-        expected_info_claim_status.keys.each do |attribute|
+        expected_info_claim_status.each_key do |attribute|
           it attribute.to_s do
             assert_equal expected_info_claim_status[attribute], short_actual_claim.info_claim_statuses.first[attribute]
           end

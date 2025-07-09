@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module ChangeHealth
   class Authentication
     attr_accessor :response
 
-    AUTH_ENDPOINT    = '/apip/auth/v2/token'.freeze
+    AUTH_ENDPOINT = '/apip/auth/v2/token'
 
     def initialize
       @response     = nil
@@ -10,16 +12,20 @@ module ChangeHealth
     end
 
     def authenticate(base_uri: nil)
-      if (self.expires?)
+      if expires?
         base_uri ||= Connection.base_uri
         request = {
-          body: { client_id: ChangeHealth.configuration.client_id, client_secret: ChangeHealth.configuration.client_secret, grant_type: ChangeHealth.configuration.grant_type },
+          body: {
+            client_id: ChangeHealth.configuration.client_id,
+            client_secret: ChangeHealth.configuration.client_secret,
+            grant_type: ChangeHealth.configuration.grant_type
+          },
           endpoint: AUTH_ENDPOINT
         }
 
         response = Connection.new.request(**request, auth: false, base_uri: base_uri)
 
-        if (false == response.ok?)
+        if false == response.ok?
           @response = nil
           raise ChangeHealthException.from_response(response, msg: 'Authentication')
         else
@@ -28,36 +34,34 @@ module ChangeHealth
         end
       end
 
-      return self
+      self
     end
 
     def access_token
-      return @response['access_token'] if @response
+      @response['access_token'] if @response
     end
 
     def expires_in
-      return @response['expires_in'].to_i if @response
+      @response['expires_in'].to_i if @response
     end
 
     def token_type
-      return @response['token_type'] if @response
+      @response['token_type'] if @response
     end
 
     def expiry
-      @request_time + self.expires_in if @request_time && self.expires_in
+      @request_time + expires_in if @request_time && expires_in
     end
 
     def expires?(seconds_from_now = 60)
-      if (self.expiry)
-        return self.expiry.utc <= (Time.now + seconds_from_now).utc
-      else
-        return true
-      end
+      return expiry.utc <= (Time.now + seconds_from_now).utc if expiry
+
+      true
     end
 
     def access_header
-      return {
-        'Authorization' => "Bearer #{self.access_token}",
+      {
+        'Authorization' => "Bearer #{access_token}"
       }
     end
 

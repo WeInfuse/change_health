@@ -1,22 +1,21 @@
 require 'test_helper'
 
 class EligibilityDataTest < Minitest::Test
-
   class ChangeHealth::Response::EligibilityBenefitsABC123 < ChangeHealth::Response::EligibilityBenefits
   end
 
+  # rubocop:disable Naming/ClassAndModuleCamelCase
   class ChangeHealth::Response::EligibilityBenefitsCBA987 < ChangeHealth::Response::EligibilityBenefits
     class ChangeHealth::Response::EligibilityBenefitsCBA987_Plan123 < ChangeHealth::Response::EligibilityBenefits
     end
 
     def self.factory(data)
-      if data.plan?('Plan123')
-        return ChangeHealth::Response::EligibilityBenefitsCBA987_Plan123
-      else
-        return self
-      end
+      return ChangeHealth::Response::EligibilityBenefitsCBA987_Plan123 if data.plan?('Plan123')
+
+      self
     end
   end
+  # rubocop:enable Naming/ClassAndModuleCamelCase
 
   describe 'eligibility data' do
     let(:json_data) { load_sample('000050.example.response.json', parse: true) }
@@ -85,11 +84,11 @@ class EligibilityDataTest < Minitest::Test
 
         describe 'returns empty hash' do
           it 'empty data' do
-            assert(edata_empty.plan_status(service_code: '30').empty?)
+            assert_empty(edata_empty.plan_status(service_code: '30'))
           end
 
           it 'for non matched code' do
-            assert(edata.plan_status(service_code: 'cat').empty?)
+            assert_empty(edata.plan_status(service_code: 'cat'))
           end
         end
 
@@ -122,7 +121,7 @@ class EligibilityDataTest < Minitest::Test
         end
 
         describe 'all benefits are medicare' do
-          let(:json_data) {
+          let(:json_data) do
             str = <<-STR
             {
               "benefitsInformation": [
@@ -145,7 +144,7 @@ class EligibilityDataTest < Minitest::Test
             }
             STR
             JSON.parse(str)
-          }
+          end
 
           it 'is true' do
             assert_equal(true, edata.medicare?)
@@ -156,17 +155,21 @@ class EligibilityDataTest < Minitest::Test
       describe '#benefits' do
         it 'returns all benefits mapped to subclass' do
           assert_equal(edata.benefits_information.size, edata.benefits.size)
-          assert_equal(ChangeHealth::Response::EligibilityBenefits, edata.benefits.class)
+          assert_instance_of(ChangeHealth::Response::EligibilityBenefits, edata.benefits)
         end
 
         describe 'specific class exists for trading partner service id' do
           let(:tpsi) { 'abc123' }
-          let(:altered_data) { d = load_sample('000050.example.response.json', parse: true); d['tradingPartnerServiceId'] = tpsi; d }
+          let(:altered_data) do
+            d = load_sample('000050.example.response.json', parse: true)
+            d['tradingPartnerServiceId'] = tpsi
+            d
+          end
           let(:json_data) { altered_data }
 
           it 'instantiates that class' do
             assert_equal(edata.benefits_information.size, edata.benefits.size)
-            assert_equal(ChangeHealth::Response::EligibilityBenefitsABC123, edata.benefits.class)
+            assert_instance_of(ChangeHealth::Response::EligibilityBenefitsABC123, edata.benefits)
           end
 
           describe 'responds to #factory' do
@@ -174,15 +177,18 @@ class EligibilityDataTest < Minitest::Test
 
             it 'instantiates the returned class' do
               assert_equal(edata.benefits_information.size, edata.benefits.size)
-              assert_equal(ChangeHealth::Response::EligibilityBenefitsCBA987, edata.benefits.class)
+              assert_instance_of(ChangeHealth::Response::EligibilityBenefitsCBA987, edata.benefits)
             end
 
             describe 'can use data object to select' do
-              let(:json_data) { altered_data['planStatus'][0]['planDetails'] = 'Plan123'; altered_data }
+              let(:json_data) do
+                altered_data['planStatus'][0]['planDetails'] = 'Plan123'
+                altered_data
+              end
 
               it 'instantiates the returned class' do
                 assert_equal(edata.benefits_information.size, edata.benefits.size)
-                assert_equal(ChangeHealth::Response::EligibilityBenefitsCBA987_Plan123, edata.benefits.class)
+                assert_instance_of(ChangeHealth::Response::EligibilityBenefitsCBA987_Plan123, edata.benefits)
               end
             end
           end
@@ -190,30 +196,30 @@ class EligibilityDataTest < Minitest::Test
 
         describe 'returns empty array' do
           it 'empty data' do
-            assert(edata_empty.benefits.empty?)
+            assert_empty(edata_empty.benefits)
           end
         end
       end
 
       describe '#active?' do
         it 'true when statusCode is 1' do
-          assert(edata.active?)
+          assert_predicate(edata, :active?)
         end
 
         describe 'no service codes' do
-          let(:altered_data) {
-            d = load_sample('000050.example.response.json', parse: true);
+          let(:altered_data) do
+            d = load_sample('000050.example.response.json', parse: true)
             d['planStatus'] = altered_plan_status
             d
-          }
+          end
           let(:json_data) { altered_data }
 
           describe 'no other codes' do
-            let(:altered_plan_status) {
+            let(:altered_plan_status) do
               [
-                {"statusCode" => ChangeHealth::Response::EligibilityData::ACTIVE,"status" => "Active Coverage","planDetails" => "OTHER"}
+                { 'statusCode' => ChangeHealth::Response::EligibilityData::ACTIVE, 'status' => 'Active Coverage', 'planDetails' => 'OTHER' }
               ]
-            }
+            end
 
             it 'is false' do
               assert_equal(false, edata.active?)
@@ -221,12 +227,13 @@ class EligibilityDataTest < Minitest::Test
           end
 
           describe 'other active code' do
-            let(:altered_plan_status) {
+            let(:altered_plan_status) do
               [
-                {"statusCode" => ChangeHealth::Response::EligibilityData::ACTIVE,"status" => "Active Coverage","planDetails" => "OTHER"},
-                {"statusCode" => ChangeHealth::Response::EligibilityData::ACTIVE,"status" => "Active Coverage","planDetails" => "BASIC", "serviceTypeCodes" => [ "30" ]}
+                { 'statusCode' => ChangeHealth::Response::EligibilityData::ACTIVE, 'status' => 'Active Coverage',
+                  'planDetails' => 'OTHER' },
+                { 'statusCode' => ChangeHealth::Response::EligibilityData::ACTIVE, 'status' => 'Active Coverage', 'planDetails' => 'BASIC', 'serviceTypeCodes' => ['30'] }
               ]
-            }
+            end
 
             it 'is true' do
               assert_equal(true, edata.active?)
@@ -255,19 +262,19 @@ class EligibilityDataTest < Minitest::Test
         end
 
         describe 'no service codes' do
-          let(:altered_data) {
-            d = load_sample('000050.example.response.json', parse: true);
+          let(:altered_data) do
+            d = load_sample('000050.example.response.json', parse: true)
             d['planStatus'] = altered_plan_status
             d
-          }
+          end
           let(:json_data) { altered_data }
 
           describe 'no other codes' do
-            let(:altered_plan_status) {
+            let(:altered_plan_status) do
               [
-                {"statusCode" => ChangeHealth::Response::EligibilityData::INACTIVE,"status" => "Active Coverage","planDetails" => "OTHER"}
+                { 'statusCode' => ChangeHealth::Response::EligibilityData::INACTIVE, 'status' => 'Active Coverage', 'planDetails' => 'OTHER' }
               ]
-            }
+            end
 
             it 'is false' do
               assert_equal(false, edata.inactive?)
@@ -275,13 +282,15 @@ class EligibilityDataTest < Minitest::Test
           end
 
           describe 'other active code' do
-            let(:altered_plan_status) {
+            let(:altered_plan_status) do
               [
-                {"statusCode" => ChangeHealth::Response::EligibilityData::INACTIVE,"status" => "Active Coverage","planDetails" => "OTHER"},
-                {"statusCode" => ChangeHealth::Response::EligibilityData::ACTIVE,"status" => "Active Coverage","planDetails" => "BASIC", "serviceTypeCodes" => [ "30" ]},
-                {"statusCode" => ChangeHealth::Response::EligibilityData::INACTIVE,"status" => "Active Coverage","planDetails" => "BASIC", "serviceTypeCodes" => [ "30" ]}
+                { 'statusCode' => ChangeHealth::Response::EligibilityData::INACTIVE, 'status' => 'Active Coverage',
+                  'planDetails' => 'OTHER' },
+                { 'statusCode' => ChangeHealth::Response::EligibilityData::ACTIVE, 'status' => 'Active Coverage',
+                  'planDetails' => 'BASIC', 'serviceTypeCodes' => ['30'] },
+                { 'statusCode' => ChangeHealth::Response::EligibilityData::INACTIVE, 'status' => 'Active Coverage', 'planDetails' => 'BASIC', 'serviceTypeCodes' => ['30'] }
               ]
-            }
+            end
 
             it 'is true' do
               assert_equal(true, edata.inactive?)
