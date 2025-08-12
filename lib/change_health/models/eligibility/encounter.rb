@@ -10,7 +10,9 @@ module ChangeHealth
         property :endDateOfService, from: :end_date_of_service, required: false
         property :serviceTypeCodes, from: :service_type_codes, required: false
 
+        # rubocop:disable Naming/MethodName
         alias dateRange? dateRange
+        # rubocop:enable Naming/MethodName
         alias date_range? dateRange
         alias service_type_codes serviceTypeCodes
 
