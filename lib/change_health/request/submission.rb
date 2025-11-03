@@ -55,7 +55,8 @@ module ChangeHealth
               body: to_h,
               headers: headers,
               auth_headers: auth_headers
-            )
+            ),
+            request: to_h.to_json
           )
         end
 
