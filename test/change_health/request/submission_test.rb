@@ -131,6 +131,10 @@ class SubmissionTest < Minitest::Test
           it 'returns claim_submission data' do
             assert_equal(@submission_data.raw, @submission_data.response.parsed_response)
           end
+
+          it 'returns claim_submission request json' do
+            assert_equal(@submission_data.request_body, claim_submission.to_h.to_json)
+          end
         end
 
         describe 'institutional' do
@@ -146,6 +150,10 @@ class SubmissionTest < Minitest::Test
 
           it 'returns claim_submission data' do
             assert_equal(@submission_data.raw, @submission_data.response.parsed_response)
+          end
+
+          it 'returns claim_submission request json' do
+            assert_equal(@submission_data.request_body, claim_submission.to_h.to_json)
           end
         end
 

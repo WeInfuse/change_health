@@ -46,6 +46,10 @@ module ChangeHealth
 
         error_codes.all?(&:retryable?)
       end
+
+      def request_body
+        @response.request.options[:body] unless @response&.request&.options.nil?
+      end
     end
   end
 end
