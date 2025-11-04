@@ -133,7 +133,7 @@ class SubmissionTest < Minitest::Test
           end
 
           it 'returns claim_submission request json' do
-            assert_equal(@submission_data.request, claim_submission.to_h.to_json)
+            assert_equal(@submission_data.request_body, claim_submission.to_h.to_json)
           end
         end
 
@@ -153,7 +153,7 @@ class SubmissionTest < Minitest::Test
           end
 
           it 'returns claim_submission request json' do
-            assert_equal(@submission_data.request, claim_submission.to_h.to_json)
+            assert_equal(@submission_data.request_body, claim_submission.to_h.to_json)
           end
         end
 

@@ -4,13 +4,6 @@ module ChangeHealth
   module Response
     module Claim
       class SubmissionData < ChangeHealth::Response::ResponseData
-        attr_reader :request
-
-        def initialize(request: nil, response: nil, data: nil)
-          @request = request
-          super(response: response, data: data)
-        end
-
         %w[controlNumber status tradingPartnerId tradingPartnerServiceId].each do |v|
           define_method(v) do
             @raw[v]
