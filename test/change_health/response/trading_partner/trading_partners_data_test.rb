@@ -10,5 +10,14 @@ class TradingPartnersDataTest < Minitest::Test
       assert_instance_of ChangeHealth::Response::TradingPartnerData, trading_partners_data.first
       assert_equal 2, trading_partners_data.size
     end
+
+    describe 'payers is nil' do
+      let(:trading_partners_data) { ChangeHealth::Response::TradingPartnersData.new(nil) }
+
+      it 'returns an Array of Response::TradingPartnerData objects' do
+        assert_nil trading_partners_data.first
+        assert_equal 0, trading_partners_data.size
+      end
+    end
   end
 end
