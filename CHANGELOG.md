@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Bug Fix
 
-* Fix bug where Rails's JSON serialization was used over Ruby's
+* Fix bug to stop Rails's JSON serialization being able to be used over Ruby's
 
 # [6.5.0] - 2025-11-14
 
