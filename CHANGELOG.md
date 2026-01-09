@@ -5,7 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-# [6.5.0] - 2025-11-114
+# [6.5.1] - 2026-01-09
+
+### Bug Fix
+
+* Fix bug where Rails's JSON serialization was used over Ruby's
+
+# [6.5.0] - 2025-11-14
 
 ### Added
 
@@ -822,6 +828,7 @@ Added the ability to hit professional claim submission API. For more details, se
 * Authentication
 * Configuration
 
+[6.5.1]: https://github.com/WeInfuse/change_health/compare/v6.5.0...v6.5.1
 [6.5.0]: https://github.com/WeInfuse/change_health/compare/v6.4.1...v6.5.0
 [6.4.1]: https://github.com/WeInfuse/change_health/compare/v6.4.0...v6.4.1
 [6.4.0]: https://github.com/WeInfuse/change_health/compare/v6.3.0...v6.4.0
