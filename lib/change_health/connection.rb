@@ -27,7 +27,7 @@ module ChangeHealth
       auth_headers: nil
     )
       base_uri ||= Connection.base_uri
-      body    = body.to_json if body.is_a?(Hash)
+      body    = JSON.dump(body) if body.is_a?(Hash)
       headers = {} if headers.nil?
       headers = auth_header(base_uri: base_uri, auth_headers: auth_headers).merge(headers) if auth
 
