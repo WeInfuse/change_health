@@ -105,9 +105,7 @@ module ChangeHealth
                   service_line_date_end_parsed = ChangeHealth::Models::PARSE_DATE.call(service_line['serviceEndDate'])
 
                   all_dates = [service_line_date_parsed, service_line_date_begin_parsed,
-                               service_line_date_end_parsed].select do |date|
-                    date.is_a?(Date)
-                  end
+                               service_line_date_end_parsed].grep(Date)
 
                   service_line_date_begin = all_dates.min
                   service_line_date = service_line_date_begin
