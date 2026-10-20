@@ -24,6 +24,28 @@ class SubmissionTest < Minitest::Test
         end
       end
 
+      describe 'service lines' do
+        it 'serializes test results and hemoglobin test date on a service line' do
+          test_result = ChangeHealth::Models::Claim::TestResult.new(
+            measurement_reference_identification_code: 'OG', measurement_qualifier: 'HT', test_results: '9'
+          )
+          date_information = ChangeHealth::Models::Claim::ServiceLineDateInformation.new(
+            hemoglobin_test_date: Date.new(2026, 10, 1)
+          )
+          service_line = ChangeHealth::Models::Claim::ServiceLine.new(
+            test_results: [test_result], service_line_date_information: date_information
+          )
+          claim_information = ChangeHealth::Models::Claim::ClaimInformation.new
+          claim_information.add_service_line(service_line)
+          claim_submission.claimInformation = claim_information
+
+          line = JSON.parse(claim_submission.to_h.to_json)['claimInformation']['serviceLines'].first
+
+          assert_equal('HT', line['testResults'].first['measurementQualifier'])
+          assert_equal('20261001', line['serviceLineDateInformation']['hemoglobinTestDate'])
+        end
+      end
+
       describe 'providers' do
         it 'defaults to no providers' do
           assert_nil(claim_submission.providers)

@@ -13,6 +13,8 @@ module ChangeHealth
         property :renderingProvider, from: :rendering_provider
         property :serviceDate, from: :service_date
         property :serviceDateEnd, from: :service_date_end
+        property :serviceLineDateInformation, from: :service_line_date_information
+        property :testResults, from: :test_results
       end
     end
   end
