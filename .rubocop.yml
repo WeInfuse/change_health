@@ -28,6 +28,8 @@ Style/ClassAndModuleChildren:
   Enabled: false
 Style/Documentation:
   Enabled: false
+Style/DirectiveScope:
+  Enabled: false
 Style/FrozenStringLiteralComment:
   Exclude:
     - "test/**/*"
