@@ -29,7 +29,7 @@ class Report835DataTest < Minitest::Test
         assert_equal report_data.transactions.size, report_data.payments.count
       end
 
-      # rubocop:disable Minitest/MultipleAssertions
+      # rubocop:disable-next Minitest/MultipleAssertions
       it 'payment contents' do
         assert_equal Date.new(2019, 3, 31), actual_payment.check_issue_or_eft_effective_date
         assert_equal '12345', actual_payment.check_or_eft_trace_number
@@ -42,7 +42,6 @@ class Report835DataTest < Minitest::Test
         assert_equal report_name, actual_payment.report_name
         assert_equal '810.8', actual_payment.total_actual_provider_payment_amount
       end
-      # rubocop:enable Minitest/MultipleAssertions
 
       it 'payment provider adjustments' do
         assert_equal 1, actual_payment.provider_adjustments.size

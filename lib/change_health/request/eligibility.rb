@@ -18,9 +18,8 @@ module ChangeHealth
       property :tradingPartnerId, from: :trading_partner_id, required: false
       property :tradingPartnerServiceId, from: :trading_partner_service_id, required: false
 
-      # rubocop:disable Naming/MethodName
+      # rubocop:disable-next Naming/MethodName
       alias partnerId? partnerId
-      # rubocop:enable Naming/MethodName
       alias partner_id? partnerId
 
       def add_dependent(dependent)

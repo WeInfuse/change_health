@@ -4,7 +4,7 @@ class EligibilityDataTest < Minitest::Test
   class ChangeHealth::Response::EligibilityBenefitsABC123 < ChangeHealth::Response::EligibilityBenefits
   end
 
-  # rubocop:disable Naming/ClassAndModuleCamelCase
+  # rubocop:disable-next Naming/ClassAndModuleCamelCase
   class ChangeHealth::Response::EligibilityBenefitsCBA987 < ChangeHealth::Response::EligibilityBenefits
     class ChangeHealth::Response::EligibilityBenefitsCBA987_Plan123 < ChangeHealth::Response::EligibilityBenefits
     end
@@ -15,7 +15,6 @@ class EligibilityDataTest < Minitest::Test
       self
     end
   end
-  # rubocop:enable Naming/ClassAndModuleCamelCase
 
   describe 'eligibility data' do
     let(:json_data) { load_sample('000050.example.response.json', parse: true) }
