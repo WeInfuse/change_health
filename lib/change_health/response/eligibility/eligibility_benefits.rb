@@ -35,7 +35,7 @@ module ChangeHealth
         end
       end
 
-      # rubocop:disable Metrics/BlockLength
+      # rubocop:disable-next Metrics/BlockLength
       %w[family individual employee child employee_and_child].each do |method|
         define_method(method) do
           send("#{method}s")
@@ -63,11 +63,10 @@ module ChangeHealth
           date_types.each do |time_mod|
             method_name = "#{method}_#{type_mod}_#{time_mod}"
 
-            # rubocop:disable Layout/LineLength
+            # rubocop:disable-next Layout/LineLength
             define_method(method_name) do |**kwargs|
               send(method).send("#{type_mod}s").send("#{time_mod}s").where(**kwargs).first || send(method).send("#{type_mod}s").where(**kwargs).first
             end
-            # rubocop:enable Layout/LineLength
 
             if 'out_of_pocket' == type_mod
               define_method(method_name.gsub('out_of_pocket', 'oop')) do |**kwargs|
@@ -89,7 +88,6 @@ module ChangeHealth
           end
         end
       end
-      # rubocop:enable Metrics/BlockLength
 
       alias oops out_of_pockets
       alias copays copayments

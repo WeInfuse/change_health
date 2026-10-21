@@ -23,7 +23,7 @@ module ChangeHealth
       time_formatter(hour, HOUR_FORMAT)
     end
 
-    # rubocop:disable Lint/SuppressedException
+    # rubocop:disable-next Lint/SuppressedException
     def self.time_formatter(time, format)
       begin
         time = Time.parse(time) if time.is_a?(String)
@@ -34,9 +34,8 @@ module ChangeHealth
 
       time
     end
-    # rubocop:enable Lint/SuppressedException
 
-    # rubocop:disable Lint/SuppressedException
+    # rubocop:disable-next Lint/SuppressedException
     PARSE_DATE = lambda { |d|
       begin
         d = Date.strptime(d.tr('-', ''), ChangeHealth::Models::DATE_FORMAT)
@@ -45,9 +44,8 @@ module ChangeHealth
 
       d
     }
-    # rubocop:enable Lint/SuppressedException
 
-    # rubocop:disable Lint/SuppressedException
+    # rubocop:disable-next Lint/SuppressedException
     POSTAL_CODE_FORMATTER = lambda { |postal_code|
       begin
         formatted_postal_code = postal_code&.to_s&.tr('-', '')
@@ -55,7 +53,6 @@ module ChangeHealth
       end
       formatted_postal_code || postal_code
     }
-    # rubocop:enable Lint/SuppressedException
 
     CONTROL_NUMBER = -> { format('%09d', rand(1_000_000_000)) }
 
@@ -64,7 +61,7 @@ module ChangeHealth
         self.class.hashify(self)
       end
 
-      # rubocop:disable Style/MapToHash
+      # rubocop:disable-next Style/MapToHash
       def self.hashify(model)
         model.map do |key, value|
           formatted_value = case value
@@ -84,7 +81,6 @@ module ChangeHealth
           [key, formatted_value]
         end.to_h
       end
-      # rubocop:enable Style/MapToHash
 
       def self.format_value(key, value)
         return nil if value == ''

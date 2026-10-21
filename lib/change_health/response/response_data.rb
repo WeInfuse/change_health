@@ -5,7 +5,7 @@ module ChangeHealth
     class ResponseData
       attr_reader :response, :raw
 
-      # rubocop:disable Lint/SuppressedException
+      # rubocop:disable-next Lint/SuppressedException
       def initialize(data: nil, response: nil)
         @response = response
         @raw      = data
@@ -17,7 +17,6 @@ module ChangeHealth
 
         @raw ||= {}
       end
-      # rubocop:enable Lint/SuppressedException
 
       def errors?
         field_error = errors.is_a?(Array) && false == errors.empty?
